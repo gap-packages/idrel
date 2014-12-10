@@ -1,0 +1,257 @@
+<!-- ------------------------------------------------------------------- -->
+<!--                                                                     -->
+<!--  modpoly.xml         IdRel documentation             Chris Wensley  -->
+<!--                                                    & Anne Heyworth  -->
+<!--  version 2.13, 10/01/2013                                           -->
+<!--                                                                     -->
+<!-- ------------------------------------------------------------------- -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Chapter Label="chap-modpoly">
+<Heading>Module Polynomials</Heading>
+
+In this chapter we consider finitely generated modules over the 
+monoid rings considered previously. 
+We call an element of this module a <E>module polynomial</E>,
+and we describe functions to construct module polynomials 
+and the standard algebraic operations for such polynomials. 
+<P/>
+A module polynomial <C>modpoly</C> is recorded as a list of pairs, 
+<C>[ gen, monpoly ]</C>, 
+where <C>gen</C> is a module generator (basis element), 
+and <C>monpoly</C> is a monoid polynomial. 
+The module polynomial is printed as the formal sum 
+of monoid polynomial multiples of the generators. 
+Note that the monoid polynomials are the coefficients 
+of the module polynomials and appear to the right of the generator, 
+as we choose to work with right modules.
+<P/>
+The examples we are aiming for are the identities among the relators
+of a finitely presented group (see section <B>5.4</B>).
+
+
+<Section><Heading>Construction of module polynomials</Heading>
+
+<ManSection>
+   <Oper Name="ModulePoly"
+         Arg="gens, monpolys" />
+   <Oper Name="ModulePoly"
+         Arg="args" />
+   <Oper Name="ZeroModulePoly"
+         Arg="Fgens, Fmon" />
+<Description>
+The function <C>ModulePoly</C> returns a module polynomial. 
+The terms of the polynomial maybe input as a list of generators 
+followed by a list of monoid polynomials or as one list of 
+<C>[generator, monoid polynomial]</C> pairs.
+<P/>
+Assuming that <C>Fgens</C> is the free group on the module generators 
+and <C>Fmon</C> is the free group on the monoid generators, 
+the function <C>ZeroModulePoly</C> returns the zero module polynomial, 
+which has no terms, and is an element of the module.
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> frq8 := FreeRelatorGroup( q8 );; 
+gap> genfrq8 := GeneratorsOfGroup( frq8 ); 
+[ q8_R1, q8_R2, q8_R3, q8_R4 ]
+gap> Print( rmp1, "\n" ); 
+ - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>
+gap> mp2 := MonoidPolyFromCoeffsWords( [4,-5], [ M[4], M[1] ] );;
+gap> Print( mp2, "\n" ); 
+4*q8_M4 - 5*q8_M1
+gap> s1 := ModulePoly( [ genfrq8[4], genfrq8[1] ], [ rmp1, mp2 ] );
+q8_R1*(4*q8_M4 - 5*q8_M1) + q8_R4*( - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>)
+gap> s2 := ModulePoly( [ genfrq8[3], genfrq8[2], genfrq8[1] ], 
+>       [ -1*rmp1, 3*mp2, (rmp1+mp2) ] );
+q8_R1*( - 3*q8_M4 + 9*<identity ...>) + q8_R2*(12*q8_M4 - 15*q8_M1) + q8_R3*(
+7*q8_M4 - 5*q8_M1 - 9*<identity ...>)
+gap> zeromp := ZeroModulePoly( frq8, freeq8 );
+zero modpoly
+]]>
+</Example>
+</Section>
+
+
+<Section><Heading>Components of a module polynomial</Heading>
+
+<ManSection>
+   <Attr Name="Terms"
+         Arg="modpoly" />
+   <Attr Name="LeadTerm"
+         Arg="modpoly" />
+   <Attr Name="LeadMonoidPoly"
+         Arg="modpoly" />
+   <Attr Name="One"
+         Arg="modpoly" />
+   <Attr Name="Length"
+         Arg="modpoly" />
+<Description>
+The first function counts the number of module generators 
+which occur in <C>modpoly</C> 
+(a generator occurs in a polynomial if it has nonzero coefficient).
+The function <C>One</C> returns the identity in 
+the free group on the generators.
+<P/>
+The function <C>Terms</C> returns the terms of a module polynomial 
+as a list of pairs.
+In <C>LeadTerm</C>, the generators are ordered, 
+and the term of <C>modpoly</C> with the highest value generator 
+is defined to be the leading term.
+The monoid polynomial (coefficient) part of the leading term 
+is returned by the function <C>LeadMonoidPoly</C>.
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> [ Length(s1), Length(s2) ];
+[ 2, 3 ]
+gap> One( s1 );
+<identity ...> 
+gap> Terms( s1 );
+[ [ q8_R1, <monpoly> ], [ q8_R4, <monpoly> ] ]
+gap> Print( LeadTerm( s1 ), "\n" );
+[ q8_R4,  - 7*q8_M4 + 5*q8_M1 + 9*<identity ...> ]
+gap> Print( LeadTerm( s2 ), "\n" );
+[ q8_R3, 7*q8_M4 - 5*q8_M1 - 9*<identity ...> ]
+gap> Print( LeadMonoidPoly( s1 ), "\n" );
+ - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>
+gap> Print( LeadMonoidPoly( s2 ), "\n" );
+7*q8_M4 - 5*q8_M1 - 9*<identity ...>
+]]>
+</Example>
+</Section>
+
+
+<Section><Heading>Module Polynomial Operations</Heading>
+
+<Index>=,+,* for module polynomials</Index>
+
+<ManSection>
+   <Oper Name="AddTermModulePoly"
+         Arg="modpoly, gen, monpoly" />
+<Description>
+The function <C>AddTermModulePoly</C> adds a term <C>[gen, monpoly]</C> 
+to a module polynomial <C>modpoly</C>.
+<P/>
+Tests for equality and arithmetic operations are performed in the usual way.
+Module polynomials may be added or subtracted. 
+A module polynomial can also be multiplied on the right by a word 
+or by a scalar. 
+The effect of this is to multiply the monoid polynomial parts of each term 
+by the word or scalar. 
+This is made clearer in the example.
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> mp0 := MonoidPolyFromCoeffsWords( [6], [ M[2] ] );;
+gap> Print( mp0, "\n" );
+6*q8_M2
+gap> s0 := AddTermModulePoly( s1, genfrq8[3], mp0 ); 
+q8_R1*(4*q8_M4 - 5*q8_M1) + q8_R3*(6*q8_M2) + q8_R4*( - 7*q8_M4 + 5*q8_M1 +
+9*<identity ...>)
+gap> Print( s1 + s2, "\n" );
+q8_R1*( q8_M4 - 5*q8_M1 + 9*<identity ...>) + q8_R2*(12*q8_M4 -
+15*q8_M1) + q8_R3*(7*q8_M4 - 5*q8_M1 - 9*<identity ...>) + q8_R4*( -
+7*q8_M4 + 5*q8_M1 + 9*<identity ...>)
+gap> Print( s1 - s0, "\n" );
+q8_R3*( - 6*q8_M2)
+gap> Print( s1 * 1/2, "\n" );
+q8_R1*(2*q8_M4 - 5/2*q8_M1) + q8_R4*( - 7/2*q8_M4 + 5/2*q8_M1 + 9/
+2*<identity ...>)
+gap> Print( s1 * M[1], "\n" );
+q8_R1*(4*q8_M4*q8_M1 - 5*q8_M1^2) + q8_R4*( - 7*q8_M4*q8_M1 + 5*q8_M1^2 +
+9*q8_M1)
+]]>
+</Example>
+</Section>
+
+
+<Section><Heading>Identities among relators</Heading>
+
+<ManSection>
+   <Attr Name="IdentityYSequences"
+         Arg="grp" />
+   <Oper Name="IdentityModulePolynomials"
+         Arg="grp" />
+   <Attr Name="IdentitiesAmongRelators"
+         Arg="grp" />
+<Description>
+The identities among the relators for a finitely presented group 
+are constructed as logged module polynomials. 
+The procedure, described in <Cite Key="HeWe1" /> 
+and based on work in  <Cite Key="BrSa" />, 
+is to construct a full set of Y-sequences for the group; 
+convert these into module polynomials (eliminating empty sequences); 
+and then apply simplification rules 
+(including the primary identity property) 
+to eliminate obvious duplicates and conjugates. 
+<P/>
+It is <E>not</E> guaranteed that a minimal set of identities is obtained. 
+For <C>q8</C> a set of seven identities is obtained, 
+whereas a minimal set contains only six. 
+See Example 5.1 of <Cite Key="HeWe1" /> for further details. 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> yseqs := IdentityYSequences( q8 );;
+gap> Length( yseqs );
+32
+gap> polys := IdentityModulePolys( q8 );;
+gap> Length( polys );
+22
+gap> idsq8 := IdentitiesAmongRelators( q8 );;
+gap> Length( idsq8 );
+2
+gap> Length( idsq8[1] );
+7
+gap> Display( idsq8[1] );
+[ ( q8_Y3*( q8_M1*q8_M4), q8_R1*( q8_M1 - <identity ...>) ), 
+  ( q8_Y10*( -q8_M1*q8_M4), q8_R2*( q8_M2 - <identity ...>) ), 
+  ( q8_Y17*( <identity ...>), q8_R1*( -q8_M3 - q8_M2) + q8_R3*( q8_M1^2 + q8_M\
+3 + q8_M1 + <identity ...>) ), 
+  ( q8_Y31*( q8_M1*q8_M4), q8_R3*( q8_M3 - q8_M2) + q8_R4*( q8_M1 - <identity \
+...>) ), 
+  ( q8_Y32*( -q8_M1*q8_M4), q8_R2*( -q8_M1^2) + q8_R3*( -q8_M3 - <identity ...\
+>) + q8_R4*( q8_M2 + <identity ...>) ), 
+  ( q8_Y12*( q8_M1*q8_M4), q8_R1*( -q8_M2) + q8_R3*( q8_M1*q8_M2 + q8_M4) + q8\
+_R4*( q8_M2 - <identity ...>) ), 
+  ( q8_Y16*( -<identity ...>), q8_R1*( -<identity ...>) + q8_R2*( -q8_M1) + q8\
+_R4*( q8_M3 + q8_M1) ) ]
+  ]
+]]>
+</Example>
+
+<ManSection>
+   <Attr Name="RootIdentities"
+         Arg="grp" />
+<Description>
+The <E>root identities</E> are identities of the form 
+<M>r^wr^{-1}</M> where <M>r = w^n</M> is a relator and <M>n>1</M>.
+<P/>
+For <C>q8</C> only two of the four relators are proper powers, 
+<M>q=a^4</M> and <M>r=b^4</M>, so the root identities are 
+<M>q^aq^{-1}</M> and <M>r^br^{-1}</M>. 
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> RootIdentities( q8 );
+[ ( q8_Y3*( q8_M1*q8_M4), q8_R1*( q8_M1 - <identity ...>) ),
+  ( q8_Y10*( -q8_M1*q8_M4), q8_R2*( q8_M2 - <identity ...>) ) ]
+gap> RootIdentities(s3);
+[ ( s3_Y4*( s3_M2*s3_M1), s3_R1*( s3_M1 - <identity ...>) ),
+  ( s3_Y8*( s3_M2*s3_M1), s3_R2*( s3_M2 - <identity ...>) ),
+  ( s3_Y7*( s3_M2*s3_M1), s3_R3*( s3_M2 - s3_M1) ) ]
+]]>
+</Example>
+</Section>
+</Chapter>

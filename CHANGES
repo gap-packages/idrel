@@ -1,0 +1,81 @@
+                       CHANGES of the IdRel package
+
+############################################################################
+2.14 -> 2.21  (10/12/2014)
+
+ - (10/12/14) changed package home to pages.bangor.ac.uk/~mas023/chda/idrel/
+ - (10/12/14) started a bitbucket repository for idrel 
+
+############################################################################
+2.12 -> 2.14  (11/01/2013)
+
+ - (11/01/13) changed output in tests due to changes for GAP 4.6 
+
+############################################################################
+2.11 -> 2.12  (25/04/2012)
+
+ - (23/04/12) replaced ReadTest by Test in tst/testall.g 
+ - (28/01/12) corrected typo in manual reported by David Callan 
+              now using package directory in the format ../idrel-2.12/ 
+              and archive files in the format  kan-2.12.tar 
+
+############################################################################
+2.08 -> 2.11  (21/09/2011)
+
+ - (20/09/11) new version of makedocrel.g for building the manual 
+ - (17/09/11) Shortened the banner. 
+ - (16/08/11) Renamed subdirectory idrel/gap as idrel/lib 
+
+############################################################################
+2.07 -> 2.08  (06/09/2011)
+
+ - (16/08/11) Changed directory for archive to .../chda/gap4r5/idrel/ 
+
+############################################################################
+2.06 -> 2.07  (04/06/2011)
+
+ - (04/06/11) Changed Generators to GeneratorsOfModulePoly 
+
+############################################################################
+2.05 -> 2.06  (08/05/2011)
+
+ - (08/05/11) Preparing version to be released with GAP4.5. 
+ - (18/04/10) Moved IdRel development to IMac at home, and started v.2.06.
+
+############################################################################
+2.04 -> 2.05  (21/11/2008)
+
+ - (19/11/08) GapDoc relegated to "suggested other packages".
+
+############################################################################
+2.03 -> 2.04  (14/11/2008)
+
+- new Bangor website - move the IdRel pages to 
+              http>//www.maths.bangor.ac.uk/chda/idrel/ 
+- added GNU General Public License declaration 
+- added a test file, tst/idrel_manual.tst, 
+- fixed a bug in RootIdentities, 
+- several changes to the manual, which now agrees with the test file.
+
+############################################################################
+2.02 -> 2.03  (09/10/2007)
+
+- started this CHANGES file 
+- new email address for Anne 
+
+##############################################################################
+#H  
+#H   HISTORY up to version 2.02
+#H   ==========================
+#H
+#H   07/05/97?  package started: ?
+#H
+#H   12/12/00?  version 1.001 published in Anne Heyworth's thesis
+#H
+#H   06/10/05   version 2.01 prepared for GAP 4.4
+#H
+#H   29/03/06   version 2.02 uses GAPDoc format for documentation
+#H
+#H   02/06/06   fixed minor typo in PackageInfo.g but still version 2.02
+#H
+##############################################################################

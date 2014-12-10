@@ -1,0 +1,62 @@
+<!-- ------------------------------------------------------------------- -->
+<!--                                                                     -->
+<!--  intro.xml           IdRel documentation             Chris Wensley  -->
+<!--                                                    & Anne Heyworth  -->
+<!--  version 2.21, 10/12/2014                                           -->
+<!--                                                                     -->
+<!-- ------------------------------------------------------------------- -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Chapter Label="intro">
+<Heading>Introduction</Heading>
+
+This manual describes the &idrel; package for &GAP; 4.7 
+for computing the identities among relators of a group presentation 
+using rewriting, logged rewriting, monoid polynomials, module polynomials 
+and <M>Y</M>-sequences.
+<P/>
+The theoretical background for these computations is contained in 
+Brown and Huebschumann <Cite Key="BrHu" />, 
+Brown and Razak Salleh <Cite Key="BrSa" /> and is surveyed in 
+<Cite Key="anne-thesis" />.
+<P/>
+&idrel; is primarily designed for the computation of a minimal set 
+of generators for the module of identities among relators. 
+It also contains functions which compute logged rewrite systems 
+for group presentations (and complete them where possible), 
+functions for operations involving elements of monoid rings 
+and functions for operations with elements of right modules over 
+monoid rings.
+The <M>Y</M>-sequences are used as a <E>rewriting</E> way of representing 
+elements of a free crossed module 
+(products of conjugates of group relators and inverse relators).
+The package is written entirely in &GAP;4, and requires no compilation.
+<P/>
+The package is loaded into &GAP; with the <C>LoadPackage</C> command, 
+and on-line help is available in the usual way.
+<Example>
+<![CDATA[
+gap> LoadPackage( "idrel" ); 
+gap> ?idrel
+]]>
+</Example>
+
+A pdf version of the &idrel; manual is available 
+in the <F>doc</F> directory of the home directory of &idrel;.
+
+The information parameter <C>InfoIdRel</C> has default value <C>0</C>.
+When raised to a higher value, additional information is printed out.
+
+&idrel; was originally developed in 1999 using &GAP;3, 
+partially supported by a University of Wales Research Assistantship 
+for the first author, Anne Heyworth.
+<P/>
+If you use &idrel; to solve a problem then please send a short email to 
+the second author, to whom bug reports, suggestions and other comments 
+should also be sent. 
+You may reference the package by mentioning <Cite Key="HeWe1" />
+and <Cite Key="anne-thesis" />.
+<P/>
+The current version is &VERSION; of December 10th 2014. 
+</Chapter>

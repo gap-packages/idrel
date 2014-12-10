@@ -1,0 +1,250 @@
+<!-- ------------------------------------------------------------------- -->
+<!--                                                                     -->
+<!--  monpoly.xml         IdRel documentation             Chris Wensley  -->
+<!--                                                    & Anne Heyworth  -->
+<!--  version 2.13, 10/01/2013                                           -->
+<!--                                                                     -->
+<!-- ------------------------------------------------------------------- -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Chapter Label="chap-monpoly">
+<Heading>Monoid Polynomials</Heading>
+
+This chapter describes functions to compute with elements of a 
+free noncommutative algebra. 
+The elements of the algebra are sums of rational multiples of words 
+in a free monoid. 
+These are called <E>monoid polynomials</E>, 
+and are stored as lists of pairs <C>[coefficient, word]</C>.
+
+
+<Section><Heading>Construction of monoid polynomials</Heading>
+
+<ManSection>
+   <Oper Name="MonoidPolyFromCoeffsWords"
+         Arg="coeffs, words" />
+   <Oper Name="MonoidPoly"
+         Arg="terms" />
+   <Oper Name="ZeroMonoidPoly"
+         Arg="F" />
+<Description>
+There are two ways to input a monoid polynomial:  
+by listing the coefficients and then the words; 
+or by listing the terms as a list of pairs <C>[coefficient, word]</C>.  
+If a word occurs more than once in the input list, 
+the coefficients will be added so that the terms of the monoid polynomial 
+recorded do not contain any duplicates.
+The zero monoid polynomial is the polynomial with no terms. 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> rels := RelatorsOfFpGroup( q8 );
+[ f1^4, f2^4, f1*f2*f1*f2^-1, f1^2*f2^2 ] 
+gap> freeq8 := FreeGroupOfFpGroup( q8 );; 
+gap> gens := GeneratorsOfGroup( freeq8 );;
+gap> famfree := ElementsFamily( FamilyObj( freeq8 ) );;
+gap> famfree!.monoidPolyFam := MonoidPolyFam;;
+gap> cg := [6,7];; 
+gap> pg := MonoidPolyFromCoeffsWords( cg, gens );; 
+gap> Print( pg, "\n" ); 
+7*f2 + 6*f1
+gap> cr := [3,4,-5,-2];;
+gap> pr := MonoidPolyFromCoeffsWords( cr, rels );; 
+gap> Print( pr, "\n" );
+4*f2^4 - 5*f1*f2*f1*f2^-1 - 2*f1^2*f2^2 + 3*f1^4
+gap> Print( ZeroMonoidPoly( freeq8 ), "\n" );
+zero monpoly
+]]>
+</Example>
+</Section>
+
+
+<Section><Heading>Components of a polynomial</Heading>
+
+<ManSection>
+   <Attr Name="Terms"
+         Arg="poly" />
+   <Attr Name="Coeffs"
+         Arg="poly" />
+   <Attr Name="Words"
+         Arg="poly" />
+   <Attr Name="LeadTerm"
+         Arg="poly" />
+   <Attr Name="LeadCoeffMonoidPoly"
+         Arg="poly" />
+<Description>
+The function <C>Terms</C> returns the terms of a polynomial as a list of pairs 
+of the form <C>[word, coefficient]</C>.
+The function <C>Coeffs</C> returns the coefficients of a polynomial as a list, 
+and the function <C>Words</C> returns the words of a polynomial as a list.
+The function <C>LeadTerm</C> returns the term of the polynomial 
+whose word component is the largest with respect to 
+the length-lexicographical ordering.
+The function <C>LeadCoeffMonoidPoly</C> returns the coefficient 
+of the leading term of a polynomial.
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> Coeffs( pr );
+[ 4, -5, -2, 3 ]
+gap> Terms( pr );
+[ [ 4, f2^4 ], [ -5, f1*f2*f1*f2^-1 ], [ -2, f1^2*f2^2 ], [ 3, f1^4 ] ]
+gap> Words( pr );
+[ f2^4, f1*f2*f1*f2^-1, f1^2*f2^2, f1^4 ]
+gap> LeadTerm( pr );
+[ 4, f2^4]
+gap> LeadCoeffMonoidPoly( pr );
+4
+]]>
+</Example>
+
+<ManSection>
+   <Oper Name="Monic"
+         Arg="poly" />
+<Description>
+A monoid polynomial is called <E>monic</E> if the coefficient of 
+its leading polynomial is one. 
+The function <C>Monic</C> converts a polynomial into a monic polynomial 
+by dividing all the coefficients by the leading coefficient.
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> mpr := Monic( pr );;
+gap> Prfint( mpr, "\n" );
+f2^4 - 5/4*f1*f2*f1*f2^-1 - 1/2*f1^2*f2^2 + 3/4*f1^4
+]]>
+</Example>
+
+<ManSection>
+   <Oper Name="AddTermMonoidPoly"
+         Arg="poly, coeff, word" />
+<Description>
+The function <C>AddTermMonoidPoly</C> adds a new term, 
+given by its coeffiecient and word, to an existing polynomial.
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> w := gens[1]^gens[2];
+f2^-1*f1*f2
+gap> cw := 3/4;;
+gap> wpg:= AddTermMonoidPoly( pg, cw, w);;
+gap> Print( wpg, "\n" );
+3/4*f2^-1*f1*f2 + 7*f2 + 6*f1
+]]>
+</Example>
+</Section>
+
+
+<Section><Heading>Monoid Polynomial Operations</Heading>
+
+<Index>=,+,* for monoid polynomials</Index>
+Tests for equality and arithmetic operations are performed in the usual way.
+<P/>
+The operation <C>poly1 = poly2</C> returns <C>true</C> 
+if the monoid polynomials have the same terms, and <C>false</C> otherwise. 
+Multiplication of a monoid polynomial (on the left or right) 
+by a coefficient; 
+the addition or subtraction of two monoid polynomials; 
+multiplication (on the right) of a monoid polynomial by a word; 
+and multiplication of two monoid polynomials; are all implemented.
+<P/>
+<Example>
+<![CDATA[
+gap> [ pg = pg, pg = pr ];
+[ true, false ]
+gap> prcw := pr*cw;;
+gap> Print( prcw, "\n" );
+3*f2^4 - 15/4*f1*f2*f1*f2^-1 - 3/2*f1^2*f2^2 + 9/4*f1^4
+gap> cwpr := cw*pr;; 
+gap> Print( cwpr, "\n" ); 
+3*f2^4 - 15/4*f1*f2*f1*f2^-1 - 3/2*f1^2*f2^2 + 9/4*f1^4
+gap> [ pr = prcw, prcw = cwpr ];
+[ false, true ] 
+gap> Print( pg + pr, "\n" );
+4*f2^4 - 5*f1*f2*f1*f2^-1 - 2*f1^2*f2^2 + 3*f1^4 + 7*f2 + 6*f1 
+gap> Print( pg - pr, "\n" );
+- 4*f2^4 + 5*f1*f2*f1*f2^-1 + 2*f1^2*f2^2 - 3*f1^4 + 7*f2 + 6*f1
+gap> Print( pg * w, "\n" );
+6*f1*f2^-1*f1*f2 + 7*f1*f2 
+gap> Print( pg * pr, "\n" );
+28*f2^5 - 35*(f2*f1)^2*f2^-1 - 14*f2*f1^2*f2^2 + 21*f2*f1^4 + 24*f1*f2^4 - 
+30*f1^2*f2*f1*f2^-1 - 12*f1^3*f2^2 + 18*f1^5
+]]>
+</Example>
+
+<ManSection>
+   <Attr Name="Length"
+         Arg="poly" />
+<Description>
+This function returns the number of distinct terms in the monoid polynomial.
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> Length( pr );
+4
+]]>
+</Example>
+</Section>
+
+The boolean function <C>poly1 > poly2</C>  returns <C>true</C> 
+if the first polynomial has more terms than the second. 
+If the polynomials are the same length it will compare their leading terms. 
+If the leading word of the first is lengthlexicographically greater 
+than the leading word of the second, 
+or if the words are equal but the coefficient of the first is greater 
+than the coefficient of the second then true is returned. 
+If the leading terms are equal then the next terms are compared 
+in the same way. 
+If all terms are the same then <C>false</C> is returned.
+<P/>
+<Example>
+<![CDATA[
+gap> [ pr > 3*pr, pr > pg ];
+[ false, true ] 
+]]>
+</Example>
+
+
+<Section><Heading>Reduction of a Monoid Polynomial</Heading>
+
+<ManSection>
+   <Oper Name="ReduceMonoidPoly"
+         Arg="poly, rules" />
+<Description>
+Recall that the words of a monoid polynomial are elements of a free monoid. 
+Given a rewrite system (set of rules) on the free monoid 
+the words can be reduced. 
+This allows us to simulate calculation in monoid rings 
+where the monid is given by a complete presentation. 
+This function reduces the words of the polynomial 
+(elements of the free monoid) with respect to the complete rewrite system. 
+The words of the reduced polynomial are normal forms for the elements 
+of the monoid presented by that rewite system. 
+The list of rules <C>r2</C> is displayed in section 2.3.3. 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> M := genfgmon;;
+gap> mp1 := MonoidPolyFromCoeffsWords( [9,-7,5], [M[1]*M[3], M[2]^3, M[4]*M[3]*M[2]] );; 
+gap> Print( mp1, "\n" ); 
+5*q8_M4*q8_M3*q8_M2 - 7*q8_M2^3 + 9*q8_M1*q8_M3
+gap> rmp1 := ReduceMonoidPoly( mp1, r2 );;
+gap> Print( rmp1, "\n" ); 
+ - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>
+]]>
+</Example>
+</Section>
+</Chapter>

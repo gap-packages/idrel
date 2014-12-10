@@ -1,0 +1,418 @@
+<!-- ------------------------------------------------------------------- -->
+<!--                                                                     -->
+<!--  rws.xml             IdRel documentation             Chris Wensley  -->
+<!--                                                    & Anne Heyworth  -->
+<!--  version 2.13, 10/01/2013                                           -->
+<!--                                                                     -->
+<!-- ------------------------------------------------------------------- -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Chapter Label="chap-rws">
+<Heading>Rewriting Systems</Heading>
+
+This chapter describes functions to construct rewriting systems 
+for finitely presented groups which store rewriting information.
+The main example used is a presentation of the quaternion group <C>q8</C> 
+with generators <M>a,b</M> 
+and relators <M>[a^4, b^4, abab^{-1}, a^2b^2]</M>.
+
+
+<Section><Heading>Identity Y-sequences</Heading>
+
+A typical input for &idrel; is an fp-group presentation. 
+This requires a free group <C>F</C> on a set of generators 
+and a set of relators <C>R</C> (words in the free group). 
+The module of identities among relators for this presentation 
+has as its elements the Peiffer equivalence classes of all products of 
+conjugates of relators which represent the identity in the free group.
+<P/> 
+In this package the identities among relators are represented by Y-sequences, 
+which are lists <M>[[r_1, u_1],\ldots,[r_k,u_k]]</M> 
+where <M>r_1,\ldots,r_k</M> are the group relators or their inverses, 
+and <M>u_1,\ldots,u_k</M> are words in the free group <C>F</C>. 
+A Y-sequence is evaluated in <C>F</C> as the product 
+<M>(u_1^{-1}r_1u_1)\ldots(u_k^{-1}r_ku_k)</M> 
+and is an identity Y-sequence if it evaluates to the identity in <C>F</C>. 
+An identity Y-sequence represents an identity among the relators 
+of the group presentation. 
+The main function of the package is to produce a set of Y-sequences 
+which generate the module of identites among relators, and further, 
+that this set be minimal in the sense that every element in it 
+is needed to generate the module.
+<P/>
+Before starting on the main example, 
+we consider a simpler example illustrating the use of &idrel;. 
+All the functions used are described in detail in this manual.
+We compute a reduced set of identities among relators 
+for the presentation of the symmetric group <C>s3</C> 
+with generators <M>a,b</M> and relators <M>[a^3 , b^2, (ab)^2]</M>. 
+In the listing below, <C>s3_M1</C> is the first monoid generator 
+for <C>s3</C>, <C>s3_R2</C> is the second relator, 
+while <C>s3_Y4</C> is the fourth Y-sequence for <C>s3</C>. 
+<P/>
+<Example>
+<![CDATA[
+gap> F := FreeGroup( 2 );;
+gap> a := F.l;; b:= F.2;;
+gap> rels3 := [ a^3 , b^2, a*b*a*b];
+[ f1^3, f2^2, (f1*f2)^2 ]
+gap> s3 := F/rels3;
+<fp group on the generators [ fl, f2 ]> 
+gap> SetName( s3, "s3" ); 
+gap> idy3 := IdentityYSequences( s3 );; 
+gap> Length( idy3 ); 
+18
+gap> Y4 := idy3[4]; 
+[ [ s3_R1^-1, f1^-1 ], [ s3_R1, <identity ...> ] ]
+gap> Y6 := idy3[6];
+[ [ s3_R3^-1, f1^-1 ], [ s3_R1, <identity ...> ], [ s3_R3^-1, f1 ],
+  [ s3_R2, f1^-1*f2^-1 ], [ s3_R1, f2^-1 ], [ s3_R3^-1, f1*f2^-1 ],
+  [ s3_R2, <identity ...> ], [ s3_R2, f1^-1 ] ]
+gap> Y7 := idy3[7];
+[ [ s3_R3^-1, f1*f2^-1 ], [ s3_R2, <identity ...> ], [ s3_R3, <identity ...> ],
+  [ s3_R2^-1, <identity ...> ] ]
+gap> Y8 := idy3[8];
+[ [ s3_R2^-1, f2^-1 ], [ s3_R2, <identity ...> ] ]
+]]>
+</Example>
+
+Of the <M>18</M> Y-sequences formed, <M>6</M> are empty, 
+and <C>Y4</C> is the <E>root identity</E> 
+<C>((a^3)^-1)^(a^-1).(a^3)</C>. 
+If we write <M>r=a^3, s=b^2, t=(ab)^2</M> 
+then <C>Y4</C> is <C>(r^-1)^(a^-1).r</C>. 
+Similarly, <C>Y8</C> is the second root identity <C>(s^-1)^(b^-1).s</C>, 
+while  <C>Y7</C> is the third root identity <C>(t^-1)^(ab^-1).t</C>. 
+The identity <C>Y6</C>, which is not a root identity, 
+is obtained by walking around the Schreier diagram of the presentation, 
+which is a somewhat truncated triangular prism, 
+taking the appropriate conjugate of each face in turn: 
+<C>
+Y6=(t^-1)^(a^-1).r.(t^-1)^a.s^(a^-1b^-1).r^(b^-1).(t^-1)^(ab^-1).s.s^(a^-1)
+</C>. 
+These four identities generate the module of identities for <C>s3</C>. 
+<P/>
+<Example>
+<![CDATA[
+gap> idrels3 := IdentitiesAmongRelators( s3 );;
+gap> Display( idrels3[1] );
+[ ( s3_Y4*( s3_M2*s3_M1), s3_R1*( s3_M1 - <identity ...>) ),
+  ( s3_Y8*( s3_M2*s3_M1), s3_R2*( s3_M2 - <identity ...>) ),
+  ( s3_Y7*( s3_M2*s3_M1), s3_R3*( s3_M2 - s3_M1) ),
+  ( s3_Y6*( -s3_M2*s3_M1), s3_R1*( -s3_M2*s3_M1 - s3_M1) + s3_R2*( -s3_M1*s3_M\
+2 - s3_M1 - <identity ...>) + s3_R3*( s3_M3 + s3_M2 + <identity ...>) )
+  ]
+]]>
+</Example>
+</Section>
+
+
+<Section><Heading>Monoid Presentations of FpGroups</Heading>
+
+<ManSection>
+   <Attr Name="FreeRelatorGroup"
+         Arg="grp" />
+   <Attr Name="FreeRelatorHomomorphism"
+         Arg="grp" />
+<Description>
+The function <C>FreeRelatorGroup</C> returns a free group 
+on the set of relators of the given fp-group <C>G</C>. 
+If <C>HasName(G)</C> is <C>true</C> then a name is automatically assigned 
+to the free group.
+<P/>
+The function <C>FreeRelatorHomomorphism</C> returns the group homomorphism 
+from the free group on the relators 
+to the free group on the generators of <C>G</C>, 
+mapping each generator to the corresponding word.
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> F := FreeGroup( 2 );;
+gap> a := F.1;; b:= F.2;;
+gap> rels := [ a^4, b^4, a*b*a*b^-1, a^2*b^2];;
+gap> q8 := F/rels;;
+gap> SetName( q8, "q8" );
+gap> frq8 := FreeRelatorGroup( q8 );
+q8_R 
+gap> GeneratorsOfGroup( frq8 );
+[ q8_R1, q8_R2, q8_R3, q8_R4]
+gap> frhomq8 := FreeRelatorHomomorphism( q8 );
+[ q8_R1, q8_R2, q8_R3, q8_R4] -> [ f1^4, f2^4, f1*f2*f1*f2^-1, f1^2*f2^2]
+]]>
+</Example>
+
+<ManSection>
+   <Attr Name="MonoidPresentationFpGroup"
+         Arg="grp" />
+   <Attr Name="FreeGroupOfPresentation"
+         Arg="mon" />
+   <Attr Name="GroupRelatorsOfPresentation"
+         Arg="mon" />
+   <Attr Name="InverseRelatorsOfPresentation"
+         Arg="mon" />
+   <Attr Name="HomomorphismOfPresentation"
+         Arg="mon" />
+<Description>
+A monoid presentation for a finitely presented group <C>G</C> 
+has two monoid generators <M>g^+,g^-</M> for each group generator <M>g</M>. 
+The relators of the monoid presentation comprise the group relators, 
+and relators <M>g^+g^-</M> specifying the inverses. 
+The function <C>MonoidPresentationFpGroup</C> returns the monoid presentation 
+derived in this way from an fp-presentation. 
+(Note: this function should always be followed by a double semicolon --
+<C>MonoidPresentationFpGroup(G);;</C> -- 
+because an error occurs in attempting to display 
+the results on the screen: the <C>ElementsFamily</C> needs to be fixed.)
+<P/> 
+The function <C>FreeGroupOfPresentation</C> 
+returns the free group on the monoid generators.
+<P/>
+The function <C>GroupRelatorsOfPresentation</C> returns those relators 
+of the monoid which correspond to the relators of the group. 
+All negative powers in the group relators are converted to positive powers 
+of the <M>g^-</M>.
+<P/>
+The function <C>InverseRelatorsOfPresentation</C> returns relators 
+which specify the inverse pairs of the monoid generators.
+<P/>
+The function <C>HomomorphismOfPresentation</C> returns the homomorphism 
+from the free group of the monoid presentation to the free group 
+of the group presentation.
+<P/>
+In the example below, the four monoid generators <M>a^+, b^+, a^-, b^-</M> 
+are named <C>q8\_M1, q8\_M2, q8\_M3, q8\_M4</C>.
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> mon := MonoidPresentationFpGroup( q8 );; 
+gap> fgmon := FreeGroupOfPresentation( mon);
+<free group on the generators [ q8_Ml, q8_M2, q8_M3, q8_M4]> 
+gap> genfgmon := GeneratorsOfGroup( fgmon);
+[ q8_Ml, q8_M2, q8_M3, q8_M4] 
+gap> gprels := GroupRelatorsOfPresentation( mon );
+[ q8_Ml^4, q8_M2^4, q8_Ml*q8_M2*q8_Ml*q8_M4, q8_Ml^2*q8_M2^2] 
+gap> invrels := InverseRelatorsOfPresentation( mon);
+[ q8_Ml*q8_M3, q8_M2*q8_M4, q8_M3*q8_Ml, q8_M4*q8_M2] 
+gap> hompres := HomomorphismOfPresentation( mon );
+[ q8_Ml, q8_M2, q8_M3, q8_M4] -> [ fl, f2, fl^-l, f2^-1 ]
+]]>
+</Example>
+</Section>
+
+
+<Section><Heading>Rewriting systems for FpGroups</Heading>
+
+These functions duplicate the standard Knuth Bendix functions 
+which are available in the &GAP; library. 
+There are two reasons for this: 
+(1) these functions were first written before the standard functions 
+were available;
+(2) we require logged versions of the functions, and these are most 
+conveniently extended versions of the non-logged code.
+
+<ManSection>
+   <Attr Name="RewritingSystemFpGroup"
+         Arg="grp" />
+<Description>
+This function attempts to return a complete rewrite system 
+for the group <C>G</C> obtained from the monoid presentation <C>mon</C>, 
+with a length-lexicographical ordering on the words in <C>fgmon</C>, 
+by applying Knuth-Bendix completion. 
+Such a rewrite system can be obtained for all finite groups. 
+The rewrite rules are (partially) ordered, starting with the inverse relators, 
+followed by the rules which reduce the word length the most.
+<P/>
+In our <C>q8</C> example there are 16 rewrite rules.
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> rws := RewritingSystemFpGroup( q8 );
+[ [q8_Ml*q8_M3, <identity ...>], [ q8_M2*q8_M4, <identity ...> ], 
+  [q8_M3*q8_Ml, <identity ...>], [ q8_M4*q8_M2, <identity ...> ], 
+  [q8_M1^2*q8_M4, q8_M2], [q8_Ml^2*q8_M2, q8_M4], [ q8_Ml^3, q8_M3 ], 
+  [ q8_M4^2, q8_Ml^2], [ q8_M4*q8_M3, q8_Ml*q8_M4], 
+  [ q8_M4*q8_Ml, q8_Ml*q8_M2], [q8_M3*q8_M4, q8_Ml*q8_M2], 
+  [ q8_M3^2, q8_Ml^2], [q8_M3*q8_M2, q8_Ml*q8_M4], 
+  [ q8_M2*q8_M3, q8_Ml*q8_M2], [q8_M2^2, q8_Ml^2], 
+  [ q8_M2*q8_Ml, q8_Ml*q8_M4] ]
+]]>
+</Example>
+
+The functions called by <C>RewritingSystemFpGroup</C> are as follows.
+
+<ManSection>
+   <Oper Name="OnePassReduceWord"
+         Arg="word, rules" />
+   <Oper Name="ReduceWordKB"
+         Arg="word, rules" />
+<Description>
+Assuming that <C>word</C> is an element of a free monoid 
+and <C>rules</C> is a list of ordered pairs of such words, 
+the function <C>OnePassReduceWord</C> searches the list of rules 
+until it finds that the left-hand side of a <C>rule</C> 
+is a <C>subword</C> of <C>word</C>, 
+whereupon it replaces that <C>subword</C> with the right-hand side 
+of the matching rule. 
+The search is continued from the next <C>rule</C> in <C>rules</C>, 
+but using the new <C>word</C>.
+When the end of <C>rules</C> is reached, 
+one pass is considered to have been made
+and the reduced <C>word</C> is returned. 
+If no matches are found then the original <C>word</C> is returned.
+<P/>
+The function <C>ReduceWordKB</C> repeatedly applies the function 
+<C>OnePassReduceWord</C> 
+until the <C>word</C> remaining contains no left-hand side of a <C>rule</C> 
+as a <C>subword</C>. 
+If <C>rules</C> is a complete rewrite system, 
+then the irreducible <C>word</C> that is returned is unique, 
+otherwise the order of the rules in <C>rules</C> will determine 
+which irreducible word is returned.
+In the example we see that <M>b^9a^9</M> reduces to <M>ba</M>, 
+and we shall see later that this is not a normal form. 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> monrels := Concatenation( gprels, invrels );
+[ q8_Ml^4, q8_M2^4, q8_Ml*q8_M2*q8_Ml*q8_M4, q8_Ml^2*q8_M2^2, q8_Ml*q8_M3, 
+  q8_M2*q8_M4, q8_M3*q8_Ml, q8_M4*q8_M2] 
+gap> id := One( monrels[l] );;
+gap> r0 := List( monrels, r -> [ r, id ] );
+[ [ q8_Ml^4, <identity ...> ], [ q8_M2^4, <identity. ..> ], 
+  [ q8_Ml*q8_M2*q8_Ml*q8_M4, <identity ...> ], 
+  [ q8_Ml^2*q8_M2^2, <identity. ..>], [ q8_Ml*q8_M3, <identity ...> ], 
+  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_Ml, <identity. ..>], 
+  [ q8_M4*q8_M2, <identity ...> ] ] 
+gap> ap := genfgmon[l];; bp := genfgmon[2];;   ## p for plus
+gap> am := genfgmon[3];; bm := genfgmon[4];;   ## m for minus
+gap> w0 := bp^9 * ap^9;
+q8_M2^9*q8_M1^9
+gap> w1 := OnePassReduceWord( w0, r0 );
+q8_M2^5*q8_M1^5
+gap> w2 := ReduceWordKB( w0, r0 );
+q8_M2*q8_M1
+]]>
+</Example>
+
+<ManSection>
+   <Oper Name="OnePassKB"
+         Arg="rules" />
+   <Oper Name="RewriteReduce"
+         Arg="rules" />
+   <Oper Name="KnuthBendix"
+         Arg="rules" />
+   <Oper Name="ShorterRule"
+         Arg="rule1, rule2" />
+<Description>
+The function <C>OnePassKB</C> implements the main loop of the Knuth-Bendix 
+completion algorithm. 
+Rules are compared with each other; all critical pairs are calculated; 
+and the irreducible critical pairs are orientated with respect 
+to the length-lexicographical ordering and added to the rewrite system.
+<P/>
+The function <C>RewriteReduce</C> will remove unnecessary rules from 
+a rewrite system. 
+A rule is deemed to be unnecessary if it is implied by the other rules, 
+i.e. if both sides can be reduced to the same thing by the remaining rules.
+<P/>
+The function <C>KnuthBendix</C> implements the Knuth-Bendix algorithm, 
+attempting to complete a rewrite system with respect to 
+a length-lexicographic ordering. 
+It calls first <C>OnePassKB</C>, which adds rules, and then (for efficiency) 
+<C>RewriteReduce</C> which removes any unnecessary ones. 
+This procedure is repeated until <C>OnePassKB</C> adds no more rules. 
+It will not always terminate, but for many examples (all finite groups) 
+it will be successful. 
+The rewrite system returned is complete, that is: 
+it will rewrite any given word in the free monoid to a unique irreducible; 
+there is one irreducible for each element of the quotient monoid; 
+and any two elements of the free monoid which are in the same class 
+will rewrite to the same irreducible.
+<P/>
+The function <C>ShorterRule</C> gives an ordering on rules. 
+Rules <M>(g_lg_2,id)</M> that identify two generators 
+(or one generator with the inverse of another) come first in the ordering. 
+Otherwise one precedes another if it reduces the length of a word 
+by a greater amount. 
+<P/>
+One pass of this procedure for our <C>q8</C> example 
+adds 13 relators to the original 8, and these 21 are then reduced to 9. 
+A second pass and reduction gives a list of 16 rules 
+which forms a complete rewrite system for the group.
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> r1 := OnePassKB( r0 );
+[ [ q8_Ml^4, <identity ...> ], [ q8_M2^4, <identity ...> ], 
+  [ q8_Ml*q8_M2*q8_Ml*q8_M4, <identity ...> ], 
+  [ q8_Ml^2*q8_M2^2, <identity. ..> ], [ q8_Ml*q8_M3, <identity ...> ], 
+  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_Ml, <identity ...> ], 
+  [ q8_M4*q8_M2, <identity ...> ], [ q8_M2*q8_Ml*q8_M4, q8_Ml^3], 
+  [ q8_Ml*q8_M2^2, q8_Ml^3 ], [ q8_M2^2, q8_Ml^2 ], [q8_Ml^3, q8_M3 ], 
+  [ q8_M2^3, q8_M4 ], [ q8_Ml*q8_M2*q8_Ml, q8_M2], 
+  [ q8_M2^3, q8_Ml^2*q8_M2], [ q8_M2^2, q8_Ml^2 ], [q8_Ml^2*q8_M2, q8_M4 ], 
+  [ q8_Ml^3, q8_M3 ], [ q8_M2*q8_Ml*q8_M4, q8_M3 ], [q8_Ml*q8_M2^2, q8_M3 ], 
+  [ q8_M2^3, q8_M4 ] ] 
+gap> r1 := RewriteReduce( r1 );
+[ [ q8_Ml*q8_M3, <identity ...> ], [ q8_M2^2, q8_Ml^2 ], 
+  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_Ml, <identity ...> ], 
+  [ q8_M4*q8_M2, <identity ...> ], [ q8_Ml^3, q8_M3 ], 
+  [ q8_Ml^2*q8_M2, q8_M4 ], [ q8_Ml*q8_M2*q8_Ml, q8_M2 ], 
+  [ q8_M2*q8_Ml*q8_M4, q8_M3 ] ] 
+gap> r2 := KnuthBendix( r1 );
+[ [ q8_Ml*q8_M3, <identity ...> ], [ q8_M2*q8_Ml, q8_Ml*q8_M4 ], 
+  [ q8_M2^2, q8_Ml^2], [ q8_M2*q8_M3, q8_Ml*q8_M2 ], 
+  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_Ml, <identity ...> ], 
+  [ q8_M3*q8_M2, q8_Ml*q8_M4 ], [ q8_M3^2, q8_Ml^2 ], 
+  [ q8_M3*q8_M4, q8_Ml*q8_M2 ], [ q8_M4*q8_Ml, q8_Ml*q8_M2 ], 
+  [ q8_M4*q8_M2, <identity ...> ], [ q8_M4*q8_M3, q8_Ml*q8_M4 ], 
+  [ q8_M4^2, q8_Ml^2], [ q8_Ml^3, q8_M3 ], [q8_Ml^2*q8_M2, q8_M4 ], 
+  [ q8_Ml^2*q8_M4, q8_M2 ] ]
+gap> w2 := ReduceWordKB( w0, r2 );
+q8_M1*q8_M4
+]]>
+</Example>
+</Section>
+
+
+
+<Section><Heading>Enumerating elements</Heading>
+
+<ManSection>
+   <Attr Name="ElementsOfMonoidPresentation"
+         Arg="mon" />
+<Description>
+The function <C>ElementsOfMonoidPresentation</C> returns a list 
+of normal forms for the elements of the group given by 
+the monoid presentation <C>mon</C>. 
+The normal forms are the least elements in each equivalence class 
+(with respect to length-lex order).
+<!-- The function <C>EnumerateKB</C> builds a catalogue of irreducible   -->
+<!-- words in the generators of a monoid with respect to a set of rules. -->
+When <C>rules</C> is a complete rewrite system for <C>G</C> 
+the list returned is a set of normal forms for the group elements.
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> elq8 := Elements( q8 );
+[ <identity ...>, f1, f1^3, f2, f1^2*f2, f1^2, f1*f2, f1^3*f2 ]
+gap> elmonq8 := ElementsOfMonoidPresentation( monq8 );
+[ <identity. ..>, q8_Ml, q8_M2, q8_M3, q8_M4, q8_Ml^2, q8_Ml*q8_M2, 
+  q8_Ml*q8_M4 ]
+]]>
+</Example>
+</Section>
+</Chapter>
