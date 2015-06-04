@@ -2,7 +2,7 @@
 ##
 #W  read.g                 GAP package `idrel'                  Chris Wensley
 ##                                                            & Anne Heyworth
-##  version 2.21, 09/11/2014
+##  version 2.31, 01/06/2015
 ##
 
 ##  read the actual code

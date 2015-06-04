@@ -3,9 +3,9 @@
 <!--  manual.xml         IdRel documentation              Chris Wensley  -->
 <!--                                                    & Anne Heyworth  -->
 <!--                                                                     -->
-<!--  version 2.21, 10/12/2014                                           -->
+<!--  version 2.31, 01/06/2015                                           -->
 <!--                                                                     -->
-<!--  Copyright (C) 1999-2014, Anne Heyworth and Chris Wensley,          --> 
+<!--  Copyright (C) 1999-2015, Anne Heyworth and Chris Wensley,          --> 
 <!--  School of Computer Science, Bangor University, U.K.                --> 
 <!--                                                                     -->
 <!-- ------------------------------------------------------------------- -->
@@ -28,9 +28,7 @@
   <Subtitle>A package for Identities among Relators</Subtitle>
   <Version>Version &VERSION;</Version>   
   <Date>&RELEASEDATE;</Date> 
-  <Author> Anne Heyworth
-    <Email>anne.heyworth@googlemail.com</Email>
-  </Author>    
+  <Author> Anne Heyworth </Author>    
   <Author> Chris Wensley
     <Email>c.d.wensley@bangor.ac.uk</Email>
     <Homepage>http://pages.bangor.ac.uk/~mas023/</Homepage>
@@ -68,6 +66,8 @@ elements of a free crossed module
 </Item>
 </List>
 <P/>
+&idrel; became an accepted &GAP; package in May 2015. 
+<P/>
 Bug reports, suggestions and comments are, of course, welcome. 
 Please contact the second author at     
 <Email>c.d.wensley@bangor.ac.uk</Email>.
@@ -75,7 +75,7 @@ Please contact the second author at
 
 <Copyright> 
 <Index>License</Index>
-&copyright; 1999-2014 Anne Heyworth and Chris Wensley <P/>
+&copyright; 1999-2015 Anne Heyworth and Chris Wensley <P/>
 
 &idrel; is free software; you can redistribute it 
 and/or modify it under the terms of the 
@@ -103,7 +103,8 @@ package of Frank L&#xfc;beck and Max Neunh&#xf6;ffer.
 
 </Body>
 
-<Bibliography Databases="manual"/>
+<Bibliography Databases="idrelbib.xml"/>
+<!--  <Bibliography Databases="manual"/> --> 
 
 <TheIndex/>
 

@@ -2,7 +2,7 @@
 <!--                                                                     -->
 <!--  rws.xml             IdRel documentation             Chris Wensley  -->
 <!--                                                    & Anne Heyworth  -->
-<!--  version 2.13, 10/01/2013                                           -->
+<!--  version 2.31, 01/06/2015                                           -->
 <!--                                                                     -->
 <!-- ------------------------------------------------------------------- -->
 
@@ -81,16 +81,16 @@ Of the <M>18</M> Y-sequences formed, <M>6</M> are empty,
 and <C>Y4</C> is the <E>root identity</E> 
 <C>((a^3)^-1)^(a^-1).(a^3)</C>. 
 If we write <M>r=a^3, s=b^2, t=(ab)^2</M> 
-then <C>Y4</C> is <C>(r^-1)^(a^-1).r</C>. 
-Similarly, <C>Y8</C> is the second root identity <C>(s^-1)^(b^-1).s</C>, 
-while  <C>Y7</C> is the third root identity <C>(t^-1)^(ab^-1).t</C>. 
+then <C>Y4</C> is <M>(r^{-1})^{a^{-1}}r</M>. 
+Similarly, <C>Y8</C> is the second root identity <M>(s^{-1})^{b^{-1}}s</M>, 
+while  <C>Y7</C> is the third root identity <M>(t^{-1})^{(ab)^{-1}}t</M>. 
 The identity <C>Y6</C>, which is not a root identity, 
 is obtained by walking around the Schreier diagram of the presentation, 
-which is a somewhat truncated triangular prism, 
-taking the appropriate conjugate of each face in turn: 
+a somewhat truncated triangular prism. 
+Taking the appropriate conjugate of each face in turn, we get: 
 <C>
-Y6=(t^-1)^(a^-1).r.(t^-1)^a.s^(a^-1b^-1).r^(b^-1).(t^-1)^(ab^-1).s.s^(a^-1)
-</C>. 
+Y6=(t^-1)^(a^-1).r.(t^-1)^a.s^(a^-1b^-1).r^(b^-1).(t^-1)^(ab^-1).s.s^(a^-1). 
+</C> 
 These four identities generate the module of identities for <C>s3</C>. 
 <P/>
 <Example>
@@ -183,7 +183,7 @@ from the free group of the monoid presentation to the free group
 of the group presentation.
 <P/>
 In the example below, the four monoid generators <M>a^+, b^+, a^-, b^-</M> 
-are named <C>q8\_M1, q8\_M2, q8\_M3, q8\_M4</C>.
+are named <C>q8_M1, q8_M2, q8_M3, q8_M4</C>.
 <P/>
 </Description>
 </ManSection>
@@ -347,7 +347,8 @@ by a greater amount.
 One pass of this procedure for our <C>q8</C> example 
 adds 13 relators to the original 8, and these 21 are then reduced to 9. 
 A second pass and reduction gives a list of 16 rules 
-which forms a complete rewrite system for the group.
+which forms a complete rewrite system for the group. 
+Now <M>b^9a^9</M> reduces to <M>ab^{-1}</M>. 
 <P/>
 </Description>
 </ManSection>

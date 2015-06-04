@@ -1,6 +1,6 @@
 #############################################################################
 ##
-##  PackageInfo.g   file for the package IdRel version 2.21  (10/12/14)
+##  PackageInfo.g   file for the package IdRel version 2.32 
 ##  Anne Heyworth and Chris Wensley 
 ##
 
@@ -8,22 +8,22 @@ SetPackageInfo( rec(
 PackageName := "idrel",
 Subtitle := "Identities among relations",
 
-Version := "2.21",
-Date := "10/12/2014",
+Version := "2.32",
+Date := "03/06/2015",
 
 ##  duplicate these values for inclusion in the manual: 
 ##  <#GAPDoc Label="PKGVERSIONDATA">
-##  <!ENTITY VERSION "2.21">
-##  <!ENTITY TARFILENAME "idrel-2.21.tar.gz">
-##  <!ENTITY HTMLFILENAME "idrel221.html">
-##  <!ENTITY RELEASEDATE "10/12/2014">
-##  <!ENTITY LONGRELEASEDATE "10th December 2014">
+##  <!ENTITY VERSION "2.32">
+##  <!ENTITY TARFILENAME "idrel-2.32.tar.gz">
+##  <!ENTITY HTMLFILENAME "idrel232.html">
+##  <!ENTITY RELEASEDATE "03/06/2015">
+##  <!ENTITY LONGRELEASEDATE "3rd June 2015">
 ##  <#/GAPDoc>
 
 PackageWWWHome := 
   "http://pages.bangor.ac.uk/~mas023/chda/idrel/",
 
-ArchiveURL := "http://pages.bangor.ac.uk/~mas023/chda/idrel/idrel-2.21", 
+ArchiveURL := "http://pages.bangor.ac.uk/~mas023/chda/idrel/idrel-2.32", 
 ArchiveFormats := ".tar.gz",
 
 Persons := [
@@ -32,7 +32,7 @@ Persons := [
     FirstNames    := "Anne",
     IsAuthor      := true,
     IsMaintainer  := false,
-    Email         := "anne.heyworth@googlemail.com",
+    ## Email         := "anne.heyworth@gmail.com",
     ## WWWHome       := "",
     ## PostalAddress := Concatenation( ["\n", "UK"] ),
     ## Place         := "",
@@ -58,9 +58,9 @@ Persons := [
   )
 ],
 
-Status := "deposited",
-## CommunicatedBy := "",
-## AcceptDate := "",
+Status := "accepted",
+CommunicatedBy := "Leonard Soicher (QMUL)",
+AcceptDate := "05/2015",
 
 README_URL := 
   Concatenation( ~.PackageWWWHome, "README" ),
@@ -82,7 +82,7 @@ PackageDoc := rec(
 
 Dependencies := rec(
   GAP := ">=4.7",
-  NeededOtherPackages := [ [ "xmod", ">= 2.26" ], [ "GAPDoc", ">= 1.5.1" ] ],
+  NeededOtherPackages := [ [ "xmod", ">= 2.31" ], [ "GAPDoc", ">= 1.5.1" ] ],
   SuggestedOtherPackages := [ ],
   ExternalConditions := [ ]
 ),

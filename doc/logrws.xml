@@ -3,7 +3,7 @@
 <!--  logrws.xml          IdRel documentation             Chris Wensley  -->
 <!--                                                    & Anne Heyworth  -->
 <!--                                                                     -->
-<!--  version 2.13, 10/01/2013                                           -->
+<!--  version 2.31, 01/06/2015                                           -->
 <!--                                                                     -->
 <!-- ------------------------------------------------------------------- -->
 
@@ -12,11 +12,12 @@
 <Chapter Label="chap-logrws">
 <Heading>Logged Rewriting Systems</Heading>
 
-A logged rewrite system is associated with a group presentation. 
-Each logged rewrite rule contains, in addition to the standard rewrite rule, 
-a record or log component which express the rule in terms of 
+A <E>logged rewrite system</E> is associated with a group presentation. 
+Each <E>logged rewrite rule</E> contains, 
+in addition to the standard rewrite rule, 
+a record or <E>log component</E> which expresses the rule in terms of 
 the original relators of the group. 
-Here a logged rewrite rule is represented by a triple 
+We represent such a rule by a triple 
 <C>[ u, [L1,L2,..,Lk], v]</C>, where <C>[u,v]</C> is a rewrite rule 
 and <M>L_i = [n_i,w_i]</M> where <M>n_i</M> is a group relator 
 and <M>w_i</M> is a word. 
@@ -24,7 +25,7 @@ These three components obey the identity
 <M>u = n_1^{w_1} \ldots n_k^{w_k} v</M>.
 <P/>
 Rules of the form <M>g^+g^-</M> are relevant to the monoid presentation, 
-but not to the group presentation, so are not included in the logging.
+but not to the group presentation, so are given an empty logged component.
 
 
 <Section><Heading>Logged Knuth-Bendix Completion</Heading>
@@ -39,7 +40,7 @@ previous chapter.
 Given a logged rewrite system, this function finds all the rules 
 that would be added to complete the rewrite system in <C>OnePassKB</C>, 
 and also the logs which relate the new rules to the originals. 
-The result of applying this function to loggedrules 
+The result of applying this function to <C>loggedrules</C> 
 is to add new logged rules to the system 
 without changing the monoid it defines.
 <P/>

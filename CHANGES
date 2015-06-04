@@ -1,4 +1,20 @@
                        CHANGES of the IdRel package
+	
+ToDo: 
+ - (see 2.2.2) enable display of MonoidPresentationFpGroup(G) 
+ - add to page 14 of the manual, using a,b,r,s,t,u
+
+############################################################################
+2.31 -> 2.32  (03/06/2015)
+
+ - 
+
+############################################################################
+2.21 -> 2.31  (01/06/2015)
+
+ - (01/06/15) PackageInfo.g: IdRel is now an accepted package 
+ - (01/06/15) converted the bibliography to BibXMLext format 
+              and added an URL to Anne's thesis (heyworth.ps.gz)  
 
 ############################################################################
 2.14 -> 2.21  (10/12/2014)

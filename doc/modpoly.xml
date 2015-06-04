@@ -2,7 +2,7 @@
 <!--                                                                     -->
 <!--  modpoly.xml         IdRel documentation             Chris Wensley  -->
 <!--                                                    & Anne Heyworth  -->
-<!--  version 2.13, 10/01/2013                                           -->
+<!--  version 2.31, 01/06/2015                                           -->
 <!--                                                                     -->
 <!-- ------------------------------------------------------------------- -->
 
@@ -42,7 +42,7 @@ of a finitely presented group (see section <B>5.4</B>).
          Arg="Fgens, Fmon" />
 <Description>
 The function <C>ModulePoly</C> returns a module polynomial. 
-The terms of the polynomial maybe input as a list of generators 
+The terms of the polynomial may be input as a list of generators 
 followed by a list of monoid polynomials or as one list of 
 <C>[generator, monoid polynomial]</C> pairs.
 <P/>
@@ -90,7 +90,7 @@ zero modpoly
    <Attr Name="Length"
          Arg="modpoly" />
 <Description>
-The first function counts the number of module generators 
+The function <C>Length</C> counts the number of module generators 
 which occur in <C>modpoly</C> 
 (a generator occurs in a polynomial if it has nonzero coefficient).
 The function <C>One</C> returns the identity in 
