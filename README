@@ -17,7 +17,7 @@ where the main change was the move to a new package website.
 Version 2.12 was released in April 2012 for the anticipated release 
 of GAP 4.5. 
 IdRel became an accepted package in May 2015. 
-The latest version is 2.32, released on June 3rd 2015 for GAP 4.7. 
+The latest version is 2.32, released on August 24th 2015 for GAP 4.7. 
 
 The ``IdRel'' package is distributed with the accepted GAP packages.
 It may also be obtained from the Bangor ftp pages for

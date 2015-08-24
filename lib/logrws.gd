@@ -2,11 +2,11 @@
 ##
 #W  logrws.gd                     IdRel Package                  Chris Wensley
 #W                                                             & Anne Heyworth
-##  version 2.07, 04/06/2011
+##  version 2.32, 24/08/2015
 ##
 ##  Declaration file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2011 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2015 Anne Heyworth and Chris Wensley 
 ##
 ##  This file contains declarations of operations for logged rewrite systems.
 
@@ -70,8 +70,8 @@ MonoidPolyFam := NewFamily( "MonoidPolyFam", IsMonoidPoly );
 ##
 DeclareRepresentation( "IsMonoidPresentationFpGroup", 
     IsFpGroup and IsAttributeStoringRep, 
-    [ "FreeGroupOfPresentation", "groupRelatorsOfPresentation", 
-      "inverseRelatorsOfPresentation", "homomorphismOfPresentation" ] );
+    [ "FreeGroupOfPresentation", "GroupRelatorsOfPresentation", 
+      "InverseRelatorsOfPresentation", "HomomorphismOfPresentation" ] );
 DeclareAttribute( "MonoidPresentationFpGroup" , IsFpGroup );
 DeclareAttribute( "FreeGroupOfPresentation", IsMonoidPresentationFpGroup );
 DeclareAttribute( "GroupRelatorsOfPresentation", IsMonoidPresentationFpGroup );

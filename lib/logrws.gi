@@ -354,6 +354,13 @@ end );
 ##
 #M  MonoidPresentationFpGroup
 ##
+InstallOtherMethod( PrintObj, "generic method for MonoidPresentation FpGroup", 
+    true, [ IsMonoidPresentationFpGroup ], 0, 
+function( mon ) 
+    Print( "monoid presentation for an fp-group with homomorphism\n", 
+        MappingGeneratorsImages( HomomorphismOfPresentation( mon ) ) ); 
+end ); 
+
 InstallMethod( MonoidPresentationFpGroup, "generic method for an fp-group", 
     true, [ IsFpGroup ], 0, 
 function( G )

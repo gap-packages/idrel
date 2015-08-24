@@ -2,7 +2,7 @@
 <!--                                                                     -->
 <!--  rws.xml             IdRel documentation             Chris Wensley  -->
 <!--                                                    & Anne Heyworth  -->
-<!--  version 2.31, 01/06/2015                                           -->
+<!--  version 2.32, 24/08/2015                                           -->
 <!--                                                                     -->
 <!-- ------------------------------------------------------------------- -->
 
@@ -189,7 +189,9 @@ are named <C>q8_M1, q8_M2, q8_M3, q8_M4</C>.
 </ManSection>
 <Example>
 <![CDATA[
-gap> mon := MonoidPresentationFpGroup( q8 );; 
+gap> mon := MonoidPresentationFpGroup( q8 );
+monoid presentation for an fp-group with homomorphism
+[ [ q8_M1, q8_M2, q8_M3, q8_M4 ], [ f1, f2, f1^-1, f2^-1 ] ]
 gap> fgmon := FreeGroupOfPresentation( mon);
 <free group on the generators [ q8_Ml, q8_M2, q8_M3, q8_M4]> 
 gap> genfgmon := GeneratorsOfGroup( fgmon);

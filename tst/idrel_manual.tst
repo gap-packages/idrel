@@ -2,9 +2,9 @@
 ##
 #W  idrel_manual.tst               Idrel Package                 Chris Wensley
 #W                                                             & Anne Heyworth
-##  version 2.13, 10/01/2013
+##  version 2.32, 24/08/2015
 ##
-#Y  Copyright (C) 1999--2013 Anne Heyworth and Chris Wensley
+#Y  Copyright (C) 1999--2015 Anne Heyworth and Chris Wensley
 ##
 gap> START_TEST( "Testing all example commands in the IdRel manual" );
 gap> SetInfoLevel( InfoIdRel, 0 );;
@@ -45,7 +45,9 @@ gap> frq8 := FreeRelatorGroup( q8 );
 q8_R
 gap> frhomq8 := FreeRelatorHomomorphism( q8 );
 [ q8_R1, q8_R2, q8_R3, q8_R4 ] -> [ f1^4, f2^4, f1*f2*f1*f2^-1, f1^2*f2^2 ]
-gap> mon := MonoidPresentationFpGroup( q8 );; 
+gap> mon := MonoidPresentationFpGroup( q8 );
+monoid presentation for an fp-group with homomorphism
+[ [ q8_M1, q8_M2, q8_M3, q8_M4 ], [ f1, f2, f1^-1, f2^-1 ] ]
 gap> fgmon := FreeGroupOfPresentation( mon ); 
 <free group on the generators [ q8_M1, q8_M2, q8_M3, q8_M4 ]>
 gap> genfgmon := GeneratorsOfGroup( fgmon );;
