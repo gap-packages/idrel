@@ -1,7 +1,13 @@
                        CHANGES of the IdRel package
 	
 ToDo: 
- - add to page 14 of the manual, using a,b,r,s,t,u
+ - add to page 14 of the manual, using a,b,r,s,t,u 
+ - add a History chapter to the manual 
+
+############################################################################
+2.32 -> 2.33  (02/09/2015)
+
+ - (02/09/15) major edits to README, including GitHub issues link 
 
 ############################################################################
 2.31 -> 2.32  (24/08/2015)

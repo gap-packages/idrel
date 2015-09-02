@@ -1,6 +1,6 @@
 #############################################################################
 ##
-##  PackageInfo.g   file for the package IdRel version 2.32 
+##  PackageInfo.g   file for the package IdRel version 2.33 
 ##  Anne Heyworth and Chris Wensley 
 ##
 
@@ -8,22 +8,22 @@ SetPackageInfo( rec(
 PackageName := "idrel",
 Subtitle := "Identities among relations",
 
-Version := "2.32",
-Date := "24/08/2015",
+Version := "2.33",
+Date := "02/09/2015",
 
 ##  duplicate these values for inclusion in the manual: 
 ##  <#GAPDoc Label="PKGVERSIONDATA">
-##  <!ENTITY VERSION "2.32">
-##  <!ENTITY TARFILENAME "idrel-2.32.tar.gz">
-##  <!ENTITY HTMLFILENAME "idrel232.html">
-##  <!ENTITY RELEASEDATE "24/08/2015">
-##  <!ENTITY LONGRELEASEDATE "24th August 2015">
+##  <!ENTITY VERSION "2.33">
+##  <!ENTITY TARFILENAME "idrel-2.33.tar.gz">
+##  <!ENTITY HTMLFILENAME "idrel233.html">
+##  <!ENTITY RELEASEDATE "02/09/2015">
+##  <!ENTITY LONGRELEASEDATE "2nd September 2015">
 ##  <#/GAPDoc>
 
 PackageWWWHome := 
   "http://pages.bangor.ac.uk/~mas023/chda/idrel/",
 
-ArchiveURL := "http://pages.bangor.ac.uk/~mas023/chda/idrel/idrel-2.32", 
+ArchiveURL := "http://pages.bangor.ac.uk/~mas023/chda/idrel/idrel-2.33", 
 ArchiveFormats := ".tar.gz",
 
 Persons := [
@@ -82,7 +82,7 @@ PackageDoc := rec(
 
 Dependencies := rec(
   GAP := ">=4.7",
-  NeededOtherPackages := [ [ "xmod", ">= 2.42" ], [ "GAPDoc", ">= 1.5.1" ] ],
+  NeededOtherPackages := [ [ "xmod", ">= 2.43" ], [ "GAPDoc", ">= 1.5.1" ] ],
   SuggestedOtherPackages := [ ],
   ExternalConditions := [ ]
 ),
