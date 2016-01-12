@@ -2,7 +2,7 @@
 <!--                                                                     -->
 <!--  intro.xml           IdRel documentation             Chris Wensley  -->
 <!--                                                    & Anne Heyworth  -->
-<!--  version 2.31, 01/06/2015                                           -->
+<!--  version 2.33, 12/01/2016                                           -->
 <!--                                                                     -->
 <!-- ------------------------------------------------------------------- -->
 
@@ -58,5 +58,28 @@ should also be sent.
 You may reference the package by mentioning <Cite Key="HeWe1" />
 and <Cite Key="anne-thesis" />.
 <P/>
-The current version is &VERSION; of &LONGRELEASEDATE;. 
+The current version is &IDRELVERSION; for &GAP; 4.8, 
+released on &IDRELLONGRELEASEDATE;. 
+<P/> 
+The package may be obtained as a compressed tar file 
+<File>&IDRELTARFILENAME;</File>
+by ftp from one of the following sites: 
+<List>
+<Item>
+any &GAP; archive, e.g. 
+<URL>http://www.gap-system.org/Packages/packages.html</URL>; 
+</Item>
+<Item>
+the Bangor site: 
+<URL>http://www.maths.bangor.ac.uk/chda/gap4/idrel/&IDRELHTMLFILENAME;</URL>;
+</Item>
+<Item>
+the package GitHub repository: 
+<URL>https://github.com/gap-packages/idrel</URL>. 
+</Item>
+</List>
+<P/>
+
+
+
 </Chapter>

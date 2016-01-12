@@ -1,7 +1,7 @@
                    README file for the IdRel package
                    =================================
 
-Version 2.33, 2nd September 2015
+Version 2.33, 12th January 2016
 
 Introduction
 ------------
@@ -17,7 +17,7 @@ Version 2.02 was prepared for the GAP 4.4 release in March 2006
 and deposited in the incoming directory on the St Andrews ftp server.
 A more detailed history will be included as Chapter 6 of the manual.
 IdRel became an accepted package in May 2015. 
-The latest version is 2.33, released on August 24th 2015 for GAP 4.7. 
+The latest version is 2.33, released on January 12th 2016 for GAP 4.8. 
 
 Distribution
 ------------
@@ -29,7 +29,7 @@ Computational Higher-dimensional Discrete Algebra at:
 Copyright
 ---------
 The IdRel package is Copyright {\copyright} Chris Wensley and Anne Heyworth, 
-1999--2015. 
+1999--2016. 
 IdRel is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
@@ -50,4 +50,4 @@ Contact
 -------
 If you have a question relating to IdRel, encounter any problems, or have a suggestion for extending the package in any way, please 
  - email c.d.wensley@bangor.ac.uk 
- - or report an issue at https://github.com/gap-system/idrel/issues/new 
+ - or report an issue at https://github.com/gap-packages/idrel/issues/new 

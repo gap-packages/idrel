@@ -3,9 +3,9 @@
 <!--  manual.xml         IdRel documentation              Chris Wensley  -->
 <!--                                                    & Anne Heyworth  -->
 <!--                                                                     -->
-<!--  version 2.31, 01/06/2015                                           -->
+<!--  version 2.33, 12/01/2016                                           -->
 <!--                                                                     -->
-<!--  Copyright (C) 1999-2015, Anne Heyworth and Chris Wensley,          --> 
+<!--  Copyright (C) 1999-2016, Anne Heyworth and Chris Wensley,          --> 
 <!--  School of Computer Science, Bangor University, U.K.                --> 
 <!--                                                                     -->
 <!-- ------------------------------------------------------------------- -->
@@ -26,8 +26,8 @@
 <TitlePage>
   <Title>&idrel;</Title>
   <Subtitle>A package for Identities among Relators</Subtitle>
-  <Version>Version &VERSION;</Version>   
-  <Date>&RELEASEDATE;</Date> 
+  <Version>Version &IDRELVERSION;</Version>   
+  <Date>&IDRELRELEASEDATE;</Date> 
   <Author> Anne Heyworth </Author>    
   <Author> Chris Wensley
     <Email>c.d.wensley@bangor.ac.uk</Email>
@@ -75,7 +75,7 @@ Please contact the second author at
 
 <Copyright> 
 <Index>License</Index>
-&copyright; 1999-2015 Anne Heyworth and Chris Wensley <P/>
+&copyright; &IDRELCOPYRIGHTYEARS; Anne Heyworth and Chris Wensley <P/>
 
 &idrel; is free software; you can redistribute it 
 and/or modify it under the terms of the 
