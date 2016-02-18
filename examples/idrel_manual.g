@@ -2,9 +2,8 @@
 ##
 #W  idrel_manual.g                 Idrel Package                 Chris Wensley
 #W                                                             & Anne Heyworth
-##  version 2.07, 04/06/2011
 ##
-#Y  Copyright (C) 1999--2011 Anne Heyworth and Chris Wensley
+#Y  Copyright (C) 1999-2016 Anne Heyworth and Chris Wensley
 ##
 
 ## ====================== Rewriting Systems ===================== 

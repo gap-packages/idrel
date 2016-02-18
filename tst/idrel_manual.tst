@@ -2,9 +2,8 @@
 ##
 #W  idrel_manual.tst               Idrel Package                 Chris Wensley
 #W                                                             & Anne Heyworth
-##  version 2.32, 24/08/2015
 ##
-#Y  Copyright (C) 1999--2015 Anne Heyworth and Chris Wensley
+#Y  Copyright (C) 1999-2016 Anne Heyworth and Chris Wensley
 ##
 gap> START_TEST( "Testing all example commands in the IdRel manual" );
 gap> SetInfoLevel( InfoIdRel, 0 );;

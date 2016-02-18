@@ -2,11 +2,9 @@
 ##
 #W  monpoly.gd                    IdRel Package                  Chris Wensley
 #W                                                             & Anne Heyworth
-##  version 2.07, 04/06/2011
-##
 ##  Declaration file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2011 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2016 Anne Heyworth and Chris Wensley 
 ##
 ##  The category of monoid polynomials is declared.
 

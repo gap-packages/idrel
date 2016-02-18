@@ -1,8 +1,6 @@
                    README file for the IdRel package
                    =================================
 
-Version 2.33, 12th January 2016
-
 Introduction
 ------------
 The IdRel package is designed for computing the identities among relations 
@@ -17,7 +15,6 @@ Version 2.02 was prepared for the GAP 4.4 release in March 2006
 and deposited in the incoming directory on the St Andrews ftp server.
 A more detailed history will be included as Chapter 6 of the manual.
 IdRel became an accepted package in May 2015. 
-The latest version is 2.33, released on January 12th 2016 for GAP 4.8. 
 
 Distribution
 ------------
@@ -38,8 +35,7 @@ For details, see \URL{http://www.gnu.org/licenses/gpl.html}
 
 Installation
 ------------
-1) unpack `idrel-2.33.tar.gz' in the `pkg' subdirectory of the GAP root
-   directory.
+1) unpack `idrel-<version_number>.tar.gz' in the `pkg' subdirectory of the GAP root directory.
 2) From within GAP load the package with:
 gap> LoadPackage("idrel");
 true

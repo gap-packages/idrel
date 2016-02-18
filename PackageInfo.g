@@ -9,15 +9,15 @@ PackageName := "idrel",
 Subtitle := "Identities among relations",
 
 Version := "2.33",
-Date := "12/01/2016",
+Date := "18/02/2016",
 
 ##  duplicate these values for inclusion in the manual: 
 ##  <#GAPDoc Label="PKGVERSIONDATA"> 
 ##  <!ENTITY IDRELVERSION "2.33">
 ##  <!ENTITY IDRELTARFILENAME "idrel-2.33.tar.gz">
 ##  <!ENTITY IDRELHTMLFILENAME "idrel233.html">
-##  <!ENTITY IDRELRELEASEDATE "12/01/2016">
-##  <!ENTITY IDRELLONGRELEASEDATE "12th January 2016">
+##  <!ENTITY IDRELRELEASEDATE "18/02/2016">
+##  <!ENTITY IDRELLONGRELEASEDATE "18th February 2016">
 ##  <!ENTITY IDRELCOPYRIGHTYEARS "1999-2016">
 ##  <#/GAPDoc>
 
@@ -83,7 +83,7 @@ PackageDoc := rec(
 
 Dependencies := rec(
   GAP := ">=4.7",
-  NeededOtherPackages := [ [ "xmod", ">= 2.43" ], [ "GAPDoc", ">= 1.5.1" ] ],
+  NeededOtherPackages := [ [ "xmod", ">= 2.51" ], [ "GAPDoc", ">= 1.5.1" ] ],
   SuggestedOtherPackages := [ ],
   ExternalConditions := [ ]
 ),
@@ -93,8 +93,6 @@ AvailabilityTest := ReturnTrue,
 BannerString := Concatenation( 
     "Loading IdRel ", String( ~.Version ), " for GAP 4.7", 
     " - Anne Heyworth and Chris Wensley ...\n" ),
-
-Autoload := false,
 
 TestFile := "tst/idrel_manual.tst",
 

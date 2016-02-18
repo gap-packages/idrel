@@ -2,9 +2,7 @@
 ##
 #W  sl42.g                         Idrel Package                 Chris Wensley
 #W                                                             & Anne Heyworth
-##  version 2.11, 21/09/2011
-##
-#Y  Copyright (C) 1999--2011 Anne Heyworth and Chris Wensley
+#Y  Copyright (C) 1999--2016 Anne Heyworth and Chris Wensley
 ##
 
 idrel_save_level := InfoLevel( InfoIdRel );

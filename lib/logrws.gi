@@ -2,11 +2,9 @@
 ##
 #W  logrws.gi                     IdRel Package                  Chris Wensley
 #W                                                             & Anne Heyworth
-##  version 2.14, 16/10/2013
-##
 ##  Declaration file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2013 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2016 Anne Heyworth and Chris Wensley 
 ##
 
 ##############################################################################

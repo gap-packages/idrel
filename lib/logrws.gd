@@ -2,11 +2,9 @@
 ##
 #W  logrws.gd                     IdRel Package                  Chris Wensley
 #W                                                             & Anne Heyworth
-##  version 2.32, 24/08/2015
-##
 ##  Declaration file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2015 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2016 Anne Heyworth and Chris Wensley 
 ##
 ##  This file contains declarations of operations for logged rewrite systems.
 
