@@ -67,7 +67,11 @@ README_URL :=
   Concatenation( ~.PackageWWWHome, "README" ),
 PackageInfoURL := 
   Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
-
+SourceRepository := rec( 
+  Type := "git", 
+  URL := "https://github.com/gap-packages/idrel"
+),
+IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
 AbstractHTML :=
  "IdRel is a package for computing the identities among relations of a group presentation using rewriting, logged rewriting, monoid polynomials, module polynomials and Y-sequences.",
 
