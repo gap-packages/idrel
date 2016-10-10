@@ -70,7 +70,7 @@ ArchiveFormats   := ".tar.gz",
 
 
 AbstractHTML :=
- "IdRel is a package for computing the identities among relations of a group presentation using rewriting, logged rewriting, monoid polynomials, module polynomials and Y-sequences.",
+"IdRel is a package for computing the identities among relations of a group presentation using rewriting, logged rewriting, monoid polynomials, module polynomials and Y-sequences.",
 
 PackageDoc := rec(
   BookName  := "IdRel",
