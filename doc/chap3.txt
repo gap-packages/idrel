@@ -1,0 +1,198 @@
+  
+  [1X3 [33X[0;0YLogged Rewriting Systems[133X[101X
+  
+  [33X[0;0YA [13Xlogged rewrite system[113X is associated with a group presentation. Each [13Xlogged
+  rewrite rule[113X contains, in addition to the standard rewrite rule, a record or
+  [13Xlog  component[113X which expresses the rule in terms of the original relators of
+  the  group.  We  represent  such  a rule by a triple [10X[ u, [L1,L2,..,Lk], v][110X,
+  where  [10X[u,v][110X  is  a  rewrite  rule  and [22XL_i = [n_i,w_i][122X where [22Xn_i[122X is a group
+  relator  and  [22Xw_i[122X  is  a  word. These three components obey the identity [22Xu =
+  n_1^w_1 ... n_k^w_k v[122X.[133X
+  
+  [33X[0;0YRules of the form [22Xg^+g^-[122X are relevant to the monoid presentation, but not to
+  the group presentation, so are given an empty logged component.[133X
+  
+  
+  [1X3.1 [33X[0;0YLogged Knuth-Bendix Completion[133X[101X
+  
+  [33X[0;0YThe  functions  in  this  section  are  the  logged versions of those in the
+  previous chapter.[133X
+  
+  [1X3.1-1 LoggedOnePassKB[101X
+  
+  [29X[2XLoggedOnePassKB[102X( [3Xloggedrules[103X ) [32X operation
+  
+  [33X[0;0YGiven  a logged rewrite system, this function finds all the rules that would
+  be  added  to  complete  the  rewrite system in [10XOnePassKB[110X, and also the logs
+  which  relate  the  new  rules to the originals. The result of applying this
+  function  to  [10Xloggedrules[110X  is  to add new logged rules to the system without
+  changing the monoid it defines.[133X
+  
+  [33X[0;0YIn the example, we first convert the presentation for [10Xq8[110X into an initial set
+  of logged rules, and then apply one pass of Knuth-Bendix.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xl0 := ListWithIdenticalEntries( 8, 0 );;[127X[104X
+    [4X[25Xgap>[125X [27Xfor j in [1..8] do [127X[104X
+    [4X[25X>[125X [27X       r := r0[j];[127X[104X
+    [4X[25X>[125X [27X       if ( j<5 ) then[127X[104X
+    [4X[25X>[125X [27X          l0[j] := [ r[1], [ [j,id] ], r[2] ];[127X[104X
+    [4X[25X>[125X [27X       else[127X[104X
+    [4X[25X>[125X [27X          l0[j] := [ r[1], [ ], r[2] ];[127X[104X
+    [4X[25X>[125X [27X       fi;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[25Xgap>[125X [27Xl0;[127X[104X
+    [4X[28X[ [ q8_M1^4, [ [ 1, <identity ...>] ], <identity. ..> ], [128X[104X
+    [4X[28X  [ q8_M2^4, [ [ 2, <identity ...>] ], <identity ...> ], [128X[104X
+    [4X[28X  [ q8_M1*q8_M2*q8_M1*q8_M4, [ [ 3, <identity ...> ] ], <identity ...> ],   [128X[104X
+    [4X[28X  [ q8_M1^2*q8_M2^2, [ [ 4, <identity ...> ] ], <identity ...> ], [128X[104X
+    [4X[28X  [ q8_M1*q8_M3, [ ], <identity ...> ], [ q8_M2*q8_M4, [ ], <identity ...> ], [128X[104X
+    [4X[28X  [ q8_M3*q8_M1, [ ], <identity ...> ], [ q8_M4*q8_M2, [ ], <identity ...> ] ] [128X[104X
+    [4X[25Xgap>[125X [27Xl1 := LoggedOnePassKB( l0 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( l1 ); [127X[104X
+    [4X[28X21[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X3.1-2 LoggedKnuthBendix[101X
+  
+  [29X[2XLoggedKnuthBendix[102X( [3Xloggedrules[103X ) [32X operation
+  [29X[2XLoggedRewriteReduce[102X( [3Xloggedrules[103X ) [32X operation
+  
+  [33X[0;0YThe  function  [10XLoggedRewriteReduce[110X  removes  unnecessary rules from a logged
+  rewrite system. It works on the same principle as [10XRewriteReduce[110X.[133X
+  
+  [33X[0;0YThe   function  [10XLoggedKnuthBendix[110X  repeatedly  applies  [10XLoggedOnePassKB[110X  and
+  [10XLoggedRewriteReduce[110X until no new rules are added and no unnecessary ones are
+  included. The output is a reduced complete logged rewrite system.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xl1 := LoggedRewriteReduce( l1 );[127X[104X
+    [4X[28X[ [ q8_M1*q8_M3, [ ], <identity ...> ], [128X[104X
+    [4X[28X  [ q8_M2^2, [ [ -4, <identity ...> ], [ 2, q8_M1^-2 ] ], q8_M1^2 ], [128X[104X
+    [4X[28X  [ q8_M2*q8_M4, [ ], <identity ...> ], [ q8_M3*q8_M1, [ ], <identity ...> ], [128X[104X
+    [4X[28X      [ q8_M4*q8_M2, [ ], <identity ...> ], [128X[104X
+    [4X[28X  [ q8_M1^3, [ [ 1, <identity. ..> ] ], q8_M3 ], [128X[104X
+    [4X[28X  [ q8_M1^2*q8_M2, [ [ 4, <identity. ..> ] ], q8_M4 ], [128X[104X
+    [4X[28X  [ q8_M1*q8_M2*q8_M1, [ [ 3, <identity ...> ] ], q8_M2 ], [128X[104X
+    [4X[28X  [ q8_M2*q8_M1*q8_M4, [ [ 3, q8_M3^-1 ] ], q8_M3] ][128X[104X
+    [4X[25Xgap>[125X [27Xl2 := LoggedKnuthBendix( l1 );[127X[104X
+    [4X[28X[ [ q8_M1*q8_M3, [ ], <identity ...> ], [128X[104X
+    [4X[28X  [ q8_M2*q8_M1, [ [ 3, q8_M3^-1 ], [-1, <identity. ..> ], [ 4, q8_M1^-1 ] ], [128X[104X
+    [4X[28X      q8_M1*q8_M4 ], [128X[104X
+    [4X[28X  [ q8_M2^2, [ [ -4, <identity ...> ], [2, q8_M1^-2] ], q8_M1^2 ], [128X[104X
+    [4X[28X  [ q8_M2*q8_M3, [ [ -3, <identity ...> ] ], q8_M1*q8_M2 ], [128X[104X
+    [4X[28X  [ q8_M2*q8_M4, [ ], <identity ...> ], [ q8_M3*q8_M1, [ ], <identity ...> ], [128X[104X
+    [4X[28X  [ q8_M3*q8_M2, [ [ -1, <identity ...>], [4, q8_M1^-1 ] ], q8_M1*q8_M4 ],[128X[104X
+    [4X[28X  [ q8_M3^2, [ [ -1, <identity ...>] ], q8_M1^2 ], [128X[104X
+    [4X[28X  [ q8_M3*q8_M4, [ [ -1, <identity ...>], [ -2, q8_M1^-2], [128X[104X
+    [4X[28X        [ 4, <identity ...> ], [ 3, q8_M3^-1*q8_M2^-1 ], [128X[104X
+    [4X[28X        [ -3, <identity. ..> ] ], q8_M1*q8_M2 ], [128X[104X
+    [4X[28X  [ q8_M4*q8_M1, [ [ -4, <identity ...> ], [ 3, q8_M1^-1 ] ], q8_M1*q8_M2 ], [128X[104X
+    [4X[28X  [ q8_M4*q8_M2, [ ], <identity ...> ], [128X[104X
+    [4X[28X  [ q8_M4*q8_M3, [ [ -3, q8_M3^-1*q8_M4^-1] ], q8_M1*q8_M4 ], [128X[104X
+    [4X[28X  [ q8_M4^2, [ [ -4, <identity. ..> ] ], q8_M1^2 ], [128X[104X
+    [4X[28X  [ q8_M1^3, [ [ 1, <identity ...> ] ], q8_M3 ], [128X[104X
+    [4X[28X  [ q8_M1^2*q8_M2, [ [4, <identity. ..> ] ], q8_M4 ], [128X[104X
+    [4X[28X  [ q8_M1^2*q8_M4, [ [ -4, q8_M1^-2], [ 1, <identity ...> ] ], q8_M2 ] ] [128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X3.2 [33X[0;0YLogged reduction of a word[133X[101X
+  
+  [1X3.2-1 LoggedReduceWordKB[101X
+  
+  [29X[2XLoggedReduceWordKB[102X( [3Xword[103X, [3Xloggedrules[103X ) [32X operation
+  [29X[2XLoggedOnePassReduceWord[102X( [3Xword[103X, [3Xloggedrules[103X ) [32X operation
+  [29X[2XShorterLoggedRule[102X( [3Xlogrule1[103X, [3Xlogrule2[103X ) [32X operation
+  
+  [33X[0;0YGiven    a    word    and    a   logged   rewrite   system,   the   function
+  [10XLoggedOnePassReduceWord[110X   makes   one   reduction   of   the   word  (as  in
+  [10XOnePassReduceWord[110X) and records this, using the log part of the rule used and
+  the position in the original word of the replaced part.[133X
+  
+  [33X[0;0YThe  function  [10XLoggedReduceWordKB[110X repeatedly applies [10XOnePassLoggedReduceWord[110X
+  until  the  word  can  no  longer  be reduced. Each step of the reduction is
+  logged,  showing  how  the  original  word  can be expressed in terms of the
+  original relators and the irreducible word. When [10Xloggedrules[110X is complete the
+  reduced  word is a unique normal form for that group element. The log of the
+  reduction depends on the order in which the rules are applied.[133X
+  
+  [33X[0;0YThe  function  [10XShorterLoggedrule[110X  decides  whether one logged rule is better
+  than  another,  using  the  same  criteria as [10XShorterRule[110X. In the example we
+  perform  logged  reductions  of  [10Xw0[110X corresponding to the ordinary reductions
+  performed in the previous chapter.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xw0; [127X[104X
+    [4X[28Xq8_M2^9*q8_M1^9[128X[104X
+    [4X[25Xgap>[125X [27Xlw1 := LoggedOnePassReduceWord( w0, l0 );[127X[104X
+    [4X[28X[ [ [ 1, q8_M2^-9 ], [ 2, <identity ...> ] ], q8_M2^5*q8_M1^5 ][128X[104X
+    [4X[25Xgap>[125X [27Xlw2 := LoggedReduceWordKB( w0, l0 ); [127X[104X
+    [4X[28X[ [ [ 1, q8_M2^-9 ], [ 2, <identity ...> ], [ 1, q8_M2^-5 ],[128X[104X
+    [4X[28X      [ 2, <identity ...> ] ], q8_M2*q8_M1 ][128X[104X
+    [4X[25Xgap>[125X [27Xlw2 := LoggedReduceWordKB( w0, l2 ); [127X[104X
+    [4X[28X[ [ [ 3, q8_M3^-1*q8_M2^-8 ], [ -1, q8_M2^-8 ], [ 4, q8_M1^-1*q8_M2^-8 ], [128X[104X
+    [4X[28X      [ -4, <identity ...> ], [ 2, q8_M1^-2 ], [128X[104X
+    [4X[28X      [ -4, q8_M1^-1*q8_M2^-6*q8_M1^-2 ], [ 3, q8_M1^-2*q8_M2^-6*q8_M1^-2 ], [128X[104X
+    [4X[28X      [ 1, q8_M2^-1*q8_M1^-2*q8_M2^-6*q8_M1^-2 ], [ 4, <identity ...> ], [128X[104X
+    [4X[28X      [ 3, q8_M3^-1*q8_M2^-4*q8_M4^-1 ], [ -1, q8_M2^-4*q8_M4^-1 ], [128X[104X
+    [4X[28X      [ 4, q8_M1^-1*q8_M2^-4*q8_M4^-1 ], [ -4, q8_M4^-1 ], [128X[104X
+    [4X[28X      [ 2, q8_M1^-2*q8_M4^-1 ], [128X[104X
+    [4X[28X      [ -3, q8_M1^-1*q8_M4^-1*q8_M1^-1*q8_M2^-2*q8_M1^-2*q8_M4^-1 ], [128X[104X
+    [4X[28X      [ -4, <identity ...> ], [ 3, q8_M1^-1 ], [128X[104X
+    [4X[28X      [ 1, q8_M2^-1*q8_M1^-2*q8_M4^-1*q8_M1^-1*q8_M2^-1*(q8_M2^-1*q8_M1^-1)^2 [128X[104X
+    [4X[28X         ], [ 4, q8_M4^-1*q8_M1^-1*q8_M2^-1*(q8_M2^-1*q8_M1^-1)^2 ], [128X[104X
+    [4X[28X      [ 3, q8_M3^-1*q8_M1^-1 ], [ -1, q8_M1^-1 ], [ 4, q8_M1^-2 ], [128X[104X
+    [4X[28X      [ -4, q8_M4^-1*q8_M1^-2 ], [ 2, q8_M1^-2*q8_M4^-1*q8_M1^-2 ], [128X[104X
+    [4X[28X      [ -4, q8_M1^-2 ], [ 3, q8_M1^-3 ], [ -4, q8_M1^-2*q8_M2^-1*q8_M1^-3 ], [128X[104X
+    [4X[28X      [ 1, <identity ...> ], [ 3, q8_M3^-2 ], [ -1, q8_M3^-1 ], [128X[104X
+    [4X[28X      [ 4, q8_M1^-1*q8_M3^-1 ], [ -4, <identity ...> ], [ 3, q8_M1^-1 ], [128X[104X
+    [4X[28X      [ 3, q8_M3^-1*q8_M1^-1 ], [ -1, q8_M1^-1 ], [ 4, q8_M1^-2 ], [128X[104X
+    [4X[28X      [ -4, q8_M1^-2 ], [ 3, q8_M1^-3 ], [ 1, <identity ...> ], [128X[104X
+    [4X[28X      [ -1, <identity ...> ], [ 4, q8_M1^-1 ] ], q8_M1*q8_M4 ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X3.2-2 LoggedRewritingSystemFpGroup[101X
+  
+  [29X[2XLoggedRewritingSystemFpGroup[102X( [3Xloggedrules[103X ) [32X attribute
+  
+  [33X[0;0YGiven   a  group  presentation,  the  function  [10XLoggedRewritingSystemFpGroup[110X
+  determines a logged rewrite system based on the relators. The initial logged
+  rewrite system associated with a group presentation consists of two types of
+  rule.  These  are  logged  versions  of  the two types of rule in the monoid
+  presentation.  For  each  relator  [10Xrel[110X of the group there is a logged rule [10X[
+  rel,  [  [  1,  rel] ], id][110X. For each inverse relator there is a logged rule
+  [10X[gen*inv,  [],  id  ][110X.  It  then attempts a completion of the logged rewrite
+  system.  The rules in the final system are partially ordered by the function
+  [10XShorterLoggedRule[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XLoggedRewritingSystemFpGroup( q8 );[127X[104X
+    [4X[28X[ [ q8_M4*q8_M2, [ ], <identity ...> ], [ q8_M3*q8_Ml, [ ], <identity ...> ], [128X[104X
+    [4X[28X    [ q8_M2*q8_M4, [ ], <identity ...> ], [128X[104X
+    [4X[28X  [ q8_Ml*q8_M3, [ ], <identity ...> ], [128X[104X
+    [4X[28X  [ q8_Ml^2*q8_M4, [ [ -8, q8_Ml^-2 ], [ 5, <identity ...> ] ], q8_M2 ], [128X[104X
+    [4X[28X  [ q8_Ml^2*q8_M2, [ [ 8, <identity ...> ] ], q8_M4 ], [128X[104X
+    [4X[28X  [ q8_Ml^3, [ [ 5, <identity ...> ] ], q8_M3 ], [128X[104X
+    [4X[28X  [ q8_M4^2, [ [ -8, <identity ...> ] ], q8_Ml^2 ], [128X[104X
+    [4X[28X  [ q8_M4*q8_M3, [ [ -7, q8_M3^-1*q8_M4^-1 ] ], q8_Ml*q8_M4 ], [128X[104X
+    [4X[28X  [ q8_M4*q8_Ml, [ [ -8, <identity. ..> ], [ 7, q8_Ml^-1 ] ], q8_Ml*q8_M2 ], [128X[104X
+    [4X[28X  [ q8_M3*q8_M4, [128X[104X
+    [4X[28X      [ [ -5, <identity ...>], [ -6, q8_Ml^-2 ], [ 8, <identity ...> ], [128X[104X
+    [4X[28X          [ 7, q8_M3^-1*q8_M2^-1 ], [ -7, <identity. ..> ] ], q8_Ml*q8_M2 ], [128X[104X
+    [4X[28X  [ q8_M3^2, [ [ -5, <identity ...>] ], q8_Ml^2 ], [128X[104X
+    [4X[28X  [ q8_M3*q8_M2, [ [ -5, <identity. ..> ], [ 8, q8_Ml^-1 ] ], q8_Ml*q8_M4 ], [128X[104X
+    [4X[28X  [ q8_M2*q8_M3, [ [ -7, <identity ...> ] ], q8_M1*q8_M2 ], [128X[104X
+    [4X[28X  [ q8_M2^2, [ [ -a, <identity ...> ], [ 6, q8_M1^-2 ] ], q8_M1^2 ], [128X[104X
+    [4X[28X  [ q8_M2*q8_M1, [ [ 7, q8_M3^-1 ], [ -5, <identity ...> ], [ a, q8_M1^-1 ] ], [128X[104X
+    [4X[28X      q8_M1*q8_M4 ] ] [128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  

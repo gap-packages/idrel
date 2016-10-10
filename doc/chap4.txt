@@ -1,0 +1,206 @@
+  
+  [1X4 [33X[0;0YMonoid Polynomials[133X[101X
+  
+  [33X[0;0YThis  chapter  describes  functions  to  compute  with  elements  of  a free
+  noncommutative  algebra.  The  elements  of the algebra are sums of rational
+  multiples  of  words  in a free monoid. These are called [13Xmonoid polynomials[113X,
+  and are stored as lists of pairs [10X[coefficient, word][110X.[133X
+  
+  
+  [1X4.1 [33X[0;0YConstruction of monoid polynomials[133X[101X
+  
+  [1X4.1-1 MonoidPolyFromCoeffsWords[101X
+  
+  [29X[2XMonoidPolyFromCoeffsWords[102X( [3Xcoeffs[103X, [3Xwords[103X ) [32X operation
+  [29X[2XMonoidPoly[102X( [3Xterms[103X ) [32X operation
+  [29X[2XZeroMonoidPoly[102X( [3XF[103X ) [32X operation
+  
+  [33X[0;0YThere are two ways to input a monoid polynomial: by listing the coefficients
+  and then the words; or by listing the terms as a list of pairs [10X[coefficient,
+  word][110X.  If  a word occurs more than once in the input list, the coefficients
+  will  be  added  so  that the terms of the monoid polynomial recorded do not
+  contain any duplicates. The zero monoid polynomial is the polynomial with no
+  terms.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xrels := RelatorsOfFpGroup( q8 );[127X[104X
+    [4X[28X[ f1^4, f2^4, f1*f2*f1*f2^-1, f1^2*f2^2 ] [128X[104X
+    [4X[25Xgap>[125X [27Xfreeq8 := FreeGroupOfFpGroup( q8 );; [127X[104X
+    [4X[25Xgap>[125X [27Xgens := GeneratorsOfGroup( freeq8 );;[127X[104X
+    [4X[25Xgap>[125X [27Xfamfree := ElementsFamily( FamilyObj( freeq8 ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xfamfree!.monoidPolyFam := MonoidPolyFam;;[127X[104X
+    [4X[25Xgap>[125X [27Xcg := [6,7];; [127X[104X
+    [4X[25Xgap>[125X [27Xpg := MonoidPolyFromCoeffsWords( cg, gens );; [127X[104X
+    [4X[25Xgap>[125X [27XPrint( pg, "\n" ); [127X[104X
+    [4X[28X7*f2 + 6*f1[128X[104X
+    [4X[25Xgap>[125X [27Xcr := [3,4,-5,-2];;[127X[104X
+    [4X[25Xgap>[125X [27Xpr := MonoidPolyFromCoeffsWords( cr, rels );; [127X[104X
+    [4X[25Xgap>[125X [27XPrint( pr, "\n" );[127X[104X
+    [4X[28X4*f2^4 - 5*f1*f2*f1*f2^-1 - 2*f1^2*f2^2 + 3*f1^4[128X[104X
+    [4X[25Xgap>[125X [27XPrint( ZeroMonoidPoly( freeq8 ), "\n" );[127X[104X
+    [4X[28Xzero monpoly[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.2 [33X[0;0YComponents of a polynomial[133X[101X
+  
+  [1X4.2-1 Terms[101X
+  
+  [29X[2XTerms[102X( [3Xpoly[103X ) [32X attribute
+  [29X[2XCoeffs[102X( [3Xpoly[103X ) [32X attribute
+  [29X[2XWords[102X( [3Xpoly[103X ) [32X attribute
+  [29X[2XLeadTerm[102X( [3Xpoly[103X ) [32X attribute
+  [29X[2XLeadCoeffMonoidPoly[102X( [3Xpoly[103X ) [32X attribute
+  
+  [33X[0;0YThe  function  [10XTerms[110X returns the terms of a polynomial as a list of pairs of
+  the  form  [10X[word, coefficient][110X. The function [10XCoeffs[110X returns the coefficients
+  of  a  polynomial  as  a list, and the function [10XWords[110X returns the words of a
+  polynomial  as  a  list.  The  function  [10XLeadTerm[110X  returns  the  term of the
+  polynomial  whose  word  component  is  the  largest  with  respect  to  the
+  length-lexicographical  ordering.  The  function [10XLeadCoeffMonoidPoly[110X returns
+  the coefficient of the leading term of a polynomial.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XCoeffs( pr );[127X[104X
+    [4X[28X[ 4, -5, -2, 3 ][128X[104X
+    [4X[25Xgap>[125X [27XTerms( pr );[127X[104X
+    [4X[28X[ [ 4, f2^4 ], [ -5, f1*f2*f1*f2^-1 ], [ -2, f1^2*f2^2 ], [ 3, f1^4 ] ][128X[104X
+    [4X[25Xgap>[125X [27XWords( pr );[127X[104X
+    [4X[28X[ f2^4, f1*f2*f1*f2^-1, f1^2*f2^2, f1^4 ][128X[104X
+    [4X[25Xgap>[125X [27XLeadTerm( pr );[127X[104X
+    [4X[28X[ 4, f2^4][128X[104X
+    [4X[25Xgap>[125X [27XLeadCoeffMonoidPoly( pr );[127X[104X
+    [4X[28X4[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X4.2-2 Monic[101X
+  
+  [29X[2XMonic[102X( [3Xpoly[103X ) [32X operation
+  
+  [33X[0;0YA  monoid  polynomial  is  called  [13Xmonic[113X  if  the coefficient of its leading
+  polynomial  is  one.  The  function [10XMonic[110X converts a polynomial into a monic
+  polynomial by dividing all the coefficients by the leading coefficient.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xmpr := Monic( pr );;[127X[104X
+    [4X[25Xgap>[125X [27XPrint( mpr, "\n" );[127X[104X
+    [4X[28Xf2^4 - 5/4*f1*f2*f1*f2^-1 - 1/2*f1^2*f2^2 + 3/4*f1^4[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X4.2-3 AddTermMonoidPoly[101X
+  
+  [29X[2XAddTermMonoidPoly[102X( [3Xpoly[103X, [3Xcoeff[103X, [3Xword[103X ) [32X operation
+  
+  [33X[0;0YThe  function  [10XAddTermMonoidPoly[110X  adds a new term, given by its coeffiecient
+  and word, to an existing polynomial.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xw := gens[1]^gens[2];[127X[104X
+    [4X[28Xf2^-1*f1*f2[128X[104X
+    [4X[25Xgap>[125X [27Xcw := 3/4;;[127X[104X
+    [4X[25Xgap>[125X [27Xwpg:= AddTermMonoidPoly( pg, cw, w);;[127X[104X
+    [4X[25Xgap>[125X [27XPrint( wpg, "\n" );[127X[104X
+    [4X[28X3/4*f2^-1*f1*f2 + 7*f2 + 6*f1[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.3 [33X[0;0YMonoid Polynomial Operations[133X[101X
+  
+  [33X[0;0YTests for equality and arithmetic operations are performed in the usual way.[133X
+  
+  [33X[0;0YThe  operation [10Xpoly1 = poly2[110X returns [10Xtrue[110X if the monoid polynomials have the
+  same  terms,  and [10Xfalse[110X otherwise. Multiplication of a monoid polynomial (on
+  the  left  or  right)  by  a coefficient; the addition or subtraction of two
+  monoid  polynomials; multiplication (on the right) of a monoid polynomial by
+  a word; and multiplication of two monoid polynomials; are all implemented.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27X[ pg = pg, pg = pr ];[127X[104X
+    [4X[28X[ true, false ][128X[104X
+    [4X[25Xgap>[125X [27Xprcw := pr*cw;;[127X[104X
+    [4X[25Xgap>[125X [27XPrint( prcw, "\n" );[127X[104X
+    [4X[28X3*f2^4 - 15/4*f1*f2*f1*f2^-1 - 3/2*f1^2*f2^2 + 9/4*f1^4[128X[104X
+    [4X[25Xgap>[125X [27Xcwpr := cw*pr;; [127X[104X
+    [4X[25Xgap>[125X [27XPrint( cwpr, "\n" ); [127X[104X
+    [4X[28X3*f2^4 - 15/4*f1*f2*f1*f2^-1 - 3/2*f1^2*f2^2 + 9/4*f1^4[128X[104X
+    [4X[25Xgap>[125X [27X[ pr = prcw, prcw = cwpr ];[127X[104X
+    [4X[28X[ false, true ] [128X[104X
+    [4X[25Xgap>[125X [27XPrint( pg + pr, "\n" );[127X[104X
+    [4X[28X4*f2^4 - 5*f1*f2*f1*f2^-1 - 2*f1^2*f2^2 + 3*f1^4 + 7*f2 + 6*f1 [128X[104X
+    [4X[25Xgap>[125X [27XPrint( pg - pr, "\n" );[127X[104X
+    [4X[28X- 4*f2^4 + 5*f1*f2*f1*f2^-1 + 2*f1^2*f2^2 - 3*f1^4 + 7*f2 + 6*f1[128X[104X
+    [4X[25Xgap>[125X [27XPrint( pg * w, "\n" );[127X[104X
+    [4X[28X6*f1*f2^-1*f1*f2 + 7*f1*f2 [128X[104X
+    [4X[25Xgap>[125X [27XPrint( pg * pr, "\n" );[127X[104X
+    [4X[28X28*f2^5 - 35*(f2*f1)^2*f2^-1 - 14*f2*f1^2*f2^2 + 21*f2*f1^4 + 24*f1*f2^4 - [128X[104X
+    [4X[28X30*f1^2*f2*f1*f2^-1 - 12*f1^3*f2^2 + 18*f1^5[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X4.3-1 Length[101X
+  
+  [29X[2XLength[102X( [3Xpoly[103X ) [32X attribute
+  
+  [33X[0;0YThis function returns the number of distinct terms in the monoid polynomial.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XLength( pr );[127X[104X
+    [4X[28X4[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  boolean function [10Xpoly1 > poly2[110X returns [10Xtrue[110X if the first polynomial has
+  more  terms  than the second. If the polynomials are the same length it will
+  compare   their  leading  terms.  If  the  leading  word  of  the  first  is
+  lengthlexicographically  greater  than the leading word of the second, or if
+  the  words  are  equal  but the coefficient of the first is greater than the
+  coefficient  of  the  second then true is returned. If the leading terms are
+  equal then the next terms are compared in the same way. If all terms are the
+  same then [10Xfalse[110X is returned.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27X[ pr > 3*pr, pr > pg ];[127X[104X
+    [4X[28X[ false, true ] [128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.4 [33X[0;0YReduction of a Monoid Polynomial[133X[101X
+  
+  [1X4.4-1 ReduceMonoidPoly[101X
+  
+  [29X[2XReduceMonoidPoly[102X( [3Xpoly[103X, [3Xrules[103X ) [32X operation
+  
+  [33X[0;0YRecall  that the words of a monoid polynomial are elements of a free monoid.
+  Given  a  rewrite  system (set of rules) on the free monoid the words can be
+  reduced.  This  allows  us to simulate calculation in monoid rings where the
+  monoid  is given by a complete presentation. This function reduces the words
+  of the polynomial (elements of the free monoid) with respect to the complete
+  rewrite system. The words of the reduced polynomial are normal forms for the
+  elements of the monoid presented by that rewite system. The list of rules [10Xr2[110X
+  is displayed in section 2.3.3.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XM := genfgmon;;[127X[104X
+    [4X[25Xgap>[125X [27Xmp1 := MonoidPolyFromCoeffsWords( [127X[104X
+    [4X[25X>[125X [27X          [9,-7,5], [M[1]*M[3], M[2]^3, M[4]*M[3]*M[2]] );; [127X[104X
+    [4X[25Xgap>[125X [27XPrint( mp1, "\n" ); [127X[104X
+    [4X[28X5*q8_M4*q8_M3*q8_M2 - 7*q8_M2^3 + 9*q8_M1*q8_M3[128X[104X
+    [4X[25Xgap>[125X [27Xrmp1 := ReduceMonoidPoly( mp1, r2 );;[127X[104X
+    [4X[25Xgap>[125X [27XPrint( rmp1, "\n" ); [127X[104X
+    [4X[28X - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  

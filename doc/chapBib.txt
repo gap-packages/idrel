@@ -1,0 +1,25 @@
+  
+  
+  [1XReferences[101X
+  
+  [[20XBH82[120X]  [16XBrown,  R.  and  Huebschumann,  J.[116X  ([1m[31mBrown, R. and Thickstun, T. L.[15X,
+  Eds.),  [17XIdentities  among  relations[117X, in Low-Dimensional Topology, Cambridge
+  University Press, London Math. Soc. Lecture Note Series, [19X46[119X (1982), 153–202.
+  
+  [[20XBS99[120X]  [16XBrown,  R.  and  Razak  Salleh, A.[116X, [17XOn the computation of identities
+  among relations and of free crossed resolutions of groups[117X, [18XLondon Math. Soc.
+  J. Comput. Math.[118X, [19X2[119X (1999), 28–61.
+  
+  [[20XHey99[120X]  [16XHeyworth,  A.[116X, [17XApplications of Rewriting Systems and Groebner Bases
+  to  Computing  Kan  Extensions and Identities Among Relations[117X, Ph.D. thesis,
+  University         of         Wales,         Bangor        (1999),        ((
+  http://www.maths.bangor.ac.uk/research/ftp/theses/heyworth.ps.gz )).
+  
+  [[20XHW03[120X]  [16XHeyworth,  A.  and Wensley, C. D.[116X ([1m[31mCampbell, C. M., Robertson, E. F.
+  and  Smith, G. C.[15X, Eds.), [17XLogged rewriting and identities among relators[117X, in
+  Groups  St  Andrews 2001 in Oxford, Cambridge University Press, London Math.
+  Soc. Lecture Note Series, [19X304[119X (2003), 256–276.
+  
+  
+  
+  [32X

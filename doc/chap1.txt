@@ -1,0 +1,53 @@
+  
+  [1X1 [33X[0;0YIntroduction[133X[101X
+  
+  [33X[0;0YThis  manual  describes  the  [5XIdRel[105X  package  for  [5XGAP[105X 4.7 for computing the
+  identities  among  relators  of a group presentation using rewriting, logged
+  rewriting, monoid polynomials, module polynomials and [22XY[122X-sequences.[133X
+  
+  [33X[0;0YThe  theoretical background for these computations is contained in Brown and
+  Huebschumann  [BH82],  Brown  and Razak Salleh [BS99] and is surveyed in the
+  first author's thesis [Hey99].[133X
+  
+  [33X[0;0Y[5XIdRel[105X  is  primarily  designed  for  the  computation  of  a  minimal set of
+  generators  for  the  module  of identities among relators. It also contains
+  functions  which compute logged rewrite systems for group presentations (and
+  complete  them  where possible); functions for operations involving elements
+  of monoid rings; and functions for operations with elements of right modules
+  over  monoid  rings.  The  [22XY[122X-sequences  are  used  as  a  [13Xrewriting[113X  way  of
+  representing  elements  of  a free crossed module (products of conjugates of
+  group  relators  and  inverse  relators). The package is written entirely in
+  [5XGAP[105X4, and requires no compilation.[133X
+  
+  [33X[0;0YThe  package  is  loaded  into [5XGAP[105X with the [10XLoadPackage[110X command, and on-line
+  help is available in the usual way.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XLoadPackage( "idrel" ); [127X[104X
+    [4X[25Xgap>[125X [27X?idrel[127X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YA  pdf  version of the [5XIdRel[105X manual is available in the [11Xdoc[111X directory of the
+  home  directory  of  [5XIdRel[105X.  The information parameter [10XInfoIdRel[110X has default
+  value  [10X0[110X.  When  raised to a higher value, additional information is printed
+  out.  [5XIdRel[105X was originally developed in 1999 using [5XGAP[105X3, partially supported
+  by  a  University of Wales Research Assistantship for the first author, Anne
+  Heyworth.[133X
+  
+  [33X[0;0YIf  you  use  [5XIdRel[105X to solve a problem then please send a short email to the
+  second  author,  to  whom bug reports, suggestions and other comments should
+  also  be  sent.  You  may  reference  the  package  by mentioning [HW03] and
+  [Hey99].[133X
+  
+  [33X[0;0YThe current version is 2.33 for [5XGAP[105X 4.8, released on 10th October 2016.[133X
+  
+  [33X[0;0YThe  package  may  be obtained as a compressed tar file [11Xidrel-2.33.tar.gz[111X by
+  ftp from one of the following sites:[133X
+  
+  [30X    [33X[0;6Yany                  [5XGAP[105X                 archive,                 e.g.
+        [7Xhttp://www.gap-system.org/Packages/packages.html[107X;[133X
+  
+  [30X    [33X[0;6Ythe package GitHub repository: [7Xhttps://github.com/gap-packages/idrel[107X.[133X
+  

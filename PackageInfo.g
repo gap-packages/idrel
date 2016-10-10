@@ -1,102 +1,103 @@
 #############################################################################
-##  
-##  Demo PackageInfo.g for the GitHubPagesForGAP
+##
+##  PackageInfo.g   file for the package IdRel version 2.33 
+##  Anne Heyworth and Chris Wensley 
 ##
 
 SetPackageInfo( rec(
+PackageName := "idrel",
+Subtitle := "Identities among relations",
 
-PackageName := "GitHubPagesForGAP",
+Version := "2.33",
+Date := "10/10/2016",
 
-Subtitle := "A GitHubPages generator for GAP packages",
-Version := "0.1",
-Date := "21/03/2014", # dd/mm/yyyy format
+##  duplicate these values for inclusion in the manual: 
+##  <#GAPDoc Label="PKGVERSIONDATA"> 
+##  <!ENTITY IDRELVERSION "2.33">
+##  <!ENTITY IDRELTARFILENAME "idrel-2.33.tar.gz">
+##  <!ENTITY IDRELHTMLFILENAME "idrel233.html">
+##  <!ENTITY IDRELRELEASEDATE "10/10/2016">
+##  <!ENTITY IDRELLONGRELEASEDATE "10th October 2016">
+##  <!ENTITY IDRELCOPYRIGHTYEARS "1999-2016">
+##  <#/GAPDoc>
 
 Persons := [
   rec(
-    LastName      := "Horn",
-    FirstNames    := "Max",
-    IsAuthor      := true,
-    IsMaintainer  := true,
-    Email         := "max.horn@math.uni-giessen.de",
-    WWWHome       := "http://www.quendi.de/math",
-    PostalAddress := Concatenation(
-                       "AG Algebra\n",
-                       "Mathematisches Institut\n",
-                       "Justus-Liebig-Universität Gießen\n",
-                       "Arndtstraße 2\n",
-                       "35392 Gießen\n",
-                       "Germany" ),
-    Place         := "Gießen",
-    Institution   := "Justus-Liebig-Universität Gießen"
-  ),
-
-  rec(
-    LastName      := "Thor",
-    FirstNames    := "A. U.",
+    LastName      := "Heyworth",
+    FirstNames    := "Anne",
     IsAuthor      := true,
     IsMaintainer  := false,
-    #Email         := "author@example.com",
+    ## Email         := "anne.heyworth@gmail.com",
+    ## WWWHome       := "",
+    ## PostalAddress := Concatenation( ["\n", "UK"] ),
+    ## Place         := "",
+    ## Institution   := ""
   ),
-
   rec(
-    LastName      := "Itor",
-    FirstNames    := "Jan",
-    IsAuthor      := false,
+    LastName      := "Wensley",
+    FirstNames    := "Christopher D.",
+    IsAuthor      := true,
     IsMaintainer  := true,
-    #Email         := "janitor@example.com",
-  ),
+    Email         := "cdwensley.maths@btinternet.com",
+    WWWHome       := "http://pages.bangor.ac.uk/~mas023/",
+    ## PostalAddress := Concatenation( [
+    ##                    "Dr. C.D. Wensley\n",
+    ##                    "School of Computer Science\n",
+    ##                    "Bangor University\n",
+    ##                    "Dean Street\n",
+    ##                    "Bangor\n",
+    ##                    "Gwynedd LL57 1UT\n",
+    ##                    "UK"] ),
+    Place         := "Bangor",
+    Institution   := "Bangor University"
+  )
 ],
 
-Status := "other",
+Status := "accepted",
+CommunicatedBy := "Leonard Soicher (QMUL)",
+AcceptDate := "05/2015",
 
-# The following are not strictly necessary in your own PackageInfo.g
-# (in the sense that update.g only looks at the usual fields
-# like PackageWWWHome, ArchiveURL etc.). But they are convenient
-# if you use exactly the scheme for your package website that we propose.
-GithubUser := "fingolfin",
-GithubRepository := ~.PackageName,
-GithubWWW := Concatenation("https://github.com/", ~.GithubUser, "/", ~.GithubRepository),
+SourceRepository := rec( Type := "git", 
+                         URL := "https://github.com/gap-packages/idrel" ),
+IssueTrackerURL  := Concatenation( ~.SourceRepository.URL, "/issues" ),
+PackageWWWHome   := "https://gap-packages.github.io/idrel/",
+README_URL       := Concatenation( ~.PackageWWWHome, "README" ),
+PackageInfoURL   := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
+ArchiveURL       := Concatenation( ~.SourceRepository.URL, 
+                                   "/releases/download/v", ~.Version, 
+                                   "/", ~.PackageName, "-", ~.Version ), 
+ArchiveFormats   := ".tar.gz",
 
-PackageWWWHome := Concatenation("http://", ~.GithubUser, ".github.io/", ~.GithubRepository, "/"),
-README_URL     := Concatenation( ~.PackageWWWHome, "README" ),
-PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
-# The following assumes you are using the Github releases system. If not, adjust
-# it accordingly.
-ArchiveURL     := Concatenation(~.GithubWWW,
-                    "/releases/download/v", ~.Version, "/",
-                    ~.GithubRepository, "-", ~.Version),
 
-ArchiveFormats := ".tar.gz .tar.bz2",
-
-AbstractHTML := 
-  "This is a pseudo package that contains no actual\
-  <span class=\"pkgname\">GAP</span> code. Instead, it is a template for other\
-  GAP packages that allows to quickly setup GitHub pages.",
+AbstractHTML :=
+ "IdRel is a package for computing the identities among relations of a group presentation using rewriting, logged rewriting, monoid polynomials, module polynomials and Y-sequences.",
 
 PackageDoc := rec(
-  BookName  := "GitHubPagesForGAP",
+  BookName  := "IdRel",
   ArchiveURLSubset := ["doc"],
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "A GitHubPages generator for GAP packages",
+  LongTitle := "Identities among Relations",
+  Autoload  := true
 ),
 
-# The following dependencies are fake and for testing / demo purposes
 Dependencies := rec(
-  GAP := ">=4.5.5",
-  NeededOtherPackages := [
-    ["GAPDoc", ">= 1.2"],
-    ["IO", ">= 4.1"],
-  ],
-  SuggestedOtherPackages := [["orb", ">= 4.2"]],
-  ExternalConditions := []
+  GAP := ">=4.7",
+  NeededOtherPackages := [ [ "xmod", ">= 2.56" ], [ "GAPDoc", ">= 1.5.1" ] ],
+  SuggestedOtherPackages := [ ],
+  ExternalConditions := [ ]
 ),
 
 AvailabilityTest := ReturnTrue,
 
-Keywords := ["GitHub pages", "GAP"]
+BannerString := Concatenation( 
+    "Loading IdRel ", String( ~.Version ), " for GAP 4.7", 
+    " - Anne Heyworth and Chris Wensley ...\n" ),
+
+TestFile := "tst/idrel_manual.tst",
+
+Keywords := ["logged rewriting","identities among relations",
+             "Y-sequences"]
 
 ));
-
-

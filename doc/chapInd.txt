@@ -1,0 +1,57 @@
+  
+  
+  [1XIndex[101X
+  
+  =,+,* for module polynomials  5.3
+  =,+,* for monoid polynomials  4.3
+  [2XAddTermModulePoly[102X  5.3-1
+  [2XAddTermMonoidPoly[102X  4.2-3
+  [2XCoeffs[102X  4.2-1
+  [2XElementsOfMonoidPresentation[102X  2.4-1
+  [2XFreeGroupOfPresentation[102X  2.2-2
+  [2XFreeRelatorGroup[102X  2.2-1
+  [2XFreeRelatorHomomorphism[102X  2.2-1
+  [2XGroupRelatorsOfPresentation[102X  2.2-2
+  [2XHomomorphismOfPresentation[102X  2.2-2
+  [2XIdentitiesAmongRelators[102X  5.4-1
+  [2XIdentityModulePolynomials[102X  5.4-1
+  [2XIdentityYSequences[102X  5.4-1
+  [2XInverseRelatorsOfPresentation[102X  2.2-2
+  [2XKnuthBendix[102X  2.3-3
+  [2XLeadCoeffMonoidPoly[102X  4.2-1
+  [2XLeadMonoidPoly[102X  5.2-1
+  [2XLeadTerm[102X  4.2-1
+  [2XLeadTerm[102X  5.2-1
+  [2XLength[102X  4.3-1
+  [2XLength[102X  5.2-1
+  License  .-2
+  [2XLoggedKnuthBendix[102X  3.1-2
+  [2XLoggedOnePassKB[102X  3.1-1
+  [2XLoggedOnePassReduceWord[102X  3.2-1
+  [2XLoggedReduceWordKB[102X  3.2-1
+  [2XLoggedRewriteReduce[102X  3.1-2
+  [2XLoggedRewritingSystemFpGroup[102X  3.2-2
+  [2XModulePoly[102X  5.1-1
+  [2XModulePoly[102X  5.1-1
+  [2XMonic[102X  4.2-2
+  [2XMonoidPoly[102X  4.1-1
+  [2XMonoidPolyFromCoeffsWords[102X  4.1-1
+  [2XMonoidPresentationFpGroup[102X  2.2-2
+  [2XOne[102X  5.2-1
+  [2XOnePassKB[102X  2.3-3
+  [2XOnePassReduceWord[102X  2.3-2
+  [2XReduceMonoidPoly[102X  4.4-1
+  [2XReduceWordKB[102X  2.3-2
+  [2XRewriteReduce[102X  2.3-3
+  [2XRewritingSystemFpGroup[102X  2.3-1
+  [2XRootIdentities[102X  5.4-2
+  [2XShorterLoggedRule[102X  3.2-1
+  [2XShorterRule[102X  2.3-3
+  [2XTerms[102X  4.2-1
+  [2XTerms[102X  5.2-1
+  [2XWords[102X  4.2-1
+  [2XZeroModulePoly[102X  5.1-1
+  [2XZeroMonoidPoly[102X  4.1-1
+  
+  
+  -------------------------------------------------------

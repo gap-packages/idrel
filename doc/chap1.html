@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (IdRel) - Chapter 1: Introduction</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap1"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap2.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap1_mj.html">[MathJax on]</a></p>
+<p><a id="X7DFB63A97E67C0A1" name="X7DFB63A97E67C0A1"></a></p>
+<div class="ChapSects"><a href="chap1.html#X7DFB63A97E67C0A1">1 <span class="Heading">Introduction</span></a>
+</div>
+
+<h3>1 <span class="Heading">Introduction</span></h3>
+
+<p>This manual describes the <strong class="pkg">IdRel</strong> package for <strong class="pkg">GAP</strong> 4.7 for computing the identities among relators of a group presentation using rewriting, logged rewriting, monoid polynomials, module polynomials and <span class="SimpleMath">Y</span>-sequences.</p>
+
+<p>The theoretical background for these computations is contained in Brown and Huebschumann <a href="chapBib.html#biBBrHu">[BH82]</a>, Brown and Razak Salleh <a href="chapBib.html#biBBrSa">[BS99]</a> and is surveyed in the first author's thesis <a href="chapBib.html#biBanne-thesis">[Hey99]</a>.</p>
+
+<p><strong class="pkg">IdRel</strong> is primarily designed for the computation of a minimal set of generators for the module of identities among relators. It also contains functions which compute logged rewrite systems for group presentations (and complete them where possible); functions for operations involving elements of monoid rings; and functions for operations with elements of right modules over monoid rings. The <span class="SimpleMath">Y</span>-sequences are used as a <em>rewriting</em> way of representing elements of a free crossed module (products of conjugates of group relators and inverse relators). The package is written entirely in <strong class="pkg">GAP</strong>4, and requires no compilation.</p>
+
+<p>The package is loaded into <strong class="pkg">GAP</strong> with the <code class="code">LoadPackage</code> command, and on-line help is available in the usual way.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LoadPackage( "idrel" ); </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">?idrel</span>
+
+</pre></div>
+
+<p>A pdf version of the <strong class="pkg">IdRel</strong> manual is available in the <code class="file">doc</code> directory of the home directory of <strong class="pkg">IdRel</strong>. The information parameter <code class="code">InfoIdRel</code> has default value <code class="code">0</code>. When raised to a higher value, additional information is printed out. <strong class="pkg">IdRel</strong> was originally developed in 1999 using <strong class="pkg">GAP</strong>3, partially supported by a University of Wales Research Assistantship for the first author, Anne Heyworth.</p>
+
+<p>If you use <strong class="pkg">IdRel</strong> to solve a problem then please send a short email to the second author, to whom bug reports, suggestions and other comments should also be sent. You may reference the package by mentioning <a href="chapBib.html#biBHeWe1">[HW03]</a> and <a href="chapBib.html#biBanne-thesis">[Hey99]</a>.</p>
+
+<p>The current version is 2.33 for <strong class="pkg">GAP</strong> 4.8, released on 10th October 2016.</p>
+
+<p>The package may be obtained as a compressed tar file <code class="file">idrel-2.33.tar.gz</code> by ftp from one of the following sites:</p>
+
+
+<ul>
+<li><p>any <strong class="pkg">GAP</strong> archive, e.g. <span class="URL"><a href="http://www.gap-system.org/Packages/packages.html">http://www.gap-system.org/Packages/packages.html</a></span>;</p>
+
+</li>
+<li><p>the package GitHub repository: <span class="URL"><a href="https://github.com/gap-packages/idrel">https://github.com/gap-packages/idrel</a></span>.</p>
+
+</li>
+</ul>
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap2.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>
