@@ -69,10 +69,6 @@ any &GAP; archive, e.g.
 <URL>http://www.gap-system.org/Packages/packages.html</URL>; 
 </Item>
 <Item>
-the Bangor site: 
-<URL>http://www.maths.bangor.ac.uk/chda/gap4/idrel/&IDRELHTMLFILENAME;</URL>;
-</Item>
-<Item>
 the package GitHub repository: 
 <URL>https://github.com/gap-packages/idrel</URL>. 
 </Item>

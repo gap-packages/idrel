@@ -9,22 +9,22 @@ PackageName := "idrel",
 Subtitle := "Identities among relations",
 
 Version := "2.33",
-Date := "18/02/2016",
+Date := "10/10/2016",
 
 ##  duplicate these values for inclusion in the manual: 
 ##  <#GAPDoc Label="PKGVERSIONDATA"> 
 ##  <!ENTITY IDRELVERSION "2.33">
 ##  <!ENTITY IDRELTARFILENAME "idrel-2.33.tar.gz">
 ##  <!ENTITY IDRELHTMLFILENAME "idrel233.html">
-##  <!ENTITY IDRELRELEASEDATE "18/02/2016">
-##  <!ENTITY IDRELLONGRELEASEDATE "18th February 2016">
+##  <!ENTITY IDRELRELEASEDATE "10/10/2016">
+##  <!ENTITY IDRELLONGRELEASEDATE "10th October 2016">
 ##  <!ENTITY IDRELCOPYRIGHTYEARS "1999-2016">
 ##  <#/GAPDoc>
 
 PackageWWWHome := 
-  "http://pages.bangor.ac.uk/~mas023/chda/idrel/",
+  "http://gap-packages.github.io/idrel/",
 
-ArchiveURL := "http://pages.bangor.ac.uk/~mas023/chda/idrel/idrel-2.33", 
+ArchiveURL := "http://gap-packages.github.io/idrel/idrel-2.33", 
 ArchiveFormats := ".tar.gz",
 
 Persons := [
@@ -44,16 +44,16 @@ Persons := [
     FirstNames    := "Christopher D.",
     IsAuthor      := true,
     IsMaintainer  := true,
-    Email         := "c.d.wensley@bangor.ac.uk",
+    Email         := "cdwensley.maths@btinternet.com",
     WWWHome       := "http://pages.bangor.ac.uk/~mas023/",
-    PostalAddress := Concatenation( [
-                       "Dr. C.D. Wensley\n",
-                       "School of Computer Science\n",
-                       "Bangor University\n",
-                       "Dean Street\n",
-                       "Bangor\n",
-                       "Gwynedd LL57 1UT\n",
-                       "UK"] ),
+    ## PostalAddress := Concatenation( [
+    ##                    "Dr. C.D. Wensley\n",
+    ##                    "School of Computer Science\n",
+    ##                    "Bangor University\n",
+    ##                    "Dean Street\n",
+    ##                    "Bangor\n",
+    ##                    "Gwynedd LL57 1UT\n",
+    ##                    "UK"] ),
     Place         := "Bangor",
     Institution   := "Bangor University"
   )
@@ -88,7 +88,7 @@ PackageDoc := rec(
 
 Dependencies := rec(
   GAP := ">=4.7",
-  NeededOtherPackages := [ [ "xmod", ">= 2.51" ], [ "GAPDoc", ">= 1.5.1" ] ],
+  NeededOtherPackages := [ [ "xmod", ">= 2.56" ], [ "GAPDoc", ">= 1.5.1" ] ],
   SuggestedOtherPackages := [ ],
   ExternalConditions := [ ]
 ),

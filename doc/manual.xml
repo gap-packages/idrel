@@ -28,12 +28,12 @@
   <Date>&IDRELRELEASEDATE;</Date> 
   <Author> Anne Heyworth </Author>    
   <Author> Chris Wensley
-    <Email>c.d.wensley@bangor.ac.uk</Email>
+    <Email>cdwensley.maths@btinternet.com</Email>
     <Homepage>http://pages.bangor.ac.uk/~mas023/</Homepage>
-    <Address>
-      School of Computer Science, Bangor University,<Br/>
-      Dean Street, Bangor, Gwynedd, LL57 1UT, U.K.
-    </Address>
+    <!--  <Address>                                              -->
+    <!--    School of Computer Science, Bangor University,<Br/>. -->
+    <!--    Dean Street, Bangor, Gwynedd, LL57 1UT, U.K.         -->
+    <!--  </Address>                                             -->
   </Author>
 
 <Abstract>
@@ -68,7 +68,7 @@ elements of a free crossed module
 <P/>
 Bug reports, suggestions and comments are, of course, welcome. 
 Please contact the second author at     
-<Email>c.d.wensley@bangor.ac.uk</Email>.
+<Email>cdwensley.maths@btinternet.com</Email>.
 </Abstract>
 
 <Copyright> 
