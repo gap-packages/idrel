@@ -39,7 +39,7 @@ Installation
 gap> LoadPackage("idrel");
 true
 3) The documentation is in the `doc' subdirectory.
-4) To run the test file read testall.g from the gpd/tst/ directory. 
+4) To run the test file read testall.g from the idrel/tst/ directory. 
 
 Contact
 -------
