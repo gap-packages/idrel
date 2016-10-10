@@ -21,12 +21,6 @@ Date := "10/10/2016",
 ##  <!ENTITY IDRELCOPYRIGHTYEARS "1999-2016">
 ##  <#/GAPDoc>
 
-PackageWWWHome := 
-  "http://gap-packages.github.io/idrel/",
-
-ArchiveURL := "http://gap-packages.github.io/idrel/idrel-2.33", 
-ArchiveFormats := ".tar.gz",
-
 Persons := [
   rec(
     LastName      := "Heyworth",
@@ -63,15 +57,17 @@ Status := "accepted",
 CommunicatedBy := "Leonard Soicher (QMUL)",
 AcceptDate := "05/2015",
 
-README_URL := 
-  Concatenation( ~.PackageWWWHome, "README" ),
-PackageInfoURL := 
-  Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
+SourceRepository := rec( Type := "git", 
+                         URL := "https://github.com/gap-packages/idrel" ),
+IssueTrackerURL  := Concatenation( ~.SourceRepository.URL, "/issues" ),
+PackageWWWHome   := "https://gap-packages.github.io/idrel/",
+README_URL       := Concatenation( ~.PackageWWWHome, "README" ),
+PackageInfoURL   := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
+ArchiveURL       := Concatenation( ~.SourceRepository.URL, 
+                                   "/releases/download/v", ~.Version, 
+                                   "/", ~.PackageName, "-", ~.Version ), 
+ArchiveFormats   := ".tar.gz",
 
-SourceRepository := rec( 
-  Type := "git", 
-  URL := "https://github.com/gap-packages/idrel" ),
-IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
 
 AbstractHTML :=
  "IdRel is a package for computing the identities among relations of a group presentation using rewriting, logged rewriting, monoid polynomials, module polynomials and Y-sequences.",
