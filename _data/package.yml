@@ -1,6 +1,6 @@
 name: idrel
 version: 2.33
-date: 10/10/2016
+date: 18/10/2016
 description: Identities among relations
 
 authors:
@@ -17,7 +17,7 @@ GAP: ">=4.7"
 needed-pkgs:
     - name: "xmod"
       version: ">= 2.56"
-      url: "http://pages.bangor.ac.uk/~mas023/chda/xmod/"
+      url: "http://gap-packages.github.io/xmod/"
     - name: "GAPDoc"
       version: ">= 1.5.1"
       url: "http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc"

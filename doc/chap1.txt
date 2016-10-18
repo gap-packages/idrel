@@ -41,7 +41,7 @@
   also  be  sent.  You  may  reference  the  package  by mentioning [HW03] and
   [Hey99].[133X
   
-  [33X[0;0YThe current version is 2.33 for [5XGAP[105X 4.8, released on 10th October 2016.[133X
+  [33X[0;0YThe current version is 2.33 for [5XGAP[105X 4.8, released on 18th October 2016.[133X
   
   [33X[0;0YThe  package  may  be obtained as a compressed tar file [11Xidrel-2.33.tar.gz[111X by
   ftp from one of the following sites:[133X
