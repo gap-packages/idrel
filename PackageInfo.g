@@ -9,15 +9,15 @@ PackageName := "idrel",
 Subtitle := "Identities among relations",
 
 Version := "2.33",
-Date := "13/10/2016",
+Date := "18/10/2016",
 
 ##  duplicate these values for inclusion in the manual: 
 ##  <#GAPDoc Label="PKGVERSIONDATA"> 
 ##  <!ENTITY IDRELVERSION "2.33">
 ##  <!ENTITY IDRELTARFILENAME "idrel-2.33.tar.gz">
 ##  <!ENTITY IDRELHTMLFILENAME "idrel233.html">
-##  <!ENTITY IDRELRELEASEDATE "13/10/2016">
-##  <!ENTITY IDRELLONGRELEASEDATE "13th October 2016">
+##  <!ENTITY IDRELRELEASEDATE "18/10/2016">
+##  <!ENTITY IDRELLONGRELEASEDATE "18th October 2016">
 ##  <!ENTITY IDRELCOPYRIGHTYEARS "1999-2016">
 ##  <#/GAPDoc>
 

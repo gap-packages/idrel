@@ -6,8 +6,9 @@ ToDo:
  - add a History chapter to the manual 
 
 ############################################################################
-2.32 -> 2.33  (13/10/2016)
+2.32 -> 2.33  (18/10/2016)
 
+ - (18/10/16) now using bibliography file bib.xml of type "bibxmlext.dtd"
  - (10/10/16) changed my email address and package releases to github.io
  - (18/02/16) removed date/version info from file headers 
  - (12/01/16) changes to the ENTITYs in PackageInfo.g 

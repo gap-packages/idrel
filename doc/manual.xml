@@ -105,7 +105,7 @@ of Max Horn.
 
 </Body>
 
-<Bibliography Databases="idrelbib.xml"/>
+<Bibliography Databases="bib.xml"/>
 <!--  <Bibliography Databases="manual"/> --> 
 
 <TheIndex/>
