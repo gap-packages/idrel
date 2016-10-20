@@ -6,10 +6,10 @@ ToDo:
  - add a History chapter to the manual 
 
 ############################################################################
-2.32 -> 2.33  (18/10/2016)
+2.32 -> 2.34  (20/10/2016)
 
  - (18/10/16) now using bibliography file bib.xml of type "bibxmlext.dtd"
- - (10/10/16) changed my email address and package releases to github.io
+ - (10/10/16) changed package releases to https://gap-packages.github.io/idrel
  - (18/02/16) removed date/version info from file headers 
  - (12/01/16) changes to the ENTITYs in PackageInfo.g 
  - (28/10/15) added MathJax to makedocrel.g 
