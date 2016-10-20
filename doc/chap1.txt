@@ -41,13 +41,13 @@
   also  be  sent.  You  may  reference  the  package  by mentioning [HW03] and
   [Hey99].[133X
   
-  [33X[0;0YThe current version is 2.33 for [5XGAP[105X 4.8, released on 18th October 2016.[133X
+  [33X[0;0YThe current version is 2.34 for [5XGAP[105X 4.8, released on 20th October 2016.[133X
   
-  [33X[0;0YThe  package  may  be obtained as a compressed tar file [11Xidrel-2.33.tar.gz[111X by
+  [33X[0;0YThe  package  may  be obtained as a compressed tar file [11Xidrel-2.34.tar.gz[111X by
   ftp from one of the following sites:[133X
   
   [30X    [33X[0;6Yany                  [5XGAP[105X                 archive,                 e.g.
         [7Xhttp://www.gap-system.org/Packages/packages.html[107X;[133X
   
-  [30X    [33X[0;6Ythe package GitHub repository: [7Xhttps://github.com/gap-packages/idrel[107X.[133X
+  [30X    [33X[0;6Ythe package GitHub repository: [7Xhttps://gap-packages.github.io/idrel[107X.[133X
   

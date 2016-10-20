@@ -1,6 +1,6 @@
 #############################################################################
 ##
-##  PackageInfo.g   file for the package IdRel version 2.33 
+##  PackageInfo.g   file for the package IdRel 
 ##  Anne Heyworth and Chris Wensley 
 ##
 
@@ -8,16 +8,16 @@ SetPackageInfo( rec(
 PackageName := "idrel",
 Subtitle := "Identities among relations",
 
-Version := "2.33",
-Date := "18/10/2016",
+Version := "2.34",
+Date := "20/10/2016",
 
 ##  duplicate these values for inclusion in the manual: 
 ##  <#GAPDoc Label="PKGVERSIONDATA"> 
-##  <!ENTITY IDRELVERSION "2.33">
-##  <!ENTITY IDRELTARFILENAME "idrel-2.33.tar.gz">
+##  <!ENTITY IDRELVERSION "2.34">
+##  <!ENTITY IDRELTARFILENAME "idrel-2.34.tar.gz">
 ##  <!ENTITY IDRELHTMLFILENAME "idrel233.html">
-##  <!ENTITY IDRELRELEASEDATE "18/10/2016">
-##  <!ENTITY IDRELLONGRELEASEDATE "18th October 2016">
+##  <!ENTITY IDRELRELEASEDATE "20/10/2016">
+##  <!ENTITY IDRELLONGRELEASEDATE "20th October 2016">
 ##  <!ENTITY IDRELCOPYRIGHTYEARS "1999-2016">
 ##  <#/GAPDoc>
 
@@ -38,16 +38,16 @@ Persons := [
     FirstNames    := "Christopher D.",
     IsAuthor      := true,
     IsMaintainer  := true,
-    Email         := "cdwensley.maths@btinternet.com",
+    Email         := "c.d.wensley@bangor.ac.uk",
     WWWHome       := "http://pages.bangor.ac.uk/~mas023/",
-    ## PostalAddress := Concatenation( [
-    ##                    "Dr. C.D. Wensley\n",
-    ##                    "School of Computer Science\n",
-    ##                    "Bangor University\n",
-    ##                    "Dean Street\n",
-    ##                    "Bangor\n",
-    ##                    "Gwynedd LL57 1UT\n",
-    ##                    "UK"] ),
+    PostalAddress := Concatenation( [
+                       "Dr. C.D. Wensley\n",
+                       "School of Computer Science\n",
+                       "Bangor University\n",
+                       "Dean Street\n",
+                       "Bangor\n",
+                       "Gwynedd LL57 1UT\n",
+                       "UK"] ),
     Place         := "Bangor",
     Institution   := "Bangor University"
   )

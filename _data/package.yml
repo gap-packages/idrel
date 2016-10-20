@@ -1,6 +1,6 @@
 name: idrel
-version: 2.33
-date: 18/10/2016
+version: 2.34
+date: 20/10/2016
 description: Identities among relations
 
 authors:
@@ -28,7 +28,7 @@ packageinfo: https://gap-packages.github.io/idrel/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/gap-packages/idrel/releases/download/v2.33/idrel-2.33.tar.gz
+      url: https://github.com/gap-packages/idrel/releases/download/v2.34/idrel-2.34.tar.gz
 
 abstract: IdRel is a package for computing the identities among relations of a group presentation using rewriting, logged rewriting, monoid polynomials, module polynomials and Y-sequences.
 
