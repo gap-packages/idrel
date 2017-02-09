@@ -1,9 +1,19 @@
                        CHANGES of the IdRel package
 	
 ToDo: 
+ - (09/02/17) at the end of logrws.gi there is IdentityYSequencesCopy 
+              which is experimental, and needs to be dealt with 
+ - (09/02/17) why so much code commented out in IdentitiesAmongRelators? 
+ - (09/02/17) LoggedModulePoly needs some checks? 
  - (12/01/16) ElementsFamily error when running testall.g 
- - add to page 14 of the manual, using a,b,r,s,t,u 
  - add a History chapter to the manual 
+
+############################################################################
+2.34 -> 2.36  (09/02/2017)
+
+ - (09/02/17) extensive additions to chapters 2 and 3 of the manual 
+ - (21/12/16) added MonoidGeneratorsFpGroup
+ - (15/11/16) added ArrangementMonoidGenerators to allow various orders  
 
 ############################################################################
 2.32 -> 2.34  (20/10/2016)

@@ -8,17 +8,17 @@ SetPackageInfo( rec(
 PackageName := "idrel",
 Subtitle := "Identities among relations",
 
-Version := "2.34",
-Date := "20/10/2016",
+Version := "2.36",
+Date := "09/02/2017",
 
 ##  duplicate these values for inclusion in the manual: 
 ##  <#GAPDoc Label="PKGVERSIONDATA"> 
-##  <!ENTITY IDRELVERSION "2.34">
-##  <!ENTITY IDRELTARFILENAME "idrel-2.34.tar.gz">
+##  <!ENTITY IDRELVERSION "2.36">
+##  <!ENTITY IDRELTARFILENAME "idrel-2.36.tar.gz">
 ##  <!ENTITY IDRELHTMLFILENAME "idrel233.html">
-##  <!ENTITY IDRELRELEASEDATE "20/10/2016">
-##  <!ENTITY IDRELLONGRELEASEDATE "20th October 2016">
-##  <!ENTITY IDRELCOPYRIGHTYEARS "1999-2016">
+##  <!ENTITY IDRELRELEASEDATE "09/02/2017">
+##  <!ENTITY IDRELLONGRELEASEDATE "9th February 2017">
+##  <!ENTITY IDRELCOPYRIGHTYEARS "1999-2017">
 ##  <#/GAPDoc>
 
 Persons := [

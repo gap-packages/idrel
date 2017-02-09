@@ -3,7 +3,7 @@
 #W  idrel_manual.tst               Idrel Package                 Chris Wensley
 #W                                                             & Anne Heyworth
 ##
-#Y  Copyright (C) 1999-2016 Anne Heyworth and Chris Wensley
+#Y  Copyright (C) 1999-2017 Anne Heyworth and Chris Wensley
 ##
 gap> START_TEST( "Testing all example commands in the IdRel manual" );
 gap> SetInfoLevel( InfoIdRel, 0 );;
@@ -96,12 +96,16 @@ gap> r1 := OnePassKB( r0 );
   [ q8_M2^3, q8_M1^2*q8_M2 ], [ q8_M2^2, q8_M1^2 ], [ q8_M1^2*q8_M2, q8_M4 ], 
   [ q8_M1^3, q8_M3 ], [ q8_M2*q8_M1*q8_M4, q8_M3 ], [ q8_M1*q8_M2^2, q8_M3 ], 
   [ q8_M2^3, q8_M4 ] ]
+gap> Length( r1 );
+21
 gap> r1 := RewriteReduce( r1 ); 
 [ [ q8_M1*q8_M3, <identity ...> ], [ q8_M2^2, q8_M1^2 ], 
   [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_M1, <identity ...> ], 
   [ q8_M4*q8_M2, <identity ...> ], [ q8_M1^3, q8_M3 ], 
   [ q8_M1^2*q8_M2, q8_M4 ], [ q8_M1*q8_M2*q8_M1, q8_M2 ], 
   [ q8_M2*q8_M1*q8_M4, q8_M3 ] ]
+gap> Length( r1 );
+9
 gap> r2 := KnuthBendix( r1 );
 [ [ q8_M1*q8_M3, <identity ...> ], [ q8_M2*q8_M1, q8_M1*q8_M4 ], 
   [ q8_M2^2, q8_M1^2 ], [ q8_M2*q8_M3, q8_M1*q8_M2 ], 
@@ -111,6 +115,8 @@ gap> r2 := KnuthBendix( r1 );
   [ q8_M4*q8_M2, <identity ...> ], [ q8_M4*q8_M3, q8_M1*q8_M4 ], 
   [ q8_M4^2, q8_M1^2 ], [ q8_M1^3, q8_M3 ], [ q8_M1^2*q8_M2, q8_M4 ], 
   [ q8_M1^2*q8_M4, q8_M2 ] ]
+gap> Length( r2 );
+16
 gap> w2 := ReduceWordKB( w0, r2 );
 q8_M1*q8_M4
 gap> elq8 := Elements( q8 ); 
@@ -149,6 +155,8 @@ gap> l1 := LoggedRewriteReduce( l1 );
   [ q8_M1^2*q8_M2, [ [ 4, <identity ...> ] ], q8_M4 ], 
   [ q8_M1*q8_M2*q8_M1, [ [ 3, <identity ...> ] ], q8_M2 ], 
   [ q8_M2*q8_M1*q8_M4, [ [ 3, q8_M3^-1 ] ], q8_M3 ] ]
+gap> Length( l1 );
+9
 gap> l2 := LoggedKnuthBendix( l1 ); 
 [ [ q8_M1*q8_M3, [  ], <identity ...> ], 
   [ q8_M2*q8_M1, [ [ 3, q8_M3^-1 ], [ -1, <identity ...> ], [ 4, q8_M1^-1 ] ],
@@ -168,6 +176,8 @@ gap> l2 := LoggedKnuthBendix( l1 );
   [ q8_M1^3, [ [ 1, <identity ...> ] ], q8_M3 ], 
   [ q8_M1^2*q8_M2, [ [ 4, <identity ...> ] ], q8_M4 ], 
   [ q8_M1^2*q8_M4, [ [ -4, q8_M1^-2 ], [ 1, <identity ...> ] ], q8_M2 ] ]
+gap> Length( l2 );
+16
 gap> w0; 
 q8_M2^9*q8_M1^9
 gap> lw1 := LoggedOnePassReduceWord( w0, l0 );
@@ -195,7 +205,7 @@ gap> lw2 := LoggedReduceWordKB( w0, l2 );
       [ 3, q8_M3^-1*q8_M1^-1 ], [ -1, q8_M1^-1 ], [ 4, q8_M1^-2 ], 
       [ -4, q8_M1^-2 ], [ 3, q8_M1^-3 ], [ 1, <identity ...> ], 
       [ -1, <identity ...> ], [ 4, q8_M1^-1 ] ], q8_M1*q8_M4 ]
-gap> LoggedRewritingSystemFpGroup( q8 );
+gap> lwrs := LoggedRewritingSystemFpGroup( q8 );
 [ [ q8_M4*q8_M2, [  ], <identity ...> ], [ q8_M3*q8_M1, [  ], <identity ...> ]
     , [ q8_M2*q8_M4, [  ], <identity ...> ], 
   [ q8_M1*q8_M3, [  ], <identity ...> ], 
@@ -214,6 +224,8 @@ gap> LoggedRewritingSystemFpGroup( q8 );
   [ q8_M2^2, [ [ -8, <identity ...> ], [ 6, q8_M1^-2 ] ], q8_M1^2 ], 
   [ q8_M2*q8_M1, [ [ 7, q8_M3^-1 ], [ -5, <identity ...> ], [ 8, q8_M1^-1 ] ],
       q8_M1*q8_M4 ] ]
+gap> Length( lwrs );
+16
 
 ## ====================== Monoid Polynomials ==================== 
 gap> rels := RelatorsOfFpGroup( q8 ); 

@@ -22,7 +22,7 @@ and <M>w_i</M> is a word.
 These three components obey the identity 
 <M>u = n_1^{w_1} \ldots n_k^{w_k} v</M>.
 <P/>
-Rules of the form <M>g^+g^-</M> are relevant to the monoid presentation, 
+Rules of the form <M>g^+g^-</M> apply to the monoid presentation, 
 but not to the group presentation, so are given an empty logged component.
 
 
@@ -36,7 +36,8 @@ previous chapter.
          Arg="loggedrules" />
 <Description>
 Given a logged rewrite system, this function finds all the rules 
-that would be added to complete the rewrite system in <C>OnePassKB</C>, 
+that would be added to complete the rewrite system of 
+<C>OnePassKB</C> in <Ref Sect="one-pass-KB"/>, 
 and also the logs which relate the new rules to the originals. 
 The result of applying this function to <C>loggedrules</C> 
 is to add new logged rules to the system 
@@ -71,6 +72,10 @@ gap> Length( l1 );
 ]]>
 </Example>
 
+Note that the length <M>21</M> of <C>l1</C> is, as expected, 
+the same as that of <C>r1</C> in <Ref Sect="one-pass-KB"/>. 
+
+
 <ManSection>
    <Oper Name="LoggedKnuthBendix"
          Arg="loggedrules" />
@@ -79,12 +84,42 @@ gap> Length( l1 );
 <Description>
 The function <C>LoggedRewriteReduce</C> removes unnecessary rules 
 from a logged rewrite system. 
-It works on the same principle as <C>RewriteReduce</C>.
+It works on the same principle as <C>RewriteReduce</C> 
+in <Ref Sect="one-pass-KB"/>.
 <P/>
-The function <C>LoggedKnuthBendix</C> repeatedly applies 
+The function <C>LoggedKnuthBendix</C> repeatedly applies functions 
 <C>LoggedOnePassKB</C> and <C>LoggedRewriteReduce</C> 
 until no new rules are added and no unnecessary ones are included. 
 The output is a reduced complete logged rewrite system.
+<P/>
+In order to clarify the meaning of the rules below, 
+consider the second rule in <C>l2</C> which shows how 
+<M>b^+a^+</M> reduces to <M>a^+b^-</M>. 
+For this rule <C>[u,L,v]</C> we will verify that 
+<M>u = n_1^{w_1}n_2^{w_2}n_3^{w_3} v</M>, 
+as in the introduction to this chapter. 
+The rule is: 
+<P/>
+<Listing>
+<![CDATA[
+[ q8_M2*q8_M1, [ [3,q8_M3^-1], [-1,<identity...>], [4,q8_M1^-1] ], q8_M1*q8_M4 ]. 
+]]>
+</Listing>
+<P/> 
+As before, we write <M>a^+,\;b^+,\;a^-,\;b^-</M> for 
+<C>q8_M1,q8_M2,q8_M3,q8_M4</C> respectively. 
+The relators <M>3,4</M> and the inverse of relator <M>1</M> 
+(denoted by <M>-1</M>) are 
+<M>a^+b^+a^+b^-,\; a^{+2}b^{+2}</M> and <M>a^{-4}</M>, 
+and these are conjugated by <M>(a^-)^{-1}=a^+, (a^+)^{-1}=a^-</M> 
+and the identity respectively. 
+So the second and third parts of the rule expand to:
+<Display>
+(a^-(a^+b^+a^+b^-)a^+)(a^{-4})(a^+(a^{+2}b^{+2})a^-)a^+b^- 
+~=~ 
+(a^-a^+)b^+a^+(b^-(a^+a^{-4}a^{+3})b^+)(b^+(a^-a^+)b^-) 
+</Display>
+which reduces to the first part of the rule, <M>b^+a^+</M>. 
 <P/>
 </Description>
 </ManSection>
@@ -118,6 +153,8 @@ gap> l2 := LoggedKnuthBendix( l1 );
   [ q8_M1^3, [ [ 1, <identity ...> ] ], q8_M3 ], 
   [ q8_M1^2*q8_M2, [ [4, <identity. ..> ] ], q8_M4 ], 
   [ q8_M1^2*q8_M4, [ [ -4, q8_M1^-2], [ 1, <identity ...> ] ], q8_M2 ] ] 
+gap> Length( l2 );
+16
 ]]>
 </Example>
 </Section>
@@ -135,9 +172,9 @@ gap> l2 := LoggedKnuthBendix( l1 );
 <Description>
 Given a word and a logged rewrite system, 
 the function <C>LoggedOnePassReduceWord</C> makes one reduction of the word 
-(as in <C>OnePassReduceWord</C>) and records this, 
-using the log part of the rule used and the position in the original word 
-of the replaced part.
+(as does <C>OnePassReduceWord</C>in <Ref Sect="one-pass-reduce"/>) 
+and records this, using the log part of the rule used 
+and the position in the original word of the replaced part.
 <P/>
 The function <C>LoggedReduceWordKB</C> repeatedly applies 
 <C>OnePassLoggedReduceWord</C> until the word can no longer be reduced. 
@@ -148,9 +185,22 @@ for that group element.
 The log of the reduction depends on the order in which the rules are applied. 
 <P/>
 The function <C>ShorterLoggedrule</C> decides whether one logged rule 
-is better than another, using the same criteria as <C>ShorterRule</C>.
-In the example we perform logged reductions of <C>w0</C> 
-corresponding to the ordinary reductions performed in the previous chapter. 
+is better than another, using the same criteria as 
+<C>ShorterRule</C> in <Ref Sect="one-pass-KB"/>.
+In the example we perform logged reductions of <M>w_0 = a^9b^9</M> 
+corresponding to the ordinary reductions performed in the 
+previous chapter (section <Ref Sect="one-pass-reduce"/>). 
+<P/>
+In order to clarify the following output, note that, in the log below, 
+<M>b^9a^9</M> reduces to <M>b^5a^5</M> in <C>lw1</C> 
+and to <M>ba</M> in the first <C>lw2</C>. 
+These expand to the initial <C>w0</C> using the given logged parts as follows: 
+<Display>
+(b^{+9}a^{+4}b^{-9})(b^{+4})b^{+5}a^{+5} ~=~ b^{+9}a^{+9} 
+~=~ (b^{+9}a^{+4}b^{-9})(b^{+4})(b^{+5}a^{+4}b^{-5})(b^{+4})b^+a^+\,.  
+</Display> 
+The corresponding expansion of the final <C>lw2</C> is too lengthy 
+to include here. 
 <P/>
 </Description>
 </ManSection>
@@ -196,9 +246,9 @@ The initial logged rewrite system associated with a group presentation
 consists of two types of rule. 
 These are logged versions of the two types of rule in the monoid presentation.
 For each relator <C>rel</C> of the group there is a logged rule 
-<C>[ rel, [ [ 1, rel] ], id]</C>. 
+<C>[rel,[[1,rel]],id]</C>. 
 For each inverse relator there is a logged rule <C>[gen*inv, [], id ]</C>. 
-It then attempts a completion of the logged rewrite system. 
+The function then attempts a completion of the logged rewrite system. 
 The rules in the final system are partially ordered by the function 
 <C>ShorterLoggedRule</C>.
 <P/>
@@ -206,7 +256,7 @@ The rules in the final system are partially ordered by the function
 </ManSection>
 <Example>
 <![CDATA[
-gap> LoggedRewritingSystemFpGroup( q8 );
+gap> lwrs := LoggedRewritingSystemFpGroup( q8 );
 [ [ q8_M4*q8_M2, [ ], <identity ...> ], [ q8_M3*q8_Ml, [ ], <identity ...> ], 
     [ q8_M2*q8_M4, [ ], <identity ...> ], 
   [ q8_Ml*q8_M3, [ ], <identity ...> ], 
@@ -225,7 +275,36 @@ gap> LoggedRewritingSystemFpGroup( q8 );
   [ q8_M2^2, [ [ -a, <identity ...> ], [ 6, q8_M1^-2 ] ], q8_M1^2 ], 
   [ q8_M2*q8_M1, [ [ 7, q8_M3^-1 ], [ -5, <identity ...> ], [ a, q8_M1^-1 ] ], 
       q8_M1*q8_M4 ] ] 
+gap> Length( lwrs );
+16
 ]]>
 </Example>
+
+<P/>
+Consider now the two-generator abelian group <M>T</M> considered in the 
+previous chapter (<Ref Sect="rwsfp"/>). 
+Using the alternative ordering on the monoid generators, 
+<C>[ T_M1</C><M>=a^+</M>, <C>T_M2</C><M>=a^-</M>, 
+<C>T_M3</C><M>=b^+</M>, <C>T_M4</C><M>=b^-</M> <C>]</C>, 
+we obtain the following set of <M>8</M> logged rules. 
+The last of these may be checked as follows: 
+<Display>
+(b^+a^+(b^-a^-b^+a^+)a^-b^-)a^+b^+ ~=~ 
+b^+a^+(b^-(a^-(b^+(a^+a^-)b^-)a^+)b^+) 
+</Display>
+and is a logged version of the rule <M>b^+a^+ \to a^+b^+</M>. 
+<P/> 
+<Example>
+<![CDATA[
+gap> lrwsT := LoggedRewritingSystemFpGroup( T );
+[ [ T_M4*T_M3, [  ], <identity ...> ], [ T_M3*T_M4, [  ], <identity ...> ], 
+  [ T_M2*T_M1, [  ], <identity ...> ], [ T_M1*T_M2, [  ], <identity ...> ], 
+  [ T_M4*T_M2, [ [ -5, <identity ...> ] ], T_M2*T_M4 ], 
+  [ T_M4*T_M1, [ [ 5, T_M1^-1 ] ], T_M1*T_M4 ], 
+  [ T_M3*T_M2, [ [ 5, T_M3^-1 ] ], T_M2*T_M3 ], 
+  [ T_M3*T_M1, [ [ -5, T_M1^-1*T_M3^-1 ] ], T_M1*T_M3 ] ]
+]]>
+</Example>
+
 </Section>
 </Chapter>

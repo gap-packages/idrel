@@ -146,6 +146,8 @@ gap> frhomq8 := FreeRelatorHomomorphism( q8 );
 <ManSection>
    <Attr Name="MonoidPresentationFpGroup"
          Arg="grp" />
+   <Attr Name="ArrangementOfMonoidGenerators"
+         Arg="grp" />
    <Attr Name="FreeGroupOfPresentation"
          Arg="mon" />
    <Attr Name="GroupRelatorsOfPresentation"
@@ -161,10 +163,6 @@ The relators of the monoid presentation comprise the group relators,
 and relators <M>g^+g^-</M> specifying the inverses. 
 The function <C>MonoidPresentationFpGroup</C> returns the monoid presentation 
 derived in this way from an fp-presentation. 
-(Note: this function should always be followed by a double semicolon --
-<C>MonoidPresentationFpGroup(G);;</C> -- 
-because an error occurs in attempting to display 
-the results on the screen: the <C>ElementsFamily</C> needs to be fixed.)
 <P/> 
 The function <C>FreeGroupOfPresentation</C> 
 returns the free group on the monoid generators.
@@ -173,7 +171,6 @@ The function <C>GroupRelatorsOfPresentation</C> returns those relators
 of the monoid which correspond to the relators of the group. 
 All negative powers in the group relators are converted to positive powers 
 of the <M>g^-</M>.
-<P/>
 The function <C>InverseRelatorsOfPresentation</C> returns relators 
 which specify the inverse pairs of the monoid generators.
 <P/>
@@ -181,9 +178,11 @@ The function <C>HomomorphismOfPresentation</C> returns the homomorphism
 from the free group of the monoid presentation to the free group 
 of the group presentation.
 <P/>
-In the example below, the four monoid generators <M>a^+, b^+, a^-, b^-</M> 
-are named <C>q8_M1, q8_M2, q8_M3, q8_M4</C>.
+The attribute <C>ArrangementOfMonoidGenerators</C> will be discussed 
+before the second example in the next section.
 <P/>
+In the example below, the four monoid generators <M>a^+, b^+, a^-, b^-</M> 
+are named <C>q8_M1, q8_M2, q8_M3, q8_M4</C> respectively. 
 </Description>
 </ManSection>
 <Example>
@@ -216,7 +215,7 @@ were available;
 (2) we require logged versions of the functions, and these are most 
 conveniently extended versions of the non-logged code.
 
-<ManSection>
+<ManSection Label="rwsfp">
    <Attr Name="RewritingSystemFpGroup"
          Arg="grp" />
 <Description>
@@ -228,8 +227,37 @@ Such a rewrite system can be obtained for all finite groups.
 The rewrite rules are (partially) ordered, starting with the inverse relators, 
 followed by the rules which reduce the word length the most.
 <P/>
-In our <C>q8</C> example there are 16 rewrite rules.
-<P/>
+In our <C>q8</C> example there are 16 rewrite rules 
+in the rewriting system <C>rws</C>:  
+<Table Align="|c|">
+  <HorLine/>
+  <Row> 
+    <Item> <M>a^+a^- \to \rm{id}, \quad 
+              b^+b^- \to \rm{id}, \quad 
+              a^-a^+ \to \rm{id}, \quad
+	      b^-b^+ \to \rm{id}, </M>  
+    </Item>
+  </Row>
+  <Row>
+    <Item> <M>a^{+2}b^- \to b^+, \quad 
+              a^{+2}b^+ \to b^-, \quad 
+              a^{+3} \to a^-, \quad
+              b^{-2} \to a^{+2}, \quad 
+              b^-a^- \to a^+b^-, \quad 
+              b^-a^+ \to a^+b^+, </M> 
+    </Item>
+  </Row>
+  <Row>
+    <Item> <M>a^-b^- \to a^+b^+, \quad 
+              a^{-2} \to a^{+2}, \quad 
+              a^-b^+ \to a^+b^-, \quad 
+              b^+a^- \to a^+b^+, \quad 
+              b^{+2} \to a^{+2}, \quad 
+              b^+a^+ \to a^+b^-. </M>
+    </Item>
+  </Row>
+  <HorLine/>
+</Table>
 </Description>
 </ManSection>
 <Example>
@@ -246,9 +274,37 @@ gap> rws := RewritingSystemFpGroup( q8 );
 ]]>
 </Example>
 
+The default ordering of the <M>2n</M> monoid generators is 
+<M> [g_1^+,g_2^+,\ldots,g_n^+,g_1^-,g_2^-,\ldots,g_n^-] </M>. 
+In the case of the two-generator abelian group 
+<M>T = \langle a,b ~|~ [a,b] \rangle</M> 
+the Knuth-Bendix process starts to generate infinite sets of relations 
+such as <M>\{ab^ma^{-1} \to b^m,~ m \geqslant 1\}</M>. 
+If, using the <C>ArrangementOfMonoidGenerators</C> function, 
+we specify the alternative ordering 
+<M> [g_1^+,g_1^-,g_2^+,g_2^-,\ldots] </M>, 
+then a finite set of rules is obtained.  
+<P/>
+<Example>
+<![CDATA[
+gap> F := FreeGroup(2);;                  
+gap> T := F/[Comm(F.1,F.2)];              
+<fp group of size infinity on the generators [ f1, f2 ]>
+gap> SetName( T, "T" );                   
+gap> SetArrangementOfMonoidGenerators( T, [1,-1,2,-2] );
+gap> monT := MonoidPresentationFpGroup(T);              
+monoid presentation for an fp-group with homomorphism
+[ [ T_M1, T_M2, T_M3, T_M4 ], [ f1, f1^-1, f2, f2^-1 ] ]
+gap> rwsT := RewritingSystemFpGroup( T );               
+[ [ T_M1*T_M2, <identity ...> ], [ T_M2*T_M1, <identity ...> ], 
+  [ T_M3*T_M4, <identity ...> ], [ T_M4*T_M3, <identity ...> ], 
+  [ T_M4*T_M2, T_M2*T_M4 ], [ T_M4*T_M1, T_M1*T_M4 ], 
+  [ T_M3*T_M2, T_M2*T_M3 ], [ T_M3*T_M1, T_M1*T_M3 ] ]
+]]>
+</Example>
 The functions called by <C>RewritingSystemFpGroup</C> are as follows.
 
-<ManSection>
+<ManSection Label="one-pass-reduce">
    <Oper Name="OnePassReduceWord"
          Arg="word, rules" />
    <Oper Name="ReduceWordKB"
@@ -276,8 +332,9 @@ If <C>rules</C> is a complete rewrite system,
 then the irreducible <C>word</C> that is returned is unique, 
 otherwise the order of the rules in <C>rules</C> will determine 
 which irreducible word is returned.
-In the example we see that <M>b^9a^9</M> reduces to <M>ba</M>, 
-and we shall see later that this is not a normal form. 
+In the example we see that <M>b^9a^9</M> reduces to <M>ba</M> 
+which is not a normal form as we have seen in <Ref Sect="rwsfp"/>,
+where <M>b^+a^+ \to a^+b^-</M> is the last rule. 
 <P/>
 </Description>
 </ManSection>
@@ -304,7 +361,9 @@ q8_M2*q8_M1
 ]]>
 </Example>
 
-<ManSection>
+
+
+<ManSection Label="one-pass-KB">
    <Oper Name="OnePassKB"
          Arg="rules" />
    <Oper Name="RewriteReduce"
@@ -347,9 +406,9 @@ by a greater amount.
 <P/>
 One pass of this procedure for our <C>q8</C> example 
 adds 13 relators to the original 8, and these 21 are then reduced to 9. 
-A second pass and reduction gives a list of 16 rules 
-which forms a complete rewrite system for the group. 
-Now <M>b^9a^9</M> reduces to <M>ab^{-1}</M>. 
+A second pass and reduction gives the list of 16 rules seen above,  
+forming a complete rewrite system for the group. 
+Now <M>b^9a^9</M> correctly reduces to <M>ab^{-1}</M>. 
 <P/>
 </Description>
 </ManSection>
@@ -366,12 +425,16 @@ gap> r1 := OnePassKB( r0 );
   [ q8_M2^3, q8_Ml^2*q8_M2], [ q8_M2^2, q8_Ml^2 ], [q8_Ml^2*q8_M2, q8_M4 ], 
   [ q8_Ml^3, q8_M3 ], [ q8_M2*q8_Ml*q8_M4, q8_M3 ], [q8_Ml*q8_M2^2, q8_M3 ], 
   [ q8_M2^3, q8_M4 ] ] 
+gap> Length( r1 );
+21
 gap> r1 := RewriteReduce( r1 );
 [ [ q8_Ml*q8_M3, <identity ...> ], [ q8_M2^2, q8_Ml^2 ], 
   [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_Ml, <identity ...> ], 
   [ q8_M4*q8_M2, <identity ...> ], [ q8_Ml^3, q8_M3 ], 
   [ q8_Ml^2*q8_M2, q8_M4 ], [ q8_Ml*q8_M2*q8_Ml, q8_M2 ], 
   [ q8_M2*q8_Ml*q8_M4, q8_M3 ] ] 
+gap> Length( r1 );
+9
 gap> r2 := KnuthBendix( r1 );
 [ [ q8_Ml*q8_M3, <identity ...> ], [ q8_M2*q8_Ml, q8_Ml*q8_M4 ], 
   [ q8_M2^2, q8_Ml^2], [ q8_M2*q8_M3, q8_Ml*q8_M2 ], 
@@ -381,12 +444,14 @@ gap> r2 := KnuthBendix( r1 );
   [ q8_M4*q8_M2, <identity ...> ], [ q8_M4*q8_M3, q8_Ml*q8_M4 ], 
   [ q8_M4^2, q8_Ml^2], [ q8_Ml^3, q8_M3 ], [q8_Ml^2*q8_M2, q8_M4 ], 
   [ q8_Ml^2*q8_M4, q8_M2 ] ]
+gap> Length( r2 );
+16
 gap> w2 := ReduceWordKB( w0, r2 );
 q8_M1*q8_M4
 ]]>
 </Example>
-</Section>
 
+</Section>
 
 
 <Section><Heading>Enumerating elements</Heading>
@@ -403,7 +468,11 @@ The normal forms are the least elements in each equivalence class
 <!-- The function <C>EnumerateKB</C> builds a catalogue of irreducible   -->
 <!-- words in the generators of a monoid with respect to a set of rules. -->
 When <C>rules</C> is a complete rewrite system for <C>G</C> 
-the list returned is a set of normal forms for the group elements.
+the list returned is a set of normal forms for the group elements. 
+For <C>q8</C> this list is 
+<Display>
+[\; {\rm id},\; a^+,\; b^+,\; a^-,\; b^-,\; a^{+2},\; a^+b^+,\; a^+b^-\; ]. 
+</Display>
 <P/>
 </Description>
 </ManSection>
