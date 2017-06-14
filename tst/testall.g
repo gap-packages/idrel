@@ -13,7 +13,7 @@ TestIdRel := function( pkgname )
     pkgdir := DirectoriesPackageLibrary( pkgname, "tst" );
     # Arrange chapters as required
     testfiles := 
-        [ "idrel_manual.tst" ];
+        [ "rws.tst", "logrws.tst", "monpoly.tst", "modpoly.tst" ];
     testresult := true;
     for ff in testfiles do
         fn := Filename( pkgdir, ff );

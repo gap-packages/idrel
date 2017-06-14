@@ -172,7 +172,8 @@ q8_R1*(4*q8_M4*q8_M1 - 5*q8_M1^2) + q8_R4*( - 7*q8_M4*q8_M1 + 5*q8_M1^2 +
 </Section>
 
 
-<Section><Heading>Identities among relators</Heading>
+<Section Label="sect-idrels">
+<Heading>Identities among relators</Heading>
 
 <ManSection>
    <Attr Name="IdentityYSequences"

@@ -76,5 +76,98 @@ the package GitHub repository:
 <P/>
 
 
+<Section><Heading>An illustrative example</Heading>
+
+A typical input for &idrel; is an fp-group presentation. 
+This requires a free group <C>F</C> on a set of generators 
+and a set of relators <C>R</C> (words in the free group). 
+The module of identities among relators for this presentation 
+has as its elements the Peiffer equivalence classes of all products of 
+conjugates of relators which represent the identity in the free group.
+<P/> 
+In this package the identities among relators are represented by Y-sequences, 
+which are lists <M>[[r_1, u_1],\ldots,[r_k,u_k]]</M> 
+where <M>r_1,\ldots,r_k</M> are the group relators or their inverses, 
+and <M>u_1,\ldots,u_k</M> are words in the free group <C>F</C>. 
+A Y-sequence is evaluated in <C>F</C> as the product 
+<M>(u_1^{-1}r_1u_1)\ldots(u_k^{-1}r_ku_k)</M> 
+and is an identity Y-sequence if it evaluates to the identity in <C>F</C>. 
+An identity Y-sequence represents an identity among the relators 
+of the group presentation. 
+The main function of the package is to produce a set of Y-sequences 
+which generate the module of identites among relators, and further, 
+that this set be minimal in the sense that every element in it 
+is needed to generate the module.
+<P/>
+Before starting on the main example, 
+we consider a simpler example illustrating the use of &idrel;. 
+All the functions used are described in detail in this manual.
+We compute a reduced set of identities among relators 
+for the presentation of the symmetric group <C>s3</C> 
+with generators <M>a,b</M> and relators <M>[a^3 , b^2, (ab)^2]</M>. 
+In the listing below, <C>s3_M1</C> is the first monoid generator 
+for <C>s3</C>, <C>s3_R2</C> is the second relator, 
+while <C>s3_Y4</C> is the fourth Y-sequence for <C>s3</C>. 
+<P/>
+<Example>
+<![CDATA[
+gap> F := FreeGroup( 2 );;
+gap> a := F.l;; b:= F.2;;
+gap> rels3 := [ a^3 , b^2, a*b*a*b];
+[ f1^3, f2^2, (f1*f2)^2 ]
+gap> s3 := F/rels3;
+<fp group on the generators [ fl, f2 ]> 
+gap> SetName( s3, "s3" ); 
+gap> idy3 := IdentityYSequences( s3 );; 
+gap> Length( idy3 ); 
+18
+gap> Y4 := idy3[4]; 
+[ [ s3_R1^-1, f1^-1 ], [ s3_R1, <identity ...> ] ]
+gap> Y6 := idy3[6];
+[ [ s3_R3^-1, f1^-1 ], [ s3_R1, <identity ...> ], [ s3_R3^-1, f1 ],
+  [ s3_R2, f1^-1*f2^-1 ], [ s3_R1, f2^-1 ], [ s3_R3^-1, f1*f2^-1 ],
+  [ s3_R2, <identity ...> ], [ s3_R2, f1^-1 ] ]
+gap> Y7 := idy3[7];
+[ [ s3_R3^-1, f1*f2^-1 ], [ s3_R2, <identity ...> ], [ s3_R3, <identity ...> ],
+  [ s3_R2^-1, <identity ...> ] ]
+gap> Y8 := idy3[8];
+[ [ s3_R2^-1, f2^-1 ], [ s3_R2, <identity ...> ] ]
+]]>
+</Example>
+
+Of the <M>18</M> Y-sequences formed, <M>6</M> are empty, 
+and <C>Y4</C> is the <E>root identity</E> 
+<C>((a^3)^-1)^(a^-1).(a^3)</C>. 
+If we write <M>r=a^3, s=b^2, t=(ab)^2</M> 
+then <C>Y4</C> is <M>(r^{-1})^{a^{-1}}r</M>. 
+Similarly, <C>Y8</C> is the second root identity <M>(s^{-1})^{b^{-1}}s</M>, 
+while  <C>Y7</C> is the third root identity <M>(t^{-1})^{(ab)^{-1}}t</M>. 
+The identity <C>Y6</C>, which is not a root identity, 
+is obtained by walking around the Schreier diagram of the presentation, 
+a somewhat truncated triangular prism. 
+Taking the appropriate conjugate of each face in turn, we get: 
+<C>
+Y6=(t^-1)^(a^-1).r.(t^-1)^a.s^(a^-1b^-1).r^(b^-1).(t^-1)^(ab^-1).s.s^(a^-1). 
+</C> 
+These four identities generate the module of identities for <C>s3</C>. 
+<P/>
+<Example>
+<![CDATA[
+gap> idrels3 := IdentitiesAmongRelators( s3 );;
+gap> Display( idrels3[1] );
+[ ( s3_Y4*( s3_M2*s3_M1), s3_R1*( s3_M1 - <identity ...>) ),
+  ( s3_Y8*( s3_M2*s3_M1), s3_R2*( s3_M2 - <identity ...>) ),
+  ( s3_Y7*( s3_M2*s3_M1), s3_R3*( s3_M2 - s3_M1) ),
+  ( s3_Y6*( -s3_M2*s3_M1), s3_R1*( -s3_M2*s3_M1 - s3_M1) + s3_R2*( -s3_M1*s3_M\
+2 - s3_M1 - <identity ...>) + s3_R3*( s3_M3 + s3_M2 + <identity ...>) )
+  ]
+]]>
+</Example>
+
+Further examples are given in section <Ref Sect="sect-idrels"/>. 
+
+</Section>
+
+
 
 </Chapter>

@@ -1,19 +1,29 @@
                        CHANGES of the IdRel package
 	
 ToDo: 
- - (09/02/17) at the end of logrws.gi there is IdentityYSequencesCopy 
-              which is experimental, and needs to be dealt with 
+ - (12/05/17) deal with question from Merve Simsek
+ - (21/02/17) SyllableLess(Greater) are defined in logrws.gd but no methods
+ - (09/02/17) at the end of logrws.gi there is IdentityYSequencesNew etc  
+              which are experimental, and need to be dealt with 
  - (09/02/17) why so much code commented out in IdentitiesAmongRelators? 
  - (09/02/17) LoggedModulePoly needs some checks? 
  - (12/01/16) ElementsFamily error when running testall.g 
  - add a History chapter to the manual 
 
 ############################################################################
-2.34 -> 2.36  (09/02/2017)
+2.34 -> 2.36  (14/06/2017)
 
+ - (14/06/17) added methods for String, ViewString, PrintString 
+ - (22/02/17) added PartialElementsOfMonoidPresentation 
+              added YSequencesFromRelatorSequences 
+ - (17/02/17) renamed OrderingYSequences -> YSequenceLessThan 
+              renamed ReducedYSequence -> YSequenceReduce 
+              new operation YSequenceConjugateAndReduce 
+              new operation RelatorSequenceReduce
+ - (10/02/17) moved manual section 2.1 to 1.1 in the introduction 
  - (09/02/17) extensive additions to chapters 2 and 3 of the manual 
  - (21/12/16) added MonoidGeneratorsFpGroup
- - (15/11/16) added ArrangementMonoidGenerators to allow various orders  
+ - (15/11/16) added ArrangementOfMonoidGenerators to allow various orders  
 
 ############################################################################
 2.32 -> 2.34  (20/10/2016)

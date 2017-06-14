@@ -5,19 +5,20 @@
 ##
 
 SetPackageInfo( rec(
+Packagename := "idrel",
 PackageName := "idrel",
 Subtitle := "Identities among relations",
 
 Version := "2.36",
-Date := "09/02/2017",
+Date := "14/06/2017",
 
 ##  duplicate these values for inclusion in the manual: 
 ##  <#GAPDoc Label="PKGVERSIONDATA"> 
 ##  <!ENTITY IDRELVERSION "2.36">
 ##  <!ENTITY IDRELTARFILENAME "idrel-2.36.tar.gz">
 ##  <!ENTITY IDRELHTMLFILENAME "idrel233.html">
-##  <!ENTITY IDRELRELEASEDATE "09/02/2017">
-##  <!ENTITY IDRELLONGRELEASEDATE "9th February 2017">
+##  <!ENTITY IDRELRELEASEDATE "14/06/2017">
+##  <!ENTITY IDRELLONGRELEASEDATE "14th June 2017">
 ##  <!ENTITY IDRELCOPYRIGHTYEARS "1999-2017">
 ##  <#/GAPDoc>
 
@@ -83,8 +84,8 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-  GAP := ">=4.7",
-  NeededOtherPackages := [ [ "xmod", ">= 2.56" ], [ "GAPDoc", ">= 1.5.1" ] ],
+  GAP := ">=4.8.7",
+  NeededOtherPackages := [ [ "xmod", ">= 2.59" ], [ "GAPDoc", ">= 1.5.1" ] ],
   SuggestedOtherPackages := [ ],
   ExternalConditions := [ ]
 ),
