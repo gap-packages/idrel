@@ -40,6 +40,7 @@ For details, see <http://www.gnu.org/licenses/gpl.html>.
  * From within GAP load the package with:
 
     gap> LoadPackage("idrel");
+
     true
 
  * The documentation is in the `doc' subdirectory.
