@@ -1,8 +1,7 @@
 ##############################################################################
 ##
-#W  idrel_manual.tst               Idrel Package                 Chris Wensley
+#W  logrws.tst                     Idrel Package                 Chris Wensley
 #W                                                             & Anne Heyworth
-##
 #Y  Copyright (C) 1999-2017 Anne Heyworth and Chris Wensley
 ##
 
@@ -28,11 +27,11 @@ gap> l0;
     , [ q8_M3*q8_M1, [  ], <identity ...> ], 
   [ q8_M4*q8_M2, [  ], <identity ...> ] ]
 gap> l1 := LoggedOnePassKB( l0 );;
-gap> Length( l1 );
+gap> Length( l1[1] );
 21
 
 ## Example 3.1.2
-gap> l1 := LoggedRewriteReduce( l1 );
+gap> l11 := LoggedRewriteReduce( l1[1] );
 [ [ q8_M1*q8_M3, [  ], <identity ...> ], 
   [ q8_M2^2, [ [ -4, <identity ...> ], [ 2, q8_M1^-2 ] ], q8_M1^2 ], 
   [ q8_M2*q8_M4, [  ], <identity ...> ], [ q8_M3*q8_M1, [  ], <identity ...> ]
@@ -41,9 +40,10 @@ gap> l1 := LoggedRewriteReduce( l1 );
   [ q8_M1^2*q8_M2, [ [ 4, <identity ...> ] ], q8_M4 ], 
   [ q8_M1*q8_M2*q8_M1, [ [ 3, <identity ...> ] ], q8_M2 ], 
   [ q8_M2*q8_M1*q8_M4, [ [ 3, q8_M3^-1 ] ], q8_M3 ] ]
-gap> Length( l1 );
+gap> Length( l11 );
 9
-gap> l2 := LoggedKnuthBendix( l1 ); 
+gap> l2 := LoggedKnuthBendix( l11 );;
+gap> l2[1]; 
 [ [ q8_M1*q8_M3, [  ], <identity ...> ], 
   [ q8_M2*q8_M1, [ [ 3, q8_M3^-1 ], [ -1, <identity ...> ], [ 4, q8_M1^-1 ] ],
       q8_M1*q8_M4 ], 
@@ -62,8 +62,10 @@ gap> l2 := LoggedKnuthBendix( l1 );
   [ q8_M1^3, [ [ 1, <identity ...> ] ], q8_M3 ], 
   [ q8_M1^2*q8_M2, [ [ 4, <identity ...> ] ], q8_M4 ], 
   [ q8_M1^2*q8_M4, [ [ -4, q8_M1^-2 ], [ 1, <identity ...> ] ], q8_M2 ] ]
-gap> Length( l2 );
+gap> Length( l2[1] );
 16
+gap> Length( l2[2] );
+49
 
 ## Example 3.2.1
 gap> w0; 
@@ -73,7 +75,7 @@ gap> lw1 := LoggedOnePassReduceWord( w0, l0 );
 gap> lw2 := LoggedReduceWordKB( w0, l0 ); 
 [ [ [ 1, q8_M2^-9 ], [ 2, <identity ...> ], [ 1, q8_M2^-5 ], 
       [ 2, <identity ...> ] ], q8_M2*q8_M1 ]
-gap> lw2 := LoggedReduceWordKB( w0, l2 ); 
+gap> lw2 := LoggedReduceWordKB( w0, l2[1] ); 
 [ [ [ 3, q8_M3^-1*q8_M2^-8 ], [ -1, q8_M2^-8 ], [ 4, q8_M1^-1*q8_M2^-8 ], 
       [ -4, <identity ...> ], [ 2, q8_M1^-2 ], 
       [ -4, q8_M1^-1*q8_M2^-6*q8_M1^-2 ], [ 3, q8_M1^-2*q8_M2^-6*q8_M1^-2 ], 
@@ -95,7 +97,7 @@ gap> lw2 := LoggedReduceWordKB( w0, l2 );
       [ -1, <identity ...> ], [ 4, q8_M1^-1 ] ], q8_M1*q8_M4 ]
 
 ## Example 3.2.2
-gap> lwrs := LoggedRewritingSystemFpGroup( q8 );
+gap> lrws := LoggedRewritingSystemFpGroup( q8 );
 [ [ q8_M4*q8_M2, [  ], <identity ...> ], [ q8_M3*q8_M1, [  ], <identity ...> ]
     , [ q8_M2*q8_M4, [  ], <identity ...> ], 
   [ q8_M1*q8_M3, [  ], <identity ...> ], 
@@ -114,7 +116,7 @@ gap> lwrs := LoggedRewritingSystemFpGroup( q8 );
   [ q8_M2^2, [ [ -8, <identity ...> ], [ 6, q8_M1^-2 ] ], q8_M1^2 ], 
   [ q8_M2*q8_M1, [ [ 7, q8_M3^-1 ], [ -5, <identity ...> ], [ 8, q8_M1^-1 ] ],
       q8_M1*q8_M4 ] ]
-gap> Length( lwrs );
+gap> Length( lrws );
 16
 
 gap> lrwsT := LoggedRewritingSystemFpGroup( T );

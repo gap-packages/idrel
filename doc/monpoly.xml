@@ -217,7 +217,7 @@ gap> [ pr > 3*pr, pr > pg ];
 
 <Section><Heading>Reduction of a Monoid Polynomial</Heading>
 
-<ManSection>
+<ManSection Label="reduce-monoid-poly">
    <Oper Name="ReduceMonoidPoly"
          Arg="poly, rules" />
 <Description>

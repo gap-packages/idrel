@@ -4,7 +4,7 @@
 #W                                                             & Anne Heyworth
 ##  Declaration file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2016 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2017 Anne Heyworth and Chris Wensley 
 ##
 ##  This file contains declarations of operations for logged rewrite systems.
 
@@ -58,30 +58,45 @@ MonoidPolyFam := NewFamily( "MonoidPolyFam", IsMonoidPoly );
 
 #############################################################################
 ##
-#R  IsMonoidPresentationFpGroup( <G> )
+#R  IsMonoidPresentationFpGroupRep( <G> )
+#P  IsMonoidPresentationFpGroup( <G> )
+#A  ArrangementOfMonoidGenerators( <G> ) 
 #A  MonoidPresentationFpGroup( <G> )
 #A  FreeGroupOfPresentation( <mon> )
 #A  GroupRelatorsOfPresentation( <mon> )
 #A  InverseRelatorsOfPresentation( <mon> )
 #A  HomomorphismOfPresentation( <mon> )
+#A  MonoidGeneratorsFpGroup( <G> )
 #A  ElementsOfMonoidPresentation( <G> )
+#A  PartialElementsOfMonoidPresentation( <G> )
 ##
-DeclareRepresentation( "IsMonoidPresentationFpGroup", 
-    IsFpGroup and IsAttributeStoringRep, 
-    [ "FreeGroupOfPresentation", "GroupRelatorsOfPresentation", 
-      "InverseRelatorsOfPresentation", "HomomorphismOfPresentation" ] );
-DeclareAttribute( "MonoidPresentationFpGroup" , IsFpGroup );
-DeclareAttribute( "FreeGroupOfPresentation", IsMonoidPresentationFpGroup );
-DeclareAttribute( "GroupRelatorsOfPresentation", IsMonoidPresentationFpGroup );
-DeclareAttribute( "InverseRelatorsOfPresentation", IsMonoidPresentationFpGroup );
-DeclareAttribute( "HomomorphismOfPresentation", IsMonoidPresentationFpGroup );
+DeclareRepresentation( "IsMonoidPresentationFpGroupRep", 
+##  tried removing the IsFpGroup (29/07/17) 
+#?    IsFpGroup and IsAttributeStoringRep, 
+    IsAttributeStoringRep, 
+    [ "ArrangementOfMonoidGenerators", "FreeGroupOfPresentation", 
+      "GroupRelatorsOfPresentation", "InverseRelatorsOfPresentation", 
+      "HomomorphismOfPresentation" ] );
+DeclareProperty( "IsMonoidPresentationFpGroup", IsList );
+DeclareAttribute( "MonoidPresentationFpGroup", IsFpGroup ); 
+DeclareAttribute( "ArrangementOfMonoidGenerators", IsFpGroup ); 
+DeclareAttribute( "FreeGroupOfPresentation", 
+    IsMonoidPresentationFpGroupRep );
+DeclareAttribute( "GroupRelatorsOfPresentation", 
+    IsMonoidPresentationFpGroupRep );
+DeclareAttribute( "InverseRelatorsOfPresentation", 
+    IsMonoidPresentationFpGroupRep );
+DeclareAttribute( "HomomorphismOfPresentation", 
+    IsMonoidPresentationFpGroupRep );
+DeclareAttribute( "MonoidGeneratorsFpGroup", IsFpGroup ); 
 DeclareAttribute( "ElementsOfMonoidPresentation", IsFpGroup );
+DeclareAttribute( "PartialElementsOfMonoidPresentation", IsFpGroup );
 
 #############################################################################
 ##
-#O  MonoidWordFpWord( <word>, <fam>, <shift> )
+#O  MonoidWordFpWord( <word>, <fam>, <order> )
 ##
-DeclareOperation( "MonoidWordFpWord", [IsWord, IsFamilyDefaultRep, IsPosInt] );
+DeclareOperation( "MonoidWordFpWord", [IsWord, IsFamilyDefaultRep, IsList] );
 
 #############################################################################
 ##
@@ -120,7 +135,7 @@ DeclareOperation( "CheckLoggedKnuthBendix", [ IsHomogeneousList ] );
 ##
 #O  BetterLoggedRuleByReductionOrLength( <rulel>, <rule2> )
 ##
-## cannot require homogeneous lists because of middle terms
+##  cannot require homogeneous lists because of middle terms
 ##
 DeclareOperation( "BetterLoggedRuleByReductionOrLength", [ IsList, IsList ] );
 
@@ -130,15 +145,29 @@ DeclareOperation( "BetterLoggedRuleByReductionOrLength", [ IsList, IsList ] );
 ##
 DeclareAttribute( "LoggedRewritingSystemFpGroup", IsGroup );
 
+#############################################################################
+##
+#A  RelatorSequenceReduce( <L> )
+##
+DeclareAttribute( "RelatorSequenceReduce", IsHomogeneousList );
+
 ##############################################################################
 ##
-#O  OrderingYSequences( <YI>, <Y2> )
-#O  ReducedYSequence( <Y> )
+#O  YSequenceLessThan( <YI>, <Y2> )
+#O  YSequencesFromRelatorSequences( <S>, <G> )
+#O  YSequenceReduce( <Y> )
+#O  YSequenceConjugateAndReduce( <Y>, <rws> )
 #A  IdentityYSequences( <G> )
+#A  IdentityYSequencesNew( <G> )
+#A  IdentityYSequencesKB( <G> )
 ##
-DeclareOperation( "OrderingYSequences", [ IsList, IsList ] );
-DeclareOperation( "ReducedYSequence", [ IsList ] );
+DeclareOperation( "YSequenceLessThan", [ IsList, IsList ] );
+DeclareOperation( "YSequencesFromRelatorSequences", [ IsList, IsGroup ] ); 
+DeclareOperation( "YSequenceReduce", [ IsList ] );
+DeclareOperation( "YSequenceConjugateAndReduce", [IsList,IsHomogeneousList] );
 DeclareAttribute( "IdentityYSequences", IsGroup );
+DeclareAttribute( "IdentityYSequencesNew", IsGroup );
+DeclareAttribute( "IdentityYSequencesKB", IsGroup );
 
 #############################################################################
 ##

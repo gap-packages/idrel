@@ -57,7 +57,7 @@ which has no terms, and is an element of the module.
 gap> frq8 := FreeRelatorGroup( q8 );; 
 gap> genfrq8 := GeneratorsOfGroup( frq8 ); 
 [ q8_R1, q8_R2, q8_R3, q8_R4 ]
-gap> Print( rmp1, "\n" ); 
+gap> Print( rmp1, "\n" );      ## defined in section 4.4.1 
  - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>
 gap> mp2 := MonoidPolyFromCoeffsWords( [4,-5], [ M[4], M[1] ] );;
 gap> Print( mp2, "\n" ); 

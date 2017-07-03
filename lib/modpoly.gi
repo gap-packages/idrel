@@ -4,24 +4,33 @@
 #W                                                             & Anne Heyworth
 ##  Declaration file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2016 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2017 Anne Heyworth and Chris Wensley 
 ##
 ##  This file contains generic methods for module polynomials
 
-##############################################################################
+#############################################################################
 ##
-#M  ViewObj( <poly> )
+#M  String, ViewString, PrintString, ViewObj, PrintObj 
+##  . . . . . . . . . . . . . . . . . . . . . . . . .  for monoid polynomials 
 ##
+InstallMethod( String, "for a module poly with generators, monoidpolys", 
+    true, [ IsModulePolyGensPolysRep ], 0, 
+function( e ) 
+    return( STRINGIFY( "module polynomial" ) ); 
+end );
+
+InstallMethod( ViewString, "for a module poly with generators, monoidpolys", 
+    true, [ IsModulePolyGensPolysRep ], 0, String ); 
+
+InstallMethod( PrintString, "for a module poly with generators, monoidpolys", 
+    true, [ IsModulePolyGensPolysRep ], 0, String ); 
+
 InstallMethod( ViewObj, "for a module poly with generators, monoidpolys", 
     true, [ IsModulePolyGensPolysRep ], 0, 
 function( p ) 
     Print( p );
 end );
 
-#############################################################################
-##
-#M  PrintObj( <poly> )
-##
 InstallMethod( PrintObj, "for a module poly with generators, monoidpolys", 
     true, [ IsModulePolyGensPolysRep ], 0, 
 function( poly )
@@ -417,7 +426,7 @@ InstallOtherMethod( \*, "generic method for module polynomial and word",
     true, [ IsModulePolyGensPolysRep, IsWord ], 0, 
 function( poly, word)
 
-    local  n1, n2, lenp, lenn, i;
+    local  n1, n2, lenp, lenn, i, mp;
 
     if ( poly = ( poly - poly ) ) then  
         #? surely there should be something better than this ?? 
@@ -436,7 +445,12 @@ function( poly, word)
     for i in [1..lenn] do 
         n2[i] := n1[i] * word;
     od;
-    return ModulePolyFromGensPolys( GeneratorsOfModulePoly( poly ), n2 );
+##Print( "poly = ", poly, "\n" );
+##Print( "word = ", word, "\n" );
+##Print( "n2 = ", n2, "\n" );
+    mp := ModulePolyFromGensPolys( GeneratorsOfModulePoly( poly ), n2 ); 
+##Print( "mp = ", mp, "\n" );
+    return mp; 
 end );
 
 ##############################################################################
@@ -460,50 +474,7 @@ end );
 
 ##############################################################################
 ##
-#M  \<                                                  for module polynomials
-##
-## This is the version Chris uses
-##
-# InstallOtherMethod( \<, "generic method for module polynomials", true, 
-#     [IsModulePolyGensPolysRep, IsModulePolyGensPolysRep ], 0, 
-# function( p1, p2 )
-#
-#     local  i1, i2, g1, g2, m1, m2;
-# 
-#     g1 := GeneratorsOfModulePoly( p1 ); 
-#     g2:= GeneratorsOfModulePoly( p2 );
-#     i1:= Length( g1 );
-#     i2:= Length( g2 );
-#     m1:= MonoidPolys( p1 );
-#     m2:= MonoidPolys( p2 );
-#     while ( ( i1 > 0 ) and ( i2 > 0 ) ) do 
-#         if ( g1[i1] < g2[i2] ) then 
-#             return true;
-#         elif ( g1[i1] > g2[i2] ) then 
-#             return false;
-#         # if here then generators equal, so compare polys 
-#         elif ( m1[i1] < m2[i2] ) then 
-#             return true;
-#         elif ( m1[i1] > m2[i2] ) then 
-#             return false;
-#         # if here then check that both polys have another term to compare 
-#         elif ( ( i1 = 1 ) and ( i2 > 1 ) ) then 
-#             return true;
-#         elif ( ( i1 > 1 ) and ( i2 = 1 ) ) then
-#             return false;
-#         fi;
-#         i1 := i1 - 1;
-#         i2 := i2 - 1;
-#     od;
-#     # if here then polys are equal 
-#     return false;
-# end );
-
-##############################################################################
-##
 #M  \< for module polynomials
-##
-##  This is the version Anne uses
 ##
 InstallOtherMethod( \<, "generic method for module polynomials", true, 
     [ IsModulePolyGensPolysRep, IsModulePolyGensPolysRep ], 0, 
@@ -707,7 +678,7 @@ function( G )
     else
         str := "FY";
     fi;
-    idY := IdentityYSequences( G );
+    idY := IdentityYSequencesNew( G );
     len := Length( idY );
     Flen := FreeGroup( len, str );
     L := Filtered( [1..len], i -> not( idY[i] = [ ] ) );
@@ -716,44 +687,82 @@ function( G )
     SetName( FY, str );
     famY := ElementsFamily( FamilyObj( FY ) );
     famY!.modulePolyFam := ModulePolyFam;
+##Print( "\n%%%  genFY has length ", Length(genFY), "\n\n" );
     return FY;
 end );
 
 #############################################################################
 ##
-#M  MinimiseLeadTerm( <smp>, <rules> )
+#M  FreeYSequenceGroupKB( <G> )
 ##
-InstallMethod( MinimiseLeadTerm, "for a module poly and a reduction system", 
-    true, [ IsLoggedModulePolyYSeqRelsRep, IsList, IsList ], 0, 
-function( lp, elmon, rules)
+InstallMethod( FreeYSequenceGroupKB, "generic method for FpGroup", true, 
+    [ IsFpGroup ], 0, 
+function( G )
 
-    local  len, rp, mp, mbest, xbest, lbest, e, x, mx, rbest, ybest, 
-           oneM, elrng;
+    local  idY, len, str, Flen, L, genFY, FY, famY;
 
+    if HasName( G ) then 
+        str := Concatenation( Name( G ), "_Y" );
+    else
+        str := "FY";
+    fi;
+    idY := IdentityYSequencesKB( G );
+    len := Length( idY );
+    Flen := FreeGroup( len, str );
+    L := Filtered( [1..len], i -> not( idY[i] = [ ] ) );
+    genFY := GeneratorsOfGroup( Flen ){L};
+    FY := Subgroup( Flen, genFY );
+    SetName( FY, str );
+    famY := ElementsFamily( FamilyObj( FY ) );
+    famY!.modulePolyFam := ModulePolyFam;
+Print( "\n%%%  genFY (KB) has length ", Length(genFY), "\n\n" );
+    return FY;
+end );
+
+#############################################################################
+##
+#M  MinimiseLeadTerm( <smp>, <group>, <rules> )
+##
+##  (22/02/17) up until now this function used all elements in the group 
+##  to multiply with: now changed to allow a partial list of elements 
+##
+InstallMethod( MinimiseLeadTerm, "for a module poly, group and rules", 
+    true, [ IsLoggedModulePolyYSeqRelsRep, IsGroup, IsList ], 0, 
+function( lp, G, rules)
+
+    local  len, rp, mp, mbest, xbest, lbest, x, mx, rbest, ybest, 
+           oneM, FMgens, elmon, elrng, e;
+
+    if HasElementsOfMonoidPresentation( G ) then 
+        elmon := ElementsOfMonoidPresentation( G ); 
+    elif HasPartialElementsOfMonoidPresentation( G ) then 
+        elmon := PartialElementsOfMonoidPresentation( G ); 
+    else
+        Error( "no list of elements available" ); 
+    fi;
     oneM := elmon[1];
-    elrng := [2..Length(elmon)];
+    elrng := [2..Length(elmon)];  
     rp := RelatorModulePoly( lp );
     len := Length( rp );
     mp := MonoidPolys( rp )[len];
     mbest := mp;
     xbest := oneM;
     lbest := lp;
-    for e in elrng do 
-        x := elmon[e];
+    for e in elrng do  
+        x := elmon[e]; 
         mx := ReduceMonoidPoly( mp*x, rules );
-        if ( InfoLevel( InfoIdRel ) > 2 ) then
+        if ( InfoLevel( InfoIdRel ) > 4 ) then
             Print( x, " : " ); 
             Display(mx); 
-            Print("\n");
         fi;
         if ( mx < mbest ) then 
             mbest := mx;
             xbest := x;
         fi;
-    od;
+    od; 
     if ( xbest <> oneM ) then 
         rbest := ReduceModulePoly( rp * xbest, rules );
-        ybest := YSequenceModulePoly( lp ) * x;
+        ybest := YSequenceModulePoly( lp ) * xbest;
         lbest := LoggedModulePolyNC( ybest, rbest );
     fi;
     return lbest;
@@ -786,15 +795,20 @@ InstallMethod( IdentityModulePolys, "for an Fp Group", true, [ IsFpGroup ], 0,
 function( G ) 
 
     local  idents, numids, frgp, frgens, famfrgp, relG, genG, fgp, fgens, 
-           shift, rel, posgens, e, i, j, k, monG, elmon, oneM, 
-           FM, FMgens, FMfam, FY, FYgens, arws, rws, ident, w, 
-           yp, nyp, rp, lp, gp, mp, polys, leni, irange, i1, npols, 
-           len, mbest, lbest, x, xbest, mx, rx, yx; 
+           L, rel, posgens, e, i, j, k, monG, elmon, oneM, FM, FMgens, FMfam, 
+           FY, FYgens, arws, rws, ident, w, yp, nyp, rp, lp, gp, mp, polys, 
+           leni, irange, i1, npols, len, mbest, lbest, x, xbest, mx, rx, yx; 
 
     genG := GeneratorsOfGroup( G );
     monG := MonoidPresentationFpGroup( G );
-    elmon := ElementsOfMonoidPresentation( G );
-    oneM := elmon[1];
+    if HasElementsOfMonoidPresentation( G ) then 
+        elmon := ElementsOfMonoidPresentation( G ); 
+    elif HasPartialElementsOfMonoidPresentation( G ) then 
+        elmon := PartialElementsOfMonoidPresentation( G ); 
+    else
+        Error( "no list of elements available" ); 
+    fi;
+    oneM := elmon[1]; 
     frgp := FreeRelatorGroup( G );
     frgens := GeneratorsOfGroup( frgp );
     ### 11/10/05 : moved this from logrws.gi
@@ -804,7 +818,7 @@ function( G )
     FM := FreeGroupOfPresentation( monG );
     FMgens := GeneratorsOfGroup( FM );
     FMfam := ElementsFamily( FamilyObj( FM ) );
-    shift := QuoInt( Length( FMgens ), 2 );
+    L := ArrangementOfMonoidGenerators( G );
     FY := FreeYSequenceGroup( G );
     FYgens := GeneratorsOfGroup( FY );
     posgens := frgens{ [1..Length( relG )] };
@@ -824,7 +838,7 @@ function( G )
             npols := ListWithIdenticalEntries( leni, 0 );
             for i in irange do 
                 i1 := ident[i][1];
-                w := MonoidWordFpWord( ident[i][2], FMfam, shift );
+                w := MonoidWordFpWord( ident[i][2], FMfam, L );
                 w := ReduceWordKB( w, rws );
                 if i1 in frgens then
                     gp[i] := i1;
@@ -840,7 +854,7 @@ function( G )
                 nyp := MonoidPolyFromCoeffsWords( [ 1 ], [ oneM ] );
                 yp := ModulePolyFromGensPolys( [ FYgens[k] ], [ nyp ] );
                 lp := LoggedModulePolyNC( yp, rp );
-                lbest := MinimiseLeadTerm( lp, elmon, rws );
+                lbest := MinimiseLeadTerm( lp, G, rws );
                 lp := lbest*(-1);
                 if ( lbest < lp ) then 
                     Add( polys, lbest );
@@ -849,6 +863,190 @@ function( G )
                 fi;
             fi; 
         fi; 
+    od;
+    Sort( polys );
+    return polys;
+end );
+
+#############################################################################
+##
+#M  IdentityModulePolysNew( <G> )
+##
+InstallMethod( IdentityModulePolysNew, "for an Fp Group", true, [ IsFpGroup ], 0, 
+function( G ) 
+
+    local  idents, numids, frgp, frgens, famfrgp, relG, genG, fgp, fgens, 
+           L, rel, posgens, e, i, j, k, monG, elmon, oneM, 
+           FM, FMgens, FMfam, FY, FYgens, arws, rws, ident, w, 
+           yp, nyp, rp, lp, gp, mp, polys, leni, irange, i1, npols, 
+           len, mbest, lbest, x, xbest, mx, rx, yx; 
+
+    genG := GeneratorsOfGroup( G );
+    monG := MonoidPresentationFpGroup( G );
+    if HasElementsOfMonoidPresentation( G ) then 
+        elmon := ElementsOfMonoidPresentation( G ); 
+    elif HasPartialElementsOfMonoidPresentation( G ) then 
+        elmon := PartialElementsOfMonoidPresentation( G ); 
+    else
+        Error( "no list of elements available" ); 
+    fi;
+    oneM := elmon[1]; 
+    frgp := FreeRelatorGroup( G );
+    frgens := GeneratorsOfGroup( frgp );
+    ### 11/10/05 : moved this from logrws.gi
+    famfrgp := ElementsFamily( FamilyObj( frgp ) );
+    famfrgp!.modulePolyFam := ModulePolyFam;
+    relG := RelatorsOfFpGroup( G );
+    FM := FreeGroupOfPresentation( monG );
+    FMgens := GeneratorsOfGroup( FM );
+    FMfam := ElementsFamily( FamilyObj( FM ) );
+    L := ArrangementOfMonoidGenerators( G );
+    FY := FreeYSequenceGroup( G );
+    FYgens := GeneratorsOfGroup( FY );
+    posgens := frgens{ [1..Length( relG )] };
+    arws := LoggedRewritingSystemFpGroup( G );
+    rws := List( arws, r -> [ r[1], r[3] ] );
+    idents := IdentityYSequencesNew( G );
+    numids := Length( idents );
+    polys := [ ];
+    k := 0;
+    for j in [1..numids] do 
+Print( "=================  j = ", j, "  ==================\n" ); 
+        ident := idents[j][2];
+Print( "ident = ", ident, "\n" );
+        leni := Length( ident );
+        if ( leni > 0 ) then
+            k := k+1;
+Print( "k = ", k, "\n" );
+            irange := [1..leni];
+            gp := ListWithIdenticalEntries( leni, 0 );
+            npols := ListWithIdenticalEntries( leni, 0 );
+            for i in irange do 
+                i1 := ident[i][1];
+                w := MonoidWordFpWord( ident[i][2], FMfam, L );
+                w := ReduceWordKB( w, rws );
+                if i1 in frgens then
+                    gp[i] := i1;
+                    npols[i] := MonoidPolyFromCoeffsWords( [+1], [w] );
+                else
+                    gp[i] := i1^(-1);
+                    npols[i] := MonoidPolyFromCoeffsWords( [-1], [w] );
+                fi;
+            od;
+Print( "npols = ", npols, "\n" ); 
+            rp := ModulePolyFromGensPolys( gp, npols );
+Print( "rp = ", rp, "\n" ); 
+            len := Length( rp );
+            if not ( len = 0 ) then 
+                nyp := MonoidPolyFromCoeffsWords( [ 1 ], [ oneM ] );
+Print( "nyp = ", nyp, "\n" ); 
+                yp := ModulePolyFromGensPolys( [ FYgens[k] ], [ nyp ] );
+Print( "yp = ", yp, "\n" ); 
+                lp := LoggedModulePolyNC( yp, rp );
+Print( "lp = ", lp, "\n" );
+                lbest := MinimiseLeadTerm( lp, G, rws );
+                lp := lbest*(-1);
+Print( "lp = ", lp, "\n" );
+                if ( lbest < lp ) then 
+                    Add( polys, lbest );
+                else 
+                    Add( polys, lp );
+                fi;
+            fi; 
+        fi; 
+    od;
+    Sort( polys );
+    return polys;
+end );
+
+#############################################################################
+##
+#M  IdentityModulePolysKB( <G> )
+##
+InstallMethod( IdentityModulePolysKB, "for an Fp Group", true, [ IsFpGroup ], 0, 
+function( G ) 
+
+    local  idents, numids, frgp, frgens, famfrgp, relG, genG, fgp, fgens, 
+           L, rel, posgens, e, i, j, k, monG, elmon, oneM, 
+           FM, FMgens, FMfam, FY, FYgens, arws, rws, ident, w, 
+           yp, nyp, rp, lp, gp, mp, polys, leni, irange, i1, npols, 
+           len, mbest, lbest, x, xbest, mx, rx, yx; 
+
+    genG := GeneratorsOfGroup( G );
+    monG := MonoidPresentationFpGroup( G );
+    if HasElementsOfMonoidPresentation( G ) then 
+        elmon := ElementsOfMonoidPresentation( G ); 
+    elif HasPartialElementsOfMonoidPresentation( G ) then 
+        elmon := PartialElementsOfMonoidPresentation( G ); 
+    else
+        Error( "no list of elements available" ); 
+    fi;
+    oneM := elmon[1]; 
+    frgp := FreeRelatorGroup( G );
+    frgens := GeneratorsOfGroup( frgp );
+    ### 11/10/05 : moved this from logrws.gi
+    famfrgp := ElementsFamily( FamilyObj( frgp ) );
+    famfrgp!.modulePolyFam := ModulePolyFam;
+    relG := RelatorsOfFpGroup( G );
+    arws := LoggedRewritingSystemFpGroup( G );
+    rws := List( arws, r -> [ r[1], r[3] ] );
+    FM := FreeGroupOfPresentation( monG );
+    FMgens := GeneratorsOfGroup( FM );
+    FMfam := ElementsFamily( FamilyObj( FM ) );
+    L := ArrangementOfMonoidGenerators( G );
+    FY := FreeYSequenceGroupKB( G );
+    FYgens := GeneratorsOfGroup( FY );
+    posgens := frgens{ [1..Length( relG )] };
+    idents := IdentityYSequencesKB( G );
+    idents := YSequencesFromRelatorSequences( idents, G ); 
+    numids := Length( idents );
+    polys := [ ];
+    k := 0;
+    for j in [1..numids] do 
+Print( "=================  j = ", j, "  ==================\n" ); 
+        ident := idents[j][2];
+Print( "ident = ", ident, "\n" );
+        leni := Length( ident );
+        if ( leni > 0 ) then
+            k := k+1;
+Print( "k = ", k, "\n" );
+            irange := [1..leni];
+            gp := ListWithIdenticalEntries( leni, 0 );
+            npols := ListWithIdenticalEntries( leni, 0 );
+            for i in irange do 
+                i1 := ident[i][1];
+                w := MonoidWordFpWord( ident[i][2], FMfam, L );
+                w := ReduceWordKB( w, rws );
+                if i1 in frgens then
+                    gp[i] := i1;
+                    npols[i] := MonoidPolyFromCoeffsWords( [+1], [w] );
+                else
+                    gp[i] := i1^(-1);
+                    npols[i] := MonoidPolyFromCoeffsWords( [-1], [w] );
+                fi;
+            od;
+Print( "npols = ", npols, "\n" ); 
+            rp := ModulePolyFromGensPolys( gp, npols );
+Print( "rp = ", rp, "\n" ); 
+            len := Length( rp );
+            if not ( len = 0 ) then 
+                nyp := MonoidPolyFromCoeffsWords( [ 1 ], [ oneM ] );
+Print( "nyp = ", nyp, "\n" ); 
+                yp := ModulePolyFromGensPolys( [ FYgens[k] ], [ nyp ] );
+Print( "yp = ", yp, "\n" ); 
+                lp := LoggedModulePolyNC( yp, rp );
+Print( "lp = ", lp, "\n" );
+                lbest := MinimiseLeadTerm( lp, G, rws );
+                lp := lbest*(-1);
+Print( "lp = ", lp, "\n" );
+                if ( lbest < lp ) then 
+                    Add( polys, lbest );
+                else 
+                    Add( polys, lp );
+                fi;
+            fi; 
+        fi; 
+###### if j=3 then j[1]:=j[2]; fi;
     od;
     Sort( polys );
     return polys;
@@ -929,7 +1127,7 @@ end );
 
 #############################################################################
 ##
-#M  SaturatedSetLoggedModulePoly( <logsmp>, <elmon>, <rws), <sats> )
+#M  SaturatedSetLoggedModulePoly( <logsmp>, <elmon>, <rws>, <sats> )
 ##
 InstallMethod( SaturatedSetLoggedModulePoly, 
     "for a logged module poly and rewriting system", true, 
@@ -966,23 +1164,23 @@ function( l, elmon, rws, sats )
         for j in [(i+2)..numsat] do 
             rj := rsats[j];
             if ( sats = [ ] ) then
-            rij := ReduceModulePoly( ri + rj, rws );
-        else 
-            rij := LoggedReduceModulePoly( ri + rj, rws, sats, r0 );
-            rij := RelatorModulePoly( rij );
-        fi;
-        if ( ( rij <> r0 ) and ( rij < ri ) and ( rij < rj ) 
-                                        and not ( rij in rsats ) ) then 
-            yij := yi + YSequenceModulePoly( lsats[j] );
-            lij := LoggedModulePolyNC( yij, rij );
-            Add( rsats, rij );
-            Add( lsats, lij );
-            lij := lij * (-1);
-            Add( lsats, lij ); 
-            Add( rsats, RelatorModulePoly( lij ) );
-        fi;
-    od;
-    i := i+2;
+                rij := ReduceModulePoly( ri + rj, rws );
+            else 
+                rij := LoggedReduceModulePoly( ri + rj, rws, sats, r0 );
+                rij := RelatorModulePoly( rij );
+            fi;
+            if ( ( rij <> r0 ) and ( rij < ri ) and ( rij < rj ) 
+                               and not ( rij in rsats ) ) then 
+                yij := yi + YSequenceModulePoly( lsats[j] );
+                lij := LoggedModulePolyNC( yij, rij );
+                Add( rsats, rij );
+                Add( lsats, lij );
+                lij := lij * (-1);
+                Add( lsats, lij ); 
+                Add( rsats, RelatorModulePoly( lij ) );
+            fi;
+        od;
+        i := i+2;
     od;
     return lsats;
 end );
@@ -995,12 +1193,13 @@ InstallMethod( IdentitiesAmongRelators, "for an FpGroup", true,
     [ IsFpGroup ], 0, 
 function( G )
 
-    local  monG, F, FR, genFR, i, j, k, m, idmon, elrng, 
+    local  monG, F, FR, genFR, FM, FMgens, i, j, k, m, idmon, elrng, L, 
            lp, yp, rp, mp, gp, len, x, mbest, xbest, mx, rx, yx, lx, pols, 
            modpols, labels, sats, elmon, rem, logrem, remrp, polypos, idG, 
            rws, r, irrepols, irrerems, irrenum, ok, irrem, remm, satm, m1, mO,
            remsat, irrek, rpk, ypk, remk, irrng, irrelist, remyp, leadgp;
 
+    L := ArrangementOfMonoidGenerators( G ); 
     monG := MonoidPresentationFpGroup( G );
     modpols := IdentityModulePolys( G );
     elmon := ElementsOfMonoidPresentation( G );
@@ -1012,6 +1211,8 @@ function( G )
     F := FreeGroupOfFpGroup( G );
     FR := FreeGroupOfPresentation( monG );
     genFR := GeneratorsOfGroup( FR );
+    FM := FreeGroupOfPresentation( monG );
+    FMgens := GeneratorsOfGroup( FM );
     m1 := RelatorModulePoly( modpols[1] );
     mO := m1 - m1;
     for i in [1..Length(modpols)] do 
@@ -1019,8 +1220,6 @@ function( G )
         if ( InfoLevel( InfoIdRel ) > 2 ) then
             Print( "\n\n", i, " : "); Display( lp ); Print( "\n" );
         fi;
-#       if (i=6) then LogTo("q8may17.log"); fi;
-#       if (i=7) then LogTo( ); fi; 
         rp := RelatorModulePoly( lp );
         leadgp := LeadGenerator( rp );
         yp := YSequenceModulePoly( lp );
@@ -1050,7 +1249,7 @@ function( G )
             if ( LeadGenerator( remrp ) <> leadgp ) then 
                 if ( InfoLevel( InfoIdRel ) > 2 ) then
                     Print( "\n! minimising leading term: !\n\n" );
-                    logrem := MinimiseLeadTerm( logrem, elmon, rws );
+                    logrem := MinimiseLeadTerm( logrem, G, rws );
                 fi;
             fi;
             if ( InfoLevel( InfoIdRel ) > 2 ) then
@@ -1173,6 +1372,239 @@ function( G )
     od;
     if ( InfoLevel( InfoIdRel ) > 0 ) then
         Print( "\nThere were ", irrenum, " irreducibles found.\n" );
+        Print( "The corresponding saturated sets have size:\n" );
+        Print( List( sats, L -> Length(L) ), "\n\n" );
+        Print( "The irreducibles and the (reordered) remainders are:\n\n" );
+        for r in [1..irrenum] do 
+            Print( r, " : ", irrepols[r], "\n" ); 
+        od;
+        Print( "-------------------------------------------------------\n\n" );
+        for r in [1..irrenum] do 
+            Print( r, " : ", irrerems[r], "\n" );
+        od; 
+    fi;
+    return [ irrepols, irrerems ];
+end );
+
+#############################################################################
+##
+#M  IdentitiesAmongRelatorsNew( <G> )
+##
+InstallMethod( IdentitiesAmongRelatorsNew, "for an FpGroup", true, 
+    [ IsFpGroup ], 0, 
+function( G )
+
+    local  monG, F, FR, genFR, FM, FMgens, i, j, k, m, idmon, elrng, L, 
+           lp, yp, rp, mp, gp, len, x, mbest, xbest, mx, rx, yx, lx, pols, 
+           modpols, labels, sats, elmon, rem, logrem, remrp, polypos, idG, 
+           rws, r, irrepols, irrerems, irrenum, ok, irrem, remm, satm, m1, mO,
+           remsat, irrek, rpk, ypk, remk, irrng, irrelist, remyp, leadgp;
+
+    L := ArrangementOfMonoidGenerators( G ); 
+    monG := MonoidPresentationFpGroup( G );
+    modpols := IdentityModulePolysNew( G );
+    if HasElementsOfMonoidPresentation( G ) then 
+        elmon := ElementsOfMonoidPresentation( G ); 
+    elif HasPartialElementsOfMonoidPresentation( G ) then 
+        elmon := PartialElementsOfMonoidPresentation( G ); 
+    else
+        Error( "no list of elements available" ); 
+    fi;
+    rws := List( LoggedRewritingSystemFpGroup( G ), r -> [ r[1], r[3] ] );
+    irrepols := [ ];
+    irrerems:= [ ];
+    sats := [ ];
+    irrenum := 0;
+    F := FreeGroupOfFpGroup( G );
+    FR := FreeGroupOfPresentation( monG );
+    genFR := GeneratorsOfGroup( FR );
+    FM := FreeGroupOfPresentation( monG );
+    FMgens := GeneratorsOfGroup( FM );
+    m1 := RelatorModulePoly( modpols[1] );
+    mO := m1 - m1;
+    for i in [1..Length(modpols)] do 
+        lp := modpols[i];
+        if ( InfoLevel( InfoIdRel ) > 2 ) then
+            Print( "\n\n", i, " : "); Display( lp ); Print( "\n" );
+        fi;
+        rp := RelatorModulePoly( lp );
+        leadgp := LeadGenerator( rp );
+        yp := YSequenceModulePoly( lp );
+        if ( InfoLevel( InfoIdRel ) > 2 ) then 
+            Print( "\nlooking at polynomial number ", i, ": \n" );
+            Display( lp );
+            Print( "\n" );
+        fi;
+        ##################### saturation used here: ####################### 
+        if ( sats = [ ] ) then 
+            logrem := lp;
+            remyp := yp; 
+            remrp := rp;
+        else 
+            rem := LoggedReduceModulePoly( rp, rws, sats, mO );
+            remyp := yp + YSequenceModulePoly( rem );
+            remrp := RelatorModulePoly( rem );
+            logrem := LoggedModulePoly( remyp, remrp );
+        fi;
+        if ( remrp = mO ) then 
+            if ( InfoLevel( InfoIdRel ) > 2 ) then
+                Print( "reduced to zero by:\n" );
+                Display( remyp );
+                Print( "\n" );
+            fi;
+        else 
+            if ( LeadGenerator( remrp ) <> leadgp ) then 
+                if ( InfoLevel( InfoIdRel ) > 2 ) then
+                    Print( "\n! minimising leading term: !\n\n" );
+                    logrem := MinimiseLeadTerm( logrem, G, rws );
+                fi;
+            fi;
+            if ( InfoLevel( InfoIdRel ) > 2 ) then
+                Print( "logrem = " ); Display(logrem); Print("\n");
+            fi;
+            irrenum := irrenum + 1;
+            remsat := SaturatedSetLoggedModulePoly( logrem, elmon, rws, sats );
+            if ( InfoLevel( InfoIdRel ) > 2 ) then
+                Print( "\nsaturated set:\n" );
+                for m in [1..Length(remsat)] do 
+                    Print( m, ": "); Display(remsat[m]); Print("\n");
+                od;
+                Print( "irreducible number ", irrenum, " :-\n" );
+                Display( lp );
+                Print( "\n" );
+            fi;
+            Add( irrepols, lp );
+            Add( irrerems, logrem );
+            Add( sats, remsat );
+            SortParallel( irrerems, sats );
+            if ( InfoLevel( InfoIdRel ) > 2 ) then
+                Print( "\ncurrent state of reduced list, irrerems:\n" );
+                for r in irrerems do 
+                    Display( r );
+                    Print( "\n" );
+                od;
+            fi;
+        fi;
+    od;
+    if ( InfoLevel( InfoIdRel ) > 0 ) then
+        Print( "\nThere were ", irrenum, " irreducibles found.\n" );
+        Print( "The corresponding saturated sets have size:\n" );
+        Print( List( sats, L -> Length(L) ), "\n\n" );
+        Print( "The irreducibles and the (reordered) remainders are:\n\n" );
+        for r in [1..irrenum] do 
+            Print( r, " : ", irrepols[r], "\n" ); 
+        od;
+        Print( "-------------------------------------------------------\n\n" );
+        for r in [1..irrenum] do 
+            Print( r, " : ", irrerems[r], "\n" );
+        od; 
+    fi;
+    return [ irrepols, irrerems ];
+end );
+
+#############################################################################
+##
+#M  IdentitiesAmongRelatorsKB( <G> )
+##
+InstallMethod( IdentitiesAmongRelatorsKB, "for an FpGroup", true, 
+    [ IsFpGroup ], 0, 
+function( G )
+
+    local  monG, F, FR, genFR, FM, FMgens, i, j, k, m, idmon, elrng, L, 
+           lp, yp, rp, mp, gp, len, x, mbest, xbest, mx, rx, yx, lx, pols, 
+           modpols, labels, sats, elmon, rem, logrem, remrp, polypos, idG, 
+           rws, r, irrepols, irrerems, irrenum, ok, irrem, remm, satm, m1, mO,
+           remsat, irrek, rpk, ypk, remk, irrng, irrelist, remyp, leadgp;
+
+    L := ArrangementOfMonoidGenerators( G ); 
+    monG := MonoidPresentationFpGroup( G );
+    modpols := IdentityModulePolysKB( G );
+    if HasElementsOfMonoidPresentation( G ) then 
+        elmon := ElementsOfMonoidPresentation( G ); 
+    elif HasPartialElementsOfMonoidPresentation( G ) then 
+        elmon := PartialElementsOfMonoidPresentation( G ); 
+    else
+        Error( "no list of elements available" ); 
+    fi;
+    rws := List( LoggedRewritingSystemFpGroup( G ), r -> [ r[1], r[3] ] );
+    irrepols := [ ];
+    irrerems:= [ ];
+    sats := [ ];
+    irrenum := 0;
+    F := FreeGroupOfFpGroup( G );
+    FR := FreeGroupOfPresentation( monG );
+    genFR := GeneratorsOfGroup( FR );
+    FM := FreeGroupOfPresentation( monG );
+    FMgens := GeneratorsOfGroup( FM );
+    m1 := RelatorModulePoly( modpols[1] );
+    mO := m1 - m1;
+    for i in [1..Length(modpols)] do 
+        lp := modpols[i];
+        if ( InfoLevel( InfoIdRel ) > 2 ) then
+            Print( "\n\n", i, " : "); Display( lp ); Print( "\n" );
+        fi;
+        rp := RelatorModulePoly( lp );
+        leadgp := LeadGenerator( rp );
+        yp := YSequenceModulePoly( lp );
+        if ( InfoLevel( InfoIdRel ) > 2 ) then 
+            Print( "\nlooking at polynomial number ", i, ": \n" );
+            Display( lp );
+            Print( "\n" );
+        fi;
+        ##################### saturation used here: ####################### 
+        if ( sats = [ ] ) then 
+            logrem := lp;
+            remyp := yp; 
+            remrp := rp;
+        else 
+            rem := LoggedReduceModulePoly( rp, rws, sats, mO );
+            remyp := yp + YSequenceModulePoly( rem );
+            remrp := RelatorModulePoly( rem );
+            logrem := LoggedModulePoly( remyp, remrp );
+        fi;
+        if ( remrp = mO ) then 
+            if ( InfoLevel( InfoIdRel ) > 2 ) then
+                Print( "reduced to zero by:\n" );
+                Display( remyp );
+                Print( "\n" );
+            fi;
+        else 
+            if ( LeadGenerator( remrp ) <> leadgp ) then 
+                if ( InfoLevel( InfoIdRel ) > 2 ) then
+                    Print( "\n! minimising leading term: !\n\n" );
+                    logrem := MinimiseLeadTerm( logrem, G, rws );
+                fi;
+            fi;
+            if ( InfoLevel( InfoIdRel ) > 2 ) then
+                Print( "logrem = " ); Display(logrem); Print("\n");
+            fi;
+            irrenum := irrenum + 1;
+            remsat := SaturatedSetLoggedModulePoly( logrem, elmon, rws, sats );
+            if ( InfoLevel( InfoIdRel ) > 2 ) then
+                Print( "\nsaturated set:\n" );
+                for m in [1..Length(remsat)] do 
+                    Print( m, ": "); Display(remsat[m]); Print("\n");
+                od;
+                Print( "irreducible number ", irrenum, " :-\n" );
+                Display( lp );
+                Print( "\n" );
+            fi;
+            Add( irrepols, lp );
+            Add( irrerems, logrem );
+            Add( sats, remsat );
+            SortParallel( irrerems, sats );
+            if ( InfoLevel( InfoIdRel ) > 2 ) then
+                Print( "\ncurrent state of reduced list, irrerems:\n" );
+                for r in irrerems do 
+                    Display( r );
+                    Print( "\n" );
+                od;
+            fi;
+        fi;
+    od;
+    if ( InfoLevel( InfoIdRel ) > 0 ) then
+        Print( "\n=============  This the KB version!  ==============\n" );
+        Print( "There were ", irrenum, " irreducibles found.\n" );
         Print( "The corresponding saturated sets have size:\n" );
         Print( List( sats, L -> Length(L) ), "\n\n" );
         Print( "The irreducibles and the (reordered) remainders are:\n\n" );

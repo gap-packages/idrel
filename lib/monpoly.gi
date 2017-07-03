@@ -4,23 +4,32 @@
 #W                                                             & Anne Heyworth
 ##  Declaration file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2016 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2017 Anne Heyworth and Chris Wensley 
 ##
 
-##############################################################################
+#############################################################################
 ##
-#M  ViewObj( <poly> )
+#M  String, ViewString, PrintString, ViewObj, PrintObj 
+##  . . . . . . . . . . . . . . . . . . . . . . . . .  for monoid polynomials 
 ##
+InstallMethod( String, "for a monoid poly with terms", true, 
+    [ IsMonoidPolyTermsRep ], 0, 
+function( e ) 
+    return( STRINGIFY( "monoid polynomial" ) ); 
+end );
+
+InstallMethod( ViewString, "for a monoid poly with terms", true, 
+    [ IsMonoidPolyTermsRep ], 0, String ); 
+
+InstallMethod( PrintString, "for a monoid poly with terms", true, 
+    [ IsMonoidPolyTermsRep ], 0, String ); 
+
 InstallMethod( ViewObj, "for a monoid poly with terms", true, 
     [ IsMonoidPolyTermsRep ], 0, 
 function( p ) 
     Print( "<monpoly>" );
 end );
 
-#############################################################################
-##
-#M  PrintObj( <poly> )
-##
 InstallMethod( PrintObj, "for a monoid poly with terms", true, 
     [ IsMonoidPolyTermsRep ], 0, 
 function( poly )
@@ -515,9 +524,10 @@ InstallMethod( ReduceMonoidPoly, "for a monoid poly", true,
     [ IsMonoidPolyTermsRep, IsList ], 0, 
 function( poly, rules)
 
-    local  rw;
+    local  rw, rmp;
     rw := List( Words( poly ), w -> ReduceWordKB( w, rules) );
-    return MonoidPolyFromCoeffsWords( Coeffs( poly ), rw );
+    rmp := MonoidPolyFromCoeffsWords( Coeffs( poly ), rw );
+    return rmp;  
 end );
 
 #############################################################################

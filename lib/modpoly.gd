@@ -4,7 +4,7 @@
 #W                                                             & Anne Heyworth
 ##  Declaration file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2016 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2017 Anne Heyworth and Chris Wensley 
 ##
 ##  This file contains the declarations of operations for module polynomials.
 ##  A ModulePoly is a list of terms [<gen>, <monoid poly> ], 
@@ -74,8 +74,10 @@ DeclareOperation( "ZeroModulePoly", [ IsFreeGroup, IsFreeGroup ] );
 #############################################################################
 ##
 #A  FreeYSequenceGroup( <G> )
+#A  FreeYSequenceGroupKB( <G> )
 ##
 DeclareAttribute( "FreeYSequenceGroup", IsFpGroup );
+DeclareAttribute( "FreeYSequenceGroupKB", IsFpGroup );
 
 #############################################################################
 ##
@@ -112,8 +114,12 @@ DeclareOperation( "LoggedModulePoly",
 #############################################################################
 ##
 #O  IdentityModulePolys( <G> )
+#O  IdentityModulePolysNew( <G> )
+#O  IdentityModulePolysKB( <G> )
 ##
 DeclareOperation( "IdentityModulePolys", [ IsGroup ] );
+DeclareOperation( "IdentityModulePolysNew", [ IsGroup ] );
+DeclareOperation( "IdentityModulePolysKB", [ IsGroup ] );
 
 #############################################################################
 ##
@@ -124,10 +130,10 @@ DeclareOperation( "SaturatedSetLoggedModulePoly",
 
 ############################################################################
 ##
-#O  MinimiseLeadTerm( <poly, rules> )
+#O  MinimiseLeadTerm( <poly, gp, rules> )
 ##
 DeclareOperation( "MinimiseLeadTerm", 
-    [ IsLoggedModulePolyYSeqRelsRep, IsList, IsList ] );
+    [ IsLoggedModulePolyYSeqRelsRep, IsGroup, IsList ] );
 
 #############################################################################
 ##
@@ -145,9 +151,13 @@ DeclareOperation( "LoggedReduceModulePoly",
 #############################################################################
 ##
 #A  IdentitiesAmongRelators( <G> )
+#A  IdentitiesAmongRelatorsNew( <G> )
+#A  IdentitiesAmongRelatorsKB( <G> )
 #A  RootIdentities( <G> )
 ##
 DeclareAttribute( "IdentitiesAmongRelators", IsGroup );
+DeclareAttribute( "IdentitiesAmongRelatorsNew", IsGroup );
+DeclareAttribute( "IdentitiesAmongRelatorsKB", IsGroup );
 DeclareAttribute( "RootIdentities", IsGroup );
 
 #############################################################################

@@ -32,11 +32,11 @@ gap> Y8 := idy3[8];
 
 gap> idrels3 := IdentitiesAmongRelators( s3 );;
 gap> Display( idrels3[1] );
-[ ( s3_Y4*( s3_M2*s3_M1), s3_R1*( s3_M1 - <identity ...>) ), 
-  ( s3_Y8*( s3_M2*s3_M1), s3_R2*( s3_M2 - <identity ...>) ), 
-  ( s3_Y7*( s3_M2*s3_M1), s3_R3*( s3_M2 - s3_M1) ), 
-  ( s3_Y6*( -s3_M2*s3_M1), s3_R1*( -s3_M2*s3_M1 - s3_M1) + s3_R2*( -s3_M1*s3_M\
-2 - s3_M1 - <identity ...>) + s3_R3*( s3_M3 + s3_M2 + <identity ...>) ) ]
+[ ( s3_Y1*( s3_M1), s3_R1*( s3_M1 - <identity ...>) ), 
+  ( s3_Y4*( s3_M2), s3_R2*( s3_M2 - <identity ...>) ), 
+  ( s3_Y3*( s3_M2), s3_R3*( s3_M2 - s3_M1) ), 
+  ( s3_Y2*( -s3_M1), s3_R1*( -s3_M2*s3_M1 - s3_M1) + s3_R2*( -s3_M1*s3_M2 - s3\
+_M1 - <identity ...>) + s3_R3*( s3_M3 + s3_M2 + <identity ...>) ) ]
 
 ## Example 2.1.1
 gap> rels := [ a^4, b^4, a*b*a*b^-1, a^2*b^2 ];;
@@ -49,8 +49,8 @@ gap> frhomq8 := FreeRelatorHomomorphism( q8 );
 
 ## Example 2.1.2
 gap> mon := MonoidPresentationFpGroup( q8 );
-monoid presentation for an fp-group with homomorphism
-[ [ q8_M1, q8_M2, q8_M3, q8_M4 ], [ f1, f2, f1^-1, f2^-1 ] ]
+monoid presentation with group relators 
+[ q8_M1^4, q8_M2^4, q8_M1*q8_M2*q8_M1*q8_M4, q8_M1^2*q8_M2^2 ]
 gap> fgmon := FreeGroupOfPresentation( mon ); 
 <free group on the generators [ q8_M1, q8_M2, q8_M3, q8_M4 ]>
 gap> genfgmon := GeneratorsOfGroup( fgmon );;
@@ -78,8 +78,7 @@ gap> T := F/[Comm(F.1,F.2)];
 gap> SetName( T, "T" );                   
 gap> SetArrangementOfMonoidGenerators( T, [1,-1,2,-2] );
 gap> monT := MonoidPresentationFpGroup(T);              
-monoid presentation for an fp-group with homomorphism
-[ [ T_M1, T_M2, T_M3, T_M4 ], [ f1, f1^-1, f2, f2^-1 ] ]
+monoid presentation with group relators [ T_M2*T_M4*T_M1*T_M3 ]
 gap> rwsT := RewritingSystemFpGroup( T );               
 [ [ T_M1*T_M2, <identity ...> ], [ T_M2*T_M1, <identity ...> ], 
   [ T_M3*T_M4, <identity ...> ], [ T_M4*T_M3, <identity ...> ], 
