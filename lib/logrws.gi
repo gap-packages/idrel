@@ -4,7 +4,7 @@
 #W                                                             & Anne Heyworth
 ##  Declaration file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2017 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2017 Anne  and Chris Wensley 
 
 ##############################################################################
 ##
@@ -1176,8 +1176,13 @@ function( G )
            ide, ide2, ri, wi, idents, iidents, idG, genFMpos, g, gen, uelt, 
            melt, omega, z, z1, z2, numalf, e, rwe, c, leni, w1, genrangeF, 
            x, alfF, invF, k1gx, rev, i1, r, rho, lenr, changed, idi, idj, 
-           lenj, ok, idsorder, numa;
+           lenj, ok, idsorder, numa, strG;
 
+    if HasName( G ) then 
+        strG := Name( G ); 
+    else 
+        strG := "G"; 
+    fi;
     monG := MonoidPresentationFpGroup( G ); 
     FM := FreeGroupOfPresentation( monG );
     genFM := GeneratorsOfGroup( FM );
@@ -1227,7 +1232,7 @@ function( G )
 #   ?? should sigma be sorted ??
     isigma := List( sigma, e -> ReduceWordKB( e^-1, invrules1 ) );
     if ( InfoLevel( InfoIdRel ) > 1 ) then 
-        Print( Name( G ), " has elements \n", elG );
+        Print( strG, " has elements \n", elG );
         Print( "\nand monoid elements (possibly in a different order): \n" ); 
         Print( sigma, "\nwith inverses: \n", isigma, "\n\n" );
     fi;

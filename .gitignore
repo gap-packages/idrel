@@ -1,8 +1,11 @@
+*.log
+
 /doc/*.html
 /doc/*.txt
 /doc/*.css
 /doc/*.js
 
+/doc/bib.xml.bib
 /doc/manual.lab
 /doc/manual.pdf
 /doc/manual.six
@@ -19,6 +22,11 @@
 /doc/*.tex
 /doc/*.toc
 
+/examples/*.log
+/examples/q*.g
+
 /gh-pages/
 
 /tmp/
+
+/tst/test*

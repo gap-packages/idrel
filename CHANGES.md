@@ -11,8 +11,9 @@
  * (12/01/16) ElementsFamily error when running `testall.g` 
  * add a History chapter to the manual 
 
-## 2.34 -> 2.36  (14/06/2017)
+## 2.34 -> 2.36  (10/07/2017)
 
+ * (03/07/17) README and CHANGES now in MarkDown format, so .md files
  * (14/06/17) added methods for String, ViewString, PrintString 
  * (22/02/17) added PartialElementsOfMonoidPresentation 
               added YSequencesFromRelatorSequences 
