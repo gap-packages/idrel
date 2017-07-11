@@ -113,12 +113,12 @@ DeclareOperation( "LoggedModulePoly",
 
 #############################################################################
 ##
+#O  IdentityModulePolysOld( <G> )
 #O  IdentityModulePolys( <G> )
-#O  IdentityModulePolysNew( <G> )
 #O  IdentityModulePolysKB( <G> )
 ##
+DeclareOperation( "IdentityModulePolysOld", [ IsGroup ] );
 DeclareOperation( "IdentityModulePolys", [ IsGroup ] );
-DeclareOperation( "IdentityModulePolysNew", [ IsGroup ] );
 DeclareOperation( "IdentityModulePolysKB", [ IsGroup ] );
 
 #############################################################################
@@ -150,13 +150,13 @@ DeclareOperation( "LoggedReduceModulePoly",
 
 #############################################################################
 ##
+#A  IdentitiesAmongRelatorsOld( <G> )
 #A  IdentitiesAmongRelators( <G> )
-#A  IdentitiesAmongRelatorsNew( <G> )
 #A  IdentitiesAmongRelatorsKB( <G> )
 #A  RootIdentities( <G> )
 ##
+DeclareAttribute( "IdentitiesAmongRelatorsOld", IsGroup );
 DeclareAttribute( "IdentitiesAmongRelators", IsGroup );
-DeclareAttribute( "IdentitiesAmongRelatorsNew", IsGroup );
 DeclareAttribute( "IdentitiesAmongRelatorsKB", IsGroup );
 DeclareAttribute( "RootIdentities", IsGroup );
 

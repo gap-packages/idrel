@@ -678,7 +678,7 @@ function( G )
     else
         str := "FY";
     fi;
-    idY := IdentityYSequencesNew( G );
+    idY := IdentityYSequences( G );
     len := Length( idY );
     Flen := FreeGroup( len, str );
     L := Filtered( [1..len], i -> not( idY[i] = [ ] ) );
@@ -735,8 +735,8 @@ function( lp, G, rules)
 
     if HasElementsOfMonoidPresentation( G ) then 
         elmon := ElementsOfMonoidPresentation( G ); 
-    elif HasPartialElementsOfMonoidPresentation( G ) then 
-        elmon := PartialElementsOfMonoidPresentation( G ); 
+    elif HasPartialElements( G ) then 
+        elmon := PartialElements( G ); 
     else
         Error( "no list of elements available" ); 
     fi;
@@ -789,9 +789,9 @@ end );
 
 #############################################################################
 ##
-#M  IdentityModulePolys( <G> )
+#M  IdentityModulePolysOld( <G> )
 ##
-InstallMethod( IdentityModulePolys, "for an Fp Group", true, [ IsFpGroup ], 0, 
+InstallMethod( IdentityModulePolysOld, "for an fp-group", true, [ IsFpGroup ], 0, 
 function( G ) 
 
     local  idents, numids, frgp, frgens, famfrgp, relG, genG, fgp, fgens, 
@@ -803,8 +803,8 @@ function( G )
     monG := MonoidPresentationFpGroup( G );
     if HasElementsOfMonoidPresentation( G ) then 
         elmon := ElementsOfMonoidPresentation( G ); 
-    elif HasPartialElementsOfMonoidPresentation( G ) then 
-        elmon := PartialElementsOfMonoidPresentation( G ); 
+    elif HasPartialElements( G ) then 
+        elmon := PartialElements( G ); 
     else
         Error( "no list of elements available" ); 
     fi;
@@ -824,7 +824,7 @@ function( G )
     posgens := frgens{ [1..Length( relG )] };
     arws := LoggedRewritingSystemFpGroup( G );
     rws := List( arws, r -> [ r[1], r[3] ] );
-    idents := IdentityYSequences( G );
+    idents := IdentityYSequencesOld( G );
     numids := Length( idents );
     polys := [ ];
     k := 0;
@@ -870,14 +870,14 @@ end );
 
 #############################################################################
 ##
-#M  IdentityModulePolysNew( <G> )
+#M  IdentityModulePolys( <G> )
 ##
-InstallMethod( IdentityModulePolysNew, "for an Fp Group", true, [ IsFpGroup ], 0, 
+InstallMethod( IdentityModulePolys, "for an Fp Group", true, [ IsFpGroup ], 0, 
 function( G ) 
 
     local  idents, numids, frgp, frgens, famfrgp, relG, genG, fgp, fgens, 
            L, rel, posgens, e, i, j, k, monG, elmon, oneM, 
-           FM, FMgens, FMfam, FY, FYgens, arws, rws, ident, w, 
+           FM, FMgens, FMfam, FY, FYgens, arws, rws, ident, pos, w, 
            yp, nyp, rp, lp, gp, mp, polys, leni, irange, i1, npols, 
            len, mbest, lbest, x, xbest, mx, rx, yx; 
 
@@ -885,15 +885,17 @@ function( G )
     monG := MonoidPresentationFpGroup( G );
     if HasElementsOfMonoidPresentation( G ) then 
         elmon := ElementsOfMonoidPresentation( G ); 
-    elif HasPartialElementsOfMonoidPresentation( G ) then 
-        elmon := PartialElementsOfMonoidPresentation( G ); 
-    else
-        Error( "no list of elements available" ); 
+    elif HasPartialElements( G ) then 
+        elmon := PartialElements( G ); 
+    elif ( HasIsFinite( G ) and IsFinite( G ) ) then 
+        elmon := ElementsOfMonoidPresentation( G ); 
+    else 
+        ##  using 3 as a suitable word length 
+        elmon := PartialElementsOfMonoidPresentation( G, 3 );  
     fi;
     oneM := elmon[1]; 
     frgp := FreeRelatorGroup( G );
     frgens := GeneratorsOfGroup( frgp );
-    ### 11/10/05 : moved this from logrws.gi
     famfrgp := ElementsFamily( FamilyObj( frgp ) );
     famfrgp!.modulePolyFam := ModulePolyFam;
     relG := RelatorsOfFpGroup( G );
@@ -903,17 +905,19 @@ function( G )
     L := ArrangementOfMonoidGenerators( G );
     FY := FreeYSequenceGroup( G );
     FYgens := GeneratorsOfGroup( FY );
+Print( "FYgens has ", Length(FYgens), " entries\n" );
     posgens := frgens{ [1..Length( relG )] };
     arws := LoggedRewritingSystemFpGroup( G );
     rws := List( arws, r -> [ r[1], r[3] ] );
-    idents := IdentityYSequencesNew( G );
+    idents := IdentityYSequences( G );
     numids := Length( idents );
     polys := [ ];
     k := 0;
     for j in [1..numids] do 
 Print( "=================  j = ", j, "  ==================\n" ); 
+        pos := idents[j][1]; 
         ident := idents[j][2];
-Print( "ident = ", ident, "\n" );
+Print( "idents[j] = ", idents[j], "\n" );
         leni := Length( ident );
         if ( leni > 0 ) then
             k := k+1;
@@ -940,7 +944,7 @@ Print( "rp = ", rp, "\n" );
             if not ( len = 0 ) then 
                 nyp := MonoidPolyFromCoeffsWords( [ 1 ], [ oneM ] );
 Print( "nyp = ", nyp, "\n" ); 
-                yp := ModulePolyFromGensPolys( [ FYgens[k] ], [ nyp ] );
+                yp := ModulePolyFromGensPolys( [ FYgens[pos] ], [ nyp ] );
 Print( "yp = ", yp, "\n" ); 
                 lp := LoggedModulePolyNC( yp, rp );
 Print( "lp = ", lp, "\n" );
@@ -976,8 +980,8 @@ function( G )
     monG := MonoidPresentationFpGroup( G );
     if HasElementsOfMonoidPresentation( G ) then 
         elmon := ElementsOfMonoidPresentation( G ); 
-    elif HasPartialElementsOfMonoidPresentation( G ) then 
-        elmon := PartialElementsOfMonoidPresentation( G ); 
+    elif HasPartialElements( G ) then 
+        elmon := PartialElements( G ); 
     else
         Error( "no list of elements available" ); 
     fi;
@@ -1187,9 +1191,9 @@ end );
 
 #############################################################################
 ##
-#M  IdentitiesAmongRelators( <G> )
+#M  IdentitiesAmongRelatorsOld( <G> )
 ##
-InstallMethod( IdentitiesAmongRelators, "for an FpGroup", true, 
+InstallMethod( IdentitiesAmongRelatorsOld, "for an FpGroup", true, 
     [ IsFpGroup ], 0, 
 function( G )
 
@@ -1201,7 +1205,7 @@ function( G )
 
     L := ArrangementOfMonoidGenerators( G ); 
     monG := MonoidPresentationFpGroup( G );
-    modpols := IdentityModulePolys( G );
+    modpols := IdentityModulePolysOld( G );
     elmon := ElementsOfMonoidPresentation( G );
     rws := List( LoggedRewritingSystemFpGroup( G ), r -> [ r[1], r[3] ] );
     irrepols := [ ];
@@ -1388,9 +1392,9 @@ end );
 
 #############################################################################
 ##
-#M  IdentitiesAmongRelatorsNew( <G> )
+#M  IdentitiesAmongRelators( <G> )
 ##
-InstallMethod( IdentitiesAmongRelatorsNew, "for an FpGroup", true, 
+InstallMethod( IdentitiesAmongRelators, "for an fp-group", true, 
     [ IsFpGroup ], 0, 
 function( G )
 
@@ -1402,11 +1406,11 @@ function( G )
 
     L := ArrangementOfMonoidGenerators( G ); 
     monG := MonoidPresentationFpGroup( G );
-    modpols := IdentityModulePolysNew( G );
+    modpols := IdentityModulePolys( G );
     if HasElementsOfMonoidPresentation( G ) then 
         elmon := ElementsOfMonoidPresentation( G ); 
-    elif HasPartialElementsOfMonoidPresentation( G ) then 
-        elmon := PartialElementsOfMonoidPresentation( G ); 
+    elif HasPartialElements( G ) then 
+        elmon := PartialElements( G ); 
     else
         Error( "no list of elements available" ); 
     fi;
@@ -1521,8 +1525,8 @@ function( G )
     modpols := IdentityModulePolysKB( G );
     if HasElementsOfMonoidPresentation( G ) then 
         elmon := ElementsOfMonoidPresentation( G ); 
-    elif HasPartialElementsOfMonoidPresentation( G ) then 
-        elmon := PartialElementsOfMonoidPresentation( G ); 
+    elif HasPartialElements( G ) then 
+        elmon := PartialElements( G ); 
     else
         Error( "no list of elements available" ); 
     fi;

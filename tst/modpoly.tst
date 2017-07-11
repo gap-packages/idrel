@@ -33,7 +33,8 @@ gap> [ Length(s1), Length(s2) ];
 gap> One( s1 );
 <identity ...>
 gap> Terms( s1 );
-[ [ q8_R1, <monpoly> ], [ q8_R4, <monpoly> ] ]
+[ [ q8_R1, 4*q8_M4 - 5*q8_M1 ], 
+  [ q8_R4,  - 7*q8_M4 + 5*q8_M1 + 9*<identity ...> ] ]
 gap> Print( LeadTerm( s1 ), "\n" );
 [ q8_R4,  - 7*q8_M4 + 5*q8_M1 + 9*<identity ...> ]
 gap> Print( LeadTerm( s2 ), "\n" );

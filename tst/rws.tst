@@ -20,15 +20,17 @@ gap> s3 := F/rels3;
 gap> SetName( s3, "s3" );; 
 gap> idy3 := IdentityYSequences( s3 );; 
 gap> Length( idy3 ); 
-18
-gap> Y4 := idy3[4];
-[ [ s3_R1^-1, f1^-1 ], [ s3_R1, <identity ...> ] ]
-gap> Y6 := idy3[6];
-[ [ s3_R3^-1, f1^-1 ], [ s3_R1, <identity ...> ], [ s3_R3^-1, f1 ], 
-  [ s3_R2, f1^-1*f2^-1 ], [ s3_R1, f2^-1 ], [ s3_R3^-1, f1*f2^-1 ], 
-  [ s3_R2, <identity ...> ], [ s3_R2, f1^-1 ] ]
-gap> Y8 := idy3[8];
-[ [ s3_R2^-1, f2^-1 ], [ s3_R2, <identity ...> ] ]
+12
+gap> Y1 := idy3[1];
+[ 4, [ [ s3_R1^-1, f1^-1 ], [ s3_R1, <identity ...> ] ] ]
+gap> Y3 := idy3[3];
+[ 8, [ [ s3_R2^-1, f2^-1 ], [ s3_R2, <identity ...> ] ] ]
+gap> Y5 := idy3[5];
+[ 9, [ [ s3_R3^-1, f2^-1 ], [ s3_R3, f1 ] ] ]
+gap> Y11 := idy3[11];
+[ 6, [ [ s3_R3^-1, f1^-1 ], [ s3_R1, <identity ...> ], [ s3_R3^-1, f1 ], 
+      [ s3_R2, f1^-1*f2^-1 ], [ s3_R1, f2^-1 ], [ s3_R3^-1, f1*f2^-1 ], 
+      [ s3_R2, <identity ...> ], [ s3_R2, f1^-1 ] ] ]
 
 gap> idrels3 := IdentitiesAmongRelators( s3 );;
 gap> Display( idrels3[1] );
@@ -72,8 +74,7 @@ gap> rws := RewritingSystemFpGroup( q8 );
   [ q8_M2*q8_M3, q8_M1*q8_M2 ], [ q8_M2^2, q8_M1^2 ], 
   [ q8_M2*q8_M1, q8_M1*q8_M4 ] ]
 
-gap> F := FreeGroup(2);;                  
-gap> T := F/[Comm(F.1,F.2)];              
+gap> T := F/[Comm(a,b)];              
 <fp group of size infinity on the generators [ f1, f2 ]>
 gap> SetName( T, "T" );                   
 gap> SetArrangementOfMonoidGenerators( T, [1,-1,2,-2] );

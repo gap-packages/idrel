@@ -68,7 +68,10 @@ MonoidPolyFam := NewFamily( "MonoidPolyFam", IsMonoidPoly );
 #A  HomomorphismOfPresentation( <mon> )
 #A  MonoidGeneratorsFpGroup( <G> )
 #A  ElementsOfMonoidPresentation( <G> )
-#A  PartialElementsOfMonoidPresentation( <G> )
+#O  PartialElementsOfMonoidPresentation( <G,len> )
+#A  PartialElements( <G> )
+#A  PartialInverseElements( <G> )
+#A  PartialElementsLength( <G> )
 ##
 DeclareRepresentation( "IsMonoidPresentationFpGroupRep", 
 ##  tried removing the IsFpGroup (29/07/17) 
@@ -90,7 +93,12 @@ DeclareAttribute( "HomomorphismOfPresentation",
     IsMonoidPresentationFpGroupRep );
 DeclareAttribute( "MonoidGeneratorsFpGroup", IsFpGroup ); 
 DeclareAttribute( "ElementsOfMonoidPresentation", IsFpGroup );
-DeclareAttribute( "PartialElementsOfMonoidPresentation", IsFpGroup );
+DeclareOperation( "PartialElementsOfMonoidPresentation", 
+    [ IsFpGroup, IsPosInt ] );
+DeclareAttribute( "GenerationTree", IsFpGroup ); 
+DeclareAttribute( "PartialElements", IsFpGroup );
+DeclareAttribute( "PartialInverseElements", IsFpGroup );
+DeclareAttribute( "PartialElementsLength", IsFpGroup );
 
 #############################################################################
 ##
@@ -157,16 +165,16 @@ DeclareAttribute( "RelatorSequenceReduce", IsHomogeneousList );
 #O  YSequencesFromRelatorSequences( <S>, <G> )
 #O  YSequenceReduce( <Y> )
 #O  YSequenceConjugateAndReduce( <Y>, <rws> )
+#A  IdentityYSequencesOld( <G> )
 #A  IdentityYSequences( <G> )
-#A  IdentityYSequencesNew( <G> )
 #A  IdentityYSequencesKB( <G> )
 ##
 DeclareOperation( "YSequenceLessThan", [ IsList, IsList ] );
 DeclareOperation( "YSequencesFromRelatorSequences", [ IsList, IsGroup ] ); 
 DeclareOperation( "YSequenceReduce", [ IsList ] );
 DeclareOperation( "YSequenceConjugateAndReduce", [IsList,IsHomogeneousList] );
+DeclareAttribute( "IdentityYSequencesOld", IsGroup );
 DeclareAttribute( "IdentityYSequences", IsGroup );
-DeclareAttribute( "IdentityYSequencesNew", IsGroup );
 DeclareAttribute( "IdentityYSequencesKB", IsGroup );
 
 #############################################################################

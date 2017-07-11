@@ -188,9 +188,10 @@ gap> Length( l2[2] );
          Arg="logrule1, logrule2" />
 <Description>
 Given a word and a logged rewrite system, 
-the function <C>LoggedOnePassReduceWord</C> makes one reduction of the word 
-(as does <C>OnePassReduceWord</C>in <Ref Sect="one-pass-reduce"/>) 
-and records this, using the log part of the rule used 
+the function <C>LoggedOnePassReduceWord</C> makes one reduction pass 
+of the word (possibly involving several reductions)
+(as does <C>OnePassReduceWord</C> in <Ref Sect="one-pass-reduce"/>) 
+and records this, using the log part of the rule(s) used 
 and the position in the original word of the replaced part.
 <P/>
 The function <C>LoggedReduceWordKB</C> repeatedly applies 
@@ -264,7 +265,7 @@ consists of two types of rule.
 These are logged versions of the two types of rule in the monoid presentation.
 For each relator <C>rel</C> of the group there is a logged rule 
 <C>[rel,[[1,rel]],id]</C>. 
-For each inverse relator there is a logged rule <C>[gen*inv, [], id ]</C>. 
+For each inverse relator there is a logged rule <C>[ gen*inv, [], id ]</C>. 
 The function then attempts a completion of the logged rewrite system. 
 The rules in the final system are partially ordered by the function 
 <C>ShorterLoggedRule</C>.

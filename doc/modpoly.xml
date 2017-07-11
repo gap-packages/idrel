@@ -84,17 +84,11 @@ zero modpoly
          Arg="modpoly" />
    <Attr Name="LeadMonoidPoly"
          Arg="modpoly" />
-   <Attr Name="One"
-         Arg="modpoly" />
    <Attr Name="Length"
          Arg="modpoly" />
+   <Attr Name="One"
+         Arg="modpoly" />
 <Description>
-The function <C>Length</C> counts the number of module generators 
-which occur in <C>modpoly</C> 
-(a generator occurs in a polynomial if it has nonzero coefficient).
-The function <C>One</C> returns the identity in 
-the free group on the generators.
-<P/>
 The function <C>Terms</C> returns the terms of a module polynomial 
 as a list of pairs.
 In <C>LeadTerm</C>, the generators are ordered, 
@@ -102,6 +96,12 @@ and the term of <C>modpoly</C> with the highest value generator
 is defined to be the leading term.
 The monoid polynomial (coefficient) part of the leading term 
 is returned by the function <C>LeadMonoidPoly</C>.
+<P/>
+The function <C>Length</C> counts the number of module generators 
+which occur in <C>modpoly</C> 
+(a generator occurs in a polynomial if it has nonzero coefficient).
+The function <C>One</C> returns the identity in 
+the free group on the generators.
 <P/>
 </Description>
 </ManSection>
@@ -112,7 +112,8 @@ gap> [ Length(s1), Length(s2) ];
 gap> One( s1 );
 <identity ...> 
 gap> Terms( s1 );
-[ [ q8_R1, <monpoly> ], [ q8_R4, <monpoly> ] ]
+[ [ q8_R1, 4*q8_M4 - 5*q8_M1 ], 
+  [ q8_R4,  - 7*q8_M4 + 5*q8_M1 + 9*<identity ...> ] ]
 gap> Print( LeadTerm( s1 ), "\n" );
 [ q8_R4,  - 7*q8_M4 + 5*q8_M1 + 9*<identity ...> ]
 gap> Print( LeadTerm( s2 ), "\n" );
@@ -247,7 +248,7 @@ For <C>q8</C> only two of the four relators are proper powers,
 gap> RootIdentities( q8 );
 [ ( q8_Y3*( q8_M1*q8_M4), q8_R1*( q8_M1 - <identity ...>) ),
   ( q8_Y10*( -q8_M1*q8_M4), q8_R2*( q8_M2 - <identity ...>) ) ]
-gap> RootIdentities(s3);
+gap> RootIdentities( s3 );
 [ ( s3_Y4*( s3_M2*s3_M1), s3_R1*( s3_M1 - <identity ...>) ),
   ( s3_Y8*( s3_M2*s3_M1), s3_R2*( s3_M2 - <identity ...>) ),
   ( s3_Y7*( s3_M2*s3_M1), s3_R3*( s3_M2 - s3_M1) ) ]

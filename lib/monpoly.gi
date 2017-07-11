@@ -27,7 +27,7 @@ InstallMethod( PrintString, "for a monoid poly with terms", true,
 InstallMethod( ViewObj, "for a monoid poly with terms", true, 
     [ IsMonoidPolyTermsRep ], 0, 
 function( p ) 
-    Print( "<monpoly>" );
+    Print( p );
 end );
 
 InstallMethod( PrintObj, "for a monoid poly with terms", true, 

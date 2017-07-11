@@ -127,21 +127,22 @@ gap> Y6 := idy3[6];
 [ [ s3_R3^-1, f1^-1 ], [ s3_R1, <identity ...> ], [ s3_R3^-1, f1 ],
   [ s3_R2, f1^-1*f2^-1 ], [ s3_R1, f2^-1 ], [ s3_R3^-1, f1*f2^-1 ],
   [ s3_R2, <identity ...> ], [ s3_R2, f1^-1 ] ]
-gap> Y7 := idy3[7];
-[ [ s3_R3^-1, f1*f2^-1 ], [ s3_R2, <identity ...> ], [ s3_R3, <identity ...> ],
-  [ s3_R2^-1, <identity ...> ] ]
 gap> Y8 := idy3[8];
 [ [ s3_R2^-1, f2^-1 ], [ s3_R2, <identity ...> ] ]
+gap> Y9 := idy3[9];
+[ [ s3_R3^-1, f2^-1 ], [ s3_R3, f1 ] ]
 ]]>
 </Example>
 
 Of the <M>18</M> Y-sequences formed, <M>6</M> are empty, 
 and <C>Y4</C> is the <E>root identity</E> 
 <C>((a^3)^-1)^(a^-1).(a^3)</C>. 
-If we write <M>r=a^3, s=b^2, t=(ab)^2</M> 
-then <C>Y4</C> is <M>(r^{-1})^{a^{-1}}r</M>. 
-Similarly, <C>Y8</C> is the second root identity <M>(s^{-1})^{b^{-1}}s</M>, 
-while  <C>Y7</C> is the third root identity <M>(t^{-1})^{(ab)^{-1}}t</M>. 
+If we write <M>r=a^3</M>, <M>s=b^2</M>, <M>t=(ab)^2</M> 
+then <C>Y4</C> becomes <M>(r^{-1})^{a^{-1}}r</M>. 
+Similarly, <C>Y8</C> is the second root identity <M>(s^{-1})^{b^{-1}}s</M>. 
+The third root identity is <M>(t^{-1})^{(ab)^{-1}}t</M>, 
+which is equivalent to  <M>(t^{-1})^{b^{-1}}t^a</M>, 
+and is the sequence <C>Y9</C>.
 The identity <C>Y6</C>, which is not a root identity, 
 is obtained by walking around the Schreier diagram of the presentation, 
 a somewhat truncated triangular prism. 
@@ -149,7 +150,9 @@ Taking the appropriate conjugate of each face in turn, we get:
 <C>
 Y6=(t^-1)^(a^-1).r.(t^-1)^a.s^(a^-1b^-1).r^(b^-1).(t^-1)^(ab^-1).s.s^(a^-1). 
 </C> 
-These four identities generate the module of identities for <C>s3</C>. 
+These four identities generate the module of identities for <C>s3</C>.  
+<E>Exactly how the remaining twelve sequences are combinations 
+of these four remains to be explained.</E>
 <P/>
 <Example>
 <![CDATA[

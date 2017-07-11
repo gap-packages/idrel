@@ -1162,9 +1162,9 @@ end );
 
 ##############################################################################
 ##
-#M  IdentityYSequences
+#M  IdentityYSequencesOld
 ##
-InstallMethod( IdentityYSequences, "generic method for an fp-group", true, 
+InstallMethod( IdentityYSequencesOld, "generic method for an fp-group", true, 
     [ IsFpGroup ], 0, 
 function( G )
 
@@ -1578,9 +1578,63 @@ end );
 
 ##############################################################################
 ##
-#M  IdentityYSequencesNew
+#M  PartialElementsOfMonoidPresentation 
 ##
-InstallMethod( IdentityYSequencesNew, "generic method for an fp-group", true, 
+InstallMethod( PartialElementsOfMonoidPresentation, 
+    "for an fp-group with monoid presentation and a length", true, 
+    [ IsFpGroup, IsPosInt ], 0, 
+function( G, len ) 
+
+    local  monG, amg, FM, genFM, idM, numgenM, logrws, rws, edgesT, 
+           words, iwords, pos, pos1, pos2, gen, g, i, j, k, l, u, v;
+
+    monG := MonoidPresentationFpGroup( G ); 
+    amg := ArrangementOfMonoidGenerators( G ); 
+    FM := FreeGroupOfPresentation( monG );
+    genFM := GeneratorsOfGroup( FM );
+    idM := One( FM );
+    numgenM := Length( genFM );
+    logrws := LoggedRewritingSystemFpGroup( G );
+    rws := List( logrws, r -> [ r[1], r[3] ] );
+    edgesT := [ ];
+    words := [ idM ];
+    iwords := [ idM ]; 
+    pos1 := 0; 
+    pos2 := 1; 
+    for l in [1..len] do 
+    Info( InfoIdRel, 3, "constructing elements of length ", l ); 
+        for k in [pos1+1..pos2] do 
+            u := words[k]; 
+            for g in [1..numgenM] do 
+                gen := genFM[g];  
+                v := ReduceWordKB( u*gen, rws ); 
+                pos := Position( words, v );
+                if ( pos = fail ) then 
+                    Add( words, v ); 
+                    i := amg[g]; 
+                    j := Position( amg, -i ); 
+##  ????            Add( iwords, ReduceWordKB( genFM[j]*iwords[k], rws ) ); 
+                    Add( iwords, genFM[j]*iwords[k] ); 
+                    Add( edgesT, [ u, gen ] ); 
+                    Add( edgesT, [ v, genFM[j] ] ); 
+                fi; 
+            od;
+        od;
+        pos1 := pos2; 
+        pos2 := Length( words ); 
+    od; 
+    SetGenerationTree( G, edgesT );
+    SetPartialElements( G, words ); 
+    SetPartialInverseElements( G, iwords ); 
+    SetPartialElementsLength( G, Length( words ) ); 
+    return words; 
+end );
+
+##############################################################################
+##
+#M  IdentityYSequences
+##
+InstallMethod( IdentityYSequences, "generic method for an fp-group", true, 
     [ IsFpGroup ], 0, 
 function( G )
 
@@ -1642,41 +1696,13 @@ function( G )
     fi;
 
     ##  construct the first few elements in the group 
-######################  temporary value 
-    uptolen := 3;   
+    uptolen := 3;     ######################  temporary value 
+    words := PartialElementsOfMonoidPresentation( G, uptolen ); 
+    iwords := PartialInverseElements( G );
+    numelts := Length( words ); 
+    edgesT := GenerationTree( G ); 
     edgesM := [ ];
     k1gx := [ ];
-    edgesT := [ ];
-    words := [ idM ];
-    iwords := [ idM ]; 
-    pos1 := 0; 
-    pos2 := 1; 
-    
-    for l in [1..uptolen] do 
-##Print( "constructing elements of length ", l, "\n" ); 
-        for k in [pos1+1..pos2] do 
-            u := words[k]; 
-            for g in [1..numgenM] do 
-                gen := genFM[g];  
-                v := ReduceWordKB( u*gen, rws ); 
-                pos := Position( words, v );
-                if ( pos = fail ) then 
-                    Add( words, v ); 
-                    i := amg[g]; 
-                    j := Position( amg, -i ); 
-##  ????            Add( iwords, ReduceWordKB( genFM[j]*iwords[k], rws ) ); 
-                    Add( iwords, genFM[j]*iwords[k] ); 
-                    Add( edgesT, [ u, gen ] ); 
-                    Add( edgesT, [ v, genFM[j] ] ); 
-                fi; 
-            od;
-        od;
-##Print( "words ", words, "\niwords = ", iwords, "\n" ); 
-
-    pos1 := pos2; 
-    pos2 := Length( words ); 
-    od;
-    numelts := Length( words ); 
 
     ##  now work through the list of elements, adding each relator in turn 
     e := 0;  ## this is the number of monoid elements processed so far 
@@ -1780,19 +1806,19 @@ function( G )
         od; 
     od;
     ### convert relator sequences to Y-sequences 
-##Print( "\nidents = ", idents, "\n" ); 
+    Info( InfoIdRel, 3, "idents = ", idents ); 
     numids := Length( idents );
     idents := List( [1..numids], i -> [ i, idents[i] ] ); 
     idents := YSequencesFromRelatorSequences( idents, G ); 
-##Print( "after running YSequencesFromRelatorSequences:\n" ); 
-##Print( "idents = ", idents, "\n\n" ); 
+    Info( InfoIdRel, 3,  "after running YSequencesFromRelatorSequences:" ); 
+    Info( InfoIdRel, 3, "idents = ", idents ); 
 
     eltrange := [1..Length(words)]; 
     if not HasElementsOfMonoidPresentation( G ) then 
         if HasSize( G ) then 
             SetElementsOfMonoidPresentation( G, words ); 
         else 
-            SetPartialElementsOfMonoidPresentation( G, words ); 
+            SetPartialElements( G, words ); 
         fi;
     fi;
     numids := Length( idents );
@@ -1805,19 +1831,21 @@ function( G )
     fi;
 
     ### search for conjugate of one identity lying within another 
-### ??? is this really worth doing ??? 
+    ### ??? is this really worth doing ??? 
     changed := true; 
     idents2 := ShallowCopy( idents ); 
-##Print( "idents2[1] = ", idents2[1], "\n" ); 
+    Info( InfoIdRel, 3, "idents2[1] = ", idents2[1] ); 
     while changed do 
-##Print( "\n######### starting new test\n" );
+        Info( InfoIdRel, 3, "####### starting new test" );
         idents2 := Filtered( idents2, L -> not( L[2] = [ ] ) );
-##Print( "idents2[2] = ", idents2[2], "\n" ); 
+        Info( InfoIdRel, 3, "idents2[2] = ", idents2[2] ); 
         Sort( idents2, function(K,L) return YSequenceLessThan(K[2],L[2]); end );
-##Print( "idents2[3] = ", idents2[3], "\n" ); 
+        Info( InfoIdRel, 3, "idents2[3] = ", idents2[3] ); 
         numids := Length( idents2 );
-##Print( "\nnumber of identities = ", numids, "\n" );
-##PrintListOneItemPerLine( idents2 ); 
+        Info( InfoIdRel, 3, "number of identities = ", numids );
+        if ( InfoLevel( InfoIdRel ) > 2 ) then 
+            PrintListOneItemPerLine( idents2 ); 
+        fi;
         changed := false;
         for i in [1..numids] do 
             idi := idents2[i][2];
@@ -1845,10 +1873,12 @@ function( G )
                                 idents2[j][2] := idj;
                                 lenj := lenj - leni;
                                 if ( InfoLevel( InfoIdRel ) > 2 ) then
-##                                    if ( lenj = 0 ) then 
-##Print( "** id ", idents2[j][1], " reduced by id ", idents2[i][1], 
-##       " to ", idj, " at [i,j] = ", [i,j], " **\n"); 
-##                                    fi; 
+                                    if ( lenj = 0 ) then 
+                                    Print( "** id ", idents2[j][1], 
+                                           " reduced by id ", idents2[i][1], 
+                                           " to ", idj, " at [i,j] = ", 
+                                           [i,j], " **\n"); 
+                                    fi; 
                                 fi;
                                 changed := true;
                                 if ( InfoLevel( InfoIdRel ) > 2 ) then
@@ -1865,7 +1895,7 @@ function( G )
             fi; 
         od; 
     od;
-##Print( "\nidents2 has length ", Length(idents2), "\n" );
+    Info( InfoIdRel, 3, "idents2 has length ", Length(idents2) );
     return idents2;
 end );
 
