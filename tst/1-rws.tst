@@ -1,6 +1,6 @@
 ##############################################################################
 ##
-#W  rws.tst                    Idrel Package                     Chris Wensley
+#W  1-rws.tst                  Idrel Package                     Chris Wensley
 #W                                                             & Anne Heyworth
 ##
 #Y  Copyright (C) 1999-2017 Anne Heyworth and Chris Wensley
@@ -22,23 +22,23 @@ gap> idy3 := IdentityYSequences( s3 );;
 gap> Length( idy3 ); 
 12
 gap> Y1 := idy3[1];
-[ 4, [ [ s3_R1^-1, f1^-1 ], [ s3_R1, <identity ...> ] ] ]
+[ 1, 4, [ [ s3_R1^-1, f1^-1 ], [ s3_R1, <identity ...> ] ] ]
 gap> Y3 := idy3[3];
-[ 8, [ [ s3_R2^-1, f2^-1 ], [ s3_R2, <identity ...> ] ] ]
+[ 3, 8, [ [ s3_R2^-1, f2^-1 ], [ s3_R2, <identity ...> ] ] ]
 gap> Y5 := idy3[5];
-[ 9, [ [ s3_R3^-1, f2^-1 ], [ s3_R3, f1 ] ] ]
+[ 5, 9, [ [ s3_R3^-1, f2^-1 ], [ s3_R3, f1 ] ] ]
 gap> Y11 := idy3[11];
-[ 6, [ [ s3_R3^-1, f1^-1 ], [ s3_R1, <identity ...> ], [ s3_R3^-1, f1 ], 
+[ 11, 6, [ [ s3_R3^-1, f1^-1 ], [ s3_R1, <identity ...> ], [ s3_R3^-1, f1 ], 
       [ s3_R2, f1^-1*f2^-1 ], [ s3_R1, f2^-1 ], [ s3_R3^-1, f1*f2^-1 ], 
       [ s3_R2, <identity ...> ], [ s3_R2, f1^-1 ] ] ]
 
 gap> idrels3 := IdentitiesAmongRelators( s3 );;
 gap> Display( idrels3[1] );
 [ ( s3_Y1*( s3_M1), s3_R1*( s3_M1 - <identity ...>) ), 
-  ( s3_Y4*( s3_M2), s3_R2*( s3_M2 - <identity ...>) ), 
-  ( s3_Y3*( s3_M2), s3_R3*( s3_M2 - s3_M1) ), 
-  ( s3_Y2*( -s3_M1), s3_R1*( -s3_M2*s3_M1 - s3_M1) + s3_R2*( -s3_M1*s3_M2 - s3\
-_M1 - <identity ...>) + s3_R3*( s3_M3 + s3_M2 + <identity ...>) ) ]
+  ( s3_Y3*( s3_M2), s3_R2*( s3_M2 - <identity ...>) ), 
+  ( s3_Y5*( s3_M2*s3_M1), s3_R3*( s3_M2 - s3_M1) ), 
+  ( s3_Y11*( -s3_M1), s3_R1*( -s3_M2*s3_M1 - s3_M1) + s3_R2*( -s3_M1*s3_M2 - s\
+3_M1 - <identity ...>) + s3_R3*( s3_M3 + s3_M2 + <identity ...>) ) ]
 
 ## Example 2.1.1
 gap> rels := [ a^4, b^4, a*b*a*b^-1, a^2*b^2 ];;
@@ -155,4 +155,4 @@ gap> SetInfoLevel( InfoIdRel, saved_infolevel_idrel );;
 
 #############################################################################
 ##
-#E  rws.tst . . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here
+#E  1-rws.tst . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here

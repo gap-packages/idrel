@@ -9,16 +9,16 @@ Packagename := "idrel",
 PackageName := "idrel",
 Subtitle := "Identities among relations",
 
-Version := "2.36",
-Date := "11/07/2017",
+Version := "2.34dev",
+Date := "15/12/2017",
 
 ##  duplicate these values for inclusion in the manual: 
 ##  <#GAPDoc Label="PKGVERSIONDATA"> 
-##  <!ENTITY IDRELVERSION "2.36">
-##  <!ENTITY IDRELTARFILENAME "idrel-2.36.tar.gz">
-##  <!ENTITY IDRELHTMLFILENAME "idrel233.html">
-##  <!ENTITY IDRELRELEASEDATE "11/07/2017">
-##  <!ENTITY IDRELLONGRELEASEDATE "11th July 2017">
+##  <!ENTITY IDRELVERSION "2.34dev">
+##  <!ENTITY IDRELTARFILENAME "idrel-2.34dev.tar.gz">
+##  <!ENTITY IDRELHTMLFILENAME "idrel.html">
+##  <!ENTITY IDRELRELEASEDATE "15/12/2017">
+##  <!ENTITY IDRELLONGRELEASEDATE "15th December 2017">
 ##  <!ENTITY IDRELCOPYRIGHTYEARS "1999-2017">
 ##  <#/GAPDoc>
 
@@ -62,7 +62,7 @@ SourceRepository := rec( Type := "git",
                          URL := "https://github.com/gap-packages/idrel" ),
 IssueTrackerURL  := Concatenation( ~.SourceRepository.URL, "/issues" ),
 PackageWWWHome   := "https://gap-packages.github.io/idrel/",
-README_URL       := Concatenation( ~.PackageWWWHome, "README" ),
+README_URL       := Concatenation( ~.PackageWWWHome, "README.md" ),
 PackageInfoURL   := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
 ArchiveURL       := Concatenation( ~.SourceRepository.URL, 
                                    "/releases/download/v", ~.Version, 

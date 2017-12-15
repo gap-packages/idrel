@@ -105,7 +105,7 @@ All the functions used are described in detail in this manual.
 We compute a reduced set of identities among relators 
 for the presentation of the symmetric group <C>s3</C> 
 with generators <M>a,b</M> and relators <M>[a^3 , b^2, (ab)^2]</M>. 
-In the listing below, <C>s3_M1</C> is the first monoid generator 
+In the listings below, <C>s3_M1</C> is the first monoid generator 
 for <C>s3</C>, <C>s3_R2</C> is the second relator, 
 while <C>s3_Y4</C> is the fourth Y-sequence for <C>s3</C>. 
 <P/>
@@ -120,57 +120,60 @@ gap> s3 := F/rels3;
 gap> SetName( s3, "s3" ); 
 gap> idy3 := IdentityYSequences( s3 );; 
 gap> Length( idy3 ); 
-18
-gap> Y4 := idy3[4]; 
-[ [ s3_R1^-1, f1^-1 ], [ s3_R1, <identity ...> ] ]
-gap> Y6 := idy3[6];
-[ [ s3_R3^-1, f1^-1 ], [ s3_R1, <identity ...> ], [ s3_R3^-1, f1 ],
-  [ s3_R2, f1^-1*f2^-1 ], [ s3_R1, f2^-1 ], [ s3_R3^-1, f1*f2^-1 ],
-  [ s3_R2, <identity ...> ], [ s3_R2, f1^-1 ] ]
-gap> Y8 := idy3[8];
-[ [ s3_R2^-1, f2^-1 ], [ s3_R2, <identity ...> ] ]
-gap> Y9 := idy3[9];
-[ [ s3_R3^-1, f2^-1 ], [ s3_R3, f1 ] ]
+12
+gap> Y1 := idy3[1];
+[ 1, 4, [ [ s3_R1^-1, f1^-1 ], [ s3_R1, <identity ...> ] ] ]
+gap> Y3 := idy3[3];
+[ 3, 8, [ [ s3_R2^-1, f2^-1 ], [ s3_R2, <identity ...> ] ] ]
+gap> Y5 := idy3[5];
+[ 5, 9, [ [ s3_R3^-1, f2^-1 ], [ s3_R3, f1 ] ] ]
+gap> Y11 := idy3[11];
+[ 11, 6, [ [ s3_R3^-1, f1^-1 ], [ s3_R1, <identity ...> ], [ s3_R3^-1, f1 ], 
+      [ s3_R2, f1^-1*f2^-1 ], [ s3_R1, f2^-1 ], [ s3_R3^-1, f1*f2^-1 ], 
+      [ s3_R2, <identity ...> ], [ s3_R2, f1^-1 ] ] ]
 ]]>
 </Example>
 
-Of the <M>18</M> Y-sequences formed, <M>6</M> are empty, 
-and <C>Y4</C> is the <E>root identity</E> 
-<C>((a^3)^-1)^(a^-1).(a^3)</C>. 
+Of the <M>18</M> Y-sequences formed, <M>6</M> are empty, and discarded, 
+so that <C>idy3</C> has <M>12</M> entries, and the list is then sorted. 
+<C>Y1</C> is the <E>root identity</E> <C>((a^3)^-1)^(a^-1).(a^3)</C>. 
 If we write <M>r=a^3</M>, <M>s=b^2</M>, <M>t=(ab)^2</M> 
-then <C>Y4</C> becomes <M>(r^{-1})^{a^{-1}}r</M>. 
-Similarly, <C>Y8</C> is the second root identity <M>(s^{-1})^{b^{-1}}s</M>. 
+then <C>Y1</C> becomes <M>(r^{-1})^{a^{-1}}r</M>. 
+Similarly, <C>Y3</C> is the second root identity <M>(s^{-1})^{b^{-1}}s</M>. 
 The third root identity is <M>(t^{-1})^{(ab)^{-1}}t</M>, 
 which is equivalent to  <M>(t^{-1})^{b^{-1}}t^a</M>, 
-and is the sequence <C>Y9</C>.
-The identity <C>Y6</C>, which is not a root identity, 
+and is the sequence <C>Y5</C>.
+The identity <C>Y11</C>, which is not a root identity, 
 is obtained by walking around the Schreier diagram of the presentation, 
 a somewhat truncated triangular prism. 
 Taking the appropriate conjugate of each face in turn, we get: 
 <C>
-Y6=(t^-1)^(a^-1).r.(t^-1)^a.s^(a^-1b^-1).r^(b^-1).(t^-1)^(ab^-1).s.s^(a^-1). 
+Y11=(t^-1)^(a^-1).r.(t^-1)^a.s^(a^-1b^-1).r^(b^-1).(t^-1)^(ab^-1).s.s^(a^-1). 
 </C> 
 These four identities generate the module of identities for <C>s3</C>.  
-<E>Exactly how the remaining twelve sequences are combinations 
-of these four remains to be explained.</E>
+<P/>
+In order to form the <E>module of identities</E> for <C>s3</C> 
+the identities are transformed into module polynomials. 
+Thus <C>Y1</C> <M>= (r^{-1})^{a^{-1}}r</M> becomes 
+<M>y_1 = (-r)(a^{-1})+r = r(1-a^{-1})</M> and 
+<M>y_1a = r(a-1)</M>. 
+Similarly <C>Y3</C> <M> = (s^{-1})^{b^{-1}}s</M> yields <M>y_3b = s(b-1)</M> 
+and <C>Y5</C> <M>= (t^{-1})^{b^{-1}}t^a</M> yields <M>y_5ba = t(b-a)</M>. 
 <P/>
 <Example>
 <![CDATA[
 gap> idrels3 := IdentitiesAmongRelators( s3 );;
 gap> Display( idrels3[1] );
-[ ( s3_Y4*( s3_M2*s3_M1), s3_R1*( s3_M1 - <identity ...>) ),
-  ( s3_Y8*( s3_M2*s3_M1), s3_R2*( s3_M2 - <identity ...>) ),
-  ( s3_Y7*( s3_M2*s3_M1), s3_R3*( s3_M2 - s3_M1) ),
-  ( s3_Y6*( -s3_M2*s3_M1), s3_R1*( -s3_M2*s3_M1 - s3_M1) + s3_R2*( -s3_M1*s3_M\
-2 - s3_M1 - <identity ...>) + s3_R3*( s3_M3 + s3_M2 + <identity ...>) )
-  ]
+[ ( s3_Y1*( s3_M1), s3_R1*( s3_M1 - <identity ...>) ), 
+  ( s3_Y3*( s3_M2), s3_R2*( s3_M2 - <identity ...>) ), 
+  ( s3_Y5*( s3_M2*s3_M1), s3_R3*( s3_M2 - s3_M1) ), 
+  ( s3_Y11*( -s3_M1), s3_R1*( -s3_M2*s3_M1 - s3_M1) + s3_R2*( -s3_M1*s3_M2 - s\
+3_M1 - <identity ...>) + s3_R3*( s3_M3 + s3_M2 + <identity ...>) ) ]
 ]]>
 </Example>
 
 Further examples are given in section <Ref Sect="sect-idrels"/>. 
 
 </Section>
-
-
 
 </Chapter>

@@ -905,7 +905,7 @@ function( G )
     L := ArrangementOfMonoidGenerators( G );
     FY := FreeYSequenceGroup( G );
     FYgens := GeneratorsOfGroup( FY );
-Print( "FYgens has ", Length(FYgens), " entries\n" );
+    Info( InfoIdRel, 2, "FYgens has ", Length(FYgens), " entries" );
     posgens := frgens{ [1..Length( relG )] };
     arws := LoggedRewritingSystemFpGroup( G );
     rws := List( arws, r -> [ r[1], r[3] ] );
@@ -914,14 +914,14 @@ Print( "FYgens has ", Length(FYgens), " entries\n" );
     polys := [ ];
     k := 0;
     for j in [1..numids] do 
-Print( "=================  j = ", j, "  ==================\n" ); 
+        Info( InfoIdRel, 2, "===============  j = ", j, "  ===============" ); 
         pos := idents[j][1]; 
-        ident := idents[j][2];
-Print( "idents[j] = ", idents[j], "\n" );
+        ident := idents[j][3];
+        Info( InfoIdRel, 2, "idents[j] = ", idents[j] );
         leni := Length( ident );
         if ( leni > 0 ) then
             k := k+1;
-Print( "k = ", k, "\n" );
+            Info( InfoIdRel, 2, "k = ", k );
             irange := [1..leni];
             gp := ListWithIdenticalEntries( leni, 0 );
             npols := ListWithIdenticalEntries( leni, 0 );
@@ -937,20 +937,20 @@ Print( "k = ", k, "\n" );
                     npols[i] := MonoidPolyFromCoeffsWords( [-1], [w] );
                 fi;
             od;
-Print( "npols = ", npols, "\n" ); 
+            Info( InfoIdRel, 2, "npols = ", npols ); 
             rp := ModulePolyFromGensPolys( gp, npols );
-Print( "rp = ", rp, "\n" ); 
+            Info( InfoIdRel, 2, "rp = ", rp ); 
             len := Length( rp );
             if not ( len = 0 ) then 
                 nyp := MonoidPolyFromCoeffsWords( [ 1 ], [ oneM ] );
-Print( "nyp = ", nyp, "\n" ); 
+                Info( InfoIdRel, 2, "nyp = ", nyp ); 
                 yp := ModulePolyFromGensPolys( [ FYgens[pos] ], [ nyp ] );
-Print( "yp = ", yp, "\n" ); 
+                Info( InfoIdRel, 2, "yp = ", yp ); 
                 lp := LoggedModulePolyNC( yp, rp );
-Print( "lp = ", lp, "\n" );
+                Info( InfoIdRel, 2, "lp = ", lp );
                 lbest := MinimiseLeadTerm( lp, G, rws );
                 lp := lbest*(-1);
-Print( "lp = ", lp, "\n" );
+                Info( InfoIdRel, 2, "lp = ", lp );
                 if ( lbest < lp ) then 
                     Add( polys, lbest );
                 else 

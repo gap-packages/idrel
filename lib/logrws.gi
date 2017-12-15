@@ -1831,19 +1831,22 @@ function( G )
     fi;
 
     ### search for conjugate of one identity lying within another 
-    ### ??? is this really worth doing ??? 
+    ### ??? is this really worth doing : only one reduction with q8 ??? 
+    Info( InfoIdRel, 1, "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" );
+    idents := Filtered( idents, y -> not ( y[2] = [ ] ) ); 
+    Info( InfoIdRel, 1, "after removing empty lists:" ); 
+    Info( InfoIdRel, 1, idents ); 
+    numids := Length( idents );
     changed := true; 
     idents2 := ShallowCopy( idents ); 
-    Info( InfoIdRel, 3, "idents2[1] = ", idents2[1] ); 
     while changed do 
-        Info( InfoIdRel, 3, "####### starting new test" );
-        idents2 := Filtered( idents2, L -> not( L[2] = [ ] ) );
-        Info( InfoIdRel, 3, "idents2[2] = ", idents2[2] ); 
-        Sort( idents2, function(K,L) return YSequenceLessThan(K[2],L[2]); end );
-        Info( InfoIdRel, 3, "idents2[3] = ", idents2[3] ); 
+        Info( InfoIdRel, 1, "####### starting new test" );
+        idents2 := Filtered( idents2, y -> not ( y[2] = [ ] ) ); 
         numids := Length( idents2 );
-        Info( InfoIdRel, 3, "number of identities = ", numids );
-        if ( InfoLevel( InfoIdRel ) > 2 ) then 
+        Sort( idents2, function(K,L) return YSequenceLessThan(K[2],L[2]); end );
+        Info( InfoIdRel, 1, "after sorting:" ); 
+        Info( InfoIdRel, 1, "number of identities = ", numids );
+        if ( InfoLevel( InfoIdRel ) > 0 ) then 
             PrintListOneItemPerLine( idents2 ); 
         fi;
         changed := false;
@@ -1872,7 +1875,7 @@ function( G )
                                                       idj{[(k+leni)..lenj]} );
                                 idents2[j][2] := idj;
                                 lenj := lenj - leni;
-                                if ( InfoLevel( InfoIdRel ) > 2 ) then
+                                if ( InfoLevel( InfoIdRel ) > 0 ) then
                                     if ( lenj = 0 ) then 
                                     Print( "** id ", idents2[j][1], 
                                            " reduced by id ", idents2[i][1], 
@@ -1881,7 +1884,7 @@ function( G )
                                     fi; 
                                 fi;
                                 changed := true;
-                                if ( InfoLevel( InfoIdRel ) > 2 ) then
+                                if ( InfoLevel( InfoIdRel ) > 0 ) then
                                     Print( "found ident ", i, " in ", j ); 
                                     Print( " at position ", k, "\n--> " );
                                     Print( idents2[j], "\n" );
@@ -1895,7 +1898,11 @@ function( G )
             fi; 
         od; 
     od;
-    Info( InfoIdRel, 3, "idents2 has length ", Length(idents2) );
+    numids := Length( idents2 );
+    Info( InfoIdRel, 1, "idents2 has length ", numids );
+    idents2 := List( [1..numids], i -> [ i, idents2[i][1], idents2[i][2] ] ); 
+    Info( InfoIdRel, 1, "after adding an initial index:" );
+    Info( InfoIdRel, 1, idents2 ); 
     return idents2;
 end );
 

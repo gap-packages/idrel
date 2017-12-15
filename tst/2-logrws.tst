@@ -1,6 +1,6 @@
 ##############################################################################
 ##
-#W  logrws.tst                     Idrel Package                 Chris Wensley
+#W  2-logrws.tst                   Idrel Package                 Chris Wensley
 #W                                                             & Anne Heyworth
 #Y  Copyright (C) 1999-2017 Anne Heyworth and Chris Wensley
 ##
@@ -129,5 +129,5 @@ gap> lrwsT := LoggedRewritingSystemFpGroup( T );
 
 #############################################################################
 ##
-#E  logrws.tst . . . . . . . . . . . . . . . . . . . . . . . . . . ends here
+#E  2-logrws.tst . . . . . . . . . . . . . . . . . . . . . . . . . ends here
 

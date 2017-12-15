@@ -11,8 +11,10 @@
  * (12/01/16) ElementsFamily error when running `testall.g` 
  * add a History chapter to the manual 
 
-## 2.34 -> 2.36  (11/07/2017)
+## 2.34 -> 2.36  (15/12/2017)
 
+ * (15/12/17) removed examples/*.g from git but saved some in new /expt 
+ * (08/08/17) testall.g copied to testing.g; testall now calls TestDirectory
  * (11/07/17) split off method for PartialElementsOfMonoidPresentation 
  * (03/07/17) README and CHANGES now in MarkDown format, so .md files
  * (14/06/17) added methods for String, ViewString, PrintString 

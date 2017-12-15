@@ -1,6 +1,6 @@
 ##############################################################################
 ##
-#W  idrel_manual.tst               Idrel Package                 Chris Wensley
+#W  3-monpoly.tst                  Idrel Package                 Chris Wensley
 #W                                                             & Anne Heyworth
 ##
 #Y  Copyright (C) 1999-2017 Anne Heyworth and Chris Wensley
@@ -96,4 +96,4 @@ gap> Print( rmp1, "\n" );
 
 #############################################################################
 ##
-#E  monpoly.tst . . . . . . . . . . . . . . . . . . . . . . . . . . ends here
+#E  3-monpoly.tst . . . . . . . . . . . . . . . . . . . . . . . . . ends here

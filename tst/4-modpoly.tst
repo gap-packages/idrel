@@ -1,6 +1,6 @@
 ##############################################################################
 ##
-#W  idrel_manual.tst               Idrel Package                 Chris Wensley
+#W  4-modpoly.tst                  Idrel Package                 Chris Wensley
 #W                                                             & Anne Heyworth
 ##
 #Y  Copyright (C) 1999-2017 Anne Heyworth and Chris Wensley
@@ -66,39 +66,39 @@ q8_R1*(4*q8_M4*q8_M1 - 5*q8_M1^2) + q8_R4*( - 7*q8_M4*q8_M1 + 5*q8_M1^2 +
 ## Example 5.4.1
 gap> yseqs := IdentityYSequences( q8 );;
 gap> Length( yseqs );
-32
+24
 gap> polys := IdentityModulePolys( q8 );;
 gap> Length( polys );
-22
+23
 gap> idsq8 := IdentitiesAmongRelators( q8 );;
 gap> Length( idsq8 );
 2
 gap> Length( idsq8[1] );
 7
 gap> Display( idsq8[1] );
-[ ( q8_Y3*( q8_M1*q8_M4), q8_R1*( q8_M1 - <identity ...>) ), 
-  ( q8_Y10*( -q8_M1*q8_M4), q8_R2*( q8_M2 - <identity ...>) ), 
-  ( q8_Y17*( <identity ...>), q8_R1*( -q8_M3 - q8_M2) + q8_R3*( q8_M1^2 + q8_M\
+[ ( q8_Y1*( q8_M1), q8_R1*( q8_M1 - <identity ...>) ), 
+  ( q8_Y7*( -q8_M1^2), q8_R2*( q8_M2 - <identity ...>) ), 
+  ( q8_Y23*( <identity ...>), q8_R1*( -q8_M3 - q8_M2) + q8_R3*( q8_M1^2 + q8_M\
 3 + q8_M1 + <identity ...>) ), 
-  ( q8_Y31*( q8_M1*q8_M4), q8_R3*( q8_M3 - q8_M2) + q8_R4*( q8_M1 - <identity \
-...>) ), 
-  ( q8_Y32*( -q8_M1*q8_M4), q8_R2*( -q8_M1^2) + q8_R3*( -q8_M3 - <identity ...\
->) + q8_R4*( q8_M2 + <identity ...>) ), 
-  ( q8_Y12*( q8_M1*q8_M4), q8_R1*( -q8_M2) + q8_R3*( q8_M1*q8_M2 + q8_M4) + q8\
-_R4*( q8_M2 - <identity ...>) ), 
-  ( q8_Y16*( -<identity ...>), q8_R1*( -<identity ...>) + q8_R2*( -q8_M1) + q8\
+  ( q8_Y11*( q8_M1), q8_R3*( q8_M3 - q8_M2) + q8_R4*( q8_M1 - <identity ...>) \
+), 
+  ( q8_Y18*( -q8_M1), q8_R2*( -q8_M1^2) + q8_R3*( -q8_M3 - <identity ...>) + q\
+8_R4*( q8_M2 + <identity ...>) ), 
+  ( q8_Y14*( q8_M2), q8_R1*( -q8_M2) + q8_R3*( q8_M1*q8_M2 + q8_M4) + q8_R4*( \
+q8_M2 - <identity ...>) ), 
+  ( q8_Y12*( -<identity ...>), q8_R1*( -<identity ...>) + q8_R2*( -q8_M1) + q8\
 _R4*( q8_M3 + q8_M1) ) ]
 
 ## Example 5.4.2
 gap> RootIdentities( q8 );
-[ ( q8_Y3*( q8_M1*q8_M4), q8_R1*( q8_M1 - <identity ...>) ), 
-  ( q8_Y10*( -q8_M1*q8_M4), q8_R2*( q8_M2 - <identity ...>) ) ]
+[ ( q8_Y1*( q8_M1), q8_R1*( q8_M1 - <identity ...>) ), 
+  ( q8_Y7*( -q8_M1^2), q8_R2*( q8_M2 - <identity ...>) ) ]
 gap> RootIdentities(s3);
-[ ( s3_Y4*( s3_M2*s3_M1), s3_R1*( s3_M1 - <identity ...>) ), 
-  ( s3_Y8*( s3_M2*s3_M1), s3_R2*( s3_M2 - <identity ...>) ), 
-  ( s3_Y7*( s3_M2*s3_M1), s3_R3*( s3_M2 - s3_M1) ) ]
+[ ( s3_Y1*( s3_M1), s3_R1*( s3_M1 - <identity ...>) ), 
+  ( s3_Y3*( s3_M2), s3_R2*( s3_M2 - <identity ...>) ), 
+  ( s3_Y5*( s3_M2*s3_M1), s3_R3*( s3_M2 - s3_M1) ) ]
 
 #############################################################################
 ##
-#E  modpoly.tst . . . . . . . . . . . . . . . . . . . . . . . . . . ends here
+#E  4-modpoly.tst . . . . . . . . . . . . . . . . . . . . . . . . . ends here
 
