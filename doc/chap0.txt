@@ -6,7 +6,7 @@
                     [1XA package for Identities among Relators[101X
   
   
-                                  Version 2.37
+                                  Version 2.38
   
   
                                    15/12/2017
