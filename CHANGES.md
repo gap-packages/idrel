@@ -11,6 +11,10 @@
  * (12/01/16) ElementsFamily error when running `testall.g` 
  * add a History chapter to the manual 
 
+## 2.38 -> 2.39  (16/12/2017)
+
+ * (16/12/17)
+
 ## 2.34 -> 2.38  (15/12/2017)
 
  * (15/12/17) removed examples/*.g from git but saved some in new /expt 
