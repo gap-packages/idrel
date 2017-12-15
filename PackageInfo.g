@@ -9,16 +9,16 @@ Packagename := "idrel",
 PackageName := "idrel",
 Subtitle := "Identities among relations",
 
-Version := "2.36",
-Date := "14/07/2017",
+Version := "2.37",
+Date := "15/12/2017",
 
 ##  duplicate these values for inclusion in the manual: 
 ##  <#GAPDoc Label="PKGVERSIONDATA"> 
-##  <!ENTITY IDRELVERSION "2.36">
-##  <!ENTITY IDRELTARFILENAME "idrel-2.36.tar.gz">
-##  <!ENTITY IDRELHTMLFILENAME "idrel233.html">
-##  <!ENTITY IDRELRELEASEDATE "14/07/2017">
-##  <!ENTITY IDRELLONGRELEASEDATE "14th July 2017">
+##  <!ENTITY IDRELVERSION "2.37">
+##  <!ENTITY IDRELTARFILENAME "idrel-2.37.tar.gz">
+##  <!ENTITY IDRELHTMLFILENAME "idrel.html">
+##  <!ENTITY IDRELRELEASEDATE "15/12/2017">
+##  <!ENTITY IDRELLONGRELEASEDATE "15th December 2017">
 ##  <!ENTITY IDRELCOPYRIGHTYEARS "1999-2017">
 ##  <#/GAPDoc>
 
@@ -98,7 +98,7 @@ BannerString := Concatenation(
     "Chris Wensley (http://pages.bangor.ac.uk/~mas023/)\n", 
  "-----------------------------------------------------------------------\n" ),
 
-TestFile := "tst/idrel_manual.tst",
+TestFile := "tst/testall.g",
 
 Keywords := ["logged rewriting","identities among relations",
              "Y-sequences"]

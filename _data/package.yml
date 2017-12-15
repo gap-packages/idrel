@@ -1,7 +1,8 @@
 name: idrel
-version: 2.34
-date: 20/10/2016
-description: Identities among relations
+version: 2.37
+date: 15/12/2017
+description: |
+    Identities among relations
 
 authors:
     - name: Anne Heyworth
@@ -16,21 +17,22 @@ GAP: ">=4.8.7"
 
 needed-pkgs:
     - name: "xmod"
-      version: ">= 2.56"
-      url: "http://gap-packages.github.io/xmod/"
+      version: ">= 2.59"
+      url: "https://gap-packages.github.io/xmod/"
     - name: "GAPDoc"
       version: ">= 1.5.1"
       url: "http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc"
 
 www: https://gap-packages.github.io/idrel/
-readme: https://gap-packages.github.io/idrel/README.md
+readme: README.md
 packageinfo: https://gap-packages.github.io/idrel/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/gap-packages/idrel/releases/download/v2.34/idrel-2.34.tar.gz
+      url: https://github.com/gap-packages/idrel/releases/download/v2.37/idrel-2.37.tar.gz
 
-abstract: IdRel is a package for computing the identities among relations of a group presentation using rewriting, logged rewriting, monoid polynomials, module polynomials and Y-sequences.
+abstract: |
+    IdRel is a package for computing the identities among relations of a group presentation using rewriting, logged rewriting, monoid polynomials, module polynomials and Y-sequences.
 
 status: accepted
 doc-html: doc/chap0.html

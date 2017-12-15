@@ -6,10 +6,10 @@
                     [1XA package for Identities among Relators[101X
   
   
-                                  Version 2.34
+                                  Version 2.37
   
   
-                                   20/10/2016
+                                   15/12/2017
   
   
                                  Anne Heyworth
@@ -57,7 +57,7 @@
   
   -------------------------------------------------------
   [1XCopyright[101X
-  [33X[0;0Y© 1999-2016 Anne Heyworth and Chris Wensley[133X
+  [33X[0;0Y© 1999-2017 Anne Heyworth and Chris Wensley[133X
   
   [33X[0;0Y[5XIdRel[105X  is  free software; you can redistribute it and/or modify it under the
   terms        of       the       GNU       General       Public       License
@@ -72,7 +72,7 @@
   Lübeck and Max Neunhöffer.[133X
   
   [33X[0;0YThe  procedure  used  to  mount  new  releases  on  GitHub uses the packages
-  [5XGitHubPagesForGAP[105X [Hor14] and [5XReleaseTools[105X of Max Horn.[133X
+  [5XGitHubPagesForGAP[105X [Hor17] and [5XReleaseTools[105X of Max Horn.[133X
   
   
   -------------------------------------------------------
@@ -81,17 +81,17 @@
   [1XContents (IdRel)[101X
   
   1 [33X[0;0YIntroduction[133X
+    1.1 [33X[0;0YAn illustrative example[133X
   2 [33X[0;0YRewriting Systems[133X
-    2.1 [33X[0;0YIdentity Y-sequences[133X
-    2.2 [33X[0;0YMonoid Presentations of FpGroups[133X
-      2.2-1 FreeRelatorGroup
-      2.2-2 MonoidPresentationFpGroup
-    2.3 [33X[0;0YRewriting systems for FpGroups[133X
-      2.3-1 RewritingSystemFpGroup
-      2.3-2 OnePassReduceWord
-      2.3-3 OnePassKB
-    2.4 [33X[0;0YEnumerating elements[133X
-      2.4-1 ElementsOfMonoidPresentation
+    2.1 [33X[0;0YMonoid Presentations of FpGroups[133X
+      2.1-1 FreeRelatorGroup
+      2.1-2 MonoidPresentationFpGroup
+    2.2 [33X[0;0YRewriting systems for FpGroups[133X
+      2.2-1 RewritingSystemFpGroup
+      2.2-2 OnePassReduceWord
+      2.2-3 OnePassKB
+    2.3 [33X[0;0YEnumerating elements[133X
+      2.3-1 ElementsOfMonoidPresentation
   3 [33X[0;0YLogged Rewriting Systems[133X
     3.1 [33X[0;0YLogged Knuth-Bendix Completion[133X
       3.1-1 LoggedOnePassKB

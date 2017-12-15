@@ -74,7 +74,7 @@
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">frq8 := FreeRelatorGroup( q8 );; </span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">genfrq8 := GeneratorsOfGroup( frq8 ); </span>
 [ q8_R1, q8_R2, q8_R3, q8_R4 ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Print( rmp1, "\n" ); </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Print( rmp1, "\n" );      ## defined in section 4.4.1 </span>
  - 7*q8_M4 + 5*q8_M1 + 9*&lt;identity ...&gt;
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mp2 := MonoidPolyFromCoeffsWords( [4,-5], [ M[4], M[1] ] );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Print( mp2, "\n" ); </span>
@@ -101,11 +101,11 @@ zero modpoly
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Terms</code>( <var class="Arg">modpoly</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LeadTerm</code>( <var class="Arg">modpoly</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LeadMonoidPoly</code>( <var class="Arg">modpoly</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Length</code>( <var class="Arg">modpoly</var> )</td><td class="tdright">( method )</td></tr></table></div>
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; One</code>( <var class="Arg">modpoly</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Length</code>( <var class="Arg">modpoly</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>The function <code class="code">Length</code> counts the number of module generators which occur in <code class="code">modpoly</code> (a generator occurs in a polynomial if it has nonzero coefficient). The function <code class="code">One</code> returns the identity in the free group on the generators.</p>
-
 <p>The function <code class="code">Terms</code> returns the terms of a module polynomial as a list of pairs. In <code class="code">LeadTerm</code>, the generators are ordered, and the term of <code class="code">modpoly</code> with the highest value generator is defined to be the leading term. The monoid polynomial (coefficient) part of the leading term is returned by the function <code class="code">LeadMonoidPoly</code>.</p>
+
+<p>The function <code class="code">Length</code> counts the number of module generators which occur in <code class="code">modpoly</code> (a generator occurs in a polynomial if it has nonzero coefficient). The function <code class="code">One</code> returns the identity in the free group on the generators.</p>
 
 
 <div class="example"><pre>
@@ -115,7 +115,8 @@ zero modpoly
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">One( s1 );</span>
 &lt;identity ...&gt; 
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Terms( s1 );</span>
-[ [ q8_R1, &lt;monpoly&gt; ], [ q8_R4, &lt;monpoly&gt; ] ]
+[ [ q8_R1, 4*q8_M4 - 5*q8_M1 ], 
+  [ q8_R4,  - 7*q8_M4 + 5*q8_M1 + 9*&lt;identity ...&gt; ] ]
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Print( LeadTerm( s1 ), "\n" );</span>
 [ q8_R4,  - 7*q8_M4 + 5*q8_M1 + 9*&lt;identity ...&gt; ]
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Print( LeadTerm( s2 ), "\n" );</span>
@@ -175,7 +176,7 @@ q8_R1*(4*q8_M4*q8_M1 - 5*q8_M1^2) + q8_R4*( - 7*q8_M4*q8_M1 + 5*q8_M1^2 +
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IdentityYSequences</code>( <var class="Arg">grp</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IdentityModulePolynomials</code>( <var class="Arg">grp</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IdentitiesAmongRelators</code>( <var class="Arg">grp</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<p>The identities among the relators for a finitely presented group are constructed as logged module polynomials. The procedure, described in <a href="chapBib.html#biBHeWe1">[HW03]</a> and based on work in <a href="chapBib.html#biBBrSa">[BS99]</a>, is to construct a full set of Y-sequences for the group; convert these into module polynomials (eliminating empty sequences); and then apply simplification rules (including the primary identity property) to eliminate obvious duplicates and conjugates.</p>
+<p>The identities among the relators for a finitely presented group are constructed as logged module polynomials. The procedure, described in <a href="chapBib.html#biBHeWe1">[HW03]</a> and based on work in <a href="chapBib.html#biBBrSa">[BRS99]</a>, is to construct a full set of Y-sequences for the group; convert these into module polynomials (eliminating empty sequences); and then apply simplification rules (including the primary identity property) to eliminate obvious duplicates and conjugates.</p>
 
 <p>It is <em>not</em> guaranteed that a minimal set of identities is obtained. For <code class="code">q8</code> a set of seven identities is obtained, whereas a minimal set contains only six. See Example 5.1 of <a href="chapBib.html#biBHeWe1">[HW03]</a> for further details.</p>
 
@@ -184,29 +185,28 @@ q8_R1*(4*q8_M4*q8_M1 - 5*q8_M1^2) + q8_R4*( - 7*q8_M4*q8_M1 + 5*q8_M1^2 +
 
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">yseqs := IdentityYSequences( q8 );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length( yseqs );</span>
-32
+24
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">polys := IdentityModulePolys( q8 );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length( polys );</span>
-22
+23
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">idsq8 := IdentitiesAmongRelators( q8 );;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length( idsq8 );</span>
 2
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length( idsq8[1] );</span>
 7
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display( idsq8[1] );</span>
-[ ( q8_Y3*( q8_M1*q8_M4), q8_R1*( q8_M1 - &lt;identity ...&gt;) ), 
-  ( q8_Y10*( -q8_M1*q8_M4), q8_R2*( q8_M2 - &lt;identity ...&gt;) ), 
-  ( q8_Y17*( &lt;identity ...&gt;), q8_R1*( -q8_M3 - q8_M2) + q8_R3*( q8_M1^2 + q8_M\
+[ ( q8_Y1*( q8_M1), q8_R1*( q8_M1 - &lt;identity ...&gt;) ), 
+  ( q8_Y7*( -q8_M1^2), q8_R2*( q8_M2 - &lt;identity ...&gt;) ), 
+  ( q8_Y23*( &lt;identity ...&gt;), q8_R1*( -q8_M3 - q8_M2) + q8_R3*( q8_M1^2 + q8_M\
 3 + q8_M1 + &lt;identity ...&gt;) ), 
-  ( q8_Y31*( q8_M1*q8_M4), q8_R3*( q8_M3 - q8_M2) + q8_R4*( q8_M1 - &lt;identity \
-...&gt;) ), 
-  ( q8_Y32*( -q8_M1*q8_M4), q8_R2*( -q8_M1^2) + q8_R3*( -q8_M3 - &lt;identity ...\
-&gt;) + q8_R4*( q8_M2 + &lt;identity ...&gt;) ), 
-  ( q8_Y12*( q8_M1*q8_M4), q8_R1*( -q8_M2) + q8_R3*( q8_M1*q8_M2 + q8_M4) + q8\
-_R4*( q8_M2 - &lt;identity ...&gt;) ), 
-  ( q8_Y16*( -&lt;identity ...&gt;), q8_R1*( -&lt;identity ...&gt;) + q8_R2*( -q8_M1) + q8\
+  ( q8_Y11*( q8_M1), q8_R3*( q8_M3 - q8_M2) + q8_R4*( q8_M1 - &lt;identity ...&gt;) \
+), 
+  ( q8_Y18*( -q8_M1), q8_R2*( -q8_M1^2) + q8_R3*( -q8_M3 - &lt;identity ...&gt;) + q\
+8_R4*( q8_M2 + &lt;identity ...&gt;) ), 
+  ( q8_Y14*( q8_M2), q8_R1*( -q8_M2) + q8_R3*( q8_M1*q8_M2 + q8_M4) + q8_R4*( \
+q8_M2 - &lt;identity ...&gt;) ), 
+  ( q8_Y12*( -&lt;identity ...&gt;), q8_R1*( -&lt;identity ...&gt;) + q8_R2*( -q8_M1) + q8\
 _R4*( q8_M3 + q8_M1) ) ]
-  ]
 
 </pre></div>
 
@@ -223,12 +223,12 @@ _R4*( q8_M3 + q8_M1) ) ]
 <div class="example"><pre>
 
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">RootIdentities( q8 );</span>
-[ ( q8_Y3*( q8_M1*q8_M4), q8_R1*( q8_M1 - &lt;identity ...&gt;) ),
-  ( q8_Y10*( -q8_M1*q8_M4), q8_R2*( q8_M2 - &lt;identity ...&gt;) ) ]
+[ ( q8_Y1*( q8_M1), q8_R1*( q8_M1 - &lt;identity ...&gt;) ), 
+  ( q8_Y7*( -q8_M1^2), q8_R2*( q8_M2 - &lt;identity ...&gt;) ) ]
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">RootIdentities(s3);</span>
-[ ( s3_Y4*( s3_M2*s3_M1), s3_R1*( s3_M1 - &lt;identity ...&gt;) ),
-  ( s3_Y8*( s3_M2*s3_M1), s3_R2*( s3_M2 - &lt;identity ...&gt;) ),
-  ( s3_Y7*( s3_M2*s3_M1), s3_R3*( s3_M2 - s3_M1) ) ]
+[ ( s3_Y1*( s3_M1), s3_R1*( s3_M1 - &lt;identity ...&gt;) ), 
+  ( s3_Y3*( s3_M2), s3_R2*( s3_M2 - &lt;identity ...&gt;) ), 
+  ( s3_Y5*( s3_M2*s3_M1), s3_R3*( s3_M2 - s3_M1) ) ]
 
 </pre></div>
 

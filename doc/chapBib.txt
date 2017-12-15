@@ -6,7 +6,7 @@
   Eds.),  [17XIdentities  among  relations[117X, in Low-Dimensional Topology, Cambridge
   University Press, London Math. Soc. Lecture Note Series, [19X46[119X (1982), 153–202.
   
-  [[20XBS99[120X]  [16XBrown,  R.  and  Razak  Salleh, A.[116X, [17XOn the computation of identities
+  [[20XBRS99[120X]  [16XBrown,  R.  and  Razak Salleh, A.[116X, [17XOn the computation of identities
   among relations and of free crossed resolutions of groups[117X, [18XLondon Math. Soc.
   J. Comput. Math.[118X, [19X2[119X (1999), 28–61.
   
@@ -15,14 +15,14 @@
   University         of         Wales,         Bangor        (1999),        ((
   http://www.maths.bangor.ac.uk/research/ftp/theses/heyworth.ps.gz )).
   
+  [[20XHor17[120X] [16XHorn, M.[116X, [17XGitHubPagesForGAP - Template for easily using GitHub Pages
+  within    GAP    packages    (Version   0.2)[117X   (2017),   ((   GAP   package,
+  https://gap-system.github.io/GitHubPagesForGAP/ )).
+  
   [[20XHW03[120X]  [16XHeyworth,  A.  and Wensley, C. D.[116X ([1m[31mCampbell, C. M., Robertson, E. F.
   and  Smith, G. C.[15X, Eds.), [17XLogged rewriting and identities among relators[117X, in
   Groups  St  Andrews 2001 in Oxford, Cambridge University Press, London Math.
   Soc. Lecture Note Series, [19X304[119X (2003), 256–276.
-  
-  [[20XHor14[120X] [16XHorn, M.[116X, [17XGitHubPagesForGAP - Template for easily using GitHub Pages
-  within    GAP    packages    (Version   0.1)[117X   (2014),   ((   GAP   package,
-  https://github.com/fingolfin/GitHubPagesForGAP/ )).
   
   [[20XLN12[120X]  [16XLübeck,  F.  and Neunhöffer, M.[116X, [17XGAPDoc (Version 1.5.1)[117X, RWTH Aachen
   (2012),                   ((                   GAP                  package,

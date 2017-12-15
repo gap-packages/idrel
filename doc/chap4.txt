@@ -148,7 +148,7 @@
   
   [1X4.3-1 Length[101X
   
-  [29X[2XLength[102X( [3Xpoly[103X ) [32X attribute
+  [29X[2XLength[102X( [3Xpoly[103X ) [32X method
   
   [33X[0;0YThis function returns the number of distinct terms in the monoid polynomial.[133X
   

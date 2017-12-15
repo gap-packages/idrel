@@ -39,7 +39,7 @@
     [4X[25Xgap>[125X [27Xfrq8 := FreeRelatorGroup( q8 );; [127X[104X
     [4X[25Xgap>[125X [27Xgenfrq8 := GeneratorsOfGroup( frq8 ); [127X[104X
     [4X[28X[ q8_R1, q8_R2, q8_R3, q8_R4 ][128X[104X
-    [4X[25Xgap>[125X [27XPrint( rmp1, "\n" ); [127X[104X
+    [4X[25Xgap>[125X [27XPrint( rmp1, "\n" );      ## defined in section 4.4.1 [127X[104X
     [4X[28X - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>[128X[104X
     [4X[25Xgap>[125X [27Xmp2 := MonoidPolyFromCoeffsWords( [4,-5], [ M[4], M[1] ] );;[127X[104X
     [4X[25Xgap>[125X [27XPrint( mp2, "\n" ); [127X[104X
@@ -63,18 +63,18 @@
   [29X[2XTerms[102X( [3Xmodpoly[103X ) [32X attribute
   [29X[2XLeadTerm[102X( [3Xmodpoly[103X ) [32X attribute
   [29X[2XLeadMonoidPoly[102X( [3Xmodpoly[103X ) [32X attribute
+  [29X[2XLength[102X( [3Xmodpoly[103X ) [32X method
   [29X[2XOne[102X( [3Xmodpoly[103X ) [32X attribute
-  [29X[2XLength[102X( [3Xmodpoly[103X ) [32X attribute
-  
-  [33X[0;0YThe  function  [10XLength[110X  counts the number of module generators which occur in
-  [10Xmodpoly[110X  (a generator occurs in a polynomial if it has nonzero coefficient).
-  The function [10XOne[110X returns the identity in the free group on the generators.[133X
   
   [33X[0;0YThe  function  [10XTerms[110X  returns  the terms of a module polynomial as a list of
   pairs. In [10XLeadTerm[110X, the generators are ordered, and the term of [10Xmodpoly[110X with
   the  highest  value  generator is defined to be the leading term. The monoid
   polynomial  (coefficient)  part  of  the  leading  term  is  returned by the
   function [10XLeadMonoidPoly[110X.[133X
+  
+  [33X[0;0YThe  function  [10XLength[110X  counts the number of module generators which occur in
+  [10Xmodpoly[110X  (a generator occurs in a polynomial if it has nonzero coefficient).
+  The function [10XOne[110X returns the identity in the free group on the generators.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[28X[128X[104X
@@ -83,7 +83,8 @@
     [4X[25Xgap>[125X [27XOne( s1 );[127X[104X
     [4X[28X<identity ...> [128X[104X
     [4X[25Xgap>[125X [27XTerms( s1 );[127X[104X
-    [4X[28X[ [ q8_R1, <monpoly> ], [ q8_R4, <monpoly> ] ][128X[104X
+    [4X[28X[ [ q8_R1, 4*q8_M4 - 5*q8_M1 ], [128X[104X
+    [4X[28X  [ q8_R4,  - 7*q8_M4 + 5*q8_M1 + 9*<identity ...> ] ][128X[104X
     [4X[25Xgap>[125X [27XPrint( LeadTerm( s1 ), "\n" );[127X[104X
     [4X[28X[ q8_R4,  - 7*q8_M4 + 5*q8_M1 + 9*<identity ...> ][128X[104X
     [4X[25Xgap>[125X [27XPrint( LeadTerm( s2 ), "\n" );[127X[104X
@@ -145,7 +146,7 @@
   
   [33X[0;0YThe  identities  among  the  relators  for  a  finitely  presented group are
   constructed as logged module polynomials. The procedure, described in [HW03]
-  and  based  on work in [BS99], is to construct a full set of Y-sequences for
+  and  based on work in [BRS99], is to construct a full set of Y-sequences for
   the   group;  convert  these  into  module  polynomials  (eliminating  empty
   sequences);  and  then  apply  simplification  rules  (including the primary
   identity property) to eliminate obvious duplicates and conjugates.[133X
@@ -158,29 +159,28 @@
     [4X[28X[128X[104X
     [4X[25Xgap>[125X [27Xyseqs := IdentityYSequences( q8 );;[127X[104X
     [4X[25Xgap>[125X [27XLength( yseqs );[127X[104X
-    [4X[28X32[128X[104X
+    [4X[28X24[128X[104X
     [4X[25Xgap>[125X [27Xpolys := IdentityModulePolys( q8 );;[127X[104X
     [4X[25Xgap>[125X [27XLength( polys );[127X[104X
-    [4X[28X22[128X[104X
+    [4X[28X23[128X[104X
     [4X[25Xgap>[125X [27Xidsq8 := IdentitiesAmongRelators( q8 );;[127X[104X
     [4X[25Xgap>[125X [27XLength( idsq8 );[127X[104X
     [4X[28X2[128X[104X
     [4X[25Xgap>[125X [27XLength( idsq8[1] );[127X[104X
     [4X[28X7[128X[104X
     [4X[25Xgap>[125X [27XDisplay( idsq8[1] );[127X[104X
-    [4X[28X[ ( q8_Y3*( q8_M1*q8_M4), q8_R1*( q8_M1 - <identity ...>) ), [128X[104X
-    [4X[28X  ( q8_Y10*( -q8_M1*q8_M4), q8_R2*( q8_M2 - <identity ...>) ), [128X[104X
-    [4X[28X  ( q8_Y17*( <identity ...>), q8_R1*( -q8_M3 - q8_M2) + q8_R3*( q8_M1^2 + q8_M\[128X[104X
+    [4X[28X[ ( q8_Y1*( q8_M1), q8_R1*( q8_M1 - <identity ...>) ), [128X[104X
+    [4X[28X  ( q8_Y7*( -q8_M1^2), q8_R2*( q8_M2 - <identity ...>) ), [128X[104X
+    [4X[28X  ( q8_Y23*( <identity ...>), q8_R1*( -q8_M3 - q8_M2) + q8_R3*( q8_M1^2 + q8_M\[128X[104X
     [4X[28X3 + q8_M1 + <identity ...>) ), [128X[104X
-    [4X[28X  ( q8_Y31*( q8_M1*q8_M4), q8_R3*( q8_M3 - q8_M2) + q8_R4*( q8_M1 - <identity \[128X[104X
-    [4X[28X...>) ), [128X[104X
-    [4X[28X  ( q8_Y32*( -q8_M1*q8_M4), q8_R2*( -q8_M1^2) + q8_R3*( -q8_M3 - <identity ...\[128X[104X
-    [4X[28X>) + q8_R4*( q8_M2 + <identity ...>) ), [128X[104X
-    [4X[28X  ( q8_Y12*( q8_M1*q8_M4), q8_R1*( -q8_M2) + q8_R3*( q8_M1*q8_M2 + q8_M4) + q8\[128X[104X
-    [4X[28X_R4*( q8_M2 - <identity ...>) ), [128X[104X
-    [4X[28X  ( q8_Y16*( -<identity ...>), q8_R1*( -<identity ...>) + q8_R2*( -q8_M1) + q8\[128X[104X
+    [4X[28X  ( q8_Y11*( q8_M1), q8_R3*( q8_M3 - q8_M2) + q8_R4*( q8_M1 - <identity ...>) \[128X[104X
+    [4X[28X), [128X[104X
+    [4X[28X  ( q8_Y18*( -q8_M1), q8_R2*( -q8_M1^2) + q8_R3*( -q8_M3 - <identity ...>) + q\[128X[104X
+    [4X[28X8_R4*( q8_M2 + <identity ...>) ), [128X[104X
+    [4X[28X  ( q8_Y14*( q8_M2), q8_R1*( -q8_M2) + q8_R3*( q8_M1*q8_M2 + q8_M4) + q8_R4*( \[128X[104X
+    [4X[28Xq8_M2 - <identity ...>) ), [128X[104X
+    [4X[28X  ( q8_Y12*( -<identity ...>), q8_R1*( -<identity ...>) + q8_R2*( -q8_M1) + q8\[128X[104X
     [4X[28X_R4*( q8_M3 + q8_M1) ) ][128X[104X
-    [4X[28X  ][128X[104X
     [4X[28X[128X[104X
   [4X[32X[104X
   
@@ -197,12 +197,12 @@
   [4X[32X  Example  [32X[104X
     [4X[28X[128X[104X
     [4X[25Xgap>[125X [27XRootIdentities( q8 );[127X[104X
-    [4X[28X[ ( q8_Y3*( q8_M1*q8_M4), q8_R1*( q8_M1 - <identity ...>) ),[128X[104X
-    [4X[28X  ( q8_Y10*( -q8_M1*q8_M4), q8_R2*( q8_M2 - <identity ...>) ) ][128X[104X
+    [4X[28X[ ( q8_Y1*( q8_M1), q8_R1*( q8_M1 - <identity ...>) ), [128X[104X
+    [4X[28X  ( q8_Y7*( -q8_M1^2), q8_R2*( q8_M2 - <identity ...>) ) ][128X[104X
     [4X[25Xgap>[125X [27XRootIdentities(s3);[127X[104X
-    [4X[28X[ ( s3_Y4*( s3_M2*s3_M1), s3_R1*( s3_M1 - <identity ...>) ),[128X[104X
-    [4X[28X  ( s3_Y8*( s3_M2*s3_M1), s3_R2*( s3_M2 - <identity ...>) ),[128X[104X
-    [4X[28X  ( s3_Y7*( s3_M2*s3_M1), s3_R3*( s3_M2 - s3_M1) ) ][128X[104X
+    [4X[28X[ ( s3_Y1*( s3_M1), s3_R1*( s3_M1 - <identity ...>) ), [128X[104X
+    [4X[28X  ( s3_Y3*( s3_M2), s3_R2*( s3_M2 - <identity ...>) ), [128X[104X
+    [4X[28X  ( s3_Y5*( s3_M2*s3_M1), s3_R3*( s3_M2 - s3_M1) ) ][128X[104X
     [4X[28X[128X[104X
   [4X[32X[104X
   
