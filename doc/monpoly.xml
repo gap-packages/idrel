@@ -181,7 +181,7 @@ gap> Print( pg * pr, "\n" );
 </Example>
 
 <ManSection>
-   <Attr Name="Length"
+   <Meth Name="Length"
          Arg="poly" />
 <Description>
 This function returns the number of distinct terms in the monoid polynomial.

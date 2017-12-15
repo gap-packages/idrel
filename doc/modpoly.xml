@@ -84,7 +84,7 @@ zero modpoly
          Arg="modpoly" />
    <Attr Name="LeadMonoidPoly"
          Arg="modpoly" />
-   <Attr Name="Length"
+   <Meth Name="Length"
          Arg="modpoly" />
    <Attr Name="One"
          Arg="modpoly" />
