@@ -98,7 +98,7 @@ BannerString := Concatenation(
     "Chris Wensley (http://pages.bangor.ac.uk/~mas023/)\n", 
  "-----------------------------------------------------------------------\n" ),
 
-TestFile := "tst/idrel_manual.tst",
+TestFile := "tst/testall.g",
 
 Keywords := ["logged rewriting","identities among relations",
              "Y-sequences"]
