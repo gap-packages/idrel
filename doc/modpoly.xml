@@ -34,9 +34,9 @@ of a finitely presented group (see section <B>5.4</B>).
 
 <ManSection>
    <Oper Name="ModulePoly"
-         Arg="gens, monpolys" />
+         Arg="gens, monpolys" Label="with input gens, polys" />
    <Oper Name="ModulePoly"
-         Arg="args" />
+         Arg="args" Label="with input [gen,poly] list" />
    <Oper Name="ZeroModulePoly"
          Arg="Fgens, Fmon" />
 <Description>
@@ -79,13 +79,13 @@ zero modpoly
 
 <ManSection>
    <Attr Name="Terms"
-         Arg="modpoly" />
+         Arg="modpoly" Label="for module polynomials" />
    <Attr Name="LeadTerm"
-         Arg="modpoly" />
+         Arg="modpoly" Label="for module polynomials" />
    <Attr Name="LeadMonoidPoly"
          Arg="modpoly" />
    <Meth Name="Length"
-         Arg="modpoly" />
+         Arg="modpoly" Label="for module polynomials" />
    <Attr Name="One"
          Arg="modpoly" />
 <Description>

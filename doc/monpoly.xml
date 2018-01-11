@@ -65,13 +65,13 @@ zero monpoly
 
 <ManSection>
    <Attr Name="Terms"
-         Arg="poly" />
+         Arg="poly" Label="for monoid polynomials" />
    <Attr Name="Coeffs"
          Arg="poly" />
    <Attr Name="Words"
          Arg="poly" />
    <Attr Name="LeadTerm"
-         Arg="poly" />
+         Arg="poly" Label="for monoid polynomials" />
    <Attr Name="LeadCoeffMonoidPoly"
          Arg="poly" />
 <Description>
@@ -182,7 +182,7 @@ gap> Print( pg * pr, "\n" );
 
 <ManSection>
    <Meth Name="Length"
-         Arg="poly" />
+         Arg="poly" Label="for monoid polynomials" />
 <Description>
 This function returns the number of distinct terms in the monoid polynomial.
 <P/>
