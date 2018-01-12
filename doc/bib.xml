@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE file SYSTEM "bibxmlext.dtd">
+<file>
+
+<entry id="BrHu"><incollection>
+  <author>
+    <name><first>Ronald</first><last>Brown</last></name>
+    <name><first>Johannes</first><last>Huebschumann</last></name>
+  </author>  
+  <title>Identities among relations</title>
+  <booktitle>Low-<C>D</C>imensional <C>T</C>opology</booktitle>
+  <publisher>Cambridge University Press</publisher>
+  <year>1982</year>
+  <editor>
+    <name><first>Ronald></first><last>Brown</last></name>
+    <name><first>T. L.</first><last>Thickstun</last></name>
+  </editor>
+  <volume>46</volume>
+  <series>London Math. Soc. Lecture Note Series</series> 
+  <pages>153&ndash;202</pages> 
+</incollection></entry>
+
+<entry id="BrSa"><article>
+  <author>
+    <name><first>Ronald</first><last>Brown</last></name>
+    <name><first>A.</first><last>Razak Salleh</last></name>
+  </author>  
+  <title>On the computation of identities among relations and of free crossed
+  resolutions of groups</title>
+  <journal>London Math. Soc. J. Comput. Math.</journal>
+  <year>1999</year>
+  <volume>2</volume>
+  <pages>28&ndash;61</pages>
+</article></entry>
+
+<entry id="anne-thesis"><phdthesis>
+  <author>
+    <name><first>Anne</first><last>Heyworth</last></name>
+  </author>  
+  <title>Applications of <C>R</C>ewriting <C>S</C>ystems and 
+  <C>G</C>roebner Bases to <C>C</C>omputing <C>K</C>an <C>E</C>xtensions 
+  and <C>I</C>dentities <C>A</C>mong <C>R</C>elations</title>
+  <school>University of Wales, Bangor</school>
+  <year>1999</year>
+  <note>
+    <URL>http://www.maths.bangor.ac.uk/research/ftp/theses/heyworth.ps.gz</URL>
+  </note>
+</phdthesis></entry>
+
+<entry id="AutoDoc"><manual>
+  <author>
+    <name><first>Sebastian</first><last>Gutsche</last></name>
+    <name><first>Max</first><last>Horn</last></name>
+  </author>
+  <title><C>AutoDoc - Generate documentation from GAP source code (Version 2017.09.15)</C></title>
+  <year>2017</year>
+  <other type="note">
+    GAP package, <URL>https://github.com/gap-packages/AutoDoc</URL>
+  </other>
+</manual></entry>
+
+<entry id="GAPDoc"><manual>
+  <author>
+    <name><first>Frank</first><last>Lübeck</last></name>
+    <name><first>Max</first><last>Neunhöffer</last></name>
+  </author>
+  <title><C>GAPDoc (version 1.6)</C></title>
+  <organization>RWTH Aachen</organization>
+  <year>2017</year>
+  <other type="note">
+    GAP package, 
+    <URL>http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc/index.html</URL>
+  </other>
+</manual></entry>
+
+<entry id="GitHubPagesForGAP"><manual>
+  <author>
+    <name><first>Max</first><last>Horn</last></name>
+  </author>
+  <title><C>GitHubPagesForGAP - Template for easily using GitHub Pages within GAP packages (Version 0.1)</C></title>
+  <year>2014</year>
+  <other type="note">
+    GAP package, <URL>https://github.com/fingolfin/GitHubPagesForGAP/</URL>
+  </other>
+</manual></entry>
+
+<entry id="HeWe1"><incollection>
+  <author>
+    <name><first>Anne</first><last>Heyworth</last></name>
+    <name><first>Christopher D.</first><last>Wensley</last></name>
+  </author>  
+  <title>Logged rewriting and identities among relators</title>
+  <booktitle>Groups St Andrews 2001 in Oxford</booktitle>
+  <publisher>Cambridge University Press</publisher>
+  <year>2003</year>
+  <editor>
+    <name><first>C. M.</first><last>Campbell</last></name>
+    <name><first>E. F.</first><last>Robertson</last></name>
+    <name><first>G. C.</first><last>Smith</last></name>
+  </editor>
+  <volume>304</volume>
+  <series>London Math. Soc. Lecture Note Series</series> 
+  <pages>256&ndash;276</pages> 
+</incollection></entry>
+
+</file>

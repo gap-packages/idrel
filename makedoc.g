@@ -9,6 +9,7 @@ AutoDoc(rec(
     scaffold := rec(
         includes := [ "intro.xml",    "rws.xml",    "logrws.xml", 
                       "monpoly.xml",  "modpoly.xml" ],
+        bib := "bib.xml", 
         entities := rec( 
             idrel := "<Package>IdRel</Package>", 
             AutoDoc := "<Package>AutoDoc</Package>" 

@@ -10,7 +10,7 @@ Packagename := "idrel",
 PackageName := "idrel",
 Subtitle := "Identities among relations",
 Version := "2.38dev",
-Date := "11/01/2018",
+Date := "12/01/2018",
 
 Persons := [
   rec(
