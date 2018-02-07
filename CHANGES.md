@@ -11,7 +11,7 @@
  * (12/01/16) ElementsFamily error when running `testall.g` 
  * add a History chapter to the manual 
 
-## 2.38 -> 2.38dev  (12/01/2018)
+## 2.38 -> 2.38dev  (07/02/2018)
 
  * (12/01/18) now using AutoDoc to build the manual 
 

@@ -4,6 +4,7 @@
 ##  call this with GAP from within the package root directory 
 
 LoadPackage("idrel");
+LoadPackage("AutoDoc"); 
 
 AutoDoc(rec( 
     scaffold := rec(

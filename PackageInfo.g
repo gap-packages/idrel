@@ -10,7 +10,7 @@ Packagename := "idrel",
 PackageName := "idrel",
 Subtitle := "Identities among relations",
 Version := "2.38dev",
-Date := "12/01/2018",
+Date := "07/02/2018",
 
 Persons := [
   rec(
@@ -73,8 +73,8 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-  GAP := ">=4.8.9",
-  NeededOtherPackages := [ [ "xmod", ">= 2.64" ], [ "GAPDoc", ">= 1.5.1" ] ],
+  GAP := ">=4.9.0",
+  NeededOtherPackages := [ [ "xmod", ">= 2.64" ], [ "GAPDoc", ">= 1.6.1" ] ],
   SuggestedOtherPackages := [ [ "AutoDoc", ">= 2017.09.15" ] ],
   ExternalConditions := [ ]
 ),
