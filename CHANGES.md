@@ -2,17 +2,17 @@
 	
 ## ToDo: 
 
+ * (21/02/18) need to simplify the family structures (as other packages) 
  * (12/05/17) deal with question from Merve Simsek
- * (21/02/17) SyllableLess(Greater) are defined in `logrws.gd` but no methods
- * (09/02/17) at the end of `logrws.gi` there is IdentityYSequencesNew etc  
-              which are experimental, and need to be dealt with 
- * (09/02/17) why so much code commented out in IdentitiesAmongRelators? 
  * (09/02/17) LoggedModulePoly needs some checks? 
- * (12/01/16) ElementsFamily error when running `testall.g` 
- * add a History chapter to the manual 
+ *            add a History chapter to the manual 
 
-## 2.38 -> 2.38dev  (07/02/2018)
+## 2.38 -> 2.38dev  (08/03/2018)
 
+ * (21/02/18) required package Utils - not XMod 
+              separated out new operation InitialLoggedRules 
+ * (20/02/18) removed IdentitiesAmongRelatorsOld 
+ * (13/02/18) added scripts/* for Travis tests 
  * (12/01/18) now using AutoDoc to build the manual 
 
 ## 2.34 -> 2.38  (15/12/2017)

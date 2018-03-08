@@ -4,7 +4,7 @@
 #W                                                             & Anne Heyworth
 ##  Declaration file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2017 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2018 Anne Heyworth and Chris Wensley 
 ##
 ##  This file contains declarations of operations for logged rewrite systems.
 
@@ -20,13 +20,9 @@ DeclareInfoClass( "InfoIdRel" );
 ##
 #O  LengthLexLess( <args> )
 #O  LengthLexGreater( <args> )
-#O  SyllableLess( <args> )
-#O  SyllableGreater( <args> )
 ##
 DeclareGlobalFunction( "LengthLexLess" );
 DeclareGlobalFunction( "LengthLexGreater" );
-DeclareGlobalFunction( "SyllableLess" );
-DeclareGlobalFunction( "SyllableGreater" );
 
 #############################################################################
 ##
@@ -60,8 +56,10 @@ MonoidPolyFam := NewFamily( "MonoidPolyFam", IsMonoidPoly );
 ##
 #R  IsMonoidPresentationFpGroupRep( <G> )
 #P  IsMonoidPresentationFpGroup( <G> )
+#O  ArrangeMonoidGenerators( <G>, <L> )
 #A  ArrangementOfMonoidGenerators( <G> ) 
 #A  MonoidPresentationFpGroup( <G> )
+#A  InverseGeneratorsOfFpGroup( <G> ) 
 #A  FreeGroupOfPresentation( <mon> )
 #A  GroupRelatorsOfPresentation( <mon> )
 #A  InverseRelatorsOfPresentation( <mon> )
@@ -72,6 +70,7 @@ MonoidPolyFam := NewFamily( "MonoidPolyFam", IsMonoidPoly );
 #A  PartialElements( <G> )
 #A  PartialInverseElements( <G> )
 #A  PartialElementsLength( <G> )
+#O  InverseWordInFreeGroupOfPresentation( <F>, <w> ) 
 ##
 DeclareRepresentation( "IsMonoidPresentationFpGroupRep", 
 ##  tried removing the IsFpGroup (29/07/17) 
@@ -82,9 +81,11 @@ DeclareRepresentation( "IsMonoidPresentationFpGroupRep",
       "HomomorphismOfPresentation" ] );
 DeclareProperty( "IsMonoidPresentationFpGroup", IsList );
 DeclareAttribute( "MonoidPresentationFpGroup", IsFpGroup ); 
+DeclareOperation( "ArrangeMonoidGenerators", [ IsFpGroup, IsHomogeneousList ] ); 
 DeclareAttribute( "ArrangementOfMonoidGenerators", IsFpGroup ); 
 DeclareAttribute( "FreeGroupOfPresentation", 
     IsMonoidPresentationFpGroupRep );
+DeclareAttribute( "InverseGeneratorsOfFpGroup", IsFpGroup );
 DeclareAttribute( "GroupRelatorsOfPresentation", 
     IsMonoidPresentationFpGroupRep );
 DeclareAttribute( "InverseRelatorsOfPresentation", 
@@ -95,10 +96,12 @@ DeclareAttribute( "MonoidGeneratorsFpGroup", IsFpGroup );
 DeclareAttribute( "ElementsOfMonoidPresentation", IsFpGroup );
 DeclareOperation( "PartialElementsOfMonoidPresentation", 
     [ IsFpGroup, IsPosInt ] );
-DeclareAttribute( "GenerationTree", IsFpGroup ); 
-DeclareAttribute( "PartialElements", IsFpGroup );
-DeclareAttribute( "PartialInverseElements", IsFpGroup );
-DeclareAttribute( "PartialElementsLength", IsFpGroup );
+DeclareAttribute( "PartialElements", IsFpGroup, "mutable" );
+DeclareAttribute( "PartialInverseElements", IsFpGroup, "mutable" );
+DeclareAttribute( "PartialElementsLength", IsFpGroup, "mutable" );
+DeclareAttribute( "GenerationTree", IsFpGroup, "mutable" ); 
+DeclareOperation( "InverseWordInFreeGroupOfPresentation", 
+    [ IsFpGroup, IsWord ] ); 
 
 #############################################################################
 ##
@@ -117,21 +120,23 @@ DeclareOperation( "BetterRuleByReductionOrLength",
 ##
 #A  RewritingSystemFpGroup( <G> )
 ##
-DeclareAttribute( "RewritingSystemFpGroup", IsGroup );
+DeclareAttribute( "RewritingSystemFpGroup", IsFpGroup );
 
 #############################################################################
 ##
+#O  InitialLoggedRules( <G> )
 #O  LoggedOnePassReduceWord( <word>, <rules> )
 #O  LoggedReduceWordKB( <word>, <rules> )
-#O  LoggedOnePassKB( <rules> )
-#O  LoggedRewriteReduce( <rules> )
-#O  LoggedKnuthBendix( <rules> )
+#O  LoggedOnePassKB( <G>, <rules> )
+#O  LoggedRewriteReduce( <G>, <rules> )
+#O  LoggedKnuthBendix( <G>, <rules> )
 ##
+DeclareOperation( "InitialLoggedRules", [ IsFpGroup ] ); 
 DeclareOperation( "LoggedOnePassReduceWord", [ IsWord, IsHomogeneousList ] );
 DeclareOperation( "LoggedReduceWordKB", [ IsWord, IsHomogeneousList ] );
-DeclareOperation( "LoggedOnePassKB", [ IsHomogeneousList ] );
-DeclareOperation( "LoggedRewriteReduce", [ IsHomogeneousList ] );
-DeclareOperation( "LoggedKnuthBendix", [ IsHomogeneousList ] );
+DeclareOperation( "LoggedOnePassKB", [ IsFpGroup, IsHomogeneousList ] );
+DeclareOperation( "LoggedRewriteReduce", [ IsFpGroup, IsHomogeneousList ] );
+DeclareOperation( "LoggedKnuthBendix", [ IsFpGroup, IsHomogeneousList ] );
 
 #############################################################################
 ##
@@ -155,9 +160,9 @@ DeclareAttribute( "LoggedRewritingSystemFpGroup", IsGroup );
 
 #############################################################################
 ##
-#A  RelatorSequenceReduce( <L> )
+#O  RelatorSequenceReduce( <G>, <seq> )
 ##
-DeclareAttribute( "RelatorSequenceReduce", IsHomogeneousList );
+DeclareOperation( "RelatorSequenceReduce", [ IsFpGroup, IsHomogeneousList ] );
 
 ##############################################################################
 ##
@@ -165,7 +170,7 @@ DeclareAttribute( "RelatorSequenceReduce", IsHomogeneousList );
 #O  YSequencesFromRelatorSequences( <S>, <G> )
 #O  YSequenceReduce( <Y> )
 #O  YSequenceConjugateAndReduce( <Y>, <rws> )
-#A  IdentityYSequencesOld( <G> )
+#O  YSequenceListReduction( <seq> )
 #A  IdentityYSequences( <G> )
 #A  IdentityYSequencesKB( <G> )
 ##
@@ -173,7 +178,7 @@ DeclareOperation( "YSequenceLessThan", [ IsList, IsList ] );
 DeclareOperation( "YSequencesFromRelatorSequences", [ IsList, IsGroup ] ); 
 DeclareOperation( "YSequenceReduce", [ IsList ] );
 DeclareOperation( "YSequenceConjugateAndReduce", [IsList,IsHomogeneousList] );
-DeclareAttribute( "IdentityYSequencesOld", IsGroup );
+DeclareOperation( "YSequenceListReduction", [ IsHomogeneousList ] );
 DeclareAttribute( "IdentityYSequences", IsGroup );
 DeclareAttribute( "IdentityYSequencesKB", IsGroup );
 

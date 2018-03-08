@@ -10,7 +10,7 @@ Packagename := "idrel",
 PackageName := "idrel",
 Subtitle := "Identities among relations",
 Version := "2.38dev",
-Date := "07/02/2018",
+Date := "08/03/2018",
 
 Persons := [
   rec(
@@ -74,7 +74,7 @@ PackageDoc := rec(
 
 Dependencies := rec(
   GAP := ">=4.9.0",
-  NeededOtherPackages := [ [ "xmod", ">= 2.64" ], [ "GAPDoc", ">= 1.6.1" ] ],
+  NeededOtherPackages := [ [ "Utils", ">= 0.54" ], [ "GAPDoc", ">= 1.6.1" ] ],
   SuggestedOtherPackages := [ [ "AutoDoc", ">= 2017.09.15" ] ],
   ExternalConditions := [ ]
 ),
@@ -97,7 +97,7 @@ BannerString := Concatenation(
 AutoDoc := rec(
     TitlePage := rec(
         Copyright := Concatenation(
-            "&copyright; 1999-2017 Anne Heyworth and Chris Wensley<P/>\n",
+            "&copyright; 1999-2018 Anne Heyworth and Chris Wensley<P/>\n",
             "The &IdRel; package is free software; you can redistribute it ", 
             "and/or modify it under the terms of the GNU General ", 
             "Public License as published by the Free Software Foundation; ", 

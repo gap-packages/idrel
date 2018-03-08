@@ -2,8 +2,7 @@
 ##
 #W  3-monpoly.tst                  Idrel Package                 Chris Wensley
 #W                                                             & Anne Heyworth
-##
-#Y  Copyright (C) 1999-2017 Anne Heyworth and Chris Wensley
+#Y  Copyright (C) 1999-2018 Anne Heyworth and Chris Wensley
 ##
 
 gap> saved_infolevel_idrel := InfoLevel( InfoIdRel );; 
@@ -79,10 +78,8 @@ gap> Print( pg * pr, "\n" );
 gap> Length( pr );
 4
 
-gap> pr > 3*pr; 
-false
-gap> pr > pg;
-true
+gap> [ pr > 3*pr, pr > pg ];
+[ false, true ]
 
 ## Example 4.4.1
 gap> M := genfgmon; 
@@ -93,6 +90,8 @@ gap> Print( mp1, "\n" );
 gap> rmp1 := ReduceMonoidPoly( mp1, r2 );;
 gap> Print( rmp1, "\n" ); 
  - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>
+
+gap> SetInfoLevel( InfoIdRel, saved_infolevel_idrel );; 
 
 #############################################################################
 ##
