@@ -164,24 +164,6 @@ DeclareAttribute( "LoggedRewritingSystemFpGroup", IsGroup );
 ##
 DeclareOperation( "RelatorSequenceReduce", [ IsFpGroup, IsHomogeneousList ] );
 
-##############################################################################
-##
-#O  YSequenceLessThan( <YI>, <Y2> )
-#O  YSequencesFromRelatorSequences( <S>, <G> )
-#O  YSequenceReduce( <Y> )
-#O  YSequenceConjugateAndReduce( <Y>, <rws> )
-#O  YSequenceListReduction( <seq> )
-#A  IdentityYSequences( <G> )
-#A  IdentityYSequencesKB( <G> )
-##
-DeclareOperation( "YSequenceLessThan", [ IsList, IsList ] );
-DeclareOperation( "YSequencesFromRelatorSequences", [ IsList, IsGroup ] ); 
-DeclareOperation( "YSequenceReduce", [ IsList ] );
-DeclareOperation( "YSequenceConjugateAndReduce", [IsList,IsHomogeneousList] );
-DeclareOperation( "YSequenceListReduction", [ IsHomogeneousList ] );
-DeclareAttribute( "IdentityYSequences", IsGroup );
-DeclareAttribute( "IdentityYSequencesKB", IsGroup );
-
 #############################################################################
 ##
 #E logrws.gd. . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here

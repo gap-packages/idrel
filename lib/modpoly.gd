@@ -113,14 +113,6 @@ DeclareOperation( "LoggedModulePoly",
 
 #############################################################################
 ##
-#O  IdentityModulePolys( <G> )
-#O  IdentityModulePolysKB( <G> )
-##
-DeclareOperation( "IdentityModulePolys", [ IsGroup ] );
-DeclareOperation( "IdentityModulePolysKB", [ IsGroup ] );
-
-#############################################################################
-##
 #O  SaturatedSetLoggedModulePoly( <logsmp>, <elmon>, <rws>, <sats> )
 ##
 DeclareOperation( "SaturatedSetLoggedModulePoly",
@@ -145,16 +137,6 @@ DeclareOperation( "ReduceModulePoly", [ IsModulePolyGensPolysRep, IsList ] );
 ##
 DeclareOperation( "LoggedReduceModulePoly", 
     [ IsModulePolyGensPolysRep, IsList, IsList, IsModulePolyGensPolysRep ] );
-
-#############################################################################
-##
-#A  IdentitiesAmongRelators( <G> )
-#A  IdentitiesAmongRelatorsKB( <G> )
-#A  RootIdentities( <G> )
-##
-DeclareAttribute( "IdentitiesAmongRelators", IsGroup );
-DeclareAttribute( "IdentitiesAmongRelatorsKB", IsGroup );
-DeclareAttribute( "RootIdentities", IsGroup );
 
 #############################################################################
 ##

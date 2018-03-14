@@ -2,9 +2,9 @@
 ##
 #W  monpoly.gi                    IdRel Package                  Chris Wensley
 #W                                                             & Anne Heyworth
-##  Declaration file for functions of the IdRel package.
+##  Implementation file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2017 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2018 Anne Heyworth and Chris Wensley 
 ##
 
 #############################################################################

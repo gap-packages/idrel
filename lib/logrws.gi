@@ -2,7 +2,7 @@
 ##
 #W  logrws.gi                     IdRel Package                  Chris Wensley
 #W                                                             & Anne Heyworth
-##  Declaration file for functions of the IdRel package
+##  Implementation file for functions of the IdRel package
 ##
 #Y  Copyright (C) 1999-2018 Anne Heyworth and Chris Wensley 
 
@@ -957,7 +957,7 @@ InstallMethod( LoggedKnuthBendix, "for an fp-group and a list of rules",
     true, [ IsFpGroup, IsHomogeneousList ], 0, 
 function( G, r0 )
 
-    local  result, rules, newrules, passes, k, K2, K2a, yseq;
+    local  result, rules, newrules, passes, k, K2, K2a, mseq;
 
     rules := ShallowCopy( r0 );
     result := LoggedOnePassKB( G, rules );
@@ -981,13 +981,14 @@ function( G, r0 )
             Print( " number of passes: ", passes, "\n" );
         fi;
     od;
-    ## the second part of the final result is a set of Y-sequences 
-    yseq := result[2]; 
+    ## the second part of the final result is a set of group relator sequences 
+    mseq := result[2]; 
     if ( InfoLevel( InfoIdRel ) > 1 ) then 
-        Print( "there were ", Length(yseq), 
-               " Y-sequences found during logged Knuth Bendix\n" ); 
+        Print( "there were ", Length(mseq), 
+            " group relator sequences found during logged Knuth Bendix\n" ); 
     fi;
-    return [ rules, yseq ];
+    mseq := List( mseq, L -> L[2] );
+    return [ rules, mseq ];
 end );
 
 #################################*############################################
@@ -1096,7 +1097,7 @@ InstallMethod( LoggedRewritingSystemFpGroup, "generic method for an fp-group",
 function( G )
 
     local  idmu, id, monG, mu, grprels, ngrels, monrels, len, invrels, invrules, 
-           leni, i, r, r0, r1, c, p, lenc, j, result, yseq, leny, idi, w;
+           leni, i, r, r0, r1, c, p, lenc, j, result, mseq;
 
     monG := MonoidPresentationFpGroup( G );
     invrels := InverseRelatorsOfPresentation( monG );
@@ -1143,42 +1144,11 @@ function( G )
         od;
         r[2] := c;
     od;
-    ## now deal with the Y-sequences found during logged Knuth Bendix 
-    yseq := result[2];
-    Info( InfoIdRel, 1 , "number of initial YSequencesKB:\n", Length(yseq) ); 
-    Sort( yseq, function(K,L) return YSequenceLessThan(K[2],L[2]); end );
-    leny := Length( yseq );
-    for i in [1..leny] do 
-        idi := yseq[i][2]; 
-        w := idi[1][2]^(-1); 
-        for j in [1..Length(idi) ] do 
-            idi[j] := [ idi[j][1], idi[j][2]*w ]; 
-        od; 
-        yseq[i] := [ yseq[i][1], idi ]; 
-    od; 
-    yseq := YSequencesFromRelatorSequences( yseq, G ); 
-    yseq := YSequenceListReduction( yseq ); 
-    SetIdentityYSequencesKB( G, yseq ); 
-    if ( InfoLevel( InfoIdRel ) > 2 ) then
-        Print( "---------------------------------------------------------\n" );
-    fi;
+    ## now save the R-sequences found during logged Knuth Bendix 
+    mseq := result[2];
+    Info( InfoIdRel, 1 , "number of initial R-sequencesKB:\n", Length(mseq) ); 
+    SetIdentityMonoidRelatorSequencesKB( G, mseq ); 
     return r1;
-end );
-
-############################################*##################*##############
-##
-#M  YSequenceLessThan
-##
-InstallMethod( YSequenceLessThan, "generic method for two YSequences", 
-    true, [ IsList, IsList ], 0, 
-function( y, z ) 
-    if ( Length( y ) < Length( z ) ) then 
-        return true;
-    elif ( Length( y ) > Length( z ) ) then 
-        return false;
-    else
-        return ( y < z );
-    fi;
 end );
 
 ##############################################################################
@@ -1235,121 +1205,6 @@ function( G, seq )
         k := k + 1;
     od;
     return seq;
-end );
-
-##############################################################################
-##
-#M  YSequenceReduce
-##
-InstallMethod( YSequenceReduce, "generic method for a Ysequence", 
-    true, [ IsList ], 0, 
-function( y )
-
-    local  k, leny, w;
-
-    leny := Length( y );
-    k := 1;
-    while ( k < leny ) do 
-        if ( ( y[k][1] = y[k+1][1]^(-1) ) and ( y[k][2] = y[k+1][2] ) ) then 
-            y := Concatenation( y{[1..k-1]}, y{[k+2..leny]} );
-            k := k - 2;
-            leny := leny - 2;
-            if ( ( k = -1 ) and ( leny > 0 ) ) then
-                k := 0;
-            fi;
-        fi;
-        k := k + 1;
-    od;
-    return y;
-end );
-
-##############################################################################
-##
-#M  YSequenceConjugateAndReduce
-##
-InstallMethod( YSequenceConjugateAndReduce, "generic method for a Ysequence", 
-    true, [ IsList, IsHomogeneousList ], 0, 
-function( y, rws )
-
-    local  k, leny, w;
-
-    leny := Length( y ); 
-    if ( leny > 0 ) then 
-        w := y[1][2]^(-1);
-        y := List( y, c -> [ c[1], ReduceWordKB( c[2]*w, rws ) ] );
-    fi;
-    return y;
-end );
-
-##############################################################################
-##
-#M  YSequencesFromRelatorSequences 
-##
-##  this operation takes a list of relator sequences rseq for the group G 
-##  which involve numbers for the relators and monoid conjugating words 
-##  and replaces them with the relators and conjugating words in G 
-##  
-InstallMethod( YSequencesFromRelatorSequences, "generic method for an fp-group", 
-    true, [ IsList, IsGroup ], 0, 
-function( rseq, G )
-
-    local  monG, mu, FM, genFM, numgenM, F, genF, idF, freerels, FR, genFR, 
-           omega, len, yseq, i, s0, s1, s2, s3, s4, leni, t, t1, rt, wt, 
-           z, z1, z2; 
-
-    monG := MonoidPresentationFpGroup( G ); 
-    mu := HomomorphismOfPresentation( monG );
-    FM := FreeGroupOfPresentation( monG );
-    genFM := GeneratorsOfGroup( FM );
-    numgenM := Length( genFM );
-    F := FreeGroupOfFpGroup( G );
-    genF := GeneratorsOfGroup( F );
-    idF := One( F );
-    freerels := RelatorsOfFpGroup( G );
-    FR := FreeRelatorGroup( G );
-    genFR := GeneratorsOfGroup( FR );
-    omega := GroupHomomorphismByImages( FR, F, genFR, freerels );
-
-    len := Length( rseq ); 
-    yseq := ListWithIdenticalEntries( len, 0 ); 
-    for i in [1..len] do 
-        s0 := rseq[i]; 
-        s1 := ShallowCopy( s0[2] ); 
-        s2 := ShallowCopy( s0[2] );
-        leni := Length( s1 ); 
-        for t in [1..leni] do 
-            t1 := s1[t][1];
-            if ( t1 > 0 ) then 
-                rt := genFR[ t1 - numgenM ];
-            else 
-                rt := genFR[ - t1 - numgenM ]^-1;
-            fi;
-            wt := Image( mu, s1[t][2] );
-            s2[t] := [ rt, wt ]; 
-        od; 
-        s3 := YSequenceReduce( s2 );
-        ##  check that this really is an identity 
-        leni := Length( s3 );
-        if ( leni > 0 ) then 
-            s4 := ShallowCopy( s3 );
-            for t in [1..Length(s4)] do 
-                z := s4[t];
-                z1 := Image( omega, z[1] );
-                z2 := z[2];
-                s4[t] := z1^z2;
-            od;
-            if not( Product( s4 ) = idF ) then 
-                Print( "s0 = ", s0, "\n" ); 
-                Print( "s1 = ", s1, "\n" ); 
-                Print( "s2 = ", s2, "\n" ); 
-                Print( "s3 = ", s3, "\n" ); 
-                Print( "s4 = ", s4, "\n" ); 
-                Error( "supposed identity fails to reduce to idF" );
-            fi;
-        fi;
-        yseq[i] := [ s0[1], s3 ]; 
-    od; 
-    return yseq;
 end );
 
 ##############################################################################
@@ -1422,294 +1277,6 @@ function( G, len )
         SetPartialInverseElements( G, iwords ); 
     fi; 
     return words; 
-end );
-
-##############################################################################
-##
-#M  IdentityYSequences
-##
-InstallMethod( IdentityYSequences, "generic method for an fp-group", true, 
-    [ IsFpGroup ], 0, 
-function( G ) 
-
-    local genG, monG, amg, FM, genFM, invgenFM, idM, numgenM, invrels, 
-          invrules1, invrules2, grprels, mu, genpos, logrws, rws, F, genF, 
-          idF, numgenF, genrangeF, g, k, genFMpos, freerels, numrel, relrange, 
-          FR, genFR, idR, omega, uptolen, words, fam, iwords, numelts, 
-          edgesT, idents, iidents, e, elt, rho, numa, ide, r, lenr, edgelist, 
-          edge, w, lw, v, posv, inv, lenv, j, numids, idents2; 
-
-    genG := GeneratorsOfGroup( G ); 
-    monG := MonoidPresentationFpGroup( G ); 
-    amg := ArrangementOfMonoidGenerators( G ); 
-    FM := FreeGroupOfPresentation( monG );
-    genFM := GeneratorsOfGroup( FM );
-    invgenFM := InverseGeneratorsOfFpGroup( FM ); 
-    idM := One( FM );
-    numgenM := Length( genFM );
-    invrels := InverseRelatorsOfPresentation( monG );
-    invrules1 := ListWithIdenticalEntries( Length( genFM ), 0 );
-    invrules2 := Concatenation( List( invrels, r -> [ r, idM ] ),
-                                List( invrels, r -> [r^-1, idM ] ) );
-    grprels := GroupRelatorsOfPresentation( monG );
-    mu := HomomorphismOfPresentation( monG );
-    genpos := MonoidGeneratorsFpGroup( G ); 
-    logrws := LoggedRewritingSystemFpGroup( G );
-    #?  WHY??   rws := Filtered( logrws, r -> not( r[1] in invrels ) );
-    rws := List( logrws, r -> [ r[1], r[3] ] );
-    if ( InfoLevel( InfoIdRel ) > 2 ) then
-        Print( "logrws = \n" );
-        Display( logrws );
-        Print( "\nrws = \n" );
-        Display( rws );
-        Print( "\n" );
-    fi;
-    F := FreeGroupOfFpGroup( G );
-    genF := GeneratorsOfGroup( F );
-    idF := One( F );
-    numgenF := Length( genF );
-    genrangeF := [1..numgenF];
-    for g in genrangeF do 
-        k := g + numgenF;
-        invrules1[g] := [ genFM[g]^-1, genFM[k] ];
-        invrules1[k] := [ genFM[k]^-1, genFM[g] ];
-    od;
-    genFMpos := genFM{ genrangeF };
-    freerels := RelatorsOfFpGroup( G );
-    numrel := Length( freerels );
-    relrange := [1..numrel];
-    FR := FreeRelatorGroup( G );
-    idR := One( FR );
-    genFR := GeneratorsOfGroup( FR );
-    omega := GroupHomomorphismByImages( FR, F, genFR, freerels );
-    if ( InfoLevel( InfoIdRel ) > 1 ) then 
-        Print( "\nhom from FR to F is: \n", omega, "\n\n" );
-    fi;
-
-    ##  construct the first few elements in the group 
-    uptolen := 2;     ######################  temporary value 
-    if ( HasPartialElements( G ) and 
-         ( PartialElementsLength( G ) >= uptolen ) ) then 
-        words := PartialElements( G ); 
-        uptolen := PartialElementsLength( G ); 
-    else 
-        words := PartialElementsOfMonoidPresentation( G, uptolen ); 
-    fi; 
-    fam := FamilyObj( words[1] ); 
-    iwords := PartialInverseElements( G );
-    numelts := Length( words ); 
-    edgesT := GenerationTree( G ); 
-    idents := [ ];
-    iidents := [ ]; 
-    ##  now work through the list of elements, adding each relator in turn 
-    e := 0;  ## this is the number of monoid elements processed so far 
-    while ( e < numelts ) do 
-        e := e+1; 
-        elt := words[e];
-        for rho in relrange do 
-            Info( InfoIdRel, 2, "[e,rho] = ", [e,rho] );
-            numa := (e-1)*numrel + rho;
-            ide := [ [ -(rho+numgenM), iwords[e] ] ];
-            ### cycle [g,r] (from vertex g and reading r along edges) 
-            ### is converted to a list of its component edges:
-            ### [source vertex, edge label] (some may be inverse edges) 
-            r := grprels[rho];
-            lenr := Length( r );
-            edgelist := ListWithIdenticalEntries( lenr, 0 );
-            edgelist[1] := [ elt, Subword(r,1,1) ];
-            ### Edges of the cycle which are in the tree are removed, 
-            ### and the rest are represented by their position in the 
-            ### list of alpha edges.
-            for k in [1..lenr] do 
-                edge := edgelist[k]; 
-                w := Product( edge ); 
-                lw := LoggedReduceWordKB( w, logrws ); 
-                v := lw[2];  ## the new vertex 
-                posv := Position( words, v ); 
-                if ( v = w ) then  ## no reduction 
-                    if ( posv = fail ) then  ## v=w is not yet in the tree 
-                        Add( words, v ); 
-                        inv := InverseWordInFreeGroupOfPresentation( FM, v );
-                        Add( iwords, inv ); 
-                        Add( edgesT, edge ); 
-                        j := Position( genFM, edge[2] ); 
-                        Add( edgesT, [ v, iwords[j] ] );
-                    fi; 
-                else  ## v<>w, so there is some logging to include in the ide 
-                    if ( posv = fail ) then 
-                        Add( words, v );
-                        inv := InverseWordInFreeGroupOfPresentation( FM, v );
-                        Add( iwords, inv ); 
-                        lenv := Length( v );
-                        g := Subword( v, lenv, lenv );
-                        Add( edgesT, [ Subword( v, 1, lenv-1 ), g ] ); 
-                        j := Position( genFM, g ); 
-                        Add( edgesT, [ v, iwords[j] ] );
-                    fi;
-                    Append( ide, lw[1] );
-                fi; 
-                if ( k < lenr ) then 
-                    edgelist[k+1] := [ v, Subword(r,k+1,k+1) ];
-                else 
-                    if not ( v = elt ) then 
-                        Error( "v <> elt" ); 
-                    fi; 
-                fi;
-            od; 
-            w := ide[1][2]^(-1); 
-            for k in [1..Length(ide)] do 
-                ide[k][2] := ide[k][2]*w; 
-            od; 
-            ide := RelatorSequenceReduce( G, ide );
-            if ( ide <> [ ] ) then 
-                posv := Position( idents, ide ); 
-                if ( posv = fail ) then 
-                    Add( idents, ide ); 
-                fi;
-            fi;
-        od; 
-    od;
-    Info( InfoIdRel, 1, "idents has length: ", Length(idents), "\n" ); 
-    ### convert relator sequences to Y-sequences 
-    Info( InfoIdRel, 3, "idents = ", idents ); 
-    numids := Length( idents );
-    idents := List( [1..numids], i -> [ i, idents[i] ] ); 
-    idents := YSequencesFromRelatorSequences( idents, G ); 
-    Info( InfoIdRel, 1, "after running YSequencesFromRelatorSequences:" ); 
-    Info( InfoIdRel, 1, "idents has length: ", Length(idents), "\n" ); 
-    Info( InfoIdRel, 3, "idents = ", idents ); 
-
-    if not HasElementsOfMonoidPresentation( G ) then 
-        if HasSize( G ) then 
-            SetElementsOfMonoidPresentation( G, words ); 
-        else 
-            SetPartialElements( G, words ); 
-        fi;
-    fi;
-    numids := Length( idents );
-    Info( InfoIdRel, 1, "idents has length: ", numids, "\n" ); 
-    if ( InfoLevel( InfoIdRel ) > 2 ) then
-        for k in [1..numids] do
-            Print( "\n", k, " : ", idents[k], "\n" );
-        od;
-    fi;
-    idents2 := YSequenceListReduction( idents ); 
-    numids := Length( idents2 );
-    Info( InfoIdRel, 1, "idents2 has length ", numids );
-    idents2 := List( [1..numids], i -> [ i, idents2[i][1], idents2[i][2] ] ); 
-    Info( InfoIdRel, 3, "after adding an initial index:", idents2 );
-    return idents2;
-end );
-
-##############################################################################
-##
-#M  YSequenceListReduction
-##
-InstallMethod( YSequenceListReduction, "for a list of Ysequences", true, 
-    [ IsHomogeneousList ], 0, 
-function( L ) 
-
-    local changed, L2, lenL, i, idi, leni, rho, j, idj, lenj, k, w, c, ok;
-
-    ### search for conjugate of one identity lying within another 
-    changed := true; 
-    L2 := ShallowCopy( L ); 
-    while changed do 
-        Info( InfoIdRel, 1, "##### starting new YSequenceListReduction" );
-        L2 := Filtered( L2, y -> not ( y[2] = [ ] ) ); 
-        lenL := Length( L2 );
-        Sort( L2, function(K,L) return YSequenceLessThan(K[2],L[2]); end );
-        Info( InfoIdRel, 1, "after sorting:" ); 
-        Info( InfoIdRel, 1, "number of identities = ", lenL );
-        if ( InfoLevel( InfoIdRel ) > 1 ) then 
-            PrintListOneItemPerLine( L2 ); 
-        fi;
-        changed := false;
-        for i in [1..lenL] do 
-            idi := L2[i][2];
-            leni := Length( idi );
-            if ( leni > 0 ) then
-                rho := idi[1][1];
-                for j in [i+1..lenL] do 
-                    idj := L2[j][2];
-                    lenj := Length( idj );
-                    k := 1;
-                    while ( k <= (lenj-leni+1) ) do 
-                        if ( idj[k][1] = rho ) then 
-                            w := idj[k][2];
-                            c := 1;
-                            ok := true;
-                            while ( ok and ( c < leni ) ) do
-                                c := c+1;
-                                if ([idi[c][1],idi[c][2]*w]<>idj[k+c-1]) then 
-                                     ok := false;
-                                fi; 
-                            od;
-                            if ok then 
-                                idj := Concatenation( idj{[1..k-1]}, 
-                                                      idj{[(k+leni)..lenj]} );
-                                L2[j][2] := idj;
-                                lenj := lenj - leni;
-                                if ( InfoLevel( InfoIdRel ) > 0 ) then
-                                    if ( lenj = 0 ) then 
-                                    Print( "** id ", L2[j][1], 
-                                           " reduced by id ", L2[i][1], 
-                                           " to ", idj, " at [i,j] = ", 
-                                           [i,j], " **\n"); 
-                                    fi; 
-                                fi;
-                                changed := true;
-                                k := k-1;
-                            fi;
-                        fi;
-                        k := k+1;
-                    od;
-                od; 
-                idi := Reversed( List( idi, c -> [ c[1]^-1, c[2] ] ) ); 
-                w := idi[1][2]^(-1); 
-                for j in [1..Length(idi)] do 
-                    idi[j][2] := idi[j][2]*w; 
-                od; 
-                rho := idi[1][1];
-                for j in [i+1..lenL] do 
-                    idj := L2[j][2];
-                    lenj := Length( idj );
-                    k := 1;
-                    while ( k <= (lenj-leni+1) ) do 
-                        if ( idj[k][1] = rho ) then 
-                            w := idj[k][2];
-                            c := 1;
-                            ok := true;
-                            while ( ok and ( c < leni ) ) do
-                                c := c+1;
-                                if ([idi[c][1],idi[c][2]*w]<>idj[k+c-1]) then 
-                                     ok := false;
-                                fi; 
-                            od;
-                            if ok then 
-                                idj := Concatenation( idj{[1..k-1]}, 
-                                                      idj{[(k+leni)..lenj]} );
-                                L2[j][2] := idj;
-                                lenj := lenj - leni;
-                                if ( InfoLevel( InfoIdRel ) > 0 ) then
-                                    if ( lenj = 0 ) then 
-                                    Print( "** id ", L2[j][1], 
-                                           " reduced by reversed id ", L2[i][1], 
-                                           " to ", idj, " at [i,j] = ", 
-                                           [i,j], " **\n"); 
-                                    fi; 
-                                fi;
-                                changed := true;
-                                k := k-1;
-                            fi;
-                        fi;
-                        k := k+1;
-                    od;
-                od; 
-            fi; 
-        od; 
-    od;
-    return L2;
 end );
 
 #############################################################################

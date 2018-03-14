@@ -10,7 +10,7 @@ LoadPackage( "idrel" );
 
 pkgname := "IdRel"; 
 pkgdir := DirectoriesPackageLibrary( pkgname, "xtst" );
-testfiles := [ "simsek.tst" ];
+testfiles := [ "idrelskb.tst", "simsek.tst" ];
 testresult := true;
 for ff in testfiles do
     fn := Filename( pkgdir, ff );

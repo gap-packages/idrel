@@ -139,7 +139,7 @@ was modified to return a two-element list of lists.
 The first element is a set of logged rules 
 (as has been returned by earlier versions) 
 while the second element is a list of <M>51</M> identities. 
-See section <Ref Sect="sect-idrels"/> for more information about identities. 
+See chapter <Ref Sect="chap-idrels"/> for more information about identities. 
 <P/>
 </Description>
 </ManSection>
