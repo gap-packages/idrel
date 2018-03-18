@@ -656,7 +656,7 @@ function( G )
     else
         str := "FY";
     fi;
-    idY := IdentityGroupRelatorSequences( G );
+    idY := IdentityRelatorSequences( G );
     len := Length( idY );
     Flen := FreeGroup( len, str );
     L := Filtered( [1..len], i -> not( idY[i] = [ ] ) );
@@ -679,7 +679,7 @@ function( G )
     else
         str := "FZ";
     fi;
-    idY := IdentityGroupRelatorSequencesKB( G );
+    idY := IdentityRelatorSequencesKB( G );
     len := Length( idY );
     Flen := FreeGroup( len, str );
     L := Filtered( [1..len], i -> not( idY[i] = [ ] ) );

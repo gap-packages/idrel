@@ -1097,7 +1097,7 @@ InstallMethod( LoggedRewritingSystemFpGroup, "generic method for an fp-group",
 function( G )
 
     local  idmu, id, monG, mu, grprels, ngrels, monrels, len, invrels, invrules, 
-           leni, i, r, r0, r1, c, p, lenc, j, result, mseq;
+           leni, i, r, r0, r1, c, p, lenc, j, result, mseq, lenseq, gseq;
 
     monG := MonoidPresentationFpGroup( G );
     invrels := InverseRelatorsOfPresentation( monG );
@@ -1144,10 +1144,16 @@ function( G )
         od;
         r[2] := c;
     od;
-    ## now save the R-sequences found during logged Knuth Bendix 
+    ## now save the relator sequences found during logged Knuth Bendix 
     mseq := result[2];
-    Info( InfoIdRel, 1 , "number of initial R-sequencesKB:\n", Length(mseq) ); 
-    SetIdentityMonoidRelatorSequencesKB( G, mseq ); 
+    lenseq := Length( mseq );
+    mseq := List( [1..lenseq], i -> [ i, mseq[i] ] );
+    gseq := ConvertToGroupRelatorSequences( G, mseq );
+    gseq := ReduceGroupRelatorSequences( gseq ); 
+    lenseq := Length( gseq );
+    gseq := List( [1..lenseq], i -> [ i, gseq[i][1], gseq[i][2] ] ); 
+    SetIdentityRelatorSequencesKB( G, gseq );
+    Info( InfoIdRel, 1 , "#IdentityRelatorsequencesKB:\n", lenseq ); 
     return r1;
 end );
 

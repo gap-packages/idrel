@@ -11,37 +11,29 @@
 
 ##############################################################################
 ##
-#O  YSequenceLessThan( <YI>, <Y2> )
+#O  GroupRelatorSequenceLessThan( <YI>, <Y2> )
 #O  ConvertToGroupRelatorSequences( <G>, <S> )
 #O  ConvertToYSequences( <G>, <F>, <S> )
-#O  YSequenceReduce( <Y> )
+#O  ModuleRelatorSequenceReduce( <Y> )
 #O  YSequenceConjugateAndReduce( <Y>, <rws> )
 #O  ReduceGroupRelatorSequences( <seq> )
 ##
-DeclareOperation( "YSequenceLessThan", [ IsList, IsList ] );
+DeclareOperation( "GroupRelatorSequenceLessThan", [ IsList, IsList ] );
 DeclareOperation( "ConvertToGroupRelatorSequences", 
     [ IsFpGroup, IsHomogeneousList ] ); 
 DeclareOperation( "ConvertToYSequences", 
     [ IsFpGroup, IsFreeGroup, IsHomogeneousList ] ); 
-DeclareOperation( "YSequenceReduce", [ IsList ] );
+DeclareOperation( "ModuleRelatorSequenceReduce", [ IsList ] );
 DeclareOperation( "YSequenceConjugateAndReduce", [IsList,IsHomogeneousList] );
 DeclareOperation( "ReduceGroupRelatorSequences", [ IsHomogeneousList ] );
 
 #############################################################################
+##  
+#A  IdentityRelatorSequences( <G> )
+#A  IdentityRelatorSequencesKB( <G> )
 ##
-#A  IdentityYSequences( <G> )
-#A  IdentityYSequencesKB( <G> )
-#A  IdentityGroupRelatorSequences( <G> )
-#A  IdentityGroupRelatorSequencesKB( <G> )
-#A  IdentityMonoidRelatorSequences( <G> )
-#A  IdentityMonoidRelatorSequencesKB( <G> )
-##
-DeclareAttribute( "IdentityYSequences", IsFpGroup );
-DeclareAttribute( "IdentityYSequencesKB", IsFpGroup );
-DeclareAttribute( "IdentityGroupRelatorSequences", IsFpGroup );
-DeclareAttribute( "IdentityGroupRelatorSequencesKB", IsFpGroup );
-DeclareAttribute( "IdentityMonoidRelatorSequences", IsFpGroup );
-DeclareAttribute( "IdentityMonoidRelatorSequencesKB", IsFpGroup );
+DeclareAttribute( "IdentityRelatorSequences", IsFpGroup );
+DeclareAttribute( "IdentityRelatorSequencesKB", IsFpGroup );
 
 #############################################################################
 ##
@@ -53,11 +45,15 @@ DeclareOperation( "ReduceModulePolyList",
 #############################################################################
 ##
 #A  IdentitiesAmongRelators( <G> )
+#A  IdentityYSequences( <G> )
 #A  IdentitiesAmongRelatorsKB( <G> )
+#A  IdentityYSequencesKB( <G> )
 #A  RootIdentities( <G> )
 ##
 DeclareAttribute( "IdentitiesAmongRelators", IsGroup );
+DeclareAttribute( "IdentityYSequences", IsGroup );
 DeclareAttribute( "IdentitiesAmongRelatorsKB", IsGroup );
+DeclareAttribute( "IdentityYSequencesKB", IsGroup );
 DeclareAttribute( "RootIdentities", IsGroup );
 
 #############################################################################

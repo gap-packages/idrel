@@ -7,7 +7,7 @@
  * (09/02/17) LoggedModulePoly needs some checks? 
  *            add a History chapter to the manual 
 
-## 2.38 -> 2.41  (14/03/2018)
+## 2.38 -> 2.41  (18/03/2018)
 
  * (21/02/18) required package Utils - not XMod 
               separated out new operation InitialLoggedRules 

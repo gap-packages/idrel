@@ -75,7 +75,8 @@ The package also has a GitHub repository at:
 <P/>
 
 
-<Section><Heading>An illustrative example</Heading>
+<Section Label="sect-illustration"> 
+<Heading>An illustrative example</Heading>
 
 A typical input for &idrel; is an fp-group presentation. 
 This requires a free group <C>F</C> on a set of generators 
@@ -104,9 +105,7 @@ All the functions used are described in detail in this manual.
 We compute a reduced set of identities among relators 
 for the presentation of the symmetric group <C>s3</C> 
 with generators <M>a,b</M> and relators <M>[a^3 , b^2, (ab)^2]</M>. 
-In the listings below, <C>s3_M1</C> is the first monoid generator 
-for <C>s3</C>, <C>s3_R2</C> is the second relator, 
-while <C>s3_Y5</C> is the fifth Y-sequence for <C>s3</C>. 
+In the listings below, <C>s3_Ri</C> is the <C>i</C>-th relator for <C>s3</C>, and <C>f1,f2</C> are the generators <M>a,b</M>. 
 <P/>
 <Example>
 <![CDATA[
@@ -117,54 +116,47 @@ gap> rels3 := [ a^3 , b^2, a*b*a*b];
 gap> s3 := F/rels3;
 <fp group on the generators [ fl, f2 ]> 
 gap> SetName( s3, "s3" ); 
-gap> idy3 := IdentityYSequences( s3 );; 
-gap> Length( idy3 ); 
-9
-gap> Y1 := idy3[1];
-[ 1, 6, [ [ s3_R1^-1, <identity ...> ], [ s3_R1, f1^-1 ] ] ]
-gap> Y2 := idy3[2];
-[ 2, 4, [ [ s3_R2^-1, <identity ...> ], [ s3_R2, f2 ] ] ]
-gap> Y3 := idy3[3];
-[ 3, 5, [ [ s3_R3^-1, <identity ...> ], [ s3_R3, f1*f2 ] ] ]
-gap> Y9 := idy3[9];
-[ 9, 2, [ [ s3_R3^-1, <identity ...> ], [ s3_R1, f1 ], [ s3_R3^-1, f1^2 ], 
+gap> idrels3 := IdentitiesAmongRelators( s3 );;
+gap> Display( idrels3 );
+[ [ [ s3_R1^-1, <identity ...> ], [ s3_R1, f1^-1 ] ], 
+  [ [ s3_R2^-1, <identity ...> ], [ s3_R2, f2 ] ], 
+  [ [ s3_R3^-1, <identity ...> ], [ s3_R3, f1*f2 ] ], 
+  [ [ s3_R3^-1, <identity ...> ], [ s3_R1, f1 ], [ s3_R3^-1, f1^2 ], 
       [ s3_R2, f1^-1*f2^-1*f1 ], [ s3_R1, f2^-1*f1 ], 
       [ s3_R3^-1, f1*f2^-1*f1 ], [ s3_R2, f1 ], [ s3_R2, <identity ...> ] ] ]
 ]]>
 </Example>
 
-Of the <M>18</M> Y-sequences formed, the <M>6</M> that are empty, 
-and the <M>3</M> duplicates are discarded, 
-so that <C>idy3</C> has <M>9</M> entries, and the list is then sorted. 
-<C>Y1</C> is the <E>root identity</E> <C>((a^3)^-1)^(a^-1).(a^3)</C>. 
-If we write <M>r=a^3</M>, <M>s=b^2</M>, <M>t=(ab)^2</M> 
-then <C>Y1</C> becomes <M>(r^{-1})^{a^{-1}}r</M>. 
-Similarly, <C>Y2</C> is the second root identity <M>(s^{-1})^{b}s</M>, 
-and <C>Y3</C> is the third root identity <M>t^{-1}t^{ab}</M>. 
-The identity <C>Y9</C>, which is not a root identity, 
+If we write <M>\rho=a^3</M>, <M>\sigma=b^2</M>, <M>\tau=(ab)^2</M> 
+then the first identity becomes <M>\rho^{-1}\ \rho^{a^{-1}}</M>. 
+Similarly, the second and third identities are the root identities 
+<M>\sigma^{-1}\ \sigma^{b}</M> and <M>\tau^{-1}\ \tau^{ab}</M>. 
+The fourth identity, which is not a root identity, 
 is obtained by walking around the Schreier diagram of the presentation, 
 a somewhat truncated triangular prism. 
 Taking the appropriate conjugate of each face in turn, we get: 
 <Display>
-Y_9 ~=~ t^{-1}.r^a.(t^{-1})^{a^2}.s^{a^{-1}b^{-1}a} 
-        .r^{b^{-1}a}.(t^{-1})^{ab^{-1}a}.s^a.s. 
+\tau^{-1}\ \rho^a\ (\tau^{-1})^{a^2}\ \sigma^{a^{-1}b^{-1}a} 
+         \ \rho^{b^{-1}a}\ (\tau^{-1})^{ab^{-1}a}\ \sigma^a\ \sigma\;. 
 </Display> 
 <P/>
 In order to form the <E>module of identities</E> for <C>s3</C> 
 the identities are transformed into module polynomials. 
-Thus <C>Y1</C> <M>= (r^{-1})^{a^{-1}}r</M> becomes 
-<M>y_1 = (-r)(a^{-1})+r = r(1-a^{-1})</M> and 
-<M>y_1a = r(a-1)</M>. 
-Similarly <C>Y2</C> <M> = (s^{-1})^{b}s</M> yields <M>y_2 = s(b-1)</M> 
-and <C>Y3</C> <M>= t^{-1})t^{ab}</M> yields <M>y_3 = t(b-a)</M>. 
+The first is  <M>y_1 = \rho(-1 + a^{-1})</M> or <M>-y_1a = \rho(a-1)</M>. 
+The second and third are <M>y_2 = \sigma(b-1)</M> and <M>y_3 = \tau(ab-1)</M>, 
+while the fourth is <M>\rho(a+ba) + \sigma(1+a+ab) - \tau(1+a^{-1}+b)</M>. 
+Note that, in the fourth polynomial, the conjugators are converted to 
+their normal forms in <C>s3</C>, namely 
+<M>a^2=a^{-1},\ a^{-1}b^{-1}a=ab,\ b^{-1}a=ba</M> and <M>ab^{-1}a=b</M>. 
+Generators for this module are returned by the operation 
+<C>IdentityYSequences</C>. 
 <P/>
 <Example>
 <![CDATA[
-gap> idrels3 := IdentitiesAmongRelators( s3 );;
-gap> Display( idrels3[1] );
-[ ( s3_Y1*( -s3_M1), s3_R1*( s3_M1 - <identity ...>) ),
-  ( s3_Y2*( <identity ...>), s3_R2*( s3_M2 - <identity ...>) ),
-  ( s3_Y3*( s3_M1), s3_R3*( s3_M2 - s3_M1) ),
+gap> idyseq3 := IdentityYSequences( s3 );     
+[ ( s3_Y1*( -s3_M1), s3_R1*( s3_M1 - <identity ...>) ), 
+  ( s3_Y2*( <identity ...>), s3_R2*( s3_M2 - <identity ...>) ), 
+  ( s3_Y3*( s3_M1), s3_R3*( s3_M2 - s3_M1) ), 
   ( s3_Y9*( -<identity ...>), s3_R1*( -s3_M2*s3_M1 - s3_M1) + s3_R2*( -s3_M1*s\
 3_M2 - s3_M1 - <identity ...>) + s3_R3*( s3_M3 + s3_M2 + <identity ...>) ) ]
 ]]>

@@ -121,7 +121,7 @@ The rule is:
 ]]>
 </Listing>
 <P/> 
-The relators <M>s \equiv 3, 4 \equiv t</M> 
+The relators <M>3 \equiv s,\; 4 \equiv t</M> 
 and the inverse relator <M>-1 \equiv q^{-1}</M> are 
 <M>a^+b^+a^+b^-,\; a^{+2}b^{+2}</M> and <M>a^{-4}</M>, 
 and these are conjugated by <M>(a^-)^{-1}=a^+, (a^+)^{-1}=a^-</M> 
@@ -134,7 +134,7 @@ So the second and third parts of the rule expand to:
 </Display>
 which reduces to the first part of the rule, <M>b^+a^+</M>. 
 <P/>
-In version 2.39 of this package the function <C>LoggedOnePassKB</C> 
+In version 2.41 of this package the function <C>LoggedOnePassKB</C> 
 was modified to return a two-element list of lists. 
 The first element is a set of logged rules 
 (as has been returned by earlier versions) 

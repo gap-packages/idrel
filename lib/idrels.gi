@@ -10,9 +10,9 @@
 
 ############################################*##################*##############
 ##
-#M  YSequenceLessThan
+#M  GroupRelatorSequenceLessThan
 ##
-InstallMethod( YSequenceLessThan, "generic method for two YSequences", 
+InstallMethod( GroupRelatorSequenceLessThan, "for two grp rel sequences", 
     true, [ IsList, IsList ], 0, 
 function( y, z ) 
     if ( Length( y ) < Length( z ) ) then 
@@ -26,9 +26,9 @@ end );
 
 ##############################################################################
 ##
-#M  YSequenceReduce
+#M  ModuleRelatorSequenceReduce
 ##
-InstallMethod( YSequenceReduce, "generic method for a Ysequence", 
+InstallMethod( ModuleRelatorSequenceReduce, "generic method for a Ysequence", 
     true, [ IsList ], 0, 
 function( y )
 
@@ -36,6 +36,7 @@ function( y )
 
     leny := Length( y );
     k := 1;
+    ## remove consecutive terms when one is the inverse of the other 
     while ( k < leny ) do 
         if ( ( y[k][1] = y[k+1][1]^(-1) ) and ( y[k][2] = y[k+1][2] ) ) then 
             y := Concatenation( y{[1..k-1]}, y{[k+2..leny]} );
@@ -47,6 +48,12 @@ function( y )
         fi;
         k := k + 1;
     od;
+    ## remove first and last terms when one is the inverse of the other 
+    if ( ( leny > 1 ) and ( y[1][1] = y[leny][1]^(-1) ) 
+                      and ( y[1][2] = y[leny][2] ) ) then 
+        y := y{[2..leny-1]};
+        leny := leny - 2;
+    fi; 
     return y;
 end );
 
@@ -114,7 +121,7 @@ function( G, mseq )
             wt := Image( mu, s1[t][2] );
             s2[t] := [ rt, wt ]; 
         od; 
-        s3 := YSequenceReduce( s2 );
+        s3 := ModuleRelatorSequenceReduce( s2 );
         ##  check that this really is an identity 
         leni := Length( s3 );
         if ( leni > 0 ) then 
@@ -141,9 +148,9 @@ end );
 
 ##############################################################################
 ##
-#M  IdentityGroupRelatorSequences
+#M  IdentityRelatorSequences
 ##
-InstallMethod( IdentityGroupRelatorSequences, "generic method for an fp-group", 
+InstallMethod( IdentityRelatorSequences, "generic method for an fp-group", 
     true, [ IsFpGroup ], 0, 
 function( G ) 
 
@@ -284,6 +291,7 @@ function( G )
         od; 
     od;
     Info( InfoIdRel, 1, "mseq has length: ", Length(mseq), "\n" ); 
+    Info( InfoIdRel, 3, mseq ); 
     ### convert relator sequences to Y-sequences 
     lenseq := Length( mseq );
     mseq := List( [1..lenseq], i -> [ i, mseq[i] ] );
@@ -311,7 +319,9 @@ function( L )
         Info( InfoIdRel, 1, "## new iteration in ReduceGroupRelatorSequences" );
         L2 := Filtered( L2, y -> not ( y[2] = [ ] ) ); 
         lenL := Length( L2 );
-        Sort( L2, function(K,L) return YSequenceLessThan(K[2],L[2]); end );
+        Sort( L2, function( K, L ) 
+                  return GroupRelatorSequenceLessThan( K[2], L[2] ); 
+                  end );
         Info( InfoIdRel, 1, "after sorting:" ); 
         Info( InfoIdRel, 1, "number of identities = ", lenL );
         if ( InfoLevel( InfoIdRel ) > 1 ) then 
@@ -583,16 +593,19 @@ InstallMethod( IdentitiesAmongRelators, "for an fp-group", true,
 function( G )
 
     local L, monG, elmon, rws, F, FR, genFR, FM, FMgens, FY, FYgens, 
-          gseq, modpols, redpols, irrepols, irrerems, irrenum, sats, r;
+          gseq, modpols, redpols, irrepols, irrerems, irrenum, sats, 
+          r, ids, pol, ymp, gymp, pos, seq;
 
-    L := ArrangementOfMonoidGenerators( G ); 
+    if HasArrangementOfMonoidGenerators( G ) then 
+        L := ArrangementOfMonoidGenerators( G ); 
+    else 
+        L := ArrangeMonoidGenerators( G ); 
+    fi;
     monG := MonoidPresentationFpGroup( G );
-    if HasElementsOfMonoidPresentation( G ) then 
-        elmon := ElementsOfMonoidPresentation( G ); 
-    elif HasPartialElements( G ) then 
+    if HasPartialElements( G ) then 
         elmon := PartialElements( G ); 
-    else
-        Error( "no list of elements available" ); 
+    else  
+        elmon := ElementsOfMonoidPresentation( G ); 
     fi;
     rws := List( LoggedRewritingSystemFpGroup( G ), r -> [ r[1], r[3] ] );
     F := FreeGroupOfFpGroup( G );
@@ -600,7 +613,7 @@ function( G )
     genFR := GeneratorsOfGroup( FR );
     FM := FreeGroupOfPresentation( monG );
     FMgens := GeneratorsOfGroup( FM );
-    gseq := IdentityGroupRelatorSequences( G );
+    gseq := IdentityRelatorSequences( G );
     FY := FreeYSequenceGroup( G );
     FYgens := GeneratorsOfGroup( FY ); 
     modpols := ConvertToYSequences( G, FY, gseq );
@@ -622,8 +635,19 @@ function( G )
             Print( r, " : ", irrerems[r], "\n" );
         od; 
     fi;
+    SetIdentityYSequences( G, irrepols ); 
+    ## now pick out the relator sequences corresponding to these polys 
+    ids := ListWithIdenticalEntries( irrenum, 0 ); 
+    for r in [1..irrenum] do 
+        pol := irrepols[r]; 
+        ymp := YSequenceModulePoly( pol ); 
+        gymp := GeneratorsOfModulePoly( ymp )[1]; 
+        pos := Position( FYgens, gymp );
+        seq := gseq[pos]; 
+        ids[r] := seq[3]; 
+    od; 
     #? return [ irrepols, irrerems ]; 
-    return irrepols; 
+    return ids; 
 end );
 
 #############################################################################
@@ -634,8 +658,9 @@ InstallMethod( IdentitiesAmongRelatorsKB, "for an FpGroup", true,
     [ IsFpGroup ], 0, 
 function( G )
 
-    local  L, monG, elmon, rws, F, FR, genFR, FM, FMgens, FY, FYgens, mseq, 
-           lenseq, gseq, modpols, redpols, irrepols, irrerems, irrenum, sats, r; 
+    local L, monG, elmon, rws, F, FR, genFR, FM, FMgens, FY, FYgens, mseq, 
+          lenseq, gseq, modpols, redpols, irrepols, irrerems, irrenum, sats, 
+          r, ids, pol, ymp, gymp, pos, seq;
 
     L := ArrangementOfMonoidGenerators( G ); 
     monG := MonoidPresentationFpGroup( G );
@@ -652,17 +677,11 @@ function( G )
     genFR := GeneratorsOfGroup( FR );
     FM := FreeGroupOfPresentation( monG );
     FMgens := GeneratorsOfGroup( FM );
-    if not HasIdentityMonoidRelatorSequencesKB( G ) then 
-        Error( "G does not yet have IdentityMonoidRelatorSequencesKB" ); 
+    if not HasIdentityRelatorSequencesKB( G ) then 
+        Error( "G does not yet have IdentityRelatorSequencesKB" ); 
     fi; 
-    mseq := IdentityMonoidRelatorSequencesKB( G ); 
-    lenseq := Length( mseq );
-    mseq := List( [1..lenseq], i -> [ i, mseq[i] ] );
-    gseq := ConvertToGroupRelatorSequences( G, mseq );
-    gseq := ReduceGroupRelatorSequences( gseq ); 
+    gseq := IdentityRelatorSequencesKB( G ); 
     lenseq := Length( gseq );
-    gseq := List( [1..lenseq], i -> [ i, gseq[i][1], gseq[i][2] ] ); 
-    SetIdentityGroupRelatorSequencesKB( G, gseq );
     FY := FreeYSequenceGroupKB( G );
     FYgens := GeneratorsOfGroup( FY ); 
     modpols := ConvertToYSequences( G, FY, gseq );
@@ -684,8 +703,19 @@ function( G )
             Print( r, " : ", irrerems[r], "\n" );
         od; 
     fi;
+    SetIdentityYSequencesKB( G, irrepols ); 
+    ## now pick out the relator sequences corresponding to these polys 
+    ids := ListWithIdenticalEntries( irrenum, 0 ); 
+    for r in [1..irrenum] do 
+        pol := irrepols[r]; 
+        ymp := YSequenceModulePoly( pol ); 
+        gymp := GeneratorsOfModulePoly( ymp )[1]; 
+        pos := Position( FYgens, gymp );
+        seq := gseq[pos]; 
+        ids[r] := seq[3]; 
+    od; 
     #? return [ irrepols, irrerems ]; 
-    return irrepols; 
+    return ids; 
 end );
 
 #############################################################################
@@ -695,13 +725,14 @@ end );
 InstallMethod( RootIdentities, "for an FpGroup", true, [ IsFpGroup ], 0, 
 function( G )
 
-    local  ids, len, rng;
+    local  idsR, idsY, len, rng;
 
-    if HasIdentitiesAmongRelators( G ) then
-        ids := IdentitiesAmongRelators( G );
-        len := List( ids, i -> Length(i) );
+    if ( HasIdentitiesAmongRelators( G ) and HasIdentityYSequences( G ) ) then
+        idsR := IdentitiesAmongRelators( G );
+        idsY := IdentityYSequences( G ); 
+        len := List( idsY, i -> Length( RelatorModulePoly(i) ) );
         rng := Filtered( [1..Length(len)], i -> len[i]=1 );
-        return ids{rng};
+        return idsR{rng};
     else
         Print( "direct method not yet implemented\n" );
         return fail;
