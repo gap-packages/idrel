@@ -11,8 +11,8 @@
   
   [1X2.1-1 FreeRelatorGroup[101X
   
-  [29X[2XFreeRelatorGroup[102X( [3Xgrp[103X ) [32X attribute
-  [29X[2XFreeRelatorHomomorphism[102X( [3Xgrp[103X ) [32X attribute
+  [33X[1;0Y[29X[2XFreeRelatorGroup[102X( [3Xgrp[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XFreeRelatorHomomorphism[102X( [3Xgrp[103X ) [32X attribute[133X
   
   [33X[0;0YThe function [10XFreeRelatorGroup[110X returns a free group on the set of relators of
   the  given  fp-group  [10XG[110X.  If [10XHasName(G)[110X is [10Xtrue[110X then a name is automatically
@@ -40,12 +40,12 @@
   
   [1X2.1-2 MonoidPresentationFpGroup[101X
   
-  [29X[2XMonoidPresentationFpGroup[102X( [3Xgrp[103X ) [32X attribute
-  [29X[2XArrangementOfMonoidGenerators[102X( [3Xgrp[103X ) [32X attribute
-  [29X[2XFreeGroupOfPresentation[102X( [3Xmon[103X ) [32X attribute
-  [29X[2XGroupRelatorsOfPresentation[102X( [3Xmon[103X ) [32X attribute
-  [29X[2XInverseRelatorsOfPresentation[102X( [3Xmon[103X ) [32X attribute
-  [29X[2XHomomorphismOfPresentation[102X( [3Xmon[103X ) [32X attribute
+  [33X[1;0Y[29X[2XMonoidPresentationFpGroup[102X( [3Xgrp[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XArrangementOfMonoidGenerators[102X( [3Xgrp[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XFreeGroupOfPresentation[102X( [3Xmon[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XGroupRelatorsOfPresentation[102X( [3Xmon[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XInverseRelatorsOfPresentation[102X( [3Xmon[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XHomomorphismOfPresentation[102X( [3Xmon[103X ) [32X attribute[133X
   
   [33X[0;0YA  monoid  presentation  for  a  finitely  presented  group [10XG[110X has two monoid
   generators  [22Xg^+,g^-[122X  for  each group generator [22Xg[122X. The relators of the monoid
@@ -75,18 +75,17 @@
   [4X[32X  Example  [32X[104X
     [4X[28X[128X[104X
     [4X[25Xgap>[125X [27Xmon := MonoidPresentationFpGroup( q8 );[127X[104X
-    [4X[28Xmonoid presentation for an fp-group with homomorphism[128X[104X
-    [4X[28X[ [ q8_M1, q8_M2, q8_M3, q8_M4 ], [ f1, f2, f1^-1, f2^-1 ] ][128X[104X
-    [4X[25Xgap>[125X [27Xfgmon := FreeGroupOfPresentation( mon);[127X[104X
-    [4X[28X<free group on the generators [ q8_Ml, q8_M2, q8_M3, q8_M4]> [128X[104X
-    [4X[25Xgap>[125X [27Xgenfgmon := GeneratorsOfGroup( fgmon);[127X[104X
-    [4X[28X[ q8_Ml, q8_M2, q8_M3, q8_M4] [128X[104X
-    [4X[25Xgap>[125X [27Xgprels := GroupRelatorsOfPresentation( mon );[127X[104X
-    [4X[28X[ q8_Ml^4, q8_M2^4, q8_Ml*q8_M2*q8_Ml*q8_M4, q8_Ml^2*q8_M2^2] [128X[104X
-    [4X[25Xgap>[125X [27Xinvrels := InverseRelatorsOfPresentation( mon);[127X[104X
-    [4X[28X[ q8_Ml*q8_M3, q8_M2*q8_M4, q8_M3*q8_Ml, q8_M4*q8_M2] [128X[104X
-    [4X[25Xgap>[125X [27Xhompres := HomomorphismOfPresentation( mon );[127X[104X
-    [4X[28X[ q8_Ml, q8_M2, q8_M3, q8_M4] -> [ fl, f2, fl^-l, f2^-1 ][128X[104X
+    [4X[28Xmonoid presentation with group relators [128X[104X
+    [4X[28X[ q8_M1^4, q8_M2^4, q8_M1*q8_M2*q8_M1*q8_M4, q8_M1^2*q8_M2^2 ][128X[104X
+    [4X[25Xgap>[125X [27Xfgmon := FreeGroupOfPresentation( mon ); [127X[104X
+    [4X[28X<free group on the generators [ q8_M1, q8_M2, q8_M3, q8_M4 ]>[128X[104X
+    [4X[25Xgap>[125X [27Xgenfgmon := GeneratorsOfGroup( fgmon );;[127X[104X
+    [4X[25Xgap>[125X [27Xgprels := GroupRelatorsOfPresentation( mon ); [127X[104X
+    [4X[28X[ q8_M1^4, q8_M2^4, q8_M1*q8_M2*q8_M1*q8_M4, q8_M1^2*q8_M2^2 ][128X[104X
+    [4X[25Xgap>[125X [27Xinvrels := InverseRelatorsOfPresentation( mon ); [127X[104X
+    [4X[28X[ q8_M1*q8_M3, q8_M2*q8_M4, q8_M3*q8_M1, q8_M4*q8_M2 ][128X[104X
+    [4X[25Xgap>[125X [27Xhompres := HomomorphismOfPresentation( mon ); [127X[104X
+    [4X[28X[ q8_M1, q8_M2, q8_M3, q8_M4 ] -> [ f1, f2, f1^-1, f2^-1 ][128X[104X
     [4X[28X[128X[104X
   [4X[32X[104X
   
@@ -101,7 +100,7 @@
   
   [1X2.2-1 RewritingSystemFpGroup[101X
   
-  [29X[2XRewritingSystemFpGroup[102X( [3Xgrp[103X ) [32X attribute
+  [33X[1;0Y[29X[2XRewritingSystemFpGroup[102X( [3Xgrp[103X ) [32X attribute[133X
   
   [33X[0;0YThis  function  attempts to return a complete rewrite system for the group [10XG[110X
   obtained  from  the  monoid  presentation [10Xmon[110X, with a length-lexicographical
@@ -137,19 +136,18 @@
   two-generator  abelian  group [22XT = ⟨ a,b ~|~ [a,b] ⟩[122X the Knuth-Bendix process
   starts  to  generate infinite sets of relations such as [22X{ab^ma^-1 -> b^m,~ m
   geqslant  1}[122X.  If,  using  the  [10XArrangementOfMonoidGenerators[110X  function,  we
-  specify  the  alternative  ordering  [22X[g_1^+,g_1^-,g_2^+,g_2^-,...][122X,  then  a
-  finite set of rules is obtained.[133X
+  specify  the  alternative  ordering [22X[g_1^+,g_1^-,g_2^+,g_2^-][122X, then a finite
+  set of rules is obtained.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[28X[128X[104X
     [4X[25Xgap>[125X [27XF := FreeGroup(2);;                  [127X[104X
-    [4X[25Xgap>[125X [27XT := F/[Comm(F.1,F.2)];              [127X[104X
+    [4X[25Xgap>[125X [27XT := F/[Comm(a,b)];              [127X[104X
     [4X[28X<fp group of size infinity on the generators [ f1, f2 ]>[128X[104X
     [4X[25Xgap>[125X [27XSetName( T, "T" );                   [127X[104X
     [4X[25Xgap>[125X [27XSetArrangementOfMonoidGenerators( T, [1,-1,2,-2] );[127X[104X
     [4X[25Xgap>[125X [27XmonT := MonoidPresentationFpGroup(T);              [127X[104X
-    [4X[28Xmonoid presentation for an fp-group with homomorphism[128X[104X
-    [4X[28X[ [ T_M1, T_M2, T_M3, T_M4 ], [ f1, f1^-1, f2, f2^-1 ] ][128X[104X
+    [4X[28Xmonoid presentation with group relators [ T_M2*T_M4*T_M1*T_M3 ][128X[104X
     [4X[25Xgap>[125X [27XrwsT := RewritingSystemFpGroup( T );               [127X[104X
     [4X[28X[ [ T_M1*T_M2, <identity ...> ], [ T_M2*T_M1, <identity ...> ], [128X[104X
     [4X[28X  [ T_M3*T_M4, <identity ...> ], [ T_M4*T_M3, <identity ...> ], [128X[104X
@@ -158,12 +156,20 @@
     [4X[28X[128X[104X
   [4X[32X[104X
   
+  [33X[0;0YThe  eight  rules  can  be  written as follows, showing that the [22Xa^±[122X and [22Xb^±[122X
+  commute:[133X
+  
+      ┌────────────────────────────────────────────────────────────────────────────────────────┐
+      │   [22Xa^+a^- -> id, quadquad a^-a^+ -> id, quadquad b^+b^- -> id, quadquad b^-b^+ -> id,[122X   │ 
+      │ [22Xb^-a^- -> a^-b^-, quad b^-a^+ -> a^+b^-, quad b^+a^- -> a^-b^+, quad b^+a^+ -> a^+b^+.[122X │ 
+      └────────────────────────────────────────────────────────────────────────────────────────┘
+  
   [33X[0;0YThe functions called by [10XRewritingSystemFpGroup[110X are as follows.[133X
   
   [1X2.2-2 OnePassReduceWord[101X
   
-  [29X[2XOnePassReduceWord[102X( [3Xword[103X, [3Xrules[103X ) [32X operation
-  [29X[2XReduceWordKB[102X( [3Xword[103X, [3Xrules[103X ) [32X operation
+  [33X[1;0Y[29X[2XOnePassReduceWord[102X( [3Xword[103X, [3Xrules[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XReduceWordKB[102X( [3Xword[103X, [3Xrules[103X ) [32X operation[133X
   
   [33X[0;0YAssuming  that  [10Xword[110X  is  an element of a free monoid and [10Xrules[110X is a list of
   ordered  pairs  of  such  words, the function [10XOnePassReduceWord[110X searches the
@@ -184,33 +190,35 @@
   
   [4X[32X  Example  [32X[104X
     [4X[28X[128X[104X
-    [4X[25Xgap>[125X [27Xmonrels := Concatenation( gprels, invrels );[127X[104X
-    [4X[28X[ q8_Ml^4, q8_M2^4, q8_Ml*q8_M2*q8_Ml*q8_M4, q8_Ml^2*q8_M2^2, q8_Ml*q8_M3, [128X[104X
-    [4X[28X  q8_M2*q8_M4, q8_M3*q8_Ml, q8_M4*q8_M2] [128X[104X
-    [4X[25Xgap>[125X [27Xid := One( monrels[l] );;[127X[104X
-    [4X[25Xgap>[125X [27Xr0 := List( monrels, r -> [ r, id ] );[127X[104X
-    [4X[28X[ [ q8_Ml^4, <identity ...> ], [ q8_M2^4, <identity. ..> ], [128X[104X
-    [4X[28X  [ q8_Ml*q8_M2*q8_Ml*q8_M4, <identity ...> ], [128X[104X
-    [4X[28X  [ q8_Ml^2*q8_M2^2, <identity. ..>], [ q8_Ml*q8_M3, <identity ...> ], [128X[104X
-    [4X[28X  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_Ml, <identity. ..>], [128X[104X
-    [4X[28X  [ q8_M4*q8_M2, <identity ...> ] ] [128X[104X
-    [4X[25Xgap>[125X [27Xap := genfgmon[l];; bp := genfgmon[2];;   ## p for plus[127X[104X
-    [4X[25Xgap>[125X [27Xam := genfgmon[3];; bm := genfgmon[4];;   ## m for minus[127X[104X
-    [4X[25Xgap>[125X [27Xw0 := bp^9 * ap^9;[127X[104X
+    [4X[25Xgap>[125X [27Xmonrels := Concatenation( gprels, invrels ); [127X[104X
+    [4X[28X[ q8_M1^4, q8_M2^4, q8_M1*q8_M2*q8_M1*q8_M4, q8_M1^2*q8_M2^2, q8_M1*q8_M3, [128X[104X
+    [4X[28X  q8_M2*q8_M4, q8_M3*q8_M1, q8_M4*q8_M2 ][128X[104X
+    [4X[25Xgap>[125X [27Xid := One( monrels[1] );;[127X[104X
+    [4X[25Xgap>[125X [27Xr0 := List( monrels, r -> [ r, id ] ); [127X[104X
+    [4X[28X[ [ q8_M1^4, <identity ...> ], [ q8_M2^4, <identity ...> ], [128X[104X
+    [4X[28X  [ q8_M1*q8_M2*q8_M1*q8_M4, <identity ...> ], [128X[104X
+    [4X[28X  [ q8_M1^2*q8_M2^2, <identity ...> ], [ q8_M1*q8_M3, <identity ...> ], [128X[104X
+    [4X[28X  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_M1, <identity ...> ], [128X[104X
+    [4X[28X  [ q8_M4*q8_M2, <identity ...> ] ][128X[104X
+    [4X[25Xgap>[125X [27Xap := genfgmon[1];;[127X[104X
+    [4X[25Xgap>[125X [27Xbp := genfgmon[2];;[127X[104X
+    [4X[25Xgap>[125X [27Xam := genfgmon[3];;[127X[104X
+    [4X[25Xgap>[125X [27Xbm := genfgmon[4];;[127X[104X
+    [4X[25Xgap>[125X [27Xw0 := bp^9 * ap^9; [127X[104X
     [4X[28Xq8_M2^9*q8_M1^9[128X[104X
-    [4X[25Xgap>[125X [27Xw1 := OnePassReduceWord( w0, r0 );[127X[104X
+    [4X[25Xgap>[125X [27Xw1 := OnePassReduceWord( w0, r0 ); [127X[104X
     [4X[28Xq8_M2^5*q8_M1^5[128X[104X
-    [4X[25Xgap>[125X [27Xw2 := ReduceWordKB( w0, r0 );[127X[104X
+    [4X[25Xgap>[125X [27Xw2 := ReduceWordKB( w0, r0 ); [127X[104X
     [4X[28Xq8_M2*q8_M1[128X[104X
     [4X[28X[128X[104X
   [4X[32X[104X
   
   [1X2.2-3 OnePassKB[101X
   
-  [29X[2XOnePassKB[102X( [3Xrules[103X ) [32X operation
-  [29X[2XRewriteReduce[102X( [3Xrules[103X ) [32X operation
-  [29X[2XKnuthBendix[102X( [3Xrules[103X ) [32X operation
-  [29X[2XShorterRule[102X( [3Xrule1[103X, [3Xrule2[103X ) [32X operation
+  [33X[1;0Y[29X[2XOnePassKB[102X( [3Xrules[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XRewriteReduce[102X( [3Xrules[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XKnuthBendix[102X( [3Xrules[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XShorterRule[102X( [3Xrule1[103X, [3Xrule2[103X ) [32X operation[133X
   
   [33X[0;0YThe  function  [10XOnePassKB[110X  implements  the  main  loop  of  the  Knuth-Bendix
   completion algorithm. Rules are compared with each other; all critical pairs
@@ -247,35 +255,35 @@
   [4X[32X  Example  [32X[104X
     [4X[28X[128X[104X
     [4X[25Xgap>[125X [27Xr1 := OnePassKB( r0 );[127X[104X
-    [4X[28X[ [ q8_Ml^4, <identity ...> ], [ q8_M2^4, <identity ...> ], [128X[104X
-    [4X[28X  [ q8_Ml*q8_M2*q8_Ml*q8_M4, <identity ...> ], [128X[104X
-    [4X[28X  [ q8_Ml^2*q8_M2^2, <identity. ..> ], [ q8_Ml*q8_M3, <identity ...> ], [128X[104X
-    [4X[28X  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_Ml, <identity ...> ], [128X[104X
-    [4X[28X  [ q8_M4*q8_M2, <identity ...> ], [ q8_M2*q8_Ml*q8_M4, q8_Ml^3], [128X[104X
-    [4X[28X  [ q8_Ml*q8_M2^2, q8_Ml^3 ], [ q8_M2^2, q8_Ml^2 ], [q8_Ml^3, q8_M3 ], [128X[104X
-    [4X[28X  [ q8_M2^3, q8_M4 ], [ q8_Ml*q8_M2*q8_Ml, q8_M2], [128X[104X
-    [4X[28X  [ q8_M2^3, q8_Ml^2*q8_M2], [ q8_M2^2, q8_Ml^2 ], [q8_Ml^2*q8_M2, q8_M4 ], [128X[104X
-    [4X[28X  [ q8_Ml^3, q8_M3 ], [ q8_M2*q8_Ml*q8_M4, q8_M3 ], [q8_Ml*q8_M2^2, q8_M3 ], [128X[104X
-    [4X[28X  [ q8_M2^3, q8_M4 ] ] [128X[104X
+    [4X[28X[ [ q8_M1^4, <identity ...> ], [ q8_M2^4, <identity ...> ], [128X[104X
+    [4X[28X  [ q8_M1*q8_M2*q8_M1*q8_M4, <identity ...> ], [128X[104X
+    [4X[28X  [ q8_M1^2*q8_M2^2, <identity ...> ], [ q8_M1*q8_M3, <identity ...> ], [128X[104X
+    [4X[28X  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_M1, <identity ...> ], [128X[104X
+    [4X[28X  [ q8_M4*q8_M2, <identity ...> ], [ q8_M2*q8_M1*q8_M4, q8_M1^3 ], [128X[104X
+    [4X[28X  [ q8_M1*q8_M2^2, q8_M1^3 ], [ q8_M2^2, q8_M1^2 ], [ q8_M1^3, q8_M3 ], [128X[104X
+    [4X[28X  [ q8_M2^3, q8_M4 ], [ q8_M1*q8_M2*q8_M1, q8_M2 ], [128X[104X
+    [4X[28X  [ q8_M2^3, q8_M1^2*q8_M2 ], [ q8_M2^2, q8_M1^2 ], [ q8_M1^2*q8_M2, q8_M4 ], [128X[104X
+    [4X[28X  [ q8_M1^3, q8_M3 ], [ q8_M2*q8_M1*q8_M4, q8_M3 ], [ q8_M1*q8_M2^2, q8_M3 ], [128X[104X
+    [4X[28X  [ q8_M2^3, q8_M4 ] ][128X[104X
     [4X[25Xgap>[125X [27XLength( r1 );[127X[104X
     [4X[28X21[128X[104X
-    [4X[25Xgap>[125X [27Xr1 := RewriteReduce( r1 );[127X[104X
-    [4X[28X[ [ q8_Ml*q8_M3, <identity ...> ], [ q8_M2^2, q8_Ml^2 ], [128X[104X
-    [4X[28X  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_Ml, <identity ...> ], [128X[104X
-    [4X[28X  [ q8_M4*q8_M2, <identity ...> ], [ q8_Ml^3, q8_M3 ], [128X[104X
-    [4X[28X  [ q8_Ml^2*q8_M2, q8_M4 ], [ q8_Ml*q8_M2*q8_Ml, q8_M2 ], [128X[104X
-    [4X[28X  [ q8_M2*q8_Ml*q8_M4, q8_M3 ] ] [128X[104X
+    [4X[25Xgap>[125X [27Xr1 := RewriteReduce( r1 ); [127X[104X
+    [4X[28X[ [ q8_M1*q8_M3, <identity ...> ], [ q8_M2^2, q8_M1^2 ], [128X[104X
+    [4X[28X  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_M1, <identity ...> ], [128X[104X
+    [4X[28X  [ q8_M4*q8_M2, <identity ...> ], [ q8_M1^3, q8_M3 ], [128X[104X
+    [4X[28X  [ q8_M1^2*q8_M2, q8_M4 ], [ q8_M1*q8_M2*q8_M1, q8_M2 ], [128X[104X
+    [4X[28X  [ q8_M2*q8_M1*q8_M4, q8_M3 ] ][128X[104X
     [4X[25Xgap>[125X [27XLength( r1 );[127X[104X
     [4X[28X9[128X[104X
     [4X[25Xgap>[125X [27Xr2 := KnuthBendix( r1 );[127X[104X
-    [4X[28X[ [ q8_Ml*q8_M3, <identity ...> ], [ q8_M2*q8_Ml, q8_Ml*q8_M4 ], [128X[104X
-    [4X[28X  [ q8_M2^2, q8_Ml^2], [ q8_M2*q8_M3, q8_Ml*q8_M2 ], [128X[104X
-    [4X[28X  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_Ml, <identity ...> ], [128X[104X
-    [4X[28X  [ q8_M3*q8_M2, q8_Ml*q8_M4 ], [ q8_M3^2, q8_Ml^2 ], [128X[104X
-    [4X[28X  [ q8_M3*q8_M4, q8_Ml*q8_M2 ], [ q8_M4*q8_Ml, q8_Ml*q8_M2 ], [128X[104X
-    [4X[28X  [ q8_M4*q8_M2, <identity ...> ], [ q8_M4*q8_M3, q8_Ml*q8_M4 ], [128X[104X
-    [4X[28X  [ q8_M4^2, q8_Ml^2], [ q8_Ml^3, q8_M3 ], [q8_Ml^2*q8_M2, q8_M4 ], [128X[104X
-    [4X[28X  [ q8_Ml^2*q8_M4, q8_M2 ] ][128X[104X
+    [4X[28X[ [ q8_M1*q8_M3, <identity ...> ], [ q8_M2*q8_M1, q8_M1*q8_M4 ], [128X[104X
+    [4X[28X  [ q8_M2^2, q8_M1^2 ], [ q8_M2*q8_M3, q8_M1*q8_M2 ], [128X[104X
+    [4X[28X  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_M1, <identity ...> ], [128X[104X
+    [4X[28X  [ q8_M3*q8_M2, q8_M1*q8_M4 ], [ q8_M3^2, q8_M1^2 ], [128X[104X
+    [4X[28X  [ q8_M3*q8_M4, q8_M1*q8_M2 ], [ q8_M4*q8_M1, q8_M1*q8_M2 ], [128X[104X
+    [4X[28X  [ q8_M4*q8_M2, <identity ...> ], [ q8_M4*q8_M3, q8_M1*q8_M4 ], [128X[104X
+    [4X[28X  [ q8_M4^2, q8_M1^2 ], [ q8_M1^3, q8_M3 ], [ q8_M1^2*q8_M2, q8_M4 ], [128X[104X
+    [4X[28X  [ q8_M1^2*q8_M4, q8_M2 ] ][128X[104X
     [4X[25Xgap>[125X [27XLength( r2 );[127X[104X
     [4X[28X16[128X[104X
     [4X[25Xgap>[125X [27Xw2 := ReduceWordKB( w0, r2 );[127X[104X
@@ -288,7 +296,7 @@
   
   [1X2.3-1 ElementsOfMonoidPresentation[101X
   
-  [29X[2XElementsOfMonoidPresentation[102X( [3Xmon[103X ) [32X attribute
+  [33X[1;0Y[29X[2XElementsOfMonoidPresentation[102X( [3Xmon[103X ) [32X attribute[133X
   
   [33X[0;0YThe function [10XElementsOfMonoidPresentation[110X returns a list of normal forms for
   the  elements  of the group given by the monoid presentation [10Xmon[110X. The normal

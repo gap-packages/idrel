@@ -15,7 +15,7 @@
 <body class="chap0"  onload="jscontent()">
 
 
-<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
 
 <div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1.html">[Next Chapter]</a>&nbsp;  </div>
 
@@ -23,30 +23,38 @@
 <p><a id="X7D2C85EC87DD46E5" name="X7D2C85EC87DD46E5"></a></p>
 <div class="pcenter">
 
-<h1><strong class="pkg">IdRel</strong></h1>
+<h1>idrel</h1>
 
 
-<h2>A package for Identities among Relators</h2>
+<h2>Identities among relations</h2>
 
-<p>Version 2.38</p>
+<p>
+    2.41</p>
 
-<p>15/12/2017</p>
+<p>
+    18 March 2018
+  </p>
 
 </div>
-<p><b> Anne Heyworth </b>
-</p><p><b> Chris Wensley
-    
-    
-       
+<p><b>
+    Anne Heyworth
+
+  </b>
+</p><p><b>
+    Christopher D. Wensley
+
+
+
+
   </b>
 <br />Email: <span class="URL"><a href="mailto:c.d.wensley@bangor.ac.uk">c.d.wensley@bangor.ac.uk</a></span>
 <br />Homepage: <span class="URL"><a href="http://pages.bangor.ac.uk/~mas023/">http://pages.bangor.ac.uk/~mas023/</a></span>
-<br />Address: <br />School of Computer Science, Bangor University,<br /> Dean Street, Bangor, Gwynedd, LL57 1UT, U.K.
+<br />Address: <br />Dr. C.D. Wensley<br /> School of Computer Science<br /> Bangor University<br /> Dean Street<br /> Bangor<br /> Gwynedd LL57 1UT<br /> UK<br />
 </p>
 
 <p><a id="X7AA6C5737B711C89" name="X7AA6C5737B711C89"></a></p>
 <h3>Abstract</h3>
-<p>The <strong class="pkg">IdRel</strong> package was originally implemented in 1999, using the <strong class="pkg">GAP</strong> 3 language, when the first author was studying for a Ph.D. in Bangor.</p>
+<p><strong class="pkg">IdRel</strong> is a <strong class="pkg">GAP</strong> package originally implemented in 1999, using the <strong class="pkg">GAP</strong> 3 language, when the first author was studying for a Ph.D. in Bangor.</p>
 
 <p>This package is designed to compute a minimal set of generators for the module of the identities among relators of a group presentation. It does this using</p>
 
@@ -67,19 +75,19 @@
 </ul>
 <p><strong class="pkg">IdRel</strong> became an accepted <strong class="pkg">GAP</strong> package in May 2015.</p>
 
-<p>Bug reports, suggestions and comments are, of course, welcome. Please submit an issue at <span class="URL"><a href="https://github.com/gap-packages/idrel/issues/">https://github.com/gap-packages/idrel/issues/</a></span> or send an email to the second author at <span class="URL"><a href="mailto:c.d.wensley@bangor.ac.uk">c.d.wensley@bangor.ac.uk</a></span>.</p>
+<p>Bug reports, suggestions and comments are, of course, welcome. Please contact the last author at <span class="URL"><a href="mailto:c.d.wensley@bangor.ac.uk">c.d.wensley@bangor.ac.uk</a></span> or submit an issue at the GitHub repository <span class="URL"><a href="https://github.com/gap-packages/idrel/issues/">https://github.com/gap-packages/idrel/issues/</a></span>.</p>
 
 <p><a id="X81488B807F2A1CF1" name="X81488B807F2A1CF1"></a></p>
 <h3>Copyright</h3>
-<p>© 1999-2017 Anne Heyworth and Chris Wensley</p>
+<p>© 1999-2018 Anne Heyworth and Chris Wensley</p>
 
-<p><strong class="pkg">IdRel</strong> is free software; you can redistribute it and/or modify it under the terms of the <span class="URL"><a href="http://www.fsf.org/licenses/gpl.html">GNU General Public License</a></span> as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+<p>The <strong class="pkg">IdRel</strong> package is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
 
 <p><a id="X82A988D47DFAFCFA" name="X82A988D47DFAFCFA"></a></p>
 <h3>Acknowledgements</h3>
-<p>This documentation was prepared with the <strong class="pkg">GAPDoc</strong> package <a href="chapBib.html#biBGAPDoc">[LN12]</a> of Frank Lübeck and Max Neunhöffer.</p>
+<p>This documentation was prepared with the <strong class="pkg">GAPDoc</strong> <a href="chapBib.html#biBGAPDoc">[LN17]</a> and <strong class="pkg">AutoDoc</strong> <a href="chapBib.html#biBAutoDoc">[GH17]</a> packages.</p>
 
-<p>The procedure used to mount new releases on GitHub uses the packages <strong class="pkg">GitHubPagesForGAP</strong> <a href="chapBib.html#biBGitHubPagesForGAP">[Hor17]</a> and <strong class="pkg">ReleaseTools</strong> of Max Horn.</p>
+<p>The procedure used to produce new releases uses the package <strong class="pkg">GitHubPagesForGAP</strong> <a href="chapBib.html#biBGitHubPagesForGAP">[Hor14]</a> and the package <strong class="pkg">ReleaseTools</strong>.</p>
 
 <p><a id="X8537FEB07AF2BEC8" name="X8537FEB07AF2BEC8"></a></p>
 
@@ -134,14 +142,14 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X84B1F4CC79983A94">4.2 <span class="Heading">Components of a polynomial</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X832D20E8813FBE5D">4.2-1 Terms</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X810C636178EA42D0">4.2-1 Terms</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X85C78946877C1FF5">4.2-2 Monic</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X82E04F1086DAAA43">4.2-3 AddTermMonoidPoly</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X832341AB7A04BA45">4.3 <span class="Heading">Monoid Polynomial Operations</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X780769238600AFD1">4.3-1 Length</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X86C2C49080691991">4.3-1 Length</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7A80EA5C7AEA68B1">4.4 <span class="Heading">Reduction of a Monoid Polynomial</span></a>
 </span>
@@ -153,24 +161,39 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X86625AB980F24AA5">5.1 <span class="Heading">Construction of module polynomials</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7BEE34B27861ACE5">5.1-1 ModulePoly</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7A03D1D881B9976E">5.1-1 ModulePoly</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X83ECC2D5781DE850">5.2 <span class="Heading">Components of a module polynomial</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X832D20E8813FBE5D">5.2-1 Terms</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X79E2DD9879D9182C">5.2-1 Terms</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X7E57DFF4791C4CAA">5.3 <span class="Heading">Module Polynomial Operations</span></a>
 </span>
 <div class="ContSSBlock">
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X811C7964873E4062">5.3-1 AddTermModulePoly</a></span>
 </div></div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X78038BF07E998E21">5.4 <span class="Heading">Identities among relators</span></a>
+</div>
+<div class="ContChap"><a href="chap6.html#X78038BF07E998E21">6 <span class="Heading">Identities Among Relators</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X7D428F9B8054F5FB">6.1 <span class="Heading">The original approach</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X78A94CB77B98ACAA">5.4-1 IdentityYSequences</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7BEE0DBB78F9355E">5.4-2 RootIdentities</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7FD998C87BF9AAC9">6.1-1 IdentitiesAmongRelators</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7BEE0DBB78F9355E">6.1-2 RootIdentities</a></span>
 </div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X809923437C987089">6.2 <span class="Heading">Knuth-Bendix identities</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X800D7F047976EDDF">6.2-1 IdentitiesAmongRelatorsKB</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X8448909D82CF6FE9">6.3 <span class="Heading">Partial lists of elements</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7FCEF03E7A57C331">6.3-1 PartialElementsOfMonoidRepresentation</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X7A9CE0B37EF88CEA">6.4 <span class="Heading">Identities for infinite groups</span></a>
+</span>
+</div>
 </div>
 <div class="ContChap"><a href="chapBib.html"><span class="Heading">References</span></a></div>
 <div class="ContChap"><a href="chapInd.html"><span class="Heading">Index</span></a></div>
@@ -180,7 +203,7 @@
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1.html">[Next Chapter]</a>&nbsp;  </div>
 
 
-<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
 
 <hr />
 <p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>

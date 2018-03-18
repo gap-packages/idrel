@@ -1,34 +1,39 @@
   
   
-                                     [1X[5XIdRel[105X[101X
+                                    [1X idrel [101X
   
   
-                    [1XA package for Identities among Relators[101X
+                          [1X Identities among relations [101X
   
   
-                                  Version 2.38
+                                      2.41
   
   
-                                   15/12/2017
+                                 18 March 2018
   
   
                                  Anne Heyworth
   
-                                 Chris Wensley
+                             Christopher D. Wensley
   
   
   
-  Chris Wensley
+  Christopher D. Wensley
       Email:    [7Xmailto:c.d.wensley@bangor.ac.uk[107X
       Homepage: [7Xhttp://pages.bangor.ac.uk/~mas023/[107X
-      Address:  [33X[0;14YSchool of Computer Science, Bangor University,[133X
-                [33X[0;14YDean Street, Bangor, Gwynedd, LL57 1UT, U.K.[133X
+      Address:  [33X[0;14YDr. C.D. Wensley[133X
+                [33X[0;14YSchool of Computer Science[133X
+                [33X[0;14YBangor University[133X
+                [33X[0;14YDean Street[133X
+                [33X[0;14YBangor[133X
+                [33X[0;14YGwynedd LL57 1UT[133X
+                [33X[0;14YUK[133X
   
   
   
   -------------------------------------------------------
   [1XAbstract[101X
-  [33X[0;0YThe  [5XIdRel[105X  package  was  originally  implemented  in  1999, using the [5XGAP[105X 3
+  [33X[0;0Y[5XIdRel[105X  is  a  [5XGAP[105X  package  originally  implemented in 1999, using the [5XGAP[105X 3
   language, when the first author was studying for a Ph.D. in Bangor.[133X
   
   [33X[0;0YThis  package  is  designed  to  compute a minimal set of generators for the
@@ -50,29 +55,29 @@
   
   [33X[0;0Y[5XIdRel[105X became an accepted [5XGAP[105X package in May 2015.[133X
   
-  [33X[0;0YBug reports, suggestions and comments are, of course, welcome. Please submit
-  an  issue  at [7Xhttps://github.com/gap-packages/idrel/issues/[107X or send an email
-  to the second author at [7Xmailto:c.d.wensley@bangor.ac.uk[107X.[133X
+  [33X[0;0YBug  reports,  suggestions  and  comments  are,  of  course, welcome. Please
+  contact  the  last  author  at  [7Xmailto:c.d.wensley@bangor.ac.uk[107X or submit an
+  issue             at             the            GitHub            repository
+  [7Xhttps://github.com/gap-packages/idrel/issues/[107X.[133X
   
   
   -------------------------------------------------------
   [1XCopyright[101X
-  [33X[0;0Y© 1999-2017 Anne Heyworth and Chris Wensley[133X
+  [33X[0;0Y© 1999-2018 Anne Heyworth and Chris Wensley[133X
   
-  [33X[0;0Y[5XIdRel[105X  is  free software; you can redistribute it and/or modify it under the
-  terms        of       the       GNU       General       Public       License
-  ([7Xhttp://www.fsf.org/licenses/gpl.html[107X)  as  published  by  the Free Software
-  Foundation;  either  version 2 of the License, or (at your option) any later
-  version.[133X
+  [33X[0;0YThe [5XIdRel[105X package is free software; you can redistribute it and/or modify it
+  under  the  terms of the GNU General Public License as published by the Free
+  Software  Foundation;  either  version 2 of the License, or (at your option)
+  any later version.[133X
   
   
   -------------------------------------------------------
   [1XAcknowledgements[101X
-  [33X[0;0YThis  documentation  was  prepared  with  the [5XGAPDoc[105X package [LN12] of Frank
-  Lübeck and Max Neunhöffer.[133X
+  [33X[0;0YThis  documentation  was  prepared with the [5XGAPDoc[105X [LN17] and [5XAutoDoc[105X [GH17]
+  packages.[133X
   
-  [33X[0;0YThe  procedure  used  to  mount  new  releases  on  GitHub uses the packages
-  [5XGitHubPagesForGAP[105X [Hor17] and [5XReleaseTools[105X of Max Horn.[133X
+  [33X[0;0YThe   procedure   used   to   produce   new   releases   uses   the  package
+  [5XGitHubPagesForGAP[105X [Hor14] and the package [5XReleaseTools[105X.[133X
   
   
   -------------------------------------------------------
@@ -117,9 +122,15 @@
       5.2-1 Terms
     5.3 [33X[0;0YModule Polynomial Operations[133X
       5.3-1 AddTermModulePoly
-    5.4 [33X[0;0YIdentities among relators[133X
-      5.4-1 IdentityYSequences
-      5.4-2 RootIdentities
+  6 [33X[0;0YIdentities Among Relators[133X
+    6.1 [33X[0;0YThe original approach[133X
+      6.1-1 IdentitiesAmongRelators
+      6.1-2 RootIdentities
+    6.2 [33X[0;0YKnuth-Bendix identities[133X
+      6.2-1 IdentitiesAmongRelatorsKB
+    6.3 [33X[0;0YPartial lists of elements[133X
+      6.3-1 PartialElementsOfMonoidRepresentation
+    6.4 [33X[0;0YIdentities for infinite groups[133X
   
   
   [32X

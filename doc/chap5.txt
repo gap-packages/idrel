@@ -21,9 +21,9 @@
   
   [1X5.1-1 ModulePoly[101X
   
-  [29X[2XModulePoly[102X( [3Xgens[103X, [3Xmonpolys[103X ) [32X operation
-  [29X[2XModulePoly[102X( [3Xargs[103X ) [32X operation
-  [29X[2XZeroModulePoly[102X( [3XFgens[103X, [3XFmon[103X ) [32X operation
+  [33X[1;0Y[29X[2XModulePoly[102X( [3Xgens[103X, [3Xmonpolys[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XModulePoly[102X( [3Xargs[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XZeroModulePoly[102X( [3XFgens[103X, [3XFmon[103X ) [32X operation[133X
   
   [33X[0;0YThe  function  [10XModulePoly[110X  returns  a  module  polynomial.  The terms of the
   polynomial may be input as a list of generators followed by a list of monoid
@@ -60,11 +60,11 @@
   
   [1X5.2-1 Terms[101X
   
-  [29X[2XTerms[102X( [3Xmodpoly[103X ) [32X attribute
-  [29X[2XLeadTerm[102X( [3Xmodpoly[103X ) [32X attribute
-  [29X[2XLeadMonoidPoly[102X( [3Xmodpoly[103X ) [32X attribute
-  [29X[2XLength[102X( [3Xmodpoly[103X ) [32X method
-  [29X[2XOne[102X( [3Xmodpoly[103X ) [32X attribute
+  [33X[1;0Y[29X[2XTerms[102X( [3Xmodpoly[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XLeadTerm[102X( [3Xmodpoly[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XLeadMonoidPoly[102X( [3Xmodpoly[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XLength[102X( [3Xmodpoly[103X ) [32X method[133X
+  [33X[1;0Y[29X[2XOne[102X( [3Xmodpoly[103X ) [32X attribute[133X
   
   [33X[0;0YThe  function  [10XTerms[110X  returns  the terms of a module polynomial as a list of
   pairs. In [10XLeadTerm[110X, the generators are ordered, and the term of [10Xmodpoly[110X with
@@ -101,7 +101,7 @@
   
   [1X5.3-1 AddTermModulePoly[101X
   
-  [29X[2XAddTermModulePoly[102X( [3Xmodpoly[103X, [3Xgen[103X, [3Xmonpoly[103X ) [32X operation
+  [33X[1;0Y[29X[2XAddTermModulePoly[102X( [3Xmodpoly[103X, [3Xgen[103X, [3Xmonpoly[103X ) [32X operation[133X
   
   [33X[0;0YThe  function  [10XAddTermModulePoly[110X  adds  a  term  [10X[gen,  monpoly][110X to a module
   polynomial [10Xmodpoly[110X.[133X
@@ -132,77 +132,6 @@
     [4X[25Xgap>[125X [27XPrint( s1 * M[1], "\n" );[127X[104X
     [4X[28Xq8_R1*(4*q8_M4*q8_M1 - 5*q8_M1^2) + q8_R4*( - 7*q8_M4*q8_M1 + 5*q8_M1^2 +[128X[104X
     [4X[28X9*q8_M1)[128X[104X
-    [4X[28X[128X[104X
-  [4X[32X[104X
-  
-  
-  [1X5.4 [33X[0;0YIdentities among relators[133X[101X
-  
-  [1X5.4-1 IdentityYSequences[101X
-  
-  [29X[2XIdentityYSequences[102X( [3Xgrp[103X ) [32X attribute
-  [29X[2XIdentityModulePolynomials[102X( [3Xgrp[103X ) [32X operation
-  [29X[2XIdentitiesAmongRelators[102X( [3Xgrp[103X ) [32X attribute
-  
-  [33X[0;0YThe  identities  among  the  relators  for  a  finitely  presented group are
-  constructed as logged module polynomials. The procedure, described in [HW03]
-  and  based on work in [BRS99], is to construct a full set of Y-sequences for
-  the   group;  convert  these  into  module  polynomials  (eliminating  empty
-  sequences);  and  then  apply  simplification  rules  (including the primary
-  identity property) to eliminate obvious duplicates and conjugates.[133X
-  
-  [33X[0;0YIt  is [13Xnot[113X guaranteed that a minimal set of identities is obtained. For [10Xq8[110X a
-  set  of  seven  identities  is obtained, whereas a minimal set contains only
-  six. See Example 5.1 of [HW03] for further details.[133X
-  
-  [4X[32X  Example  [32X[104X
-    [4X[28X[128X[104X
-    [4X[25Xgap>[125X [27Xyseqs := IdentityYSequences( q8 );;[127X[104X
-    [4X[25Xgap>[125X [27XLength( yseqs );[127X[104X
-    [4X[28X24[128X[104X
-    [4X[25Xgap>[125X [27Xpolys := IdentityModulePolys( q8 );;[127X[104X
-    [4X[25Xgap>[125X [27XLength( polys );[127X[104X
-    [4X[28X23[128X[104X
-    [4X[25Xgap>[125X [27Xidsq8 := IdentitiesAmongRelators( q8 );;[127X[104X
-    [4X[25Xgap>[125X [27XLength( idsq8 );[127X[104X
-    [4X[28X2[128X[104X
-    [4X[25Xgap>[125X [27XLength( idsq8[1] );[127X[104X
-    [4X[28X7[128X[104X
-    [4X[25Xgap>[125X [27XDisplay( idsq8[1] );[127X[104X
-    [4X[28X[ ( q8_Y1*( q8_M1), q8_R1*( q8_M1 - <identity ...>) ), [128X[104X
-    [4X[28X  ( q8_Y7*( -q8_M1^2), q8_R2*( q8_M2 - <identity ...>) ), [128X[104X
-    [4X[28X  ( q8_Y23*( <identity ...>), q8_R1*( -q8_M3 - q8_M2) + q8_R3*( q8_M1^2 + q8_M\[128X[104X
-    [4X[28X3 + q8_M1 + <identity ...>) ), [128X[104X
-    [4X[28X  ( q8_Y11*( q8_M1), q8_R3*( q8_M3 - q8_M2) + q8_R4*( q8_M1 - <identity ...>) \[128X[104X
-    [4X[28X), [128X[104X
-    [4X[28X  ( q8_Y18*( -q8_M1), q8_R2*( -q8_M1^2) + q8_R3*( -q8_M3 - <identity ...>) + q\[128X[104X
-    [4X[28X8_R4*( q8_M2 + <identity ...>) ), [128X[104X
-    [4X[28X  ( q8_Y14*( q8_M2), q8_R1*( -q8_M2) + q8_R3*( q8_M1*q8_M2 + q8_M4) + q8_R4*( \[128X[104X
-    [4X[28Xq8_M2 - <identity ...>) ), [128X[104X
-    [4X[28X  ( q8_Y12*( -<identity ...>), q8_R1*( -<identity ...>) + q8_R2*( -q8_M1) + q8\[128X[104X
-    [4X[28X_R4*( q8_M3 + q8_M1) ) ][128X[104X
-    [4X[28X[128X[104X
-  [4X[32X[104X
-  
-  [1X5.4-2 RootIdentities[101X
-  
-  [29X[2XRootIdentities[102X( [3Xgrp[103X ) [32X attribute
-  
-  [33X[0;0YThe  [13Xroot  identities[113X  are identities of the form [22Xr^wr^-1[122X where [22Xr = w^n[122X is a
-  relator and [22Xn>1[122X.[133X
-  
-  [33X[0;0YFor  [10Xq8[110X only two of the four relators are proper powers, [22Xq=a^4[122X and [22Xr=b^4[122X, so
-  the root identities are [22Xq^aq^-1[122X and [22Xr^br^-1[122X.[133X
-  
-  [4X[32X  Example  [32X[104X
-    [4X[28X[128X[104X
-    [4X[25Xgap>[125X [27XRootIdentities( q8 );[127X[104X
-    [4X[28X[ ( q8_Y1*( q8_M1), q8_R1*( q8_M1 - <identity ...>) ), [128X[104X
-    [4X[28X  ( q8_Y7*( -q8_M1^2), q8_R2*( q8_M2 - <identity ...>) ) ][128X[104X
-    [4X[25Xgap>[125X [27XRootIdentities(s3);[127X[104X
-    [4X[28X[ ( s3_Y1*( s3_M1), s3_R1*( s3_M1 - <identity ...>) ), [128X[104X
-    [4X[28X  ( s3_Y3*( s3_M2), s3_R2*( s3_M2 - <identity ...>) ), [128X[104X
-    [4X[28X  ( s3_Y5*( s3_M2*s3_M1), s3_R3*( s3_M2 - s3_M1) ) ][128X[104X
     [4X[28X[128X[104X
   [4X[32X[104X
   

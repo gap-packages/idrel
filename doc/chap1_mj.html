@@ -18,7 +18,7 @@
 <body class="chap1"  onload="jscontent()">
 
 
-<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
 
 <div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Next Chapter]</a>&nbsp;  </div>
 
@@ -52,19 +52,19 @@
 
 <p>If you use <strong class="pkg">IdRel</strong> to solve a problem then please send a short email to the second author, to whom bug reports, suggestions and other comments should also be sent. You may reference the package by mentioning <a href="chapBib_mj.html#biBHeWe1">[HW03]</a> and <a href="chapBib_mj.html#biBanne-thesis">[Hey99]</a>.</p>
 
-<p>The current version is 2.38 for <strong class="pkg">GAP</strong> 4.8, released on 15th December 2017.</p>
-
-<p>The package may be obtained as a compressed tar file <code class="file">idrel-2.38.tar.gz</code> by ftp from one of the following sites:</p>
+<p>The package may be obtained as a compressed tar file <code class="file">idrel-version.number.tar.gz</code> by ftp from one of the following sites:</p>
 
 
 <ul>
-<li><p>any <strong class="pkg">GAP</strong> archive, e.g. <span class="URL"><a href="http://www.gap-system.org/Packages/packages.html">http://www.gap-system.org/Packages/packages.html</a></span>;</p>
+<li><p>the <strong class="pkg">IdRel</strong> GitHub site: <span class="URL"><a href="https://github.com/gap-packages.github.io/idrel/">https://github.com/gap-packages.github.io/idrel/</a></span>.</p>
 
 </li>
-<li><p>the package GitHub repository: <span class="URL"><a href="https://gap-packages.github.io/idrel">https://gap-packages.github.io/idrel</a></span>.</p>
+<li><p>any <strong class="pkg">GAP</strong> archive, e.g. <span class="URL"><a href="https://www.gap-system.org/Packages/packages.html">https://www.gap-system.org/Packages/packages.html</a></span>;</p>
 
 </li>
 </ul>
+<p>The package also has a GitHub repository at: <span class="URL"><a href="https://github.com/gap-packages/idrel/">https://github.com/gap-packages/idrel/</a></span>.</p>
+
 <p><a id="X80F39D77788BD099" name="X80F39D77788BD099"></a></p>
 
 <h4>1.1 <span class="Heading">An illustrative example</span></h4>
@@ -73,7 +73,7 @@
 
 <p>In this package the identities among relators are represented by Y-sequences, which are lists <span class="SimpleMath">\([[r_1, u_1],\ldots,[r_k,u_k]]\)</span> where <span class="SimpleMath">\(r_1,\ldots,r_k\)</span> are the group relators or their inverses, and <span class="SimpleMath">\(u_1,\ldots,u_k\)</span> are words in the free group <code class="code">F</code>. A Y-sequence is evaluated in <code class="code">F</code> as the product <span class="SimpleMath">\((u_1^{-1}r_1u_1)\ldots(u_k^{-1}r_ku_k)\)</span> and is an identity Y-sequence if it evaluates to the identity in <code class="code">F</code>. An identity Y-sequence represents an identity among the relators of the group presentation. The main function of the package is to produce a set of Y-sequences which generate the module of identites among relators, and further, that this set be minimal in the sense that every element in it is needed to generate the module.</p>
 
-<p>Before starting on the main example, we consider a simpler example illustrating the use of <strong class="pkg">IdRel</strong>. All the functions used are described in detail in this manual. We compute a reduced set of identities among relators for the presentation of the symmetric group <code class="code">s3</code> with generators <span class="SimpleMath">\(a,b\)</span> and relators <span class="SimpleMath">\([a^3 , b^2, (ab)^2]\)</span>. In the listings below, <code class="code">s3_M1</code> is the first monoid generator for <code class="code">s3</code>, <code class="code">s3_R2</code> is the second relator, while <code class="code">s3_Y4</code> is the fourth Y-sequence for <code class="code">s3</code>.</p>
+<p>Before starting on the main example, we consider a simpler example illustrating the use of <strong class="pkg">IdRel</strong>. All the functions used are described in detail in this manual. We compute a reduced set of identities among relators for the presentation of the symmetric group <code class="code">s3</code> with generators <span class="SimpleMath">\(a,b\)</span> and relators <span class="SimpleMath">\([a^3 , b^2, (ab)^2]\)</span>. In the listings below, <code class="code">s3_Ri</code> is the <code class="code">i</code>-th relator for <code class="code">s3</code>, and <code class="code">f1,f2</code> are the generators <span class="SimpleMath">\(a,b\)</span>.</p>
 
 
 <div class="example"><pre>
@@ -85,46 +85,45 @@
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">s3 := F/rels3;</span>
 &lt;fp group on the generators [ fl, f2 ]&gt; 
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetName( s3, "s3" ); </span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">idy3 := IdentityYSequences( s3 );; </span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length( idy3 ); </span>
-12
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Y1 := idy3[1];</span>
-[ 1, 4, [ [ s3_R1^-1, f1^-1 ], [ s3_R1, &lt;identity ...&gt; ] ] ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Y3 := idy3[3];</span>
-[ 3, 8, [ [ s3_R2^-1, f2^-1 ], [ s3_R2, &lt;identity ...&gt; ] ] ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Y5 := idy3[5];</span>
-[ 5, 9, [ [ s3_R3^-1, f2^-1 ], [ s3_R3, f1 ] ] ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Y11 := idy3[11];</span>
-[ 11, 6, [ [ s3_R3^-1, f1^-1 ], [ s3_R1, &lt;identity ...&gt; ], [ s3_R3^-1, f1 ], 
-      [ s3_R2, f1^-1*f2^-1 ], [ s3_R1, f2^-1 ], [ s3_R3^-1, f1*f2^-1 ], 
-      [ s3_R2, &lt;identity ...&gt; ], [ s3_R2, f1^-1 ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">idrels3 := IdentitiesAmongRelators( s3 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display( idrels3 );</span>
+[ [ [ s3_R1^-1, &lt;identity ...&gt; ], [ s3_R1, f1^-1 ] ], 
+  [ [ s3_R2^-1, &lt;identity ...&gt; ], [ s3_R2, f2 ] ], 
+  [ [ s3_R3^-1, &lt;identity ...&gt; ], [ s3_R3, f1*f2 ] ], 
+  [ [ s3_R3^-1, &lt;identity ...&gt; ], [ s3_R1, f1 ], [ s3_R3^-1, f1^2 ], 
+      [ s3_R2, f1^-1*f2^-1*f1 ], [ s3_R1, f2^-1*f1 ], 
+      [ s3_R3^-1, f1*f2^-1*f1 ], [ s3_R2, f1 ], [ s3_R2, &lt;identity ...&gt; ] ] ]
 
 </pre></div>
 
-<p>Of the <span class="SimpleMath">\(18\)</span> Y-sequences formed, <span class="SimpleMath">\(6\)</span> are empty, and discarded, so that <code class="code">idy3</code> has <span class="SimpleMath">\(12\)</span> entries, and the list is then sorted. <code class="code">Y1</code> is the <em>root identity</em> <code class="code">((a^3)^-1)^(a^-1).(a^3)</code>. If we write <span class="SimpleMath">\(r=a^3\)</span>, <span class="SimpleMath">\(s=b^2\)</span>, <span class="SimpleMath">\(t=(ab)^2\)</span> then <code class="code">Y1</code> becomes <span class="SimpleMath">\((r^{-1})^{a^{-1}}r\)</span>. Similarly, <code class="code">Y3</code> is the second root identity <span class="SimpleMath">\((s^{-1})^{b^{-1}}s\)</span>. The third root identity is <span class="SimpleMath">\((t^{-1})^{(ab)^{-1}}t\)</span>, which is equivalent to <span class="SimpleMath">\((t^{-1})^{b^{-1}}t^a\)</span>, and is the sequence <code class="code">Y5</code>. The identity <code class="code">Y11</code>, which is not a root identity, is obtained by walking around the Schreier diagram of the presentation, a somewhat truncated triangular prism. Taking the appropriate conjugate of each face in turn, we get: <code class="code"> Y11=(t^-1)^(a^-1).r.(t^-1)^a.s^(a^-1b^-1).r^(b^-1).(t^-1)^(ab^-1).s.s^(a^-1). </code> These four identities generate the module of identities for <code class="code">s3</code>.</p>
+<p>If we write <span class="SimpleMath">\(\rho=a^3\)</span>, <span class="SimpleMath">\(\sigma=b^2\)</span>, <span class="SimpleMath">\(\tau=(ab)^2\)</span> then the first identity becomes <span class="SimpleMath">\(\rho^{-1}\ \rho^{a^{-1}}\)</span>. Similarly, the second and third identities are the root identities <span class="SimpleMath">\(\sigma^{-1}\ \sigma^{b}\)</span> and <span class="SimpleMath">\(\tau^{-1}\ \tau^{ab}\)</span>. The fourth identity, which is not a root identity, is obtained by walking around the Schreier diagram of the presentation, a somewhat truncated triangular prism. Taking the appropriate conjugate of each face in turn, we get:</p>
 
-<p>In order to form the <em>module of identities</em> for <code class="code">s3</code> the identities are transformed into module polynomials. Thus <code class="code">Y1</code> <span class="SimpleMath">\(= (r^{-1})^{a^{-1}}r\)</span> becomes <span class="SimpleMath">\(y_1 = (-r)(a^{-1})+r = r(1-a^{-1})\)</span> and <span class="SimpleMath">\(y_1a = r(a-1)\)</span>. Similarly <code class="code">Y3</code> <span class="SimpleMath">\( = (s^{-1})^{b^{-1}}s\)</span> yields <span class="SimpleMath">\(y_3b = s(b-1)\)</span> and <code class="code">Y5</code> <span class="SimpleMath">\(= (t^{-1})^{b^{-1}}t^a\)</span> yields <span class="SimpleMath">\(y_5ba = t(b-a)\)</span>.</p>
+<p class="center">\[
+\tau^{-1}\ \rho^a\ (\tau^{-1})^{a^2}\ \sigma^{a^{-1}b^{-1}a} 
+         \ \rho^{b^{-1}a}\ (\tau^{-1})^{ab^{-1}a}\ \sigma^a\ \sigma\;. 
+\]</p>
+
+<p>In order to form the <em>module of identities</em> for <code class="code">s3</code> the identities are transformed into module polynomials. The first is <span class="SimpleMath">\(y_1 = \rho(-1 + a^{-1})\)</span> or <span class="SimpleMath">\(-y_1a = \rho(a-1)\)</span>. The second and third are <span class="SimpleMath">\(y_2 = \sigma(b-1)\)</span> and <span class="SimpleMath">\(y_3 = \tau(ab-1)\)</span>, while the fourth is <span class="SimpleMath">\(\rho(a+ba) + \sigma(1+a+ab) - \tau(1+a^{-1}+b)\)</span>. Note that, in the fourth polynomial, the conjugators are converted to their normal forms in <code class="code">s3</code>, namely <span class="SimpleMath">\(a^2=a^{-1},\ a^{-1}b^{-1}a=ab,\ b^{-1}a=ba\)</span> and <span class="SimpleMath">\(ab^{-1}a=b\)</span>. Generators for this module are returned by the operation <code class="code">IdentityYSequences</code>.</p>
 
 
 <div class="example"><pre>
 
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">idrels3 := IdentitiesAmongRelators( s3 );;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display( idrels3[1] );</span>
-[ ( s3_Y1*( s3_M1), s3_R1*( s3_M1 - &lt;identity ...&gt;) ), 
-  ( s3_Y3*( s3_M2), s3_R2*( s3_M2 - &lt;identity ...&gt;) ), 
-  ( s3_Y5*( s3_M2*s3_M1), s3_R3*( s3_M2 - s3_M1) ), 
-  ( s3_Y11*( -s3_M1), s3_R1*( -s3_M2*s3_M1 - s3_M1) + s3_R2*( -s3_M1*s3_M2 - s\
-3_M1 - &lt;identity ...&gt;) + s3_R3*( s3_M3 + s3_M2 + &lt;identity ...&gt;) ) ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">idyseq3 := IdentityYSequences( s3 );     </span>
+[ ( s3_Y1*( -s3_M1), s3_R1*( s3_M1 - &lt;identity ...&gt;) ), 
+  ( s3_Y2*( &lt;identity ...&gt;), s3_R2*( s3_M2 - &lt;identity ...&gt;) ), 
+  ( s3_Y3*( s3_M1), s3_R3*( s3_M2 - s3_M1) ), 
+  ( s3_Y9*( -&lt;identity ...&gt;), s3_R1*( -s3_M2*s3_M1 - s3_M1) + s3_R2*( -s3_M1*s\
+3_M2 - s3_M1 - &lt;identity ...&gt;) + s3_R3*( s3_M3 + s3_M2 + &lt;identity ...&gt;) ) ]
 
 </pre></div>
 
-<p>Further examples are given in section <a href="chap5_mj.html#X78038BF07E998E21"><span class="RefLink">5.4</span></a>.</p>
+<p>Further examples are given in chapter <a href="chap6_mj.html#X78038BF07E998E21"><span class="RefLink">6</span></a>.</p>
 
 
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Next Chapter]</a>&nbsp;  </div>
 
 
-<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
 
 <hr />
 <p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>

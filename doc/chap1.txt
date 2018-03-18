@@ -41,15 +41,17 @@
   also  be  sent.  You  may  reference  the  package  by mentioning [HW03] and
   [Hey99].[133X
   
-  [33X[0;0YThe current version is 2.38 for [5XGAP[105X 4.8, released on 15th December 2017.[133X
+  [33X[0;0YThe    package    may    be    obtained    as    a   compressed   tar   file
+  [11Xidrel-version.number.tar.gz[111X by ftp from one of the following sites:[133X
   
-  [33X[0;0YThe  package  may  be obtained as a compressed tar file [11Xidrel-2.38.tar.gz[111X by
-  ftp from one of the following sites:[133X
+  [30X    [33X[0;6Ythe                 [5XIdRel[105X                 GitHub                 site:
+        [7Xhttps://github.com/gap-packages.github.io/idrel/[107X.[133X
   
   [30X    [33X[0;6Yany                  [5XGAP[105X                 archive,                 e.g.
-        [7Xhttp://www.gap-system.org/Packages/packages.html[107X;[133X
+        [7Xhttps://www.gap-system.org/Packages/packages.html[107X;[133X
   
-  [30X    [33X[0;6Ythe package GitHub repository: [7Xhttps://gap-packages.github.io/idrel[107X.[133X
+  [33X[0;0YThe      package      also      has      a     GitHub     repository     at:
+  [7Xhttps://github.com/gap-packages/idrel/[107X.[133X
   
   
   [1X1.1 [33X[0;0YAn illustrative example[133X[101X
@@ -75,9 +77,8 @@
   illustrating  the  use  of  [5XIdRel[105X.  All  the functions used are described in
   detail in this manual. We compute a reduced set of identities among relators
   for  the  presentation  of  the  symmetric  group [10Xs3[110X with generators [22Xa,b[122X and
-  relators  [22X[a^3  ,  b^2,  (ab)^2][122X.  In the listings below, [10Xs3_M1[110X is the first
-  monoid  generator  for  [10Xs3[110X,  [10Xs3_R2[110X is the second relator, while [10Xs3_Y4[110X is the
-  fourth Y-sequence for [10Xs3[110X.[133X
+  relators  [22X[a^3  ,  b^2,  (ab)^2][122X.  In  the listings below, [10Xs3_Ri[110X is the [10Xi[110X-th
+  relator for [10Xs3[110X, and [10Xf1,f2[110X are the generators [22Xa,b[122X.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[28X[128X[104X
@@ -88,50 +89,48 @@
     [4X[25Xgap>[125X [27Xs3 := F/rels3;[127X[104X
     [4X[28X<fp group on the generators [ fl, f2 ]> [128X[104X
     [4X[25Xgap>[125X [27XSetName( s3, "s3" ); [127X[104X
-    [4X[25Xgap>[125X [27Xidy3 := IdentityYSequences( s3 );; [127X[104X
-    [4X[25Xgap>[125X [27XLength( idy3 ); [127X[104X
-    [4X[28X12[128X[104X
-    [4X[25Xgap>[125X [27XY1 := idy3[1];[127X[104X
-    [4X[28X[ 1, 4, [ [ s3_R1^-1, f1^-1 ], [ s3_R1, <identity ...> ] ] ][128X[104X
-    [4X[25Xgap>[125X [27XY3 := idy3[3];[127X[104X
-    [4X[28X[ 3, 8, [ [ s3_R2^-1, f2^-1 ], [ s3_R2, <identity ...> ] ] ][128X[104X
-    [4X[25Xgap>[125X [27XY5 := idy3[5];[127X[104X
-    [4X[28X[ 5, 9, [ [ s3_R3^-1, f2^-1 ], [ s3_R3, f1 ] ] ][128X[104X
-    [4X[25Xgap>[125X [27XY11 := idy3[11];[127X[104X
-    [4X[28X[ 11, 6, [ [ s3_R3^-1, f1^-1 ], [ s3_R1, <identity ...> ], [ s3_R3^-1, f1 ], [128X[104X
-    [4X[28X      [ s3_R2, f1^-1*f2^-1 ], [ s3_R1, f2^-1 ], [ s3_R3^-1, f1*f2^-1 ], [128X[104X
-    [4X[28X      [ s3_R2, <identity ...> ], [ s3_R2, f1^-1 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27Xidrels3 := IdentitiesAmongRelators( s3 );;[127X[104X
+    [4X[25Xgap>[125X [27XDisplay( idrels3 );[127X[104X
+    [4X[28X[ [ [ s3_R1^-1, <identity ...> ], [ s3_R1, f1^-1 ] ], [128X[104X
+    [4X[28X  [ [ s3_R2^-1, <identity ...> ], [ s3_R2, f2 ] ], [128X[104X
+    [4X[28X  [ [ s3_R3^-1, <identity ...> ], [ s3_R3, f1*f2 ] ], [128X[104X
+    [4X[28X  [ [ s3_R3^-1, <identity ...> ], [ s3_R1, f1 ], [ s3_R3^-1, f1^2 ], [128X[104X
+    [4X[28X      [ s3_R2, f1^-1*f2^-1*f1 ], [ s3_R1, f2^-1*f1 ], [128X[104X
+    [4X[28X      [ s3_R3^-1, f1*f2^-1*f1 ], [ s3_R2, f1 ], [ s3_R2, <identity ...> ] ] ][128X[104X
     [4X[28X[128X[104X
   [4X[32X[104X
   
-  [33X[0;0YOf  the  [22X18[122X Y-sequences formed, [22X6[122X are empty, and discarded, so that [10Xidy3[110X has
-  [22X12[122X  entries,  and  the  list  is  then  sorted.  [10XY1[110X  is  the  [13Xroot  identity[113X
-  [10X((a^3)^-1)^(a^-1).(a^3)[110X.  If we write [22Xr=a^3[122X, [22Xs=b^2[122X, [22Xt=(ab)^2[122X then [10XY1[110X becomes
-  [22X(r^-1)^a^-1}r[122X.  Similarly, [10XY3[110X is the second root identity [22X(s^-1)^b^-1}s[122X. The
-  third   root   identity   is   [22X(t^-1)^(ab)^-1}t[122X,   which  is  equivalent  to
-  [22X(t^-1)^b^-1}t^a[122X,  and  is  the sequence [10XY5[110X. The identity [10XY11[110X, which is not a
-  root  identity,  is  obtained  by walking around the Schreier diagram of the
-  presentation,  a somewhat truncated triangular prism. Taking the appropriate
-  conjugate      of      each      face      in     turn,     we     get:     [10X
-  Y11=(t^-1)^(a^-1).r.(t^-1)^a.s^(a^-1b^-1).r^(b^-1).(t^-1)^(ab^-1).s.s^(a^-1).
-  [110X These four identities generate the module of identities for [10Xs3[110X.[133X
+  [33X[0;0YIf  we  write  [22Xρ=a^3[122X,  [22Xσ=b^2[122X,  [22Xτ=(ab)^2[122X then the first identity becomes [22Xρ^-1
+  ρ^a^-1}[122X.  Similarly, the second and third identities are the root identities
+  [22Xσ^-1  σ^b[122X  and [22Xτ^-1 τ^ab[122X. The fourth identity, which is not a root identity,
+  is  obtained  by  walking around the Schreier diagram of the presentation, a
+  somewhat  truncated  triangular  prism.  Taking the appropriate conjugate of
+  each face in turn, we get:[133X
+  
+  
+  [24X[33X[0;6Y\tau^{-1}\     \rho^a\     (\tau^{-1})^{a^2}\    \sigma^{a^{-1}b^{-1}a}    \
+  \rho^{b^{-1}a}\ (\tau^{-1})^{ab^{-1}a}\ \sigma^a\ \sigma\;.[133X
+  
+  [124X
   
   [33X[0;0YIn  order  to  form  the  [13Xmodule  of  identities[113X  for  [10Xs3[110X the identities are
-  transformed  into  module polynomials. Thus [10XY1[110X [22X= (r^-1)^a^-1}r[122X becomes [22Xy_1 =
-  (-r)(a^-1)+r  =  r(1-a^-1)[122X  and  [22Xy_1a = r(a-1)[122X. Similarly [10XY3[110X [22X= (s^-1)^b^-1}s[122X
-  yields [22Xy_3b = s(b-1)[122X and [10XY5[110X [22X= (t^-1)^b^-1}t^a[122X yields [22Xy_5ba = t(b-a)[122X.[133X
+  transformed  into  module  polynomials.  The  first is [22Xy_1 = ρ(-1 + a^-1)[122X or
+  [22X-y_1a  =  ρ(a-1)[122X.  The  second and third are [22Xy_2 = σ(b-1)[122X and [22Xy_3 = τ(ab-1)[122X,
+  while  the  fourth  is  [22Xρ(a+ba) + σ(1+a+ab) - τ(1+a^-1+b)[122X. Note that, in the
+  fourth  polynomial,  the  conjugators are converted to their normal forms in
+  [10Xs3[110X,  namely  [22Xa^2=a^-1,  a^-1b^-1a=ab,  b^-1a=ba[122X and [22Xab^-1a=b[122X. Generators for
+  this module are returned by the operation [10XIdentityYSequences[110X.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[28X[128X[104X
-    [4X[25Xgap>[125X [27Xidrels3 := IdentitiesAmongRelators( s3 );;[127X[104X
-    [4X[25Xgap>[125X [27XDisplay( idrels3[1] );[127X[104X
-    [4X[28X[ ( s3_Y1*( s3_M1), s3_R1*( s3_M1 - <identity ...>) ), [128X[104X
-    [4X[28X  ( s3_Y3*( s3_M2), s3_R2*( s3_M2 - <identity ...>) ), [128X[104X
-    [4X[28X  ( s3_Y5*( s3_M2*s3_M1), s3_R3*( s3_M2 - s3_M1) ), [128X[104X
-    [4X[28X  ( s3_Y11*( -s3_M1), s3_R1*( -s3_M2*s3_M1 - s3_M1) + s3_R2*( -s3_M1*s3_M2 - s\[128X[104X
-    [4X[28X3_M1 - <identity ...>) + s3_R3*( s3_M3 + s3_M2 + <identity ...>) ) ][128X[104X
+    [4X[25Xgap>[125X [27Xidyseq3 := IdentityYSequences( s3 );     [127X[104X
+    [4X[28X[ ( s3_Y1*( -s3_M1), s3_R1*( s3_M1 - <identity ...>) ), [128X[104X
+    [4X[28X  ( s3_Y2*( <identity ...>), s3_R2*( s3_M2 - <identity ...>) ), [128X[104X
+    [4X[28X  ( s3_Y3*( s3_M1), s3_R3*( s3_M2 - s3_M1) ), [128X[104X
+    [4X[28X  ( s3_Y9*( -<identity ...>), s3_R1*( -s3_M2*s3_M1 - s3_M1) + s3_R2*( -s3_M1*s\[128X[104X
+    [4X[28X3_M2 - s3_M1 - <identity ...>) + s3_R3*( s3_M3 + s3_M2 + <identity ...>) ) ][128X[104X
     [4X[28X[128X[104X
   [4X[32X[104X
   
-  [33X[0;0YFurther examples are given in section [14X5.4[114X.[133X
+  [33X[0;0YFurther examples are given in chapter [14X6[114X.[133X
   

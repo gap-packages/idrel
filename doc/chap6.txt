@@ -1,0 +1,303 @@
+  
+  [1X6 [33X[0;0YIdentities Among Relators[133X[101X
+  
+  [33X[0;0YThe  identities  among  the  relators  for  a finitely presented group [22XG[122X are
+  constructed as logged module polynomials. The procedure, described in [HW03]
+  and  based  on  work in [BRS99], is to construct a full set of [13Xgroup relator
+  sequences[113X  for the group; convert these into module polynomials (eliminating
+  empty sequences); and then apply simplification rules (including the primary
+  identity property) to eliminate obvious duplicates and conjugates.[133X
+  
+  [33X[0;0YWhen  a  reduced set of polynomials has been obtained, the relator sequences
+  from  which  they  were formed are returned as the [13Xidentities among relators[113X
+  for [22XG[122X.[133X
+  
+  [33X[0;0YHere  are  some  of  the details when working with the group [22XS_3 = ⟨ a,b ~|~
+  ρ=a^3,   σ=b^2,   τ=(ab)^2   ⟩[122X.   The  monoid  presentation  has  generators
+  [22X{a^+,b^+,a^-,b^-}[122X and relators[133X
+  
+  
+  [24X[33X[0;6Y[~  1  =  a^+a^-,~  2  = b^+b^-,~ 3 = a^-a^+,~ 4 = b^-b^+,~ 5 = a^{+3},~ 6 =
+  b^{+2},~ 7 = (a^+b^+)^2 ~]\ ,[133X
+  
+  [124X
+  
+  [33X[0;0Yand  the elements are [22X{ id, a^+,b^+,a^-,a^+b^-,b^+a^+}[122X. The logged rewriting
+  system has relations[133X
+  
+      ┌──────────────────────────────────────────────────────────────────────────────────────────┐
+      │ [22Xa^+a^- = id,quad b^+b^- = id,quad a^-a^+ = id,quad b^-b^+ = id,[122X                          │ 
+      │ [22Xa^+2 = [5, id]a^-,quad a^-2 = [-5, id]a^+,quad b^+2 = [6, id] id,quad b^- = [-6, id]b^+,[122X │ 
+      │ [22Xb^+a^- = [-7,a^+b^-][6, id]a^+b^+,quad a^-b^+ = [-7,a^+][6,a^-b^-]b^+a^+,[122X                │ 
+      │ [22Xa^+b^+a^+ = [7, id][-6, id]b^+,quad b^+a^+b^+ = [7,a^+]a^-.[122X                              │ 
+      └──────────────────────────────────────────────────────────────────────────────────────────┘
+  
+  [33X[0;0YTo  construct  the  [13Xidentity  monoid relator sequences[113X we follow in turn the
+  relators [22X5=ρ,6=σ,7=τ[122X at each of the elements of [22XS_3[122X. For example, applying [22Xτ[122X
+  at [22Xa^+[122X gives the cycle:[133X
+  
+  
+  [24X[33X[0;6Ya^+   \stackrel{a^+}{\longrightarrow}   a^-  \stackrel{b^+}{\longrightarrow}
+  b^+a^+                 \stackrel{a^+}{\longrightarrow}                a^+b^+
+  \stackrel{b^+}{\longrightarrow} a^+\ .[133X
+  
+  [124X
+  
+  [33X[0;0YEach of these edges has a non-trivial logged rewrite, particularly the third
+  edge  where [22Xb^+a^+a^+ -> b^+a^- -> a^+b^+[122X. Combining this log information we
+  obtain the sequence:[133X
+  
+  
+  [24X[33X[0;6Y[5,{\rm    id}].[-7,a^+][6,a^-b^-].   [5,{\rm   id}]^{b^-}[-7,a^+b^-][6,{\rm
+  id}].[6,{\rm id}]^{a^-}\ .[133X
+  
+  [124X
+  
+  [33X[0;0YExpanding this gives:[133X
+  
+  
+  [24X[33X[0;6Ya^+a^+a^+.a^-b^-a^-b^-a^-a^+.b^+a^+b^+b^+a^-b^-.b^+a^+a^+a^+b^-.
+  b^+a^-b^-a^-b^-a^-a^+b^-.b^+b^+.a^+b^+b^+a^-[133X
+  
+  [124X
+  
+  [33X[0;0Ywhich  cancels to leave, as expected, [22Xa^+(a^+b^+a^+b^+)a^- = [7,a^-][122X. Adding
+  the inverse [22X[-7,a^-][122X to the front of the log expression gives the identity[133X
+  
+  
+  [24X[33X[0;6Y[-7,a^-].[5,{\rm      id}].[-7,a^+][6,a^-b^-].     [5,b^-][-7,a^+b^-][6,{\rm
+  id}].[6,a^-]\ .[133X
+  
+  [124X
+  
+  [33X[0;0YConverting  this  back  to  the group presentation, and conjugating by [22Xa[122X, we
+  obtain the [13Xidentity group relator sequence[113X given in the introduction ([14X1.1[114X):[133X
+  
+  
+  [24X[33X[0;6Y\tau^{-1}\; \rho^a\; \left(\tau^{-1}\right)^{a^2}\; \sigma^{a^{-1}b^{-1}a}\;
+  \rho^{b^{-1}a}\; \left(\tau^{-1}\right)^{ab^{-1}a}\; \sigma^a\; \sigma\ .[133X
+  
+  [124X
+  
+  [33X[0;0YThis is then transformed into the module polynomial[133X
+  
+  
+  [24X[33X[0;6Y\rho(a^+ + b^+a^+) + \sigma({\rm id} + a^+ + a^+b^+) - \tau({\rm id} + a^- +
+  b^+)\ ,[133X
+  
+  [124X
+  
+  [33X[0;0Ywhere the monoid elements are transformed into their normal forms.[133X
+  
+  [33X[0;0YThe collection of saturated sets of these module polynomials is then reduced
+  as   far  as  possible,  and  the  minimal  set  obtained  returned  as  the
+  [10XIdentityYSequences[110X  of  the group. The group relator sequences corresponding
+  to these module polynomials form the [10XIdentitiesAmongRelators[110X for the group.[133X
+  
+  
+  [1X6.1 [33X[0;0YThe original approach[133X[101X
+  
+  [33X[0;0YThis section describes the approach used from the earliest versions of [5XIdRel[105X
+  up  to version 2.38 in 2017. For version 2.39 the methods were revised so as
+  to  produce  some  data  for  infinite  groups.  This  experimental  work is
+  described in later sections.[133X
+  
+  [1X6.1-1 IdentitiesAmongRelators[101X
+  
+  [33X[1;0Y[29X[2XIdentitiesAmongRelators[102X( [3Xgrp[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XIdentityYSequences[102X( [3Xgrp[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XIdentityRelatorSequences[102X( [3Xgrp[103X ) [32X attribute[133X
+  
+  [33X[0;0YIt  is [13Xnot[113X guaranteed that a minimal set of identities is obtained. For [10Xq8[110X a
+  set  of  seven  identities  is returned, whereas a minimal set contains only
+  six. See Example 5.1 of [HW03] for further details.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xgseq8 := IdentityRelatorSequences( q8 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( gseq8 );[127X[104X
+    [4X[28X19[128X[104X
+    [4X[25Xgap>[125X [27Xgseq8[1];[127X[104X
+    [4X[28X[ 1, 9, [ [ q8_R1^-1, <identity ...> ], [ q8_R1, f1^-1 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27Xidsq8 := IdentitiesAmongRelators( q8 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( idsq8 );[127X[104X
+    [4X[28X7[128X[104X
+    [4X[25Xgap>[125X [27XDisplay( idsq8 );[127X[104X
+    [4X[28X[ [ [ q8_R1^-1, <identity ...> ], [ q8_R1, f1^-1 ] ], [128X[104X
+    [4X[28X  [ [ q8_R2^-1, <identity ...> ], [ q8_R4^-1, f2^-1 ], [ q8_R2, f1^-2*f2^-1 ],[128X[104X
+    [4X[28X      [ q8_R4, f2^-1 ] ], [128X[104X
+    [4X[28X  [ [ q8_R1^-1, <identity ...> ], [ q8_R4^-1, f2^-1 ], [ q8_R3, f1^-1*f2^-1 ],[128X[104X
+    [4X[28X      [ q8_R3, f2^-1 ], [ q8_R3, f1*f2^-1 ], [ q8_R1^-1, f2^-1 ], [128X[104X
+    [4X[28X      [ q8_R3, f1^-2*f2^-1 ], [ q8_R4, f2^-1 ] ], [128X[104X
+    [4X[28X  [ [ q8_R3^-1, <identity ...> ], [ q8_R4^-1, f2^-1 ], [ q8_R3, f1^-1*f2^-1 ],[128X[104X
+    [4X[28X      [ q8_R4, f1*f2^-1 ] ], [128X[104X
+    [4X[28X  [ [ q8_R4^-1, <identity ...> ], [ q8_R4^-1, f2^-1 ], [ q8_R3, f1^-1*f2^-1 ],[128X[104X
+    [4X[28X      [ q8_R3, f2^-1 ], [ q8_R4^-1, f2^-1 ], [ q8_R2, f1^-2*f2^-1 ], [128X[104X
+    [4X[28X      [ q8_R4, f2^-1 ] ], [128X[104X
+    [4X[28X  [ [ q8_R4^-1, <identity ...> ], [ q8_R3, f1*f2 ], [ q8_R1^-1, f2 ], [128X[104X
+    [4X[28X      [ q8_R3, f1^-2*f2 ], [ q8_R4, f2 ] ], [128X[104X
+    [4X[28X  [ [ q8_R4^-1, <identity ...> ], [ q8_R4^-1, f1^-2 ], [ q8_R2, f1^-4 ], [128X[104X
+    [4X[28X      [ q8_R1, f1^-1 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27Xidyseq8 := IdentityYSequences( q8 );[127X[104X
+    [4X[28X[ ( q8_Y1*( -q8_M1), q8_R1*( q8_M1 - <identity ...>) ), [128X[104X
+    [4X[28X  ( q8_Y5*( <identity ...>), q8_R2*( q8_M2 - <identity ...>) ), [128X[104X
+    [4X[28X  ( q8_Y18*( q8_M2), q8_R1*( -q8_M2 - <identity ...>) + q8_R3*( q8_M1^2 + q8_M\[128X[104X
+    [4X[28X3 + q8_M1 + <identity ...>) ), [128X[104X
+    [4X[28X  ( q8_Y8*( q8_M2), q8_R3*( q8_M3 - q8_M2) + q8_R4*( q8_M1 - <identity ...>) )[128X[104X
+    [4X[28X    , [128X[104X
+    [4X[28X  ( q8_Y17*( -q8_M2), q8_R2*( -q8_M1^2) + q8_R3*( -q8_M3 - <identity ...>) + q\[128X[104X
+    [4X[28X8_R4*( q8_M2 + <identity ...>) ), [128X[104X
+    [4X[28X  ( q8_Y11*( <identity ...>), q8_R1*( -q8_M2) + q8_R3*( q8_M1*q8_M2 + q8_M4) +\[128X[104X
+    [4X[28X q8_R4*( q8_M2 - <identity ...>) ), [128X[104X
+    [4X[28X  ( q8_Y10*( -q8_M1), q8_R1*( -<identity ...>) + q8_R2*( -q8_M1) + q8_R4*( q8_\[128X[104X
+    [4X[28XM3 + q8_M1) ) ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X6.1-2 RootIdentities[101X
+  
+  [33X[1;0Y[29X[2XRootIdentities[102X( [3Xgrp[103X ) [32X attribute[133X
+  
+  [33X[0;0YThe  [13Xroot  identities[113X  are identities of the form [22Xr^wr^-1[122X where [22Xr = w^n[122X is a
+  relator  and  [22Xn>1[122X.  (For  equivalent  forms  invert,  or permute the factors
+  cyclically, or act with [22Xw^-1[122X.)[133X
+  
+  [33X[0;0YFor  [10Xq8[110X only two of the four relators are proper powers, [22Xπ=a^4[122X and [22Xρ=b^4[122X, so
+  the root identities are [22Xπ^aπ^-1[122X and [22Xρ^bρ^-1[122X. In the listing below the second
+  of  these  is  displayed  as  [22Xρ^-1(ξ^-1)^b^-1}ρ^a^-2b^-1}ξ^b^-1}[122X,  where [22Xξ =
+  a^2b^2[122X. Because the second term is the inverse of the fourth, we may convert
+  the final three terms into a conjugate of the third, so that the identity is
+  equivalent to [22Xρ^-1ρ^b[122X:[133X
+  
+  
+  [24X[33X[0;6Y\left(\rho^{a^{-2}b^{-1}}\right)^{\xi^{b^{-1}}}                          ~=~
+  \left(\rho^{a^{-2}b^{-1}}\right)^{b(a^2b^2)b^{-1}} ~=~ \rho^b~.[133X
+  
+  [124X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XRootIdentities( q8 );[127X[104X
+    [4X[28X[ [ [ q8_R1^-1, <identity ...> ], [ q8_R1, f1^-1 ] ], [128X[104X
+    [4X[28X  [ [ q8_R2^-1, <identity ...> ], [ q8_R4^-1, f2^-1 ], [ q8_R2, f1^-2*f2^-1 ],[128X[104X
+    [4X[28X      [ q8_R4, f2^-1 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XRootIdentities(s3);[127X[104X
+    [4X[28X[ [ [ s3_R1^-1, <identity ...> ], [ s3_R1, f1^-1 ] ], [128X[104X
+    [4X[28X  [ [ s3_R2^-1, <identity ...> ], [ s3_R2, f2 ] ], [128X[104X
+    [4X[28X  [ [ s3_R3^-1, <identity ...> ], [ s3_R3, f1*f2 ] ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.2 [33X[0;0YKnuth-Bendix identities[133X[101X
+  
+  [33X[0;0YGiven  an  initial set of rules, the logged Knuth-Bendix procedure considers
+  overlaps  between  pairs  of  logged rules [22Xl_1=L_1r_1[122X and [22Xl_2=L_2r_2[122X. In the
+  case  [22Xu_1l_1=l_2v_2[122X for some words [22Xu_1,v_2[122X, the critical pair resulting from
+  the  overlap  is  [22X(u_1r_1,r_2v_2)[122X. Logged reduction is then applied to these
+  two words giving [22Xu_1r_1=M_1z_1[122X and [22Xr_2v_2=M_2z_2[122X, say. Then, if [22Xz_1>z_2[122X, the
+  additional  rule  [22Xz_1  =  (M_1^-1L_1^-u_1^-1}L_2M_2)z_2[122X is added. There is a
+  similar formula when [22Xz_2>z_1[122X.[133X
+  
+  [1X6.2-1 IdentitiesAmongRelatorsKB[101X
+  
+  [33X[1;0Y[29X[2XIdentitiesAmongRelatorsKB[102X( [3Xgrp[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XIdentityYSequencesKB[102X( [3Xgrp[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XIdentityRelatorSequencesKB[102X( [3Xgrp[103X ) [32X attribute[133X
+  
+  [33X[0;0YThe  third  possibility  is  that  [22Xz_1=z_2[122X,  and  in  this  case there is no
+  reduction    rule    to    be    added.    However    the   log   expression
+  [22XM_1^-1L_1^-u_1^-1}L_2M_2[122X  must reduce to the identity, and so is an identity
+  relator   sequence.  Since  version  2.41  of  this  package,  the  function
+  [10XLoggedRewritingSystemFpGroup[110X  returns two lists: a complete set of reduction
+  rules,  and a set of identity relator sequences produced in this way. In the
+  case  of  the  quaternion  group  [10Xq8[110X a total of [22X42[122X sequences are produced by
+  logged Knuth-Bendix, and these are then reduced to [22X8[122X identities.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XgseqKB8 := IdentityRelatorSequencesKB( q8 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength(last);[127X[104X
+    [4X[28X42[128X[104X
+    [4X[25Xgap>[125X [27XidrelsKB8 := IdentitiesAmongRelatorsKB( q8 );;[127X[104X
+    [4X[25Xgap>[125X [27XDisplay( idrelsKB8 );[127X[104X
+    [4X[28X[ [ [ q8_R1^-1, <identity ...> ], [ q8_R1, f1^-1 ] ], [128X[104X
+    [4X[28X  [ [ q8_R3^-1, f1^-1 ], [ q8_R3^-1, f1^-2 ], [ q8_R1, <identity ...> ], [128X[104X
+    [4X[28X      [ q8_R3^-1, f1 ], [ q8_R1, f2^-1 ], [ q8_R3^-1, <identity ...> ] ], [128X[104X
+    [4X[28X  [ [ q8_R3, f1*f2 ], [ q8_R4^-1, <identity ...> ], [ q8_R3^-1, f1^-2 ], [128X[104X
+    [4X[28X      [ q8_R4, f1^-1 ] ], [128X[104X
+    [4X[28X  [ [ q8_R2^-1, f1^-3 ], [ q8_R4, f1^-1 ], [ q8_R3, <identity ...> ], [128X[104X
+    [4X[28X      [ q8_R3^-1, f1*f2^-1 ], [ q8_R4^-1, <identity ...> ], [ q8_R2, f1^-2 ] ][128X[104X
+    [4X[28X    , [ [ q8_R4^-1, f2 ], [ q8_R2, f1^-2*f2 ], [ q8_R4^-1, <identity ...> ], [128X[104X
+    [4X[28X      [ q8_R3, f1^-1 ], [ q8_R3, <identity ...> ] ], [128X[104X
+    [4X[28X  [ [ q8_R4^-1, <identity ...> ], [ q8_R3^-1, f1^-2 ], [128X[104X
+    [4X[28X      [ q8_R1, <identity ...> ], [ q8_R3^-1, f1 ], [ q8_R4, f2^-1 ] ], [128X[104X
+    [4X[28X  [ [ q8_R4^-1, <identity ...> ], [ q8_R4^-1, f1^-2 ], [ q8_R2, f1^-4 ], [128X[104X
+    [4X[28X      [ q8_R1, <identity ...> ] ], [128X[104X
+    [4X[28X  [ [ q8_R4, f1^-1 ], [ q8_R3, f1*f2 ], [ q8_R1^-1, f2 ], [128X[104X
+    [4X[28X      [ q8_R2^-1, f1^-2*f2 ], [ q8_R4, f2 ], [ q8_R3, f1 ], [ q8_R3^-1, f2 ], [128X[104X
+    [4X[28X      [ q8_R4^-1, <identity ...> ], [ q8_R3, f1^-1 ], [ q8_R4^-1, f1^-1 ], [128X[104X
+    [4X[28X      [ q8_R2, f1^-3 ] ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.3 [33X[0;0YPartial lists of elements[133X[101X
+  
+  [33X[0;0YAs  we  have  seen, the procedure for obtaining identities involves applying
+  each  relator  at  each  element of the group. Since this will not terminate
+  when the group is infinite, we include an operation to construct words up to
+  a given length in the monoid representation of the group.[133X
+  
+  [1X6.3-1 PartialElementsOfMonoidRepresentation[101X
+  
+  [33X[1;0Y[29X[2XPartialElementsOfMonoidRepresentation[102X( [3XG[103X, [3Xlen[103X ) [32X operation[133X
+  
+  [33X[0;0YAs an example we take the group [22X⟨ u,v,w ~|~ u^3, v^2, w^2, (uv)^2, (vw)^2⟩[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup(3);;[127X[104X
+    [4X[25Xgap>[125X [27Xu := F.1;;  v := F.2;;  w := F.3;; [127X[104X
+    [4X[25Xgap>[125X [27Xrels := [ u^3, v^2, w^2, (u*v)^2, (v*w)^2 ];; [127X[104X
+    [4X[25Xgap>[125X [27Xq0 := F/rels;; [127X[104X
+    [4X[25Xgap>[125X [27XSetArrangementOfMonoidGenerators( q0, [1,-1,2,-2,3,-3] );[127X[104X
+    [4X[25Xgap>[125X [27XSetName( q0, "q0" );[127X[104X
+    [4X[25Xgap>[125X [27Xmonq0 := MonoidPresentationFpGroup( q0 );[127X[104X
+    [4X[28Xmonoid presentation with group relators [128X[104X
+    [4X[28X[ q0_M1^3, q0_M3^2, q0_M5^2, (q0_M1*q0_M3)^2, (q0_M3*q0_M5)^2 ][128X[104X
+    [4X[25Xgap>[125X [27Xlrws := LoggedRewritingSystemFpGroup( q0 );; [127X[104X
+    [4X[25Xgap>[125X [27XPartialElementsOfMonoidPresentation( q0, 1 ); [127X[104X
+    [4X[28X[ <identity ...>, q0_M1, q0_M2, q0_M3, q0_M5 ][128X[104X
+    [4X[25Xgap>[125X [27XPartialElementsOfMonoidPresentation( q0, 2 ); [127X[104X
+    [4X[28X[ <identity ...>, q0_M1, q0_M2, q0_M3, q0_M5, q0_M1*q0_M3, q0_M1*q0_M5, [128X[104X
+    [4X[28X  q0_M2*q0_M3, q0_M2*q0_M5, q0_M3*q0_M5, q0_M5*q0_M1, q0_M5*q0_M2 ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.4 [33X[0;0YIdentities for infinite groups[133X[101X
+  
+  [33X[0;0YBecause  the  list  of elements is incomplete, it is not guaranteed that the
+  list of identities is complete.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xidsq0 := IdentitiesAmongRelators( q0 );[127X[104X
+    [4X[28X[ [ [ q0_R1^-1, <identity ...> ], [ q0_R1, f1^-1 ] ], [128X[104X
+    [4X[28X  [ [ q0_R2^-1, <identity ...> ], [ q0_R2, f2 ] ], [128X[104X
+    [4X[28X  [ [ q0_R3^-1, <identity ...> ], [ q0_R3, f3 ] ], [128X[104X
+    [4X[28X  [ [ q0_R4^-1, <identity ...> ], [ q0_R2^-1, f1^-1 ], [ q0_R4, f1*f2 ], [128X[104X
+    [4X[28X      [ q0_R2, f1*f2 ] ], [128X[104X
+    [4X[28X  [ [ q0_R5^-1, <identity ...> ], [ q0_R3^-1, f2^-1 ], [ q0_R5, f2*f3 ], [128X[104X
+    [4X[28X      [ q0_R3, f2*f3 ] ], [128X[104X
+    [4X[28X  [ [ q0_R1^-1, <identity ...> ], [ q0_R2^-1, f1^-1 ], [ q0_R4, f1*f2 ], [128X[104X
+    [4X[28X      [ q0_R2^-1, f1^-1*f2^-1*f1*f2 ], [ q0_R4, f1^2*f2 ], [ q0_R1^-1, f2 ], [128X[104X
+    [4X[28X      [ q0_R2^-1, f1^-1*f2^-1*f1^-1*f2 ], [ q0_R4, f2 ] ], [128X[104X
+    [4X[28X  [ [ q0_R2^-1, <identity ...> ], [ q0_R3^-1, f2^-1 ], [ q0_R5, f2*f3 ], [128X[104X
+    [4X[28X      [ q0_R2^-1, f3 ], [ q0_R3^-1, f2^-1*f3^-1*f2^-1*f3 ], [ q0_R5, f3 ] ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y [133X
+  

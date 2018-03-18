@@ -11,9 +11,9 @@
   
   [1X4.1-1 MonoidPolyFromCoeffsWords[101X
   
-  [29X[2XMonoidPolyFromCoeffsWords[102X( [3Xcoeffs[103X, [3Xwords[103X ) [32X operation
-  [29X[2XMonoidPoly[102X( [3Xterms[103X ) [32X operation
-  [29X[2XZeroMonoidPoly[102X( [3XF[103X ) [32X operation
+  [33X[1;0Y[29X[2XMonoidPolyFromCoeffsWords[102X( [3Xcoeffs[103X, [3Xwords[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XMonoidPoly[102X( [3Xterms[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XZeroMonoidPoly[102X( [3XF[103X ) [32X operation[133X
   
   [33X[0;0YThere are two ways to input a monoid polynomial: by listing the coefficients
   and then the words; or by listing the terms as a list of pairs [10X[coefficient,
@@ -48,11 +48,11 @@
   
   [1X4.2-1 Terms[101X
   
-  [29X[2XTerms[102X( [3Xpoly[103X ) [32X attribute
-  [29X[2XCoeffs[102X( [3Xpoly[103X ) [32X attribute
-  [29X[2XWords[102X( [3Xpoly[103X ) [32X attribute
-  [29X[2XLeadTerm[102X( [3Xpoly[103X ) [32X attribute
-  [29X[2XLeadCoeffMonoidPoly[102X( [3Xpoly[103X ) [32X attribute
+  [33X[1;0Y[29X[2XTerms[102X( [3Xpoly[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XCoeffs[102X( [3Xpoly[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XWords[102X( [3Xpoly[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XLeadTerm[102X( [3Xpoly[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XLeadCoeffMonoidPoly[102X( [3Xpoly[103X ) [32X attribute[133X
   
   [33X[0;0YThe  function  [10XTerms[110X returns the terms of a polynomial as a list of pairs of
   the  form  [10X[word, coefficient][110X. The function [10XCoeffs[110X returns the coefficients
@@ -79,7 +79,7 @@
   
   [1X4.2-2 Monic[101X
   
-  [29X[2XMonic[102X( [3Xpoly[103X ) [32X operation
+  [33X[1;0Y[29X[2XMonic[102X( [3Xpoly[103X ) [32X operation[133X
   
   [33X[0;0YA  monoid  polynomial  is  called  [13Xmonic[113X  if  the coefficient of its leading
   polynomial  is  one.  The  function [10XMonic[110X converts a polynomial into a monic
@@ -95,7 +95,7 @@
   
   [1X4.2-3 AddTermMonoidPoly[101X
   
-  [29X[2XAddTermMonoidPoly[102X( [3Xpoly[103X, [3Xcoeff[103X, [3Xword[103X ) [32X operation
+  [33X[1;0Y[29X[2XAddTermMonoidPoly[102X( [3Xpoly[103X, [3Xcoeff[103X, [3Xword[103X ) [32X operation[133X
   
   [33X[0;0YThe  function  [10XAddTermMonoidPoly[110X  adds a new term, given by its coeffiecient
   and word, to an existing polynomial.[133X
@@ -148,7 +148,7 @@
   
   [1X4.3-1 Length[101X
   
-  [29X[2XLength[102X( [3Xpoly[103X ) [32X method
+  [33X[1;0Y[29X[2XLength[102X( [3Xpoly[103X ) [32X method[133X
   
   [33X[0;0YThis function returns the number of distinct terms in the monoid polynomial.[133X
   
@@ -180,7 +180,7 @@
   
   [1X4.4-1 ReduceMonoidPoly[101X
   
-  [29X[2XReduceMonoidPoly[102X( [3Xpoly[103X, [3Xrules[103X ) [32X operation
+  [33X[1;0Y[29X[2XReduceMonoidPoly[102X( [3Xpoly[103X, [3Xrules[103X ) [32X operation[133X
   
   [33X[0;0YRecall  that the words of a monoid polynomial are elements of a free monoid.
   Given  a  rewrite  system (set of rules) on the free monoid the words can be
