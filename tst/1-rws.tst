@@ -2,12 +2,11 @@
 ##
 #W  1-rws.tst                  Idrel Package                     Chris Wensley
 #W                                                             & Anne Heyworth
-##
-#Y  Copyright (C) 1999-2017 Anne Heyworth and Chris Wensley
+#Y  Copyright (C) 1999-2018 Anne Heyworth and Chris Wensley
 ##
 
 gap> saved_infolevel_idrel := InfoLevel( InfoIdRel );; 
-gap> SetInfoLevel( InfoIdRel, 0 );;
+gap> ## SetInfoLevel( InfoIdRel, 0 );;
 
 ## Example 1.1 
 gap> F := FreeGroup( 2 );;
@@ -18,31 +17,24 @@ gap> rels3 := [ a^3, b^2, a*b*a*b ];
 gap> s3 := F/rels3; 
 <fp group on the generators [ f1, f2 ]>
 gap> SetName( s3, "s3" );; 
-gap> idy3 := IdentityYSequences( s3 );; 
-gap> Length( idy3 ); 
-12
-gap> Y1 := idy3[1];
-[ 1, 4, [ [ s3_R1^-1, f1^-1 ], [ s3_R1, <identity ...> ] ] ]
-gap> Y3 := idy3[3];
-[ 3, 8, [ [ s3_R2^-1, f2^-1 ], [ s3_R2, <identity ...> ] ] ]
-gap> Y5 := idy3[5];
-[ 5, 9, [ [ s3_R3^-1, f2^-1 ], [ s3_R3, f1 ] ] ]
-gap> Y11 := idy3[11];
-[ 11, 6, [ [ s3_R3^-1, f1^-1 ], [ s3_R1, <identity ...> ], [ s3_R3^-1, f1 ], 
-      [ s3_R2, f1^-1*f2^-1 ], [ s3_R1, f2^-1 ], [ s3_R3^-1, f1*f2^-1 ], 
-      [ s3_R2, <identity ...> ], [ s3_R2, f1^-1 ] ] ]
-
 gap> idrels3 := IdentitiesAmongRelators( s3 );;
-gap> Display( idrels3[1] );
-[ ( s3_Y1*( s3_M1), s3_R1*( s3_M1 - <identity ...>) ), 
-  ( s3_Y3*( s3_M2), s3_R2*( s3_M2 - <identity ...>) ), 
-  ( s3_Y5*( s3_M2*s3_M1), s3_R3*( s3_M2 - s3_M1) ), 
-  ( s3_Y11*( -s3_M1), s3_R1*( -s3_M2*s3_M1 - s3_M1) + s3_R2*( -s3_M1*s3_M2 - s\
-3_M1 - <identity ...>) + s3_R3*( s3_M3 + s3_M2 + <identity ...>) ) ]
+gap> Display( idrels3 );
+[ [ [ s3_R1^-1, <identity ...> ], [ s3_R1, f1^-1 ] ], 
+  [ [ s3_R2^-1, <identity ...> ], [ s3_R2, f2 ] ], 
+  [ [ s3_R3^-1, <identity ...> ], [ s3_R3, f1*f2 ] ], 
+  [ [ s3_R3^-1, <identity ...> ], [ s3_R1, f1 ], [ s3_R3^-1, f1^2 ], 
+      [ s3_R2, f1^-1*f2^-1*f1 ], [ s3_R1, f2^-1*f1 ], 
+      [ s3_R3^-1, f1*f2^-1*f1 ], [ s3_R2, f1 ], [ s3_R2, <identity ...> ] ] ]
+gap> idyseq3 := IdentityYSequences( s3 );     
+[ ( s3_Y1*( -s3_M1), s3_R1*( s3_M1 - <identity ...>) ), 
+  ( s3_Y2*( <identity ...>), s3_R2*( s3_M2 - <identity ...>) ), 
+  ( s3_Y3*( s3_M1), s3_R3*( s3_M2 - s3_M1) ), 
+  ( s3_Y9*( -<identity ...>), s3_R1*( -s3_M2*s3_M1 - s3_M1) + s3_R2*( -s3_M1*s\
+3_M2 - s3_M1 - <identity ...>) + s3_R3*( s3_M3 + s3_M2 + <identity ...>) ) ]
 
 ## Example 2.1.1
-gap> rels := [ a^4, b^4, a*b*a*b^-1, a^2*b^2 ];;
-gap> q8 := F/rels;;
+gap> rels8 := [ a^4, b^4, a*b*a*b^-1, a^2*b^2 ];;
+gap> q8 := F/rels8;;
 gap> SetName( q8, "q8" );;
 gap> frq8 := FreeRelatorGroup( q8 ); 
 q8_R

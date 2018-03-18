@@ -2,7 +2,7 @@
 ##
 #W  testing.g                  IdRel Package                     Chris Wensley
 #W                                                             & Anne Heyworth
-#Y  Copyright (C) 1999-2017, Chris Wensley and Anne Heyworth 
+#Y  Copyright (C) 1999-2018, Chris Wensley and Anne Heyworth 
 ##
 
 LoadPackage( "idrel" );
@@ -13,7 +13,8 @@ TestIdRel := function( pkgname )
     pkgdir := DirectoriesPackageLibrary( pkgname, "tst" );
     # Arrange chapters as required
     testfiles := 
-        [ "1-rws.tst", "2-logrws.tst", "3-monpoly.tst", "4-modpoly.tst" ];
+        [ "1-rws.tst", "2-logrws.tst", "3-monpoly.tst", 
+          "4-modpoly.tst", "5-idrels.tst" ];
     testresult := true;
     for ff in testfiles do
         fn := Filename( pkgdir, ff );
@@ -31,3 +32,4 @@ end;
 
 ##  Set the name of the package here
 TestIdRel( "idrel" );
+

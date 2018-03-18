@@ -2,15 +2,14 @@
 ##
 #W  3-monpoly.tst                  Idrel Package                 Chris Wensley
 #W                                                             & Anne Heyworth
-##
-#Y  Copyright (C) 1999-2017 Anne Heyworth and Chris Wensley
+#Y  Copyright (C) 1999-2018 Anne Heyworth and Chris Wensley
 ##
 
 gap> saved_infolevel_idrel := InfoLevel( InfoIdRel );; 
 gap> SetInfoLevel( InfoIdRel, 0 );;
 
 ## Example 4.1.1
-gap> rels := RelatorsOfFpGroup( q8 ); 
+gap> rels8 := RelatorsOfFpGroup( q8 ); 
 [ f1^4, f2^4, f1*f2*f1*f2^-1, f1^2*f2^2 ]
 gap> freeq8 := FreeGroupOfFpGroup( q8 );; 
 gap> gens := GeneratorsOfGroup( freeq8 );;
@@ -21,7 +20,7 @@ gap> pg := MonoidPolyFromCoeffsWords( cg, gens );;
 gap> Print( pg, "\n" ); 
 7*f2 + 6*f1
 gap> cr := [3,4,-5,-2];;
-gap> pr := MonoidPolyFromCoeffsWords( cr, rels );; 
+gap> pr := MonoidPolyFromCoeffsWords( cr, rels8 );; 
 gap> Print( pr, "\n" );
 4*f2^4 - 5*f1*f2*f1*f2^-1 - 2*f1^2*f2^2 + 3*f1^4
 gap> Print( ZeroMonoidPoly( freeq8 ), "\n" );
@@ -79,10 +78,8 @@ gap> Print( pg * pr, "\n" );
 gap> Length( pr );
 4
 
-gap> pr > 3*pr; 
-false
-gap> pr > pg;
-true
+gap> [ pr > 3*pr, pr > pg ];
+[ false, true ]
 
 ## Example 4.4.1
 gap> M := genfgmon; 
@@ -93,6 +90,8 @@ gap> Print( mp1, "\n" );
 gap> rmp1 := ReduceMonoidPoly( mp1, r2 );;
 gap> Print( rmp1, "\n" ); 
  - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>
+
+gap> SetInfoLevel( InfoIdRel, saved_infolevel_idrel );; 
 
 #############################################################################
 ##

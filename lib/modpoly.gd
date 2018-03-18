@@ -4,7 +4,7 @@
 #W                                                             & Anne Heyworth
 ##  Declaration file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2017 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2018 Anne Heyworth and Chris Wensley 
 ##
 ##  This file contains the declarations of operations for module polynomials.
 ##  A ModulePoly is a list of terms [<gen>, <monoid poly> ], 
@@ -113,16 +113,6 @@ DeclareOperation( "LoggedModulePoly",
 
 #############################################################################
 ##
-#O  IdentityModulePolysOld( <G> )
-#O  IdentityModulePolys( <G> )
-#O  IdentityModulePolysKB( <G> )
-##
-DeclareOperation( "IdentityModulePolysOld", [ IsGroup ] );
-DeclareOperation( "IdentityModulePolys", [ IsGroup ] );
-DeclareOperation( "IdentityModulePolysKB", [ IsGroup ] );
-
-#############################################################################
-##
 #O  SaturatedSetLoggedModulePoly( <logsmp>, <elmon>, <rws>, <sats> )
 ##
 DeclareOperation( "SaturatedSetLoggedModulePoly",
@@ -147,18 +137,6 @@ DeclareOperation( "ReduceModulePoly", [ IsModulePolyGensPolysRep, IsList ] );
 ##
 DeclareOperation( "LoggedReduceModulePoly", 
     [ IsModulePolyGensPolysRep, IsList, IsList, IsModulePolyGensPolysRep ] );
-
-#############################################################################
-##
-#A  IdentitiesAmongRelatorsOld( <G> )
-#A  IdentitiesAmongRelators( <G> )
-#A  IdentitiesAmongRelatorsKB( <G> )
-#A  RootIdentities( <G> )
-##
-DeclareAttribute( "IdentitiesAmongRelatorsOld", IsGroup );
-DeclareAttribute( "IdentitiesAmongRelators", IsGroup );
-DeclareAttribute( "IdentitiesAmongRelatorsKB", IsGroup );
-DeclareAttribute( "RootIdentities", IsGroup );
 
 #############################################################################
 ##

@@ -1,0 +1,355 @@
+<!-- ------------------------------------------------------------------- -->
+<!--                                                                     -->
+<!--  idrels.xml          IdRel documentation             Chris Wensley  -->
+<!--                                                    & Anne Heyworth  -->
+<!--                                                                     -->
+<!-- ------------------------------------------------------------------- -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Chapter Label="chap-idrels">
+<Heading>Identities Among Relators</Heading>
+
+The identities among the relators for a finitely presented group <M>G</M> 
+are constructed as logged module polynomials. 
+The procedure, described in <Cite Key="HeWe1" /> 
+and based on work in  <Cite Key="BrSa" />, 
+is to construct a full set of <E>group relator sequences</E> for the group; 
+convert these into module polynomials (eliminating empty sequences); 
+and then apply simplification rules (including the primary identity property) 
+to eliminate obvious duplicates and conjugates. 
+<P/>
+When a reduced set of polynomials has been obtained, 
+the relator sequences from which they were formed are returned 
+as the <E>identities among relators</E> for <M>G</M>. 
+<P/> 
+Here are some of the details when working with the group 
+<M> S_3 = \langle a,b ~|~ \rho=a^3, \sigma=b^2, \tau=(ab)^2 \rangle</M>. 
+The monoid presentation has generators <M>\{a^+,b^+,a^-,b^-\}</M> 
+and relators 
+<Display>
+[~ 1 = a^+a^-,~ 2 = b^+b^-,~ 3 = a^-a^+,~ 4 = b^-b^+,~ 
+   5 = a^{+3},~ 6 = b^{+2},~ 7 = (a^+b^+)^2 ~]\ , 
+</Display>
+and the elements are <M>\{{\rm id}, a^+,b^+,a^-,a^+b^-,b^+a^+\}</M>. 
+The logged rewriting system has relations 
+<Table Align="|l|">
+  <HorLine/>
+  <Row> 
+    <Item> <M>a^+a^- = {\rm id},\quad b^+b^- = {\rm id},\quad  
+              a^-a^+ = {\rm id},\quad b^-b^+ = {\rm id},</M>  
+    </Item>
+  </Row>
+  <Row>
+    <Item> <M>a^{+2} = [5,{\rm id}]a^-,\quad a^{-2} = [-5,{\rm id}]a^+,\quad 
+              b^{+2} = [6,{\rm id}]{\rm id},\quad  b^- = [-6,{\rm id}]b^+,</M> 
+    </Item>
+  </Row>
+  <Row>
+    <Item> <M>b^+a^- = [-7,a^+b^-][6,{\rm id}]a^+b^+,\quad 
+              a^-b^+ = [-7,a^+][6,a^-b^-]b^+a^+,</M> 
+    </Item>
+  </Row>
+  <Row>
+    <Item> <M>a^+b^+a^+ = [7,{\rm id}][-6,{\rm id}]b^+,\quad 
+              b^+a^+b^+ = [7,a^+]a^-.</M>
+    </Item>
+  </Row>
+  <HorLine/>
+</Table>
+
+To construct the <E>identity monoid relator sequences</E> 
+we follow in turn the relators <M>5=\rho,6=\sigma,7=\tau</M> 
+at each of the elements of <M>S_3</M>. 
+For example, applying <M>\tau</M> at <M>a^+</M> gives the cycle: 
+<Display>
+a^+ \stackrel{a^+}{\longrightarrow} a^- 
+    \stackrel{b^+}{\longrightarrow} b^+a^+ 
+    \stackrel{a^+}{\longrightarrow} a^+b^+ 
+    \stackrel{b^+}{\longrightarrow} a^+\ .
+</Display>
+Each of these edges has a non-trivial logged rewrite, 
+particularly the third edge where <M>b^+a^+a^+ \to b^+a^- \to a^+b^+</M>. 
+Combining this log information we obtain the sequence: 
+<Display>
+[5,{\rm id}].[-7,a^+][6,a^-b^-].
+[5,{\rm id}]^{b^-}[-7,a^+b^-][6,{\rm id}].[6,{\rm id}]^{a^-}\ .
+</Display>
+Expanding this gives: 
+<Display>
+a^+a^+a^+.a^-b^-a^-b^-a^-a^+.b^+a^+b^+b^+a^-b^-.b^+a^+a^+a^+b^-. 
+b^+a^-b^-a^-b^-a^-a^+b^-.b^+b^+.a^+b^+b^+a^-
+</Display>
+which cancels to leave, as expected, <M>a^+(a^+b^+a^+b^+)a^- = [7,a^-]</M>. 
+Adding the inverse <M>[-7,a^-]</M> to the front of the log expression 
+gives the identity  
+<Display>
+[-7,a^-].[5,{\rm id}].[-7,a^+][6,a^-b^-].
+[5,b^-][-7,a^+b^-][6,{\rm id}].[6,a^-]\ .
+</Display>
+Converting this back to the group presentation, 
+and conjugating by <M>a</M>, we obtain the 
+<E>identity group relator sequence</E> given in the introduction 
+(<Ref Sect="sect-illustration"/>): 
+<Display>
+\tau^{-1}\; \rho^a\;
+\left(\tau^{-1}\right)^{a^2}\; \sigma^{a^{-1}b^{-1}a}\; 
+\rho^{b^{-1}a}\; \left(\tau^{-1}\right)^{ab^{-1}a}\; 
+\sigma^a\; \sigma\ .
+</Display> 
+This is then transformed into the module polynomial 
+<Display>
+  \rho(a^+ + b^+a^+) + \sigma({\rm id} + a^+ + a^+b^+) 
+- \tau({\rm id} + a^- + b^+)\ ,
+</Display> 
+where the monoid elements are transformed into their normal forms. 
+<P/> 
+The collection of saturated sets of these module polynomials 
+is then reduced as far as possible, and the minimal set obtained 
+returned as the <C>IdentityYSequences</C> of the group. 
+The group relator sequences corresponding to these module polynomials 
+form the <C>IdentitiesAmongRelators</C> for the group. 
+
+<Section Label="sect-original">
+<Heading>The original approach</Heading>
+
+This section describes the approach used from the earliest versions of 
+<Package>IdRel</Package> up to version 2.38 in 2017. 
+For version 2.39 the methods were revised so as to produce some data 
+for infinite groups.  
+This experimental work is described in later sections. 
+
+<ManSection>
+   <Attr Name="IdentitiesAmongRelators"
+         Arg="grp" />
+   <Attr Name="IdentityYSequences"
+         Arg="grp" />
+   <Attr Name="IdentityRelatorSequences"
+         Arg="grp" />
+<Description>
+<P/>
+It is <E>not</E> guaranteed that a minimal set of identities is obtained. 
+For <C>q8</C> a set of seven identities is returned, 
+whereas a minimal set contains only six. 
+See Example 5.1 of <Cite Key="HeWe1" /> for further details. 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> gseq8 := IdentityRelatorSequences( q8 );;
+gap> Length( gseq8 );
+19
+gap> gseq8[1];
+[ 1, 9, [ [ q8_R1^-1, <identity ...> ], [ q8_R1, f1^-1 ] ] ]
+gap> idsq8 := IdentitiesAmongRelators( q8 );;
+gap> Length( idsq8 );
+7
+gap> Display( idsq8 );
+[ [ [ q8_R1^-1, <identity ...> ], [ q8_R1, f1^-1 ] ], 
+  [ [ q8_R2^-1, <identity ...> ], [ q8_R4^-1, f2^-1 ], [ q8_R2, f1^-2*f2^-1 ],
+      [ q8_R4, f2^-1 ] ], 
+  [ [ q8_R1^-1, <identity ...> ], [ q8_R4^-1, f2^-1 ], [ q8_R3, f1^-1*f2^-1 ],
+      [ q8_R3, f2^-1 ], [ q8_R3, f1*f2^-1 ], [ q8_R1^-1, f2^-1 ], 
+      [ q8_R3, f1^-2*f2^-1 ], [ q8_R4, f2^-1 ] ], 
+  [ [ q8_R3^-1, <identity ...> ], [ q8_R4^-1, f2^-1 ], [ q8_R3, f1^-1*f2^-1 ],
+      [ q8_R4, f1*f2^-1 ] ], 
+  [ [ q8_R4^-1, <identity ...> ], [ q8_R4^-1, f2^-1 ], [ q8_R3, f1^-1*f2^-1 ],
+      [ q8_R3, f2^-1 ], [ q8_R4^-1, f2^-1 ], [ q8_R2, f1^-2*f2^-1 ], 
+      [ q8_R4, f2^-1 ] ], 
+  [ [ q8_R4^-1, <identity ...> ], [ q8_R3, f1*f2 ], [ q8_R1^-1, f2 ], 
+      [ q8_R3, f1^-2*f2 ], [ q8_R4, f2 ] ], 
+  [ [ q8_R4^-1, <identity ...> ], [ q8_R4^-1, f1^-2 ], [ q8_R2, f1^-4 ], 
+      [ q8_R1, f1^-1 ] ] ]
+gap> idyseq8 := IdentityYSequences( q8 );
+[ ( q8_Y1*( -q8_M1), q8_R1*( q8_M1 - <identity ...>) ), 
+  ( q8_Y5*( <identity ...>), q8_R2*( q8_M2 - <identity ...>) ), 
+  ( q8_Y18*( q8_M2), q8_R1*( -q8_M2 - <identity ...>) + q8_R3*( q8_M1^2 + q8_M\
+3 + q8_M1 + <identity ...>) ), 
+  ( q8_Y8*( q8_M2), q8_R3*( q8_M3 - q8_M2) + q8_R4*( q8_M1 - <identity ...>) )
+    , 
+  ( q8_Y17*( -q8_M2), q8_R2*( -q8_M1^2) + q8_R3*( -q8_M3 - <identity ...>) + q\
+8_R4*( q8_M2 + <identity ...>) ), 
+  ( q8_Y11*( <identity ...>), q8_R1*( -q8_M2) + q8_R3*( q8_M1*q8_M2 + q8_M4) +\
+ q8_R4*( q8_M2 - <identity ...>) ), 
+  ( q8_Y10*( -q8_M1), q8_R1*( -<identity ...>) + q8_R2*( -q8_M1) + q8_R4*( q8_\
+M3 + q8_M1) ) ]
+]]>
+</Example>
+
+<ManSection>
+   <Attr Name="RootIdentities"
+         Arg="grp" />
+<Description>
+The <E>root identities</E> are identities of the form <M>r^wr^{-1}</M>  
+where <M>r = w^n</M> is a relator and <M>n>1</M>. 
+(For equivalent forms invert, or permute the factors cyclically, 
+or act with <M>w^{-1}</M>.) 
+<P/>
+For <C>q8</C> only two of the four relators are proper powers, 
+<M>\pi=a^4</M> and <M>\rho=b^4</M>, so the root identities are 
+<M>\pi^a\pi^{-1}</M> and <M>\rho^b\rho^{-1}</M>. 
+In the listing below the second of these is displayed as 
+<M>\rho^{-1}(\xi^{-1})^{b^{-1}}\rho^{a^{-2}b^{-1}}\xi^{b^{-1}}</M>, 
+where <M>\xi = a^2b^2</M>. 
+Because the second term is the inverse of the fourth, we may convert 
+the final three terms into a conjugate of the third, 
+so that the identity is equivalent to <M>\rho^{-1}\rho^b</M>: 
+<Display>
+\left(\rho^{a^{-2}b^{-1}}\right)^{\xi^{b^{-1}}} 
+~=~ \left(\rho^{a^{-2}b^{-1}}\right)^{b(a^2b^2)b^{-1}} 
+~=~ \rho^b~. 
+</Display> 
+ 
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> RootIdentities( q8 );
+[ [ [ q8_R1^-1, <identity ...> ], [ q8_R1, f1^-1 ] ], 
+  [ [ q8_R2^-1, <identity ...> ], [ q8_R4^-1, f2^-1 ], [ q8_R2, f1^-2*f2^-1 ],
+      [ q8_R4, f2^-1 ] ] ]
+gap> RootIdentities(s3);
+[ [ [ s3_R1^-1, <identity ...> ], [ s3_R1, f1^-1 ] ], 
+  [ [ s3_R2^-1, <identity ...> ], [ s3_R2, f2 ] ], 
+  [ [ s3_R3^-1, <identity ...> ], [ s3_R3, f1*f2 ] ] ]
+]]>
+</Example>
+</Section>
+
+
+<Section Label="sect-KBidentities">
+<Heading>Knuth-Bendix identities</Heading>
+
+Given an initial set of rules, 
+the logged Knuth-Bendix procedure considers overlaps between 
+pairs of logged rules <M>l_1=L_1r_1</M> and <M>l_2=L_2r_2</M>. 
+In the case <M>u_1l_1=l_2v_2</M> for some words <M>u_1,v_2</M>, 
+the critical pair resulting from the overlap is <M>(u_1r_1,r_2v_2)</M>. 
+Logged reduction is then applied to these two words giving 
+<M>u_1r_1=M_1z_1</M> and <M>r_2v_2=M_2z_2</M>, say.  
+Then, if <M>z_1>z_2</M>, the additional rule 
+<M>z_1 = (M_1^{-1}L_1^{-u_1^{-1}}L_2M_2)z_2</M> is added. 
+There is a similar formula when <M>z_2>z_1</M>. 
+
+<ManSection>
+   <Attr Name="IdentitiesAmongRelatorsKB"
+         Arg="grp" />
+   <Attr Name="IdentityYSequencesKB"
+         Arg="grp" />
+   <Attr Name="IdentityRelatorSequencesKB"
+         Arg="grp" />
+<Description>
+<P/>
+The third possibility is that <M>z_1=z_2</M>, 
+and in this case there is no reduction rule to be added. 
+However the log expression <M>M_1^{-1}L_1^{-u_1^{-1}}L_2M_2</M> 
+must reduce to the identity, and so is an identity relator sequence. 
+Since version 2.41 of this package, the function
+<C>LoggedRewritingSystemFpGroup</C> returns two lists: 
+a complete set of reduction rules, 
+and a set of identity relator sequences produced in this way. 
+In the case of the quaternion group <C>q8</C> a total of <M>42</M> 
+sequences are produced by logged Knuth-Bendix, 
+and these are then reduced to <M>8</M> identities. 
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> gseqKB8 := IdentityRelatorSequencesKB( q8 );;
+gap> Length(last);
+42
+gap> idrelsKB8 := IdentitiesAmongRelatorsKB( q8 );;
+gap> Display( idrelsKB8 );
+[ [ [ q8_R1^-1, <identity ...> ], [ q8_R1, f1^-1 ] ], 
+  [ [ q8_R3^-1, f1^-1 ], [ q8_R3^-1, f1^-2 ], [ q8_R1, <identity ...> ], 
+      [ q8_R3^-1, f1 ], [ q8_R1, f2^-1 ], [ q8_R3^-1, <identity ...> ] ], 
+  [ [ q8_R3, f1*f2 ], [ q8_R4^-1, <identity ...> ], [ q8_R3^-1, f1^-2 ], 
+      [ q8_R4, f1^-1 ] ], 
+  [ [ q8_R2^-1, f1^-3 ], [ q8_R4, f1^-1 ], [ q8_R3, <identity ...> ], 
+      [ q8_R3^-1, f1*f2^-1 ], [ q8_R4^-1, <identity ...> ], [ q8_R2, f1^-2 ] ]
+    , [ [ q8_R4^-1, f2 ], [ q8_R2, f1^-2*f2 ], [ q8_R4^-1, <identity ...> ], 
+      [ q8_R3, f1^-1 ], [ q8_R3, <identity ...> ] ], 
+  [ [ q8_R4^-1, <identity ...> ], [ q8_R3^-1, f1^-2 ], 
+      [ q8_R1, <identity ...> ], [ q8_R3^-1, f1 ], [ q8_R4, f2^-1 ] ], 
+  [ [ q8_R4^-1, <identity ...> ], [ q8_R4^-1, f1^-2 ], [ q8_R2, f1^-4 ], 
+      [ q8_R1, <identity ...> ] ], 
+  [ [ q8_R4, f1^-1 ], [ q8_R3, f1*f2 ], [ q8_R1^-1, f2 ], 
+      [ q8_R2^-1, f1^-2*f2 ], [ q8_R4, f2 ], [ q8_R3, f1 ], [ q8_R3^-1, f2 ], 
+      [ q8_R4^-1, <identity ...> ], [ q8_R3, f1^-1 ], [ q8_R4^-1, f1^-1 ], 
+      [ q8_R2, f1^-3 ] ] ]
+]]>
+</Example>
+
+
+</Section>
+
+
+<Section Label="sect-partial-elements">
+<Heading>Partial lists of elements</Heading>
+
+As we have seen, the procedure for obtaining identities involves applying 
+each relator at each element of the group. 
+Since this will not terminate when the group is infinite, 
+we include an operation to construct words up to a given length 
+in the monoid representation of the group. 
+
+<ManSection>
+   <Oper Name="PartialElementsOfMonoidRepresentation"
+         Arg="G, len" />
+<Description>
+As an example we take the group 
+<M>\langle u,v,w ~|~ u^3, v^2, w^2, (uv)^2, (vw)^2\rangle</M>. 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> F := FreeGroup(3);;
+gap> u := F.1;;  v := F.2;;  w := F.3;; 
+gap> rels := [ u^3, v^2, w^2, (u*v)^2, (v*w)^2 ];; 
+gap> q0 := F/rels;; 
+gap> SetArrangementOfMonoidGenerators( q0, [1,-1,2,-2,3,-3] );
+gap> SetName( q0, "q0" );
+gap> monq0 := MonoidPresentationFpGroup( q0 );
+monoid presentation with group relators 
+[ q0_M1^3, q0_M3^2, q0_M5^2, (q0_M1*q0_M3)^2, (q0_M3*q0_M5)^2 ]
+gap> lrws := LoggedRewritingSystemFpGroup( q0 );; 
+gap> PartialElementsOfMonoidPresentation( q0, 1 ); 
+[ <identity ...>, q0_M1, q0_M2, q0_M3, q0_M5 ]
+gap> PartialElementsOfMonoidPresentation( q0, 2 ); 
+[ <identity ...>, q0_M1, q0_M2, q0_M3, q0_M5, q0_M1*q0_M3, q0_M1*q0_M5, 
+  q0_M2*q0_M3, q0_M2*q0_M5, q0_M3*q0_M5, q0_M5*q0_M1, q0_M5*q0_M2 ]
+]]>
+</Example>
+
+</Section>
+
+<Section Label="sect-inf-identities">
+<Heading>Identities for infinite groups</Heading>
+
+Because the list of elements is incomplete, it is not guaranteed 
+that the list of identities is complete. 
+<P/>
+<Example>
+<![CDATA[
+gap> idsq0 := IdentitiesAmongRelators( q0 );
+[ [ [ q0_R1^-1, <identity ...> ], [ q0_R1, f1^-1 ] ], 
+  [ [ q0_R2^-1, <identity ...> ], [ q0_R2, f2 ] ], 
+  [ [ q0_R3^-1, <identity ...> ], [ q0_R3, f3 ] ], 
+  [ [ q0_R4^-1, <identity ...> ], [ q0_R2^-1, f1^-1 ], [ q0_R4, f1*f2 ], 
+      [ q0_R2, f1*f2 ] ], 
+  [ [ q0_R5^-1, <identity ...> ], [ q0_R3^-1, f2^-1 ], [ q0_R5, f2*f3 ], 
+      [ q0_R3, f2*f3 ] ], 
+  [ [ q0_R1^-1, <identity ...> ], [ q0_R2^-1, f1^-1 ], [ q0_R4, f1*f2 ], 
+      [ q0_R2^-1, f1^-1*f2^-1*f1*f2 ], [ q0_R4, f1^2*f2 ], [ q0_R1^-1, f2 ], 
+      [ q0_R2^-1, f1^-1*f2^-1*f1^-1*f2 ], [ q0_R4, f2 ] ], 
+  [ [ q0_R2^-1, <identity ...> ], [ q0_R3^-1, f2^-1 ], [ q0_R5, f2*f3 ], 
+      [ q0_R2^-1, f3 ], [ q0_R3^-1, f2^-1*f3^-1*f2^-1*f3 ], [ q0_R5, f3 ] ] ]
+]]>
+</Example>
+
+
+</Section>
+
+</Chapter>

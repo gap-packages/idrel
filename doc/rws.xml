@@ -97,18 +97,17 @@ are named <C>q8_M1, q8_M2, q8_M3, q8_M4</C> respectively.
 <Example>
 <![CDATA[
 gap> mon := MonoidPresentationFpGroup( q8 );
-monoid presentation for an fp-group with homomorphism
-[ [ q8_M1, q8_M2, q8_M3, q8_M4 ], [ f1, f2, f1^-1, f2^-1 ] ]
-gap> fgmon := FreeGroupOfPresentation( mon);
-<free group on the generators [ q8_Ml, q8_M2, q8_M3, q8_M4]> 
-gap> genfgmon := GeneratorsOfGroup( fgmon);
-[ q8_Ml, q8_M2, q8_M3, q8_M4] 
-gap> gprels := GroupRelatorsOfPresentation( mon );
-[ q8_Ml^4, q8_M2^4, q8_Ml*q8_M2*q8_Ml*q8_M4, q8_Ml^2*q8_M2^2] 
-gap> invrels := InverseRelatorsOfPresentation( mon);
-[ q8_Ml*q8_M3, q8_M2*q8_M4, q8_M3*q8_Ml, q8_M4*q8_M2] 
-gap> hompres := HomomorphismOfPresentation( mon );
-[ q8_Ml, q8_M2, q8_M3, q8_M4] -> [ fl, f2, fl^-l, f2^-1 ]
+monoid presentation with group relators 
+[ q8_M1^4, q8_M2^4, q8_M1*q8_M2*q8_M1*q8_M4, q8_M1^2*q8_M2^2 ]
+gap> fgmon := FreeGroupOfPresentation( mon ); 
+<free group on the generators [ q8_M1, q8_M2, q8_M3, q8_M4 ]>
+gap> genfgmon := GeneratorsOfGroup( fgmon );;
+gap> gprels := GroupRelatorsOfPresentation( mon ); 
+[ q8_M1^4, q8_M2^4, q8_M1*q8_M2*q8_M1*q8_M4, q8_M1^2*q8_M2^2 ]
+gap> invrels := InverseRelatorsOfPresentation( mon ); 
+[ q8_M1*q8_M3, q8_M2*q8_M4, q8_M3*q8_M1, q8_M4*q8_M2 ]
+gap> hompres := HomomorphismOfPresentation( mon ); 
+[ q8_M1, q8_M2, q8_M3, q8_M4 ] -> [ f1, f2, f1^-1, f2^-1 ]
 ]]>
 </Example>
 </Section>
@@ -191,19 +190,18 @@ the Knuth-Bendix process starts to generate infinite sets of relations
 such as <M>\{ab^ma^{-1} \to b^m,~ m \geqslant 1\}</M>. 
 If, using the <C>ArrangementOfMonoidGenerators</C> function, 
 we specify the alternative ordering 
-<M> [g_1^+,g_1^-,g_2^+,g_2^-,\ldots] </M>, 
+<M> [g_1^+,g_1^-,g_2^+,g_2^-] </M>, 
 then a finite set of rules is obtained.  
 <P/>
 <Example>
 <![CDATA[
 gap> F := FreeGroup(2);;                  
-gap> T := F/[Comm(F.1,F.2)];              
+gap> T := F/[Comm(a,b)];              
 <fp group of size infinity on the generators [ f1, f2 ]>
 gap> SetName( T, "T" );                   
 gap> SetArrangementOfMonoidGenerators( T, [1,-1,2,-2] );
 gap> monT := MonoidPresentationFpGroup(T);              
-monoid presentation for an fp-group with homomorphism
-[ [ T_M1, T_M2, T_M3, T_M4 ], [ f1, f1^-1, f2, f2^-1 ] ]
+monoid presentation with group relators [ T_M2*T_M4*T_M1*T_M3 ]
 gap> rwsT := RewritingSystemFpGroup( T );               
 [ [ T_M1*T_M2, <identity ...> ], [ T_M2*T_M1, <identity ...> ], 
   [ T_M3*T_M4, <identity ...> ], [ T_M4*T_M3, <identity ...> ], 
@@ -211,6 +209,28 @@ gap> rwsT := RewritingSystemFpGroup( T );
   [ T_M3*T_M2, T_M2*T_M3 ], [ T_M3*T_M1, T_M1*T_M3 ] ]
 ]]>
 </Example>
+The eight rules can be written as follows, 
+showing that the <M>a^{\pm}</M> and <M>b^{\pm}</M> commute:  
+<Table Align="|c|">
+  <HorLine/>
+  <Row> 
+    <Item> <M>a^+a^- \to \rm{id}, \quad\quad
+              a^-a^+ \to \rm{id}, \quad\quad
+              b^+b^- \to \rm{id}, \quad\quad
+	      b^-b^+ \to \rm{id}, </M>  
+    </Item>
+  </Row>
+  <Row>
+    <Item> <M>b^-a^- \to a^-b^-, \quad 
+              b^-a^+ \to a^+b^-, \quad 
+              b^+a^- \to a^-b^+, \quad 
+              b^+a^+ \to a^+b^+. </M>
+    </Item>
+  </Row>
+  <HorLine/>
+</Table>
+
+<P/>
 The functions called by <C>RewritingSystemFpGroup</C> are as follows.
 
 <ManSection Label="one-pass-reduce">
@@ -249,23 +269,25 @@ where <M>b^+a^+ \to a^+b^-</M> is the last rule.
 </ManSection>
 <Example>
 <![CDATA[
-gap> monrels := Concatenation( gprels, invrels );
-[ q8_Ml^4, q8_M2^4, q8_Ml*q8_M2*q8_Ml*q8_M4, q8_Ml^2*q8_M2^2, q8_Ml*q8_M3, 
-  q8_M2*q8_M4, q8_M3*q8_Ml, q8_M4*q8_M2] 
-gap> id := One( monrels[l] );;
-gap> r0 := List( monrels, r -> [ r, id ] );
-[ [ q8_Ml^4, <identity ...> ], [ q8_M2^4, <identity. ..> ], 
-  [ q8_Ml*q8_M2*q8_Ml*q8_M4, <identity ...> ], 
-  [ q8_Ml^2*q8_M2^2, <identity. ..>], [ q8_Ml*q8_M3, <identity ...> ], 
-  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_Ml, <identity. ..>], 
-  [ q8_M4*q8_M2, <identity ...> ] ] 
-gap> ap := genfgmon[l];; bp := genfgmon[2];;   ## p for plus
-gap> am := genfgmon[3];; bm := genfgmon[4];;   ## m for minus
-gap> w0 := bp^9 * ap^9;
+gap> monrels := Concatenation( gprels, invrels ); 
+[ q8_M1^4, q8_M2^4, q8_M1*q8_M2*q8_M1*q8_M4, q8_M1^2*q8_M2^2, q8_M1*q8_M3, 
+  q8_M2*q8_M4, q8_M3*q8_M1, q8_M4*q8_M2 ]
+gap> id := One( monrels[1] );;
+gap> r0 := List( monrels, r -> [ r, id ] ); 
+[ [ q8_M1^4, <identity ...> ], [ q8_M2^4, <identity ...> ], 
+  [ q8_M1*q8_M2*q8_M1*q8_M4, <identity ...> ], 
+  [ q8_M1^2*q8_M2^2, <identity ...> ], [ q8_M1*q8_M3, <identity ...> ], 
+  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_M1, <identity ...> ], 
+  [ q8_M4*q8_M2, <identity ...> ] ]
+gap> ap := genfgmon[1];;
+gap> bp := genfgmon[2];;
+gap> am := genfgmon[3];;
+gap> bm := genfgmon[4];;
+gap> w0 := bp^9 * ap^9; 
 q8_M2^9*q8_M1^9
-gap> w1 := OnePassReduceWord( w0, r0 );
+gap> w1 := OnePassReduceWord( w0, r0 ); 
 q8_M2^5*q8_M1^5
-gap> w2 := ReduceWordKB( w0, r0 );
+gap> w2 := ReduceWordKB( w0, r0 ); 
 q8_M2*q8_M1
 ]]>
 </Example>
@@ -324,35 +346,35 @@ Now <M>b^9a^9</M> correctly reduces to <M>ab^{-1}</M>.
 <Example>
 <![CDATA[
 gap> r1 := OnePassKB( r0 );
-[ [ q8_Ml^4, <identity ...> ], [ q8_M2^4, <identity ...> ], 
-  [ q8_Ml*q8_M2*q8_Ml*q8_M4, <identity ...> ], 
-  [ q8_Ml^2*q8_M2^2, <identity. ..> ], [ q8_Ml*q8_M3, <identity ...> ], 
-  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_Ml, <identity ...> ], 
-  [ q8_M4*q8_M2, <identity ...> ], [ q8_M2*q8_Ml*q8_M4, q8_Ml^3], 
-  [ q8_Ml*q8_M2^2, q8_Ml^3 ], [ q8_M2^2, q8_Ml^2 ], [q8_Ml^3, q8_M3 ], 
-  [ q8_M2^3, q8_M4 ], [ q8_Ml*q8_M2*q8_Ml, q8_M2], 
-  [ q8_M2^3, q8_Ml^2*q8_M2], [ q8_M2^2, q8_Ml^2 ], [q8_Ml^2*q8_M2, q8_M4 ], 
-  [ q8_Ml^3, q8_M3 ], [ q8_M2*q8_Ml*q8_M4, q8_M3 ], [q8_Ml*q8_M2^2, q8_M3 ], 
-  [ q8_M2^3, q8_M4 ] ] 
+[ [ q8_M1^4, <identity ...> ], [ q8_M2^4, <identity ...> ], 
+  [ q8_M1*q8_M2*q8_M1*q8_M4, <identity ...> ], 
+  [ q8_M1^2*q8_M2^2, <identity ...> ], [ q8_M1*q8_M3, <identity ...> ], 
+  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_M1, <identity ...> ], 
+  [ q8_M4*q8_M2, <identity ...> ], [ q8_M2*q8_M1*q8_M4, q8_M1^3 ], 
+  [ q8_M1*q8_M2^2, q8_M1^3 ], [ q8_M2^2, q8_M1^2 ], [ q8_M1^3, q8_M3 ], 
+  [ q8_M2^3, q8_M4 ], [ q8_M1*q8_M2*q8_M1, q8_M2 ], 
+  [ q8_M2^3, q8_M1^2*q8_M2 ], [ q8_M2^2, q8_M1^2 ], [ q8_M1^2*q8_M2, q8_M4 ], 
+  [ q8_M1^3, q8_M3 ], [ q8_M2*q8_M1*q8_M4, q8_M3 ], [ q8_M1*q8_M2^2, q8_M3 ], 
+  [ q8_M2^3, q8_M4 ] ]
 gap> Length( r1 );
 21
-gap> r1 := RewriteReduce( r1 );
-[ [ q8_Ml*q8_M3, <identity ...> ], [ q8_M2^2, q8_Ml^2 ], 
-  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_Ml, <identity ...> ], 
-  [ q8_M4*q8_M2, <identity ...> ], [ q8_Ml^3, q8_M3 ], 
-  [ q8_Ml^2*q8_M2, q8_M4 ], [ q8_Ml*q8_M2*q8_Ml, q8_M2 ], 
-  [ q8_M2*q8_Ml*q8_M4, q8_M3 ] ] 
+gap> r1 := RewriteReduce( r1 ); 
+[ [ q8_M1*q8_M3, <identity ...> ], [ q8_M2^2, q8_M1^2 ], 
+  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_M1, <identity ...> ], 
+  [ q8_M4*q8_M2, <identity ...> ], [ q8_M1^3, q8_M3 ], 
+  [ q8_M1^2*q8_M2, q8_M4 ], [ q8_M1*q8_M2*q8_M1, q8_M2 ], 
+  [ q8_M2*q8_M1*q8_M4, q8_M3 ] ]
 gap> Length( r1 );
 9
 gap> r2 := KnuthBendix( r1 );
-[ [ q8_Ml*q8_M3, <identity ...> ], [ q8_M2*q8_Ml, q8_Ml*q8_M4 ], 
-  [ q8_M2^2, q8_Ml^2], [ q8_M2*q8_M3, q8_Ml*q8_M2 ], 
-  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_Ml, <identity ...> ], 
-  [ q8_M3*q8_M2, q8_Ml*q8_M4 ], [ q8_M3^2, q8_Ml^2 ], 
-  [ q8_M3*q8_M4, q8_Ml*q8_M2 ], [ q8_M4*q8_Ml, q8_Ml*q8_M2 ], 
-  [ q8_M4*q8_M2, <identity ...> ], [ q8_M4*q8_M3, q8_Ml*q8_M4 ], 
-  [ q8_M4^2, q8_Ml^2], [ q8_Ml^3, q8_M3 ], [q8_Ml^2*q8_M2, q8_M4 ], 
-  [ q8_Ml^2*q8_M4, q8_M2 ] ]
+[ [ q8_M1*q8_M3, <identity ...> ], [ q8_M2*q8_M1, q8_M1*q8_M4 ], 
+  [ q8_M2^2, q8_M1^2 ], [ q8_M2*q8_M3, q8_M1*q8_M2 ], 
+  [ q8_M2*q8_M4, <identity ...> ], [ q8_M3*q8_M1, <identity ...> ], 
+  [ q8_M3*q8_M2, q8_M1*q8_M4 ], [ q8_M3^2, q8_M1^2 ], 
+  [ q8_M3*q8_M4, q8_M1*q8_M2 ], [ q8_M4*q8_M1, q8_M1*q8_M2 ], 
+  [ q8_M4*q8_M2, <identity ...> ], [ q8_M4*q8_M3, q8_M1*q8_M4 ], 
+  [ q8_M4^2, q8_M1^2 ], [ q8_M1^3, q8_M3 ], [ q8_M1^2*q8_M2, q8_M4 ], 
+  [ q8_M1^2*q8_M4, q8_M2 ] ]
 gap> Length( r2 );
 16
 gap> w2 := ReduceWordKB( w0, r2 );
