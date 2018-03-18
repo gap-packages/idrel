@@ -9,6 +9,9 @@
 
 ## 2.38 -> 2.41  (18/03/2018)
 
+ * (18/03/18) large number of functions edited and renamed and tests altered: 
+              IdentitiesAmongRelators now returns group relator sequences 
+              and the module polynomials are available as IdentityYSequences 
  * (21/02/18) required package Utils - not XMod 
               separated out new operation InitialLoggedRules 
  * (20/02/18) removed IdentitiesAmongRelatorsOld 
