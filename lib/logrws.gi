@@ -864,7 +864,7 @@ function( G, r0 )
             Print( "with lengths: ", List( rseq, y -> Length(y[2]) ), "\n\n" ); 
         fi;
         if ( InfoLevel( InfoIdRel ) > 2 ) then 
-            PrintOneItemPerLine( rseq ); 
+            Perform( rseq, Display ); 
         fi;
     fi;
     Info( InfoIdRel, 3, "length of rseq in LoggedOnePassKB: ", Length(rseq) ); 

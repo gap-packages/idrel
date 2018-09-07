@@ -30,76 +30,71 @@ gap> fgmon := FreeGroupOfPresentation( monq0 );
 <free group on the generators [ q0_M1, q0_M2, q0_M3, q0_M4, q0_M5, q0_M6 ]>
 gap> genfgmon := GeneratorsOfGroup( fgmon );; 
 gap> gprels := GroupRelatorsOfPresentation( monq0 );;
-gap> Print( "gprels = \n" );  PrintOneItemPerLine( gprels ); 
-gprels = 
-[ q0_M1^3,
-  q0_M3^2,
-  q0_M5^2,
-  (q0_M1*q0_M3)^2,
-  (q0_M3*q0_M5)^2 ]
+gap> Perform( gprels, Display ); 
+q0_M1^3
+q0_M3^2
+q0_M5^2
+(q0_M1*q0_M3)^2
+(q0_M3*q0_M5)^2
 gap> invrels := InverseRelatorsOfPresentation( monq0 );; 
-gap> Print( "invrels = \n" );  PrintOneItemPerLine( invrels ); 
-invrels = 
-[ q0_M1*q0_M2,
-  q0_M3*q0_M4,
-  q0_M5*q0_M6,
-  q0_M2*q0_M1,
-  q0_M4*q0_M3,
-  q0_M6*q0_M5 ]
+gap> Perform( invrels, Display ); 
+q0_M1*q0_M2
+q0_M3*q0_M4
+q0_M5*q0_M6
+q0_M2*q0_M1
+q0_M4*q0_M3
+q0_M6*q0_M5
 gap> hompres := HomomorphismOfPresentation( monq0 ); 
 [ q0_M1, q0_M2, q0_M3, q0_M4, q0_M5, q0_M6 ] -> 
 [ f1, f1^-1, f2, f2^-1, f3, f3^-1 ]
 gap> rws := RewritingSystemFpGroup( q0 );; 
-gap> Print( "rws = \n" );  PrintOneItemPerLine( rws );
-rws = 
-[ [ q0_M1*q0_M2, <identity ...> ],
-  [ q0_M2*q0_M1, <identity ...> ],
-  [ q0_M5^2, <identity ...> ],
-  [ q0_M3^2, <identity ...> ],
-  [ q0_M2^2, q0_M1 ],
-  [ q0_M1^2, q0_M2 ],
-  [ q0_M5*q0_M2*q0_M3, q0_M3*q0_M5*q0_M1 ],
-  [ q0_M5*q0_M1*q0_M3, q0_M3*q0_M5*q0_M2 ],
-  [ q0_M5*q0_M3, q0_M3*q0_M5 ],
-  [ q0_M3*q0_M2, q0_M1*q0_M3 ],
-  [ q0_M3*q0_M1, q0_M2*q0_M3 ],
-  [ q0_M6, q0_M5 ],
-  [ q0_M4, q0_M3 ] ]
-gap> l0 := InitialLoggedRules( q0); 
-[ [ q0_M1*q0_M2, [  ], <identity ...> ], [ q0_M3*q0_M4, [  ], <identity ...> ]
-    , [ q0_M5*q0_M6, [  ], <identity ...> ], 
-  [ q0_M2*q0_M1, [  ], <identity ...> ], [ q0_M4*q0_M3, [  ], <identity ...> ]
-    , [ q0_M6*q0_M5, [  ], <identity ...> ], 
-  [ q0_M1^3, [ [ 7, <identity ...> ] ], <identity ...> ], 
-  [ q0_M3^2, [ [ 8, <identity ...> ] ], <identity ...> ], 
-  [ q0_M5^2, [ [ 9, <identity ...> ] ], <identity ...> ], 
-  [ (q0_M1*q0_M3)^2, [ [ 10, <identity ...> ] ], <identity ...> ], 
-  [ (q0_M3*q0_M5)^2, [ [ 11, <identity ...> ] ], <identity ...> ] ]
+gap> Perform( rws, Display );
+[ q0_M1*q0_M2, <identity ...> ]
+[ q0_M2*q0_M1, <identity ...> ]
+[ q0_M5^2, <identity ...> ]
+[ q0_M3^2, <identity ...> ]
+[ q0_M2^2, q0_M1 ]
+[ q0_M1^2, q0_M2 ]
+[ q0_M5*q0_M2*q0_M3, q0_M3*q0_M5*q0_M1 ]
+[ q0_M5*q0_M1*q0_M3, q0_M3*q0_M5*q0_M2 ]
+[ q0_M5*q0_M3, q0_M3*q0_M5 ]
+[ q0_M3*q0_M2, q0_M1*q0_M3 ]
+[ q0_M3*q0_M1, q0_M2*q0_M3 ]
+[ q0_M6, q0_M5 ]
+[ q0_M4, q0_M3 ]
+gap> l0 := InitialLoggedRules( q0);;
+gap> Perform( l0, Display ); 
+[ q0_M1*q0_M2, [  ], <identity ...> ]
+[ q0_M3*q0_M4, [  ], <identity ...> ]
+[ q0_M5*q0_M6, [  ], <identity ...> ]
+[ q0_M2*q0_M1, [  ], <identity ...> ]
+[ q0_M4*q0_M3, [  ], <identity ...> ]
+[ q0_M6*q0_M5, [  ], <identity ...> ]
+[ q0_M1^3, [ [ 7, <identity ...> ] ], <identity ...> ]
+[ q0_M3^2, [ [ 8, <identity ...> ] ], <identity ...> ]
+[ q0_M5^2, [ [ 9, <identity ...> ] ], <identity ...> ]
+[ (q0_M1*q0_M3)^2, [ [ 10, <identity ...> ] ], <identity ...> ]
+[ (q0_M3*q0_M5)^2, [ [ 11, <identity ...> ] ], <identity ...> ]
 gap> logrws := LoggedRewritingSystemFpGroup( q0 );; 
-gap> Print( "logrws = \n" );  PrintOneItemPerLine( logrws );
-logrws = 
-[ [ q0_M5^2, [ [ 9, <identity ...> ] ], <identity ...> ],
-  [ q0_M3^2, [ [ 8, <identity ...> ] ], <identity ...> ],
-  [ q0_M2*q0_M1, [  ], <identity ...> ],
-  [ q0_M1*q0_M2, [  ], <identity ...> ],
-  [ q0_M2^2, [ [ -7, <identity ...> ] ], q0_M1 ],
-  [ q0_M1^2, [ [ 7, <identity ...> ] ], q0_M2 ],
-  
+gap> Perform( logrws, Display );
+[ q0_M5^2, [ [ 9, <identity ...> ] ], <identity ...> ]
+[ q0_M3^2, [ [ 8, <identity ...> ] ], <identity ...> ]
+[ q0_M2*q0_M1, [  ], <identity ...> ]
+[ q0_M1*q0_M2, [  ], <identity ...> ]
+[ q0_M2^2, [ [ -7, <identity ...> ] ], q0_M1 ]
+[ q0_M1^2, [ [ 7, <identity ...> ] ], q0_M2 ]
 [ q0_M5*q0_M2*q0_M3, 
   [ [ -10, q0_M1*q0_M6 ], [ 8, q0_M2*q0_M4*q0_M6 ], [ -9, q0_M4*q0_M6 ], 
-      [ 11, q0_M3 ], [ -8, <identity ...> ] ], q0_M3*q0_M5*q0_M1 ],
-  
+      [ 11, q0_M3 ], [ -8, <identity ...> ] ], q0_M3*q0_M5*q0_M1 ]
 [ q0_M5*q0_M1*q0_M3, 
   [ [ 9, <identity ...> ], [ -11, <identity ...> ], [ 10, q0_M1*q0_M6*q0_M4 ] 
-     ], q0_M3*q0_M5*q0_M2 ],
-  
+     ], q0_M3*q0_M5*q0_M2 ]
 [ q0_M5*q0_M3, [ [ -9, q0_M4*q0_M6 ], [ 11, q0_M3 ], [ -8, <identity ...> ] ],
-  q0_M3*q0_M5 ],
-  [ q0_M3*q0_M2, [ [ -10, q0_M1*q0_M4 ], [ 8, <identity ...> ] ], q0_M1*q0_M3 
- ],
-  [ q0_M3*q0_M1, [ [ -8, q0_M2*q0_M4 ], [ 10, q0_M1 ] ], q0_M2*q0_M3 ],
-  [ q0_M6, [ [ -9, <identity ...> ] ], q0_M5 ],
-  [ q0_M4, [ [ -8, <identity ...> ] ], q0_M3 ] ]
+  q0_M3*q0_M5 ]
+[ q0_M3*q0_M2, [ [ -10, q0_M1*q0_M4 ], [ 8, <identity ...> ] ], q0_M1*q0_M3 ]
+[ q0_M3*q0_M1, [ [ -8, q0_M2*q0_M4 ], [ 10, q0_M1 ] ], q0_M2*q0_M3 ]
+[ q0_M6, [ [ -9, <identity ...> ] ], q0_M5 ]
+[ q0_M4, [ [ -8, <identity ...> ] ], q0_M3 ]
 gap> up := genfgmon[1];;
 gap> um := genfgmon[2];;
 gap> vp := genfgmon[3];;
@@ -115,29 +110,51 @@ gap> w1 := OnePassReduceWord( w0, r0 );
 q0_M1^2*q0_M3^3*q0_M5^3
 gap> w2 := ReduceWordKB( w0, r0 ); 
 q0_M1^2*q0_M3*q0_M5
-gap> r1 := OnePassKB( r0 );
-[ [ q0_M1^3, <identity ...> ], [ q0_M3^2, <identity ...> ], 
-  [ q0_M5^2, <identity ...> ], [ (q0_M1*q0_M3)^2, <identity ...> ], 
-  [ (q0_M3*q0_M5)^2, <identity ...> ], [ q0_M1*q0_M2, <identity ...> ], 
-  [ q0_M3*q0_M4, <identity ...> ], [ q0_M5*q0_M6, <identity ...> ], 
-  [ q0_M2*q0_M1, <identity ...> ], [ q0_M4*q0_M3, <identity ...> ], 
-  [ q0_M6*q0_M5, <identity ...> ], [ q0_M3*q0_M1*q0_M3, q0_M1^2 ], 
-  [ q0_M1^2, q0_M2 ], [ q0_M5*q0_M3*q0_M5, q0_M3 ], [ q0_M4, q0_M3 ], 
-  [ q0_M6, q0_M5 ], [ q0_M1*q0_M3*q0_M1, q0_M3 ], 
-  [ q0_M5*q0_M3*q0_M5, q0_M1*q0_M3*q0_M1 ], [ q0_M1*q0_M3*q0_M1, q0_M4 ], 
-  [ q0_M3*q0_M5*q0_M3, q0_M5 ], [ q0_M3*q0_M5*q0_M3, q0_M6 ], 
-  [ q0_M1^2, q0_M2 ], [ q0_M3*q0_M1*q0_M3, q0_M2 ], [ q0_M4, q0_M3 ], 
-  [ q0_M5*q0_M3*q0_M5, q0_M4 ], [ q0_M6, q0_M5 ] ]
+gap> r1 := OnePassKB( r0 );; 
+gap> Perform( r1, Display ); 
+[ q0_M1^3, <identity ...> ]
+[ q0_M3^2, <identity ...> ]
+[ q0_M5^2, <identity ...> ]
+[ (q0_M1*q0_M3)^2, <identity ...> ]
+[ (q0_M3*q0_M5)^2, <identity ...> ]
+[ q0_M1*q0_M2, <identity ...> ]
+[ q0_M3*q0_M4, <identity ...> ]
+[ q0_M5*q0_M6, <identity ...> ]
+[ q0_M2*q0_M1, <identity ...> ]
+[ q0_M4*q0_M3, <identity ...> ]
+[ q0_M6*q0_M5, <identity ...> ]
+[ q0_M3*q0_M1*q0_M3, q0_M1^2 ]
+[ q0_M1^2, q0_M2 ]
+[ q0_M5*q0_M3*q0_M5, q0_M3 ]
+[ q0_M4, q0_M3 ]
+[ q0_M6, q0_M5 ]
+[ q0_M1*q0_M3*q0_M1, q0_M3 ]
+[ q0_M5*q0_M3*q0_M5, q0_M1*q0_M3*q0_M1 ]
+[ q0_M1*q0_M3*q0_M1, q0_M4 ]
+[ q0_M3*q0_M5*q0_M3, q0_M5 ]
+[ q0_M3*q0_M5*q0_M3, q0_M6 ]
+[ q0_M1^2, q0_M2 ]
+[ q0_M3*q0_M1*q0_M3, q0_M2 ]
+[ q0_M4, q0_M3 ]
+[ q0_M5*q0_M3*q0_M5, q0_M4 ]
+[ q0_M6, q0_M5 ]
 gap> Length( r1 );
 26
-gap> r2 := KnuthBendix( r1 );
-[ [ q0_M4, q0_M3 ], [ q0_M6, q0_M5 ], [ q0_M1^2, q0_M2 ], 
-  [ q0_M1*q0_M2, <identity ...> ], [ q0_M2*q0_M1, <identity ...> ], 
-  [ q0_M2^2, q0_M1 ], [ q0_M3*q0_M1, q0_M2*q0_M3 ], 
-  [ q0_M3*q0_M2, q0_M1*q0_M3 ], [ q0_M3^2, <identity ...> ], 
-  [ q0_M5*q0_M3, q0_M3*q0_M5 ], [ q0_M5^2, <identity ...> ], 
-  [ q0_M5*q0_M1*q0_M3, q0_M3*q0_M5*q0_M2 ], 
-  [ q0_M5*q0_M2*q0_M3, q0_M3*q0_M5*q0_M1 ] ]
+gap> r2 := KnuthBendix( r1 );;
+gap> Perform( r2, Display );
+[ q0_M4, q0_M3 ]
+[ q0_M6, q0_M5 ]
+[ q0_M1^2, q0_M2 ]
+[ q0_M1*q0_M2, <identity ...> ]
+[ q0_M2*q0_M1, <identity ...> ]
+[ q0_M2^2, q0_M1 ]
+[ q0_M3*q0_M1, q0_M2*q0_M3 ]
+[ q0_M3*q0_M2, q0_M1*q0_M3 ]
+[ q0_M3^2, <identity ...> ]
+[ q0_M5*q0_M3, q0_M3*q0_M5 ]
+[ q0_M5^2, <identity ...> ]
+[ q0_M5*q0_M1*q0_M3, q0_M3*q0_M5*q0_M2 ]
+[ q0_M5*q0_M2*q0_M3, q0_M3*q0_M5*q0_M1 ]
 gap> Length( r2 );           
 13
 gap> w2 := ReduceWordKB( w0, r2 );
@@ -172,59 +189,59 @@ gap> for i in [1..11] do Print( T[i+i-1], "   ", T[i+i], "\n" ); od;
 gap> seq0 := IdentityRelatorSequences( q0 );;
 gap> Length( seq0 );                                  
 24
-gap> idsq0 := IdentitiesAmongRelators( q0 );
-[ [ [ q0_R1^-1, <identity ...> ], [ q0_R1, f1^-1 ] ], 
-  [ [ q0_R2^-1, <identity ...> ], [ q0_R2, f2 ] ], 
-  [ [ q0_R3^-1, <identity ...> ], [ q0_R3, f3 ] ], 
-  [ [ q0_R4^-1, <identity ...> ], [ q0_R2^-1, f1^-1 ], [ q0_R4, f1*f2 ], 
-      [ q0_R2, f1*f2 ] ], 
-  [ [ q0_R5^-1, <identity ...> ], [ q0_R3^-1, f2^-1 ], [ q0_R5, f2*f3 ], 
-      [ q0_R3, f2*f3 ] ], 
-  [ [ q0_R1^-1, <identity ...> ], [ q0_R2^-1, f1^-1 ], [ q0_R4, f1*f2 ], 
-      [ q0_R2^-1, f1^-1*f2^-1*f1*f2 ], [ q0_R4, f1^2*f2 ], [ q0_R1^-1, f2 ], 
-      [ q0_R2^-1, f1^-1*f2^-1*f1^-1*f2 ], [ q0_R4, f2 ] ], 
-  [ [ q0_R2^-1, <identity ...> ], [ q0_R3^-1, f2^-1 ], [ q0_R5, f2*f3 ], 
-      [ q0_R2^-1, f3 ], [ q0_R3^-1, f2^-1*f3^-1*f2^-1*f3 ], [ q0_R5, f3 ] ] ]
+gap> idsq0 := IdentitiesAmongRelators( q0 );;
+gap> Perform( idsq0, Display );
+[ [ q0_R1^-1, <identity ...> ], [ q0_R1, f1^-1 ] ]
+[ [ q0_R2^-1, <identity ...> ], [ q0_R2, f2 ] ]
+[ [ q0_R3^-1, <identity ...> ], [ q0_R3, f3 ] ]
+[ [ q0_R4^-1, <identity ...> ], [ q0_R2^-1, f1^-1 ], [ q0_R4, f1*f2 ], 
+  [ q0_R2, f1*f2 ] ]
+[ [ q0_R5^-1, <identity ...> ], [ q0_R3^-1, f2^-1 ], [ q0_R5, f2*f3 ], 
+  [ q0_R3, f2*f3 ] ]
+[ [ q0_R1^-1, <identity ...> ], [ q0_R2^-1, f1^-1 ], [ q0_R4, f1*f2 ], 
+  [ q0_R2^-1, f1^-1*f2^-1*f1*f2 ], [ q0_R4, f1^2*f2 ], [ q0_R1^-1, f2 ], 
+  [ q0_R2^-1, f1^-1*f2^-1*f1^-1*f2 ], [ q0_R4, f2 ] ]
+[ [ q0_R2^-1, <identity ...> ], [ q0_R3^-1, f2^-1 ], [ q0_R5, f2*f3 ], 
+  [ q0_R2^-1, f3 ], [ q0_R3^-1, f2^-1*f3^-1*f2^-1*f3 ], [ q0_R5, f3 ] ]
 gap> Length( idsq0 );
 7
-gap> idsKBq0 := IdentitiesAmongRelatorsKB( q0 );
-[ [ [ q0_R1^-1, f1^-1 ], [ q0_R1, <identity ...> ] ], 
-  [ [ q0_R2^-1, <identity ...> ], [ q0_R4^-1, f1*f2^-2 ], [ q0_R2, f2^-1 ], 
-      [ q0_R2^-1, f1^-1*f2^-1 ], [ q0_R4, f1 ], [ q0_R2, f1 ] ], 
-  [ [ q0_R2^-1, <identity ...> ], [ q0_R2, f2^-1 ], 
-      [ q0_R5^-1, <identity ...> ], [ q0_R3, f2^-1*f3^-1*f2^-1 ], 
-      [ q0_R2^-1, f1^-1*f2^-1*f3^-1*f2^-1 ], [ q0_R5, <identity ...> ], 
-      [ q0_R3^-1, <identity ...> ], [ q0_R2, f1^-1*f3^-1 ] ], 
-  [ [ q0_R2^-1, <identity ...> ], [ q0_R4^-1, f1*f3^-1*f2^-2 ], 
-      [ q0_R5, f2^-1 ], [ q0_R3^-1, f2^-1 ], [ q0_R2, <identity ...> ], 
-      [ q0_R5^-1, f2 ], [ q0_R3, f2^-1*f3^-1 ], 
-      [ q0_R2^-1, f1^-1*f2^-1*f3^-1 ], [ q0_R4, f1*f3^-1 ], 
-      [ q0_R2, f1*f3^-1 ] ], 
-  [ [ q0_R2^-1, f1 ], [ q0_R4, f1*f2^-1*f1 ], [ q0_R4^-1, f1 ], 
-      [ q0_R2, f1^-1*f2^-1 ] ], 
-  [ [ q0_R3^-1, <identity ...> ], [ q0_R3, f3^-1 ], [ q0_R5^-1, f3^-1 ], 
-      [ q0_R4, f1*f3^-1*f2^-1*f3^-1 ], [ q0_R3^-1, f2^-1*f3^-1 ], 
-      [ q0_R5, f2 ], [ q0_R2^-1, <identity ...> ], [ q0_R3, f2^-1 ], 
-      [ q0_R4^-1, f1*f2^-1 ], [ q0_R2, <identity ...> ] ], 
-  [ [ q0_R1, <identity ...> ], [ q0_R4^-1, f1^2 ], [ q0_R2, f1^-1*f2^-1*f1 ], 
-      [ q0_R4^-1, f1 ], [ q0_R2, f1^-1*f2^-1 ], [ q0_R1, f2^-1 ], 
-      [ q0_R4^-1, f1*f2^-1 ], [ q0_R2, <identity ...> ] ], 
-  [ [ q0_R2, <identity ...> ], [ q0_R5^-1, f2 ], [ q0_R3, f2^-1*f3^-1 ], 
-      [ q0_R4^-1, f1*f2^-1*f3^-1 ], [ q0_R2, f3^-1 ], 
-      [ q0_R3, <identity ...> ], [ q0_R5^-1, <identity ...> ], 
-      [ q0_R4, f1*f3^-1*f2^-1 ] ], 
-  [ [ q0_R3^-1, <identity ...> ], [ q0_R3^-1, f2^-1*f3^-2 ], 
-      [ q0_R5, f2*f3^-1 ], [ q0_R2^-1, f3^-1 ], [ q0_R3^-1, f2^-1*f3^-1 ], 
-      [ q0_R5, f2 ], [ q0_R2^-1, <identity ...> ], [ q0_R3, f2^-1 ] ], 
-  [ [ q0_R3^-1, <identity ...> ], [ q0_R4^-1, f1*f3^-2 ], 
-      [ q0_R2, f1^-1*f2^-1*f3^-2 ], [ q0_R3^-1, f2^-1*f3^-2 ], 
-      [ q0_R5, f2*f3^-1 ], [ q0_R2^-1, f3^-1 ], [ q0_R3^-1, f2^-1*f3^-1 ], 
-      [ q0_R5, f2 ], [ q0_R2^-1, <identity ...> ], [ q0_R3, f2^-1 ], 
-      [ q0_R2^-1, f1^-1*f2^-1 ], [ q0_R4, f1 ] ], 
-  [ [ q0_R4^-1, f1*f3^-1*f2^-1 ], [ q0_R5, <identity ...> ], 
-      [ q0_R3^-1, <identity ...> ], [ q0_R2^-1, f1^-1*f2^-1*f1^-1*f3^-1 ], 
-      [ q0_R4, f3^-1 ], [ q0_R3^-1, f2^-1*f3^-1 ], [ q0_R5, f2 ], 
-      [ q0_R2^-1, <identity ...> ] ] ]
+gap> idsKBq0 := IdentitiesAmongRelatorsKB( q0 );;
+gap> Perform( idsKBq0, Display );
+[ [ q0_R1^-1, f1^-1 ], [ q0_R1, <identity ...> ] ]
+[ [ q0_R2^-1, <identity ...> ], [ q0_R4^-1, f1*f2^-2 ], [ q0_R2, f2^-1 ], 
+  [ q0_R2^-1, f1^-1*f2^-1 ], [ q0_R4, f1 ], [ q0_R2, f1 ] ]
+[ [ q0_R2^-1, <identity ...> ], [ q0_R2, f2^-1 ], 
+  [ q0_R5^-1, <identity ...> ], [ q0_R3, f2^-1*f3^-1*f2^-1 ], 
+  [ q0_R2^-1, f1^-1*f2^-1*f3^-1*f2^-1 ], [ q0_R5, <identity ...> ], 
+  [ q0_R3^-1, <identity ...> ], [ q0_R2, f1^-1*f3^-1 ] ]
+[ [ q0_R2^-1, <identity ...> ], [ q0_R4^-1, f1*f3^-1*f2^-2 ], 
+  [ q0_R5, f2^-1 ], [ q0_R3^-1, f2^-1 ], [ q0_R2, <identity ...> ], 
+  [ q0_R5^-1, f2 ], [ q0_R3, f2^-1*f3^-1 ], [ q0_R2^-1, f1^-1*f2^-1*f3^-1 ], 
+  [ q0_R4, f1*f3^-1 ], [ q0_R2, f1*f3^-1 ] ]
+[ [ q0_R2^-1, f1 ], [ q0_R4, f1*f2^-1*f1 ], [ q0_R4^-1, f1 ], 
+  [ q0_R2, f1^-1*f2^-1 ] ]
+[ [ q0_R3^-1, <identity ...> ], [ q0_R3, f3^-1 ], [ q0_R5^-1, f3^-1 ], 
+  [ q0_R4, f1*f3^-1*f2^-1*f3^-1 ], [ q0_R3^-1, f2^-1*f3^-1 ], [ q0_R5, f2 ], 
+  [ q0_R2^-1, <identity ...> ], [ q0_R3, f2^-1 ], [ q0_R4^-1, f1*f2^-1 ], 
+  [ q0_R2, <identity ...> ] ]
+[ [ q0_R1, <identity ...> ], [ q0_R4^-1, f1^2 ], [ q0_R2, f1^-1*f2^-1*f1 ], 
+  [ q0_R4^-1, f1 ], [ q0_R2, f1^-1*f2^-1 ], [ q0_R1, f2^-1 ], 
+  [ q0_R4^-1, f1*f2^-1 ], [ q0_R2, <identity ...> ] ]
+[ [ q0_R2, <identity ...> ], [ q0_R5^-1, f2 ], [ q0_R3, f2^-1*f3^-1 ], 
+  [ q0_R4^-1, f1*f2^-1*f3^-1 ], [ q0_R2, f3^-1 ], [ q0_R3, <identity ...> ], 
+  [ q0_R5^-1, <identity ...> ], [ q0_R4, f1*f3^-1*f2^-1 ] ]
+[ [ q0_R3^-1, <identity ...> ], [ q0_R3^-1, f2^-1*f3^-2 ], 
+  [ q0_R5, f2*f3^-1 ], [ q0_R2^-1, f3^-1 ], [ q0_R3^-1, f2^-1*f3^-1 ], 
+  [ q0_R5, f2 ], [ q0_R2^-1, <identity ...> ], [ q0_R3, f2^-1 ] ]
+[ [ q0_R3^-1, <identity ...> ], [ q0_R4^-1, f1*f3^-2 ], 
+  [ q0_R2, f1^-1*f2^-1*f3^-2 ], [ q0_R3^-1, f2^-1*f3^-2 ], 
+  [ q0_R5, f2*f3^-1 ], [ q0_R2^-1, f3^-1 ], [ q0_R3^-1, f2^-1*f3^-1 ], 
+  [ q0_R5, f2 ], [ q0_R2^-1, <identity ...> ], [ q0_R3, f2^-1 ], 
+  [ q0_R2^-1, f1^-1*f2^-1 ], [ q0_R4, f1 ] ]
+[ [ q0_R4^-1, f1*f3^-1*f2^-1 ], [ q0_R5, <identity ...> ], 
+  [ q0_R3^-1, <identity ...> ], [ q0_R2^-1, f1^-1*f2^-1*f1^-1*f3^-1 ], 
+  [ q0_R4, f3^-1 ], [ q0_R3^-1, f2^-1*f3^-1 ], [ q0_R5, f2 ], 
+  [ q0_R2^-1, <identity ...> ] ]
 gap> Length( idsKBq0 );
 11
 

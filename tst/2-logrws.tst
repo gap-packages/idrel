@@ -34,16 +34,16 @@ gap> l1[1][16];
 
 ## Example 3.1.2
 gap> l11 := LoggedRewriteReduce( q8, l1[1] );;
-gap> PrintOneItemPerLine( l11 );
-[ [ q8_M1*q8_M3, [  ], <identity ...> ], 
-  [ q8_M2^2, [ [ -4, <identity ...> ], [ 2, q8_M3^2 ] ], q8_M1^2 ], 
-  [ q8_M2*q8_M4, [  ], <identity ...> ], 
-  [ q8_M3*q8_M1, [  ], <identity ...> ],
-  [ q8_M4*q8_M2, [  ], <identity ...> ], 
-  [ q8_M1^3, [ [ 1, <identity ...> ] ], q8_M3 ], 
-  [ q8_M1^2*q8_M2, [ [ 4, <identity ...> ] ], q8_M4 ], 
-  [ q8_M1*q8_M2*q8_M1, [ [ 3, <identity ...> ] ], q8_M2 ], 
-  [ q8_M2*q8_M1*q8_M4, [ [ 3, q8_M1 ] ], q8_M3 ] ]
+gap> Perform( l11, Display );
+[ q8_M1*q8_M3, [  ], <identity ...> ]
+[ q8_M2^2, [ [ -4, <identity ...> ], [ 2, q8_M3^2 ] ], q8_M1^2 ]
+[ q8_M2*q8_M4, [  ], <identity ...> ]
+[ q8_M3*q8_M1, [  ], <identity ...> ]
+[ q8_M4*q8_M2, [  ], <identity ...> ]
+[ q8_M1^3, [ [ 1, <identity ...> ] ], q8_M3 ]
+[ q8_M1^2*q8_M2, [ [ 4, <identity ...> ] ], q8_M4 ]
+[ q8_M1*q8_M2*q8_M1, [ [ 3, <identity ...> ] ], q8_M2 ]
+[ q8_M2*q8_M1*q8_M4, [ [ 3, q8_M1 ] ], q8_M3 ]
 gap> Length( l11 );
 9
 gap> l2 := LoggedKnuthBendix( q8, l11 );;
@@ -104,27 +104,26 @@ gap> lw2 := LoggedReduceWordKB( w0, l2[1] );
 
 ## Example 3.2.2
 gap> lrws := LoggedRewritingSystemFpGroup( q8 );;
-gap> PrintOneItemPerLine( lrws ); 
-[ [ q8_M4*q8_M2, [  ], <identity ...> ],
-  [ q8_M3*q8_M1, [  ], <identity ...> ],
-  [ q8_M2*q8_M4, [  ], <identity ...> ],
-  [ q8_M1*q8_M3, [  ], <identity ...> ],
-  [ q8_M1^2*q8_M4, [ [ -8, q8_M3^2 ], [ 5, <identity ...> ] ], q8_M2 ],
-  [ q8_M1^2*q8_M2, [ [ 8, <identity ...> ] ], q8_M4 ],
-  [ q8_M1^3, [ [ 5, <identity ...> ] ], q8_M3 ],
-  [ q8_M4^2, [ [ -8, <identity ...> ] ], q8_M1^2 ],
-  [ q8_M4*q8_M3, [ [ -7, q8_M1*q8_M2 ] ], q8_M1*q8_M4 ],
-  [ q8_M4*q8_M1, [ [ -8, <identity ...> ], [ 7, q8_M3 ] ], q8_M1*q8_M2 ],
-  
+gap> Perform( lrws, Display );  
+[ q8_M4*q8_M2, [  ], <identity ...> ]
+[ q8_M3*q8_M1, [  ], <identity ...> ]
+[ q8_M2*q8_M4, [  ], <identity ...> ]
+[ q8_M1*q8_M3, [  ], <identity ...> ]
+[ q8_M1^2*q8_M4, [ [ -8, q8_M3^2 ], [ 5, <identity ...> ] ], q8_M2 ]
+[ q8_M1^2*q8_M2, [ [ 8, <identity ...> ] ], q8_M4 ]
+[ q8_M1^3, [ [ 5, <identity ...> ] ], q8_M3 ]
+[ q8_M4^2, [ [ -8, <identity ...> ] ], q8_M1^2 ]
+[ q8_M4*q8_M3, [ [ -7, q8_M1*q8_M2 ] ], q8_M1*q8_M4 ]
+[ q8_M4*q8_M1, [ [ -8, <identity ...> ], [ 7, q8_M3 ] ], q8_M1*q8_M2 ]
 [ q8_M3*q8_M4, 
   [ [ -5, <identity ...> ], [ -6, q8_M3^2 ], [ 8, <identity ...> ], 
-      [ 7, q8_M1*q8_M4 ], [ -7, <identity ...> ] ], q8_M1*q8_M2 ],
-  [ q8_M3^2, [ [ -5, <identity ...> ] ], q8_M1^2 ],
-  [ q8_M3*q8_M2, [ [ -5, <identity ...> ], [ 8, q8_M3 ] ], q8_M1*q8_M4 ],
-  [ q8_M2*q8_M3, [ [ -7, <identity ...> ] ], q8_M1*q8_M2 ],
-  [ q8_M2^2, [ [ -8, <identity ...> ], [ 6, q8_M3^2 ] ], q8_M1^2 ],
-  [ q8_M2*q8_M1, [ [ 7, q8_M1 ], [ -5, <identity ...> ], [ 8, q8_M3 ] ], 
-  q8_M1*q8_M4 ] ]
+      [ 7, q8_M1*q8_M4 ], [ -7, <identity ...> ] ], q8_M1*q8_M2 ]
+[ q8_M3^2, [ [ -5, <identity ...> ] ], q8_M1^2 ]
+[ q8_M3*q8_M2, [ [ -5, <identity ...> ], [ 8, q8_M3 ] ], q8_M1*q8_M4 ]
+[ q8_M2*q8_M3, [ [ -7, <identity ...> ] ], q8_M1*q8_M2 ]
+[ q8_M2^2, [ [ -8, <identity ...> ], [ 6, q8_M3^2 ] ], q8_M1^2 ]
+[ q8_M2*q8_M1, [ [ 7, q8_M1 ], [ -5, <identity ...> ], [ 8, q8_M3 ] ], 
+  q8_M1*q8_M4 ]
 gap> Length( lrws );
 16
 

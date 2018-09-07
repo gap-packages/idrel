@@ -1,13 +1,10 @@
 # CHANGES to the IdRel package
+
+## 2.41 -> 2.42dev  (00/09/2018)
+
+ * (00/09/18)
 	
-## ToDo: 
-
- * (21/02/18) need to simplify the family structures (as other packages) 
- * (12/05/17) deal with question from Merve Simsek
- * (09/02/17) LoggedModulePoly needs some checks? 
- *            add a History chapter to the manual 
-
-## 2.38 -> 2.41  (18/03/2018)
+## 2.38 -> 2.41  (19/03/2018)
 
  * (18/03/18) large number of functions edited and renamed and tests altered: 
               IdentitiesAmongRelators now returns group relator sequences 
