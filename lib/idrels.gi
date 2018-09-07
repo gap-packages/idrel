@@ -325,7 +325,7 @@ function( L )
         Info( InfoIdRel, 1, "after sorting:" ); 
         Info( InfoIdRel, 1, "number of identities = ", lenL );
         if ( InfoLevel( InfoIdRel ) > 1 ) then 
-            PrintListOneItemPerLine( L2 ); 
+            Perform( L2, Display ); 
         fi;
         changed := false;
         for i in [1..lenL] do 
