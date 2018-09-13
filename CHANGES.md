@@ -1,8 +1,8 @@
 # CHANGES to the IdRel package
 
-## 2.41 -> 2.42dev  (00/09/2018)
+## 2.41 -> 2.42  (13/09/2018)
 
- * (00/09/18)
+ * (13/09/18) Replacved PrintOneItemPerLine(L) with Perform(L,Display)
 	
 ## 2.38 -> 2.41  (19/03/2018)
 

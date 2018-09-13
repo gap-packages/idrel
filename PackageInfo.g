@@ -1,6 +1,6 @@
 #############################################################################
 ##
-##  PackageInfo.g   file for the package IdRel 
+##  PackageInfo.g  file for the package IdRel 
 ##  Anne Heyworth and Chris Wensley 
 ##
 
@@ -9,8 +9,8 @@ SetPackageInfo( rec(
 Packagename := "idrel",
 PackageName := "idrel",
 Subtitle := "Identities among relations",
-Version := "2.41dev",
-Date := "00/09/2018",
+Version := "2.42",
+Date := "13/09/2018",
 
 Persons := [
   rec(
@@ -73,9 +73,8 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-  GAP := ">=4.9.2",
-  NeededOtherPackages := [ [ "Utils", ">= 0.57" ], 
-                           [ "GAPDoc", ">= 1.6.1" ] ],
+  GAP := ">=4.9.3",
+  NeededOtherPackages := [ [ "GAPDoc", ">= 1.6.1" ] ],
   SuggestedOtherPackages := [ [ "AutoDoc", ">= 2018.02.14" ] ],
   ExternalConditions := [ ]
 ),
