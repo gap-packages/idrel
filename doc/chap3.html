@@ -130,16 +130,16 @@
 <div class="example"><pre>
 
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">l11 := LoggedRewriteReduce( q8, l1[1] );;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintOneItemPerLine( l11 );</span>
-[ [ q8_M1*q8_M3, [  ], &lt;identity ...&gt; ], 
-  [ q8_M2^2, [ [ -4, &lt;identity ...&gt; ], [ 2, q8_M3^2 ] ], q8_M1^2 ], 
-  [ q8_M2*q8_M4, [  ], &lt;identity ...&gt; ], 
-  [ q8_M3*q8_M1, [  ], &lt;identity ...&gt; ],
-  [ q8_M4*q8_M2, [  ], &lt;identity ...&gt; ], 
-  [ q8_M1^3, [ [ 1, &lt;identity ...&gt; ] ], q8_M3 ], 
-  [ q8_M1^2*q8_M2, [ [ 4, &lt;identity ...&gt; ] ], q8_M4 ], 
-  [ q8_M1*q8_M2*q8_M1, [ [ 3, &lt;identity ...&gt; ] ], q8_M2 ], 
-  [ q8_M2*q8_M1*q8_M4, [ [ 3, q8_M1 ] ], q8_M3 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Perform( l11, Display );</span>
+[ q8_M1*q8_M3, [  ], &lt;identity ...&gt; ]
+[ q8_M2^2, [ [ -4, &lt;identity ...&gt; ], [ 2, q8_M3^2 ] ], q8_M1^2 ]
+[ q8_M2*q8_M4, [  ], &lt;identity ...&gt; ]
+[ q8_M3*q8_M1, [  ], &lt;identity ...&gt; ]
+[ q8_M4*q8_M2, [  ], &lt;identity ...&gt; ]
+[ q8_M1^3, [ [ 1, &lt;identity ...&gt; ] ], q8_M3 ]
+[ q8_M1^2*q8_M2, [ [ 4, &lt;identity ...&gt; ] ], q8_M4 ]
+[ q8_M1*q8_M2*q8_M1, [ [ 3, &lt;identity ...&gt; ] ], q8_M2 ]
+[ q8_M2*q8_M1*q8_M4, [ [ 3, q8_M1 ] ], q8_M3 ] 
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length( l11 );</span>
 9
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">l2 := LoggedKnuthBendix( q8, l11 );;</span>
@@ -241,27 +241,26 @@ q8_M2^9*q8_M1^9
 <div class="example"><pre>
 
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lrws := LoggedRewritingSystemFpGroup( q8 );;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintOneItemPerLine( lrws ); </span>
-[ [ q8_M4*q8_M2, [  ], &lt;identity ...&gt; ],
-  [ q8_M3*q8_M1, [  ], &lt;identity ...&gt; ],
-  [ q8_M2*q8_M4, [  ], &lt;identity ...&gt; ],
-  [ q8_M1*q8_M3, [  ], &lt;identity ...&gt; ],
-  [ q8_M1^2*q8_M4, [ [ -8, q8_M3^2 ], [ 5, &lt;identity ...&gt; ] ], q8_M2 ],
-  [ q8_M1^2*q8_M2, [ [ 8, &lt;identity ...&gt; ] ], q8_M4 ],
-  [ q8_M1^3, [ [ 5, &lt;identity ...&gt; ] ], q8_M3 ],
-  [ q8_M4^2, [ [ -8, &lt;identity ...&gt; ] ], q8_M1^2 ],
-  [ q8_M4*q8_M3, [ [ -7, q8_M1*q8_M2 ] ], q8_M1*q8_M4 ],
-  [ q8_M4*q8_M1, [ [ -8, &lt;identity ...&gt; ], [ 7, q8_M3 ] ], q8_M1*q8_M2 ],
-  
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Perform( lrws, Display ); </span>
+[ q8_M4*q8_M2, [  ], &lt;identity ...&gt; ]
+[ q8_M3*q8_M1, [  ], &lt;identity ...&gt; ]
+[ q8_M2*q8_M4, [  ], &lt;identity ...&gt; ]
+[ q8_M1*q8_M3, [  ], &lt;identity ...&gt; ]
+[ q8_M1^2*q8_M4, [ [ -8, q8_M3^2 ], [ 5, &lt;identity ...&gt; ] ], q8_M2 ]
+[ q8_M1^2*q8_M2, [ [ 8, &lt;identity ...&gt; ] ], q8_M4 ]
+[ q8_M1^3, [ [ 5, &lt;identity ...&gt; ] ], q8_M3 ]
+[ q8_M4^2, [ [ -8, &lt;identity ...&gt; ] ], q8_M1^2 ]
+[ q8_M4*q8_M3, [ [ -7, q8_M1*q8_M2 ] ], q8_M1*q8_M4 ]
+[ q8_M4*q8_M1, [ [ -8, &lt;identity ...&gt; ], [ 7, q8_M3 ] ], q8_M1*q8_M2 ]
 [ q8_M3*q8_M4, 
   [ [ -5, &lt;identity ...&gt; ], [ -6, q8_M3^2 ], [ 8, &lt;identity ...&gt; ], 
-      [ 7, q8_M1*q8_M4 ], [ -7, &lt;identity ...&gt; ] ], q8_M1*q8_M2 ],
-  [ q8_M3^2, [ [ -5, &lt;identity ...&gt; ] ], q8_M1^2 ],
-  [ q8_M3*q8_M2, [ [ -5, &lt;identity ...&gt; ], [ 8, q8_M3 ] ], q8_M1*q8_M4 ],
-  [ q8_M2*q8_M3, [ [ -7, &lt;identity ...&gt; ] ], q8_M1*q8_M2 ],
-  [ q8_M2^2, [ [ -8, &lt;identity ...&gt; ], [ 6, q8_M3^2 ] ], q8_M1^2 ],
-  [ q8_M2*q8_M1, [ [ 7, q8_M1 ], [ -5, &lt;identity ...&gt; ], [ 8, q8_M3 ] ], 
-  q8_M1*q8_M4 ] ]
+      [ 7, q8_M1*q8_M4 ], [ -7, &lt;identity ...&gt; ] ], q8_M1*q8_M2 ]
+[ q8_M3^2, [ [ -5, &lt;identity ...&gt; ] ], q8_M1^2 ]
+[ q8_M3*q8_M2, [ [ -5, &lt;identity ...&gt; ], [ 8, q8_M3 ] ], q8_M1*q8_M4 ]
+[ q8_M2*q8_M3, [ [ -7, &lt;identity ...&gt; ] ], q8_M1*q8_M2 ]
+[ q8_M2^2, [ [ -8, &lt;identity ...&gt; ], [ 6, q8_M3^2 ] ], q8_M1^2 ]
+[ q8_M2*q8_M1, [ [ 7, q8_M1 ], [ -5, &lt;identity ...&gt; ], [ 8, q8_M3 ] ],
+  q8_M1*q8_M4 ]
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length( lrws );</span>
 16
 
