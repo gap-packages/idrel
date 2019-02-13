@@ -9,8 +9,8 @@ SetPackageInfo( rec(
 Packagename := "idrel",
 PackageName := "idrel",
 Subtitle := "Identities among relations",
-Version := "2.42",
-Date := "13/09/2018",
+Version := "2.42dev",
+Date := "00/11/2018",
 
 Persons := [
   rec(
@@ -73,9 +73,9 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-  GAP := ">=4.9.3",
-  NeededOtherPackages := [ [ "GAPDoc", ">= 1.6.1" ] ],
-  SuggestedOtherPackages := [ [ "AutoDoc", ">= 2018.02.14" ] ],
+  GAP := ">=4.10.0",
+  NeededOtherPackages := [ [ "GAPDoc", ">= 1.6.2" ] ],
+  SuggestedOtherPackages := [ [ "AutoDoc", ">= 2018.09.20" ] ],
   ExternalConditions := [ ]
 ),
 
