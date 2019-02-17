@@ -6,7 +6,7 @@
 
 SetPackageInfo( rec(
 
-Packagename := "idrel",
+PackageName := "idrel",
 Subtitle := "Identities among relations",
 Version := "2.42dev",
 Date := "16/02/2019", # dd/mm/yyyy format
