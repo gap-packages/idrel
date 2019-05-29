@@ -6,11 +6,11 @@
 
 SetPackageInfo( rec(
 
-Packagename := "idrel",
 PackageName := "idrel",
 Subtitle := "Identities among relations",
-Version := "2.42",
-Date := "13/09/2018",
+Version := "2.43",
+Date := "29/05/2019", # dd/mm/yyyy format
+License := "GPL-2.0-or-later",
 
 Persons := [
   rec(
@@ -73,9 +73,9 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-  GAP := ">=4.9.3",
-  NeededOtherPackages := [ [ "GAPDoc", ">= 1.6.1" ] ],
-  SuggestedOtherPackages := [ [ "AutoDoc", ">= 2018.02.14" ] ],
+  GAP := ">=4.10.0",
+  NeededOtherPackages := [ [ "GAPDoc", ">= 1.6.2" ] ],
+  SuggestedOtherPackages := [ [ "AutoDoc", ">= 2018.09.20" ] ],
   ExternalConditions := [ ]
 ),
 
@@ -97,7 +97,7 @@ BannerString := Concatenation(
 AutoDoc := rec(
     TitlePage := rec(
         Copyright := Concatenation(
-            "&copyright; 1999-2018 Anne Heyworth and Chris Wensley<P/>\n",
+            "&copyright; 1999-2019 Anne Heyworth and Chris Wensley<P/>\n",
             "The &IdRel; package is free software; you can redistribute it ", 
             "and/or modify it under the terms of the GNU General ", 
             "Public License as published by the Free Software Foundation; ", 
@@ -142,7 +142,7 @@ AutoDoc := rec(
             "<URL>https://github.com/gap-packages/idrel/issues/</URL>.\n" 
             ), 
         Acknowledgements := Concatenation( 
-            "This documentation was prepared with the ", 
+            "This documentation was prepared using the ", 
             "&GAPDoc; <Cite Key='GAPDoc'/> ", 
             "and &AutoDoc; <Cite Key='AutoDoc'/> packages.<P/>\n", 
             "The procedure used to produce new releases uses the package ", 

@@ -116,8 +116,8 @@
   
   [33X[0;0YTests for equality and arithmetic operations are performed in the usual way.[133X
   
-  [33X[0;0YThe  operation [10Xpoly1 = poly2[110X returns [10Xtrue[110X if the monoid polynomials have the
-  same  terms,  and [10Xfalse[110X otherwise. Multiplication of a monoid polynomial (on
+  [33X[0;0YThe  operation [10Xpoly1 = poly2[110X returns [9Xtrue[109X if the monoid polynomials have the
+  same  terms,  and [9Xfalse[109X otherwise. Multiplication of a monoid polynomial (on
   the  left  or  right)  by  a coefficient; the addition or subtraction of two
   monoid  polynomials; multiplication (on the right) of a monoid polynomial by
   a word; and multiplication of two monoid polynomials; are all implemented.[133X
@@ -159,14 +159,14 @@
     [4X[28X[128X[104X
   [4X[32X[104X
   
-  [33X[0;0YThe  boolean function [10Xpoly1 > poly2[110X returns [10Xtrue[110X if the first polynomial has
+  [33X[0;0YThe  boolean function [10Xpoly1 > poly2[110X returns [9Xtrue[109X if the first polynomial has
   more  terms  than the second. If the polynomials are the same length it will
   compare   their  leading  terms.  If  the  leading  word  of  the  first  is
   lengthlexicographically  greater  than the leading word of the second, or if
   the  words  are  equal  but the coefficient of the first is greater than the
   coefficient  of  the  second then true is returned. If the leading terms are
   equal then the next terms are compared in the same way. If all terms are the
-  same then [10Xfalse[110X is returned.[133X
+  same then [9Xfalse[109X is returned.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[28X[128X[104X

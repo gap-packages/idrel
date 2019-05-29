@@ -15,7 +15,7 @@
   [33X[1;0Y[29X[2XFreeRelatorHomomorphism[102X( [3Xgrp[103X ) [32X attribute[133X
   
   [33X[0;0YThe function [10XFreeRelatorGroup[110X returns a free group on the set of relators of
-  the  given  fp-group  [10XG[110X.  If [10XHasName(G)[110X is [10Xtrue[110X then a name is automatically
+  the  given  fp-group  [10XG[110X.  If [10XHasName(G)[110X is [9Xtrue[109X then a name is automatically
   assigned to the free group.[133X
   
   [33X[0;0YThe function [10XFreeRelatorHomomorphism[110X returns the group homomorphism from the

@@ -6,10 +6,10 @@
                           [1X Identities among relations [101X
   
   
-                                      2.42
+                                      2.43
   
   
-                               13 September 2018
+                                  29 May 2019
   
   
                                  Anne Heyworth
@@ -63,7 +63,7 @@
   
   -------------------------------------------------------
   [1XCopyright[101X
-  [33X[0;0Y© 1999-2018 Anne Heyworth and Chris Wensley[133X
+  [33X[0;0Y© 1999-2019 Anne Heyworth and Chris Wensley[133X
   
   [33X[0;0YThe [5XIdRel[105X package is free software; you can redistribute it and/or modify it
   under  the  terms of the GNU General Public License as published by the Free
@@ -73,7 +73,7 @@
   
   -------------------------------------------------------
   [1XAcknowledgements[101X
-  [33X[0;0YThis  documentation  was  prepared with the [5XGAPDoc[105X [LN17] and [5XAutoDoc[105X [GH17]
+  [33X[0;0YThis  documentation  was prepared using the [5XGAPDoc[105X [LN17] and [5XAutoDoc[105X [GH17]
   packages.[133X
   
   [33X[0;0YThe   procedure   used   to   produce   new   releases   uses   the  package
