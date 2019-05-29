@@ -1,6 +1,6 @@
 # CHANGES to the IdRel package
 
-## Version 2.42dev for GAP 4.10.0 (16/02/19) 
+## Version 2.43 for GAP 4.10.1 (29/05/19) 
 
  * (16/02/19) added License field in PackageInfo.g 
 
