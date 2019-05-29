@@ -20,5 +20,3 @@ AutoDoc(rec(
 
 # Create VERSION file for "make towww"
 PrintTo( "VERSION", GAPInfo.PackageInfoCurrent.Version );
-
-QUIT;

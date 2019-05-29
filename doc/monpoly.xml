@@ -148,8 +148,8 @@ gap> Print( wpg, "\n" );
 <Index>=,+,* for monoid polynomials</Index>
 Tests for equality and arithmetic operations are performed in the usual way.
 <P/>
-The operation <C>poly1 = poly2</C> returns <C>true</C> 
-if the monoid polynomials have the same terms, and <C>false</C> otherwise. 
+The operation <C>poly1 = poly2</C> returns <K>true</K> 
+if the monoid polynomials have the same terms, and <K>false</K> otherwise. 
 Multiplication of a monoid polynomial (on the left or right) 
 by a coefficient; 
 the addition or subtraction of two monoid polynomials; 
@@ -196,7 +196,7 @@ gap> Length( pr );
 </Example>
 </Section>
 
-The boolean function <C>poly1 > poly2</C>  returns <C>true</C> 
+The boolean function <C>poly1 > poly2</C>  returns <K>true</K> 
 if the first polynomial has more terms than the second. 
 If the polynomials are the same length it will compare their leading terms. 
 If the leading word of the first is lengthlexicographically greater 
@@ -205,7 +205,7 @@ or if the words are equal but the coefficient of the first is greater
 than the coefficient of the second then true is returned. 
 If the leading terms are equal then the next terms are compared 
 in the same way. 
-If all terms are the same then <C>false</C> is returned.
+If all terms are the same then <K>false</K> is returned.
 <P/>
 <Example>
 <![CDATA[

@@ -26,7 +26,7 @@ and relators <M>[a^4, b^4, abab^{-1}, a^2b^2]</M>.
 <Description>
 The function <C>FreeRelatorGroup</C> returns a free group 
 on the set of relators of the given fp-group <C>G</C>. 
-If <C>HasName(G)</C> is <C>true</C> then a name is automatically assigned 
+If <C>HasName(G)</C> is <K>true</K> then a name is automatically assigned 
 to the free group.
 <P/>
 The function <C>FreeRelatorHomomorphism</C> returns the group homomorphism 

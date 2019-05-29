@@ -9,7 +9,7 @@ SetPackageInfo( rec(
 PackageName := "idrel",
 Subtitle := "Identities among relations",
 Version := "2.42dev",
-Date := "16/02/2019", # dd/mm/yyyy format
+Date := "16/04/2019", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -97,7 +97,7 @@ BannerString := Concatenation(
 AutoDoc := rec(
     TitlePage := rec(
         Copyright := Concatenation(
-            "&copyright; 1999-2018 Anne Heyworth and Chris Wensley<P/>\n",
+            "&copyright; 1999-2019 Anne Heyworth and Chris Wensley<P/>\n",
             "The &IdRel; package is free software; you can redistribute it ", 
             "and/or modify it under the terms of the GNU General ", 
             "Public License as published by the Free Software Foundation; ", 
@@ -142,7 +142,7 @@ AutoDoc := rec(
             "<URL>https://github.com/gap-packages/idrel/issues/</URL>.\n" 
             ), 
         Acknowledgements := Concatenation( 
-            "This documentation was prepared with the ", 
+            "This documentation was prepared using the ", 
             "&GAPDoc; <Cite Key='GAPDoc'/> ", 
             "and &AutoDoc; <Cite Key='AutoDoc'/> packages.<P/>\n", 
             "The procedure used to produce new releases uses the package ", 
