@@ -1,7 +1,8 @@
 # CHANGES to the IdRel package
 
-## Version 2.43 for GAP 4.10.1 (29/05/19) 
+## Version 2.43 for GAP 4.10.1 (08/04/21) 
 
+ * (08/04/21) Switch CI to use GitHub Actions 
  * (16/02/19) added License field in PackageInfo.g 
 
 ## 2.41 -> 2.42  (13/09/2018)
