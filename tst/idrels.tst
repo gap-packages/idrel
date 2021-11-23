@@ -1,8 +1,8 @@
 ##############################################################################
 ##
-#W  5-idrels.tst                   Idrel Package                 Chris Wensley
+#W  idrels.tst                   Idrel Package                   Chris Wensley
 #W                                                             & Anne Heyworth
-#Y  Copyright (C) 1999-2018 Anne Heyworth and Chris Wensley
+#Y  Copyright (C) 1999-2021 Anne Heyworth and Chris Wensley
 ##
 
 gap> saved_infolevel_idrel := InfoLevel( InfoIdRel );; 
@@ -61,5 +61,5 @@ gap> SetInfoLevel( InfoIdRel, saved_infolevel_idrel );;
 
 #############################################################################
 ##
-#E  5-idrels.tst . . . . . . . . . . . . . . . . . . . . . . . . .  ends here
+#E  idrels.tst . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here
 

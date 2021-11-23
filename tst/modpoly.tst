@@ -1,8 +1,8 @@
 ##############################################################################
 ##
-#W  4-modpoly.tst                  Idrel Package                 Chris Wensley
+#W  modpoly.tst                  Idrel Package                   Chris Wensley
 #W                                                             & Anne Heyworth
-#Y  Copyright (C) 1999-2018 Anne Heyworth and Chris Wensley
+#Y  Copyright (C) 1999-2021 Anne Heyworth and Chris Wensley
 ##
 
 gap> saved_infolevel_idrel := InfoLevel( InfoIdRel );; 
@@ -63,7 +63,7 @@ q8_R1*(4*q8_M4*q8_M1 - 5*q8_M1^2) + q8_R4*( - 7*q8_M4*q8_M1 + 5*q8_M1^2 +
 
 gap> SetInfoLevel( InfoIdRel, saved_infolevel_idrel );; 
 
-#############################################################################
+##############################################################################
 ##
-#E  4-modpoly.tst . . . . . . . . . . . . . . . . . . . . . . . . . ends here
+#E  modpoly.tst . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here
 

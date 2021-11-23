@@ -1,8 +1,8 @@
 ##############################################################################
 ##
-#W  3-monpoly.tst                  Idrel Package                 Chris Wensley
+#W  monpoly.tst                  Idrel Package                   Chris Wensley
 #W                                                             & Anne Heyworth
-#Y  Copyright (C) 1999-2018 Anne Heyworth and Chris Wensley
+#Y  Copyright (C) 1999-2021 Anne Heyworth and Chris Wensley
 ##
 
 gap> saved_infolevel_idrel := InfoLevel( InfoIdRel );; 
@@ -82,17 +82,17 @@ gap> [ pr > 3*pr, pr > pg ];
 [ false, true ]
 
 ## Example 4.4.1
-gap> M := genfgmon; 
-[ q8_M1, q8_M2, q8_M3, q8_M4 ]
-gap> mp1 := MonoidPolyFromCoeffsWords( [9,-7,5], [M[1]*M[3], M[2]^3, M[4]*M[3]*M[2]] );; 
-gap> Print( mp1, "\n" ); 
-5*q8_M4*q8_M3*q8_M2 - 7*q8_M2^3 + 9*q8_M1*q8_M3
+gap> M := genfgmon;; 
+gap> mp1 := MonoidPolyFromCoeffsWords( [9,-7,5], 
+>               [ M[1]*M[3], M[2]^3, M[4]*M[3]*M[2] ] );; 
+gap> PrintUsingLabels( mp1, genfgmon, labs ); 
+5*B*A*b + -7*b^3 + 9*a*A
 gap> rmp1 := ReduceMonoidPoly( mp1, r2 );;
-gap> Print( rmp1, "\n" ); 
- - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>
+gap> PrintUsingLabels( rmp1, genfgmon, labs );         
+-7*B + 5*a + 9*id
 
 gap> SetInfoLevel( InfoIdRel, saved_infolevel_idrel );; 
 
 #############################################################################
 ##
-#E  3-monpoly.tst . . . . . . . . . . . . . . . . . . . . . . . . . ends here
+#E  monpoly.tst . . . . . . . . . . . . . . . . . . . . . . . . . . ends here
