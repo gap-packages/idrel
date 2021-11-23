@@ -9,7 +9,7 @@ SetPackageInfo( rec(
 PackageName := "idrel",
 Subtitle := "Identities among relations",
 Version := "2.43dev",
-Date := "24/09/2019", # dd/mm/yyyy format
+Date := "23/11/2019", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -30,7 +30,7 @@ Persons := [
     IsAuthor      := true,
     IsMaintainer  := true,
     Email         := "c.d.wensley@bangor.ac.uk",
-    WWWHome       := "http://pages.bangor.ac.uk/~mas023/",
+    WWWHome       := "https://github.com/cdwensley",
     PostalAddress := Concatenation( [
                        "Dr. C.D. Wensley\n",
                        "School of Computer Science\n",
@@ -48,13 +48,14 @@ Status := "accepted",
 CommunicatedBy := "Leonard Soicher (QMUL)",
 AcceptDate := "05/2015",
 
-SourceRepository := rec( Type := "git", 
-                         URL := "https://github.com/gap-packages/idrel" ),
-IssueTrackerURL  := Concatenation( ~.SourceRepository.URL, "/issues" ),
-PackageWWWHome   := "https://gap-packages.github.io/idrel/",
-README_URL       := Concatenation( ~.PackageWWWHome, "README.md" ),
-PackageInfoURL   := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
-ArchiveURL       := Concatenation( ~.SourceRepository.URL, 
+SourceRepository := rec( 
+  Type := "git", 
+  URL := "https://github.com/gap-packages/idrel" ),
+  IssueTrackerURL  := Concatenation( ~.SourceRepository.URL, "/issues" ),
+  PackageWWWHome   := "https://gap-packages.github.io/idrel/",
+  README_URL       := Concatenation( ~.PackageWWWHome, "README.md" ),
+  PackageInfoURL   := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
+  ArchiveURL       := Concatenation( ~.SourceRepository.URL, 
                                    "/releases/download/v", ~.Version, 
                                    "/", ~.PackageName, "-", ~.Version ), 
 ArchiveFormats   := ".tar.gz",
@@ -73,7 +74,7 @@ PackageDoc := rec(
 ),
 
 Dependencies := rec(
-  GAP := ">=4.10.0",
+  GAP := ">=4.11.1",
   NeededOtherPackages := [ [ "GAPDoc", ">= 1.6.2" ] ],
   SuggestedOtherPackages := [ [ "AutoDoc", ">= 2018.09.20" ] ],
   ExternalConditions := [ ]
@@ -97,7 +98,7 @@ BannerString := Concatenation(
 AutoDoc := rec(
     TitlePage := rec(
         Copyright := Concatenation(
-            "&copyright; 1999-2019 Anne Heyworth and Chris Wensley<P/>\n",
+            "&copyright; 1999-2021 Anne Heyworth and Chris Wensley<P/>\n",
             "The &IdRel; package is free software; you can redistribute it ", 
             "and/or modify it under the terms of the GNU General ", 
             "Public License as published by the Free Software Foundation; ", 

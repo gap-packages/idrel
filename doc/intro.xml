@@ -103,19 +103,18 @@ Before starting on the main example,
 we consider a simpler example illustrating the use of &idrel;. 
 All the functions used are described in detail in this manual.
 We compute a reduced set of identities among relators 
-for the presentation of the symmetric group <C>s3</C> 
-with generators <M>a,b</M> and relators <M>[a^3 , b^2, (ab)^2]</M>. 
-In the listings below, <C>s3_Ri</C> is the <C>i</C>-th relator for <C>s3</C>, and <C>f1,f2</C> are the generators <M>a,b</M>. 
+for the presentation of the symmetric group <C>s3 = F/[f^3,g^2,(fg)^2]</C>. 
+In the listings below, <C>s3_Ri</C> is the <C>i</C>-th relator for <C>s3</C>, and <C>f1,f2</C> are the generators <M>f,g</M> of <M>F</M>. 
 <P/>
 <Example>
 <![CDATA[
 gap> F := FreeGroup( 2 );;
-gap> a := F.l;; b:= F.2;;
-gap> rels3 := [ a^3 , b^2, a*b*a*b];
+gap> f := F.1;;  g := F.2;;
+gap> rels3 := [ f^3, g^2, f*g*f*g ]; 
 [ f1^3, f2^2, (f1*f2)^2 ]
-gap> s3 := F/rels3;
-<fp group on the generators [ fl, f2 ]> 
-gap> SetName( s3, "s3" ); 
+gap> s3 := F/rels3; 
+<fp group on the generators [ f1, f2 ]>
+gap> SetName( s3, "s3" );; 
 gap> idrels3 := IdentitiesAmongRelators( s3 );;
 gap> Display( idrels3 );
 [ [ [ s3_R1^-1, <identity ...> ], [ s3_R1, f1^-1 ] ], 
@@ -127,27 +126,27 @@ gap> Display( idrels3 );
 ]]>
 </Example>
 
-If we write <M>\rho=a^3</M>, <M>\sigma=b^2</M>, <M>\tau=(ab)^2</M> 
-then the first identity becomes <M>\rho^{-1}\ \rho^{a^{-1}}</M>. 
+If we write <M>\rho=f^3</M>, <M>\sigma=g^2</M>, <M>\tau=(fg)^2</M> 
+then the first identity becomes <M>\rho^{-1} \rho^{f^{-1}}</M>. 
 Similarly, the second and third identities are the root identities 
-<M>\sigma^{-1}\ \sigma^{b}</M> and <M>\tau^{-1}\ \tau^{ab}</M>. 
+<M>\sigma^{-1} \sigma^{g}</M> and <M>\tau^{-1} \tau^{fg}</M>. 
 The fourth identity, which is not a root identity, 
 is obtained by walking around the Schreier diagram of the presentation, 
 a somewhat truncated triangular prism. 
 Taking the appropriate conjugate of each face in turn, we get: 
 <Display>
-\tau^{-1}\ \rho^a\ (\tau^{-1})^{a^2}\ \sigma^{a^{-1}b^{-1}a} 
-         \ \rho^{b^{-1}a}\ (\tau^{-1})^{ab^{-1}a}\ \sigma^a\ \sigma\;. 
+\tau^{-1}\ \rho^f\ (\tau^{-1})^{f^2}\ \sigma^{f^{-1}g^{-1}f} 
+         \ \rho^{g^{-1}f}\ (\tau^{-1})^{fg^{-1}f}\ \sigma^f\ \sigma\;. 
 </Display> 
 <P/>
 In order to form the <E>module of identities</E> for <C>s3</C> 
 the identities are transformed into module polynomials. 
-The first is  <M>y_1 = \rho(-1 + a^{-1})</M> or <M>-y_1a = \rho(a-1)</M>. 
-The second and third are <M>y_2 = \sigma(b-1)</M> and <M>y_3 = \tau(ab-1)</M>, 
-while the fourth is <M>\rho(a+ba) + \sigma(1+a+ab) - \tau(1+a^{-1}+b)</M>. 
+The first is  <M>y_1 = \rho(-1 + f^{-1})</M> or <M>-y_1f = \rho(f-1)</M>. 
+The second and third are <M>y_2 = \sigma(g-1)</M> and <M>y_3 = \tau(fg-1)</M>, 
+while the fourth is <M>\rho(f+gf) + \sigma(1+f+fg) - \tau(1+f^{-1}+g)</M>. 
 Note that, in the fourth polynomial, the conjugators are converted to 
 their normal forms in <C>s3</C>, namely 
-<M>a^2=a^{-1},\ a^{-1}b^{-1}a=ab,\ b^{-1}a=ba</M> and <M>ab^{-1}a=b</M>. 
+<M>f^2=f^{-1},\ f^{-1}g^{-1}f=fg,\ g^{-1}f=gf</M> and <M>fg^{-1}f=g</M>. 
 Generators for this module are returned by the operation 
 <C>IdentityYSequences</C>. 
 <P/>
