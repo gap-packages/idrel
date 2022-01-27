@@ -54,25 +54,52 @@ which has no terms, and is an element of the module.
 </ManSection>
 <Example>
 <![CDATA[
-gap> frq8 := FreeRelatorGroup( q8 );; 
-gap> genfrq8 := GeneratorsOfGroup( frq8 ); 
+gap> q8R := FreeRelatorGroup( q8 );; 
+gap> genq8R := GeneratorsOfGroup( q8R ); 
 [ q8_R1, q8_R2, q8_R3, q8_R4 ]
-gap> Print( rmp1, "\n" );      ## defined in section 4.4.1 
+gap> Print( rmp1, "\n" ); 
  - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>
 gap> mp2 := MonoidPolyFromCoeffsWords( [4,-5], [ M[4], M[1] ] );;
 gap> Print( mp2, "\n" ); 
 4*q8_M4 - 5*q8_M1
-gap> s1 := ModulePoly( [ genfrq8[4], genfrq8[1] ], [ rmp1, mp2 ] );
-q8_R1*(4*q8_M4 - 5*q8_M1) + q8_R4*( - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>)
-gap> s2 := ModulePoly( [ genfrq8[3], genfrq8[2], genfrq8[1] ], 
->       [ -1*rmp1, 3*mp2, (rmp1+mp2) ] );
-q8_R1*( - 3*q8_M4 + 9*<identity ...>) + q8_R2*(12*q8_M4 - 15*q8_M1) + q8_R3*(
-7*q8_M4 - 5*q8_M1 - 9*<identity ...>)
-gap> zeromp := ZeroModulePoly( frq8, freeq8 );
-zero modpoly
+gap> zeromp := ZeroModulePoly( q8R, freeq8 );
+zero modpoly 
 ]]>
 </Example>
 </Section>
+
+<ManSection>
+   <Oper Name="PrintLnModulePoly"
+         Arg="obj, gens1, labs1, gens2, labs2" 
+         Label="input object, [gens,labels] for the group, ditto relators" />
+   <Oper Name="PrintModulePoly"
+         Arg="obj, gens1, labs1, gens2, labs2" 
+         Label="input object, [gens,labels] for the group, ditto relators" />
+<Description>
+The function <C>PrintModulePoly</C> prints a module polynomial, 
+using the function <C>PrintUsingLabels</C>. 
+Two lists of labels are involved: those for the fp-group being investigated, 
+and those for the free relator group of this group.
+The function <C>PrintLnModulePoly</C> does exactly the same, 
+and then appends a newline.
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> q8R := FreeRelatorGroup( q8 );; 
+gap> q8Rlabs := [ "q", "r", "s", "t" ];; 
+gap> s1 := ModulePoly( [ genq8R[4], genq8R[1] ], [ rmp1, mp2 ] );;
+gap> PrintLnModulePoly( s1, genfgmon, q8labs, genq8R, q8Rlabs );
+q*(4*B + -5*a) + t*(-7*B + 5*a + 9*id)
+gap> s2 := ModulePoly( [ genq8R[3], genq8R[2], genq8R[1] ], 
+>       [ -1*rmp1, 3*mp2, (rmp1+mp2) ] );;
+gap> PrintLnModulePoly( s2, genfgmon, q8labs, genq8R, q8Rlabs );
+q*(-3*B + 9*id) + r*(12*B + -15*a) + s*(7*B + -5*a + -9*id)
+]]>
+</Example>
+</Section>
+
 
 
 <Section><Heading>Components of a module polynomial</Heading>
@@ -110,7 +137,7 @@ the free group on the generators.
 gap> [ Length(s1), Length(s2) ];
 [ 2, 3 ]
 gap> One( s1 );
-<identity ...> 
+<identity ...>
 gap> Terms( s1 );
 [ [ q8_R1, 4*q8_M4 - 5*q8_M1 ], 
   [ q8_R4,  - 7*q8_M4 + 5*q8_M1 + 9*<identity ...> ] ]
@@ -151,14 +178,12 @@ This is made clearer in the example.
 <Example>
 <![CDATA[
 gap> mp0 := MonoidPolyFromCoeffsWords( [6], [ M[2] ] );;
-gap> Print( mp0, "\n" );
-6*q8_M2
-gap> s0 := AddTermModulePoly( s1, genfrq8[3], mp0 ); 
-q8_R1*(4*q8_M4 - 5*q8_M1) + q8_R3*(6*q8_M2) + q8_R4*( - 7*q8_M4 + 5*q8_M1 +
+gap> s0 := AddTermModulePoly( s1, genq8R[3], mp0 ); 
+q8_R1*(4*q8_M4 - 5*q8_M1) + q8_R3*(6*q8_M2) + q8_R4*( - 7*q8_M4 + 5*q8_M1 + 
 9*<identity ...>)
 gap> Print( s1 + s2, "\n" );
-q8_R1*( q8_M4 - 5*q8_M1 + 9*<identity ...>) + q8_R2*(12*q8_M4 -
-15*q8_M1) + q8_R3*(7*q8_M4 - 5*q8_M1 - 9*<identity ...>) + q8_R4*( -
+q8_R1*( q8_M4 - 5*q8_M1 + 9*<identity ...>) + q8_R2*(12*q8_M4 - 
+15*q8_M1) + q8_R3*(7*q8_M4 - 5*q8_M1 - 9*<identity ...>) + q8_R4*( - 
 7*q8_M4 + 5*q8_M1 + 9*<identity ...>)
 gap> Print( s1 - s0, "\n" );
 q8_R3*( - 6*q8_M2)
@@ -166,7 +191,7 @@ gap> Print( s1 * 1/2, "\n" );
 q8_R1*(2*q8_M4 - 5/2*q8_M1) + q8_R4*( - 7/2*q8_M4 + 5/2*q8_M1 + 9/
 2*<identity ...>)
 gap> Print( s1 * M[1], "\n" );
-q8_R1*(4*q8_M4*q8_M1 - 5*q8_M1^2) + q8_R4*( - 7*q8_M4*q8_M1 + 5*q8_M1^2 +
+q8_R1*(4*q8_M4*q8_M1 - 5*q8_M1^2) + q8_R4*( - 7*q8_M4*q8_M1 + 5*q8_M1^2 + 
 9*q8_M1)
 ]]>
 </Example>

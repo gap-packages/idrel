@@ -22,7 +22,7 @@ and <M>w_i</M> is a word.
 These three components obey the identity 
 <M>u = n_1^{w_1} \ldots n_k^{w_k} v</M>.
 <P/>
-Rules of the form <M>g^+g^- \to \rm{id}</M> apply to the monoid presentation, 
+Rules of the form <M>gG \to \rm{id}</M> apply to the monoid presentation, 
 but not to the group presentation, so are given an empty logged component.
 
 
@@ -54,42 +54,39 @@ is an empty list of r-sequences, which will be explained later.
 <Example>
 <![CDATA[
 gap> l0 := ListWithIdenticalEntries( 8, 0 );;
-gap> for j in [1..8] do 
->        r := r0[j];
->        if ( j<5 ) then
->           l0[j] := [ r[1], [ [j,id] ], r[2] ];
+gap> for j in [1..8] do
+>        r := r0[j];;
+>        if (j<5) then
+>           l0[j] := [ r[1], [ [ j, id ] ], r[2] ];;
 >        else
->           l0[j] := [ r[1], [ ], r[2] ];
+>           l0[j] := [ r[1], [ ], r[2] ];;
 >        fi;
 >    od;
-gap> l0;
-[ [ q8_M1^4, [ [ 1, <identity ...>] ], <identity. ..> ], 
-  [ q8_M2^4, [ [ 2, <identity ...>] ], <identity ...> ], 
-  [ q8_M1*q8_M2*q8_M1*q8_M4, [ [ 3, <identity ...> ] ], <identity ...> ],   
-  [ q8_M1^2*q8_M2^2, [ [ 4, <identity ...> ] ], <identity ...> ], 
-  [ q8_M1*q8_M3, [ ], <identity ...> ], [ q8_M2*q8_M4, [ ], <identity ...> ], 
-  [ q8_M3*q8_M1, [ ], <identity ...> ], [ q8_M4*q8_M2, [ ], <identity ...> ] ] 
+gap> PrintLnUsingLabels( l0, genfgmon, q8labs ); 
+[ [ a^4, [ [ 1, id ] ], id ], [ b^4, [ [ 2, id ] ], id ], [ a*b*a*B, 
+[ [ 3, id ] ], id ], [ a^2*b^2, [ [ 4, id ] ], id ], [ a*A, 
+[ ], id ], [ b*B, [ ], id ], [ A*a, [ ], id ], [ B*b, [ ], id ] ]
 gap> l1 := LoggedOnePassKB( q8, l0 );;
-gap> Length( l1[1] ); 
+gap> Length( l1[1] );
 21
-gap> l1[1][16];
-[ q8_M2^2, [ [ -4, <identity ...> ], [ 2, q8_M3^2 ] ], q8_M1^2 ]
+gap> PrintLnUsingLabels( l1[1][16], genfgmon, q8labs );
+[ b^2, [ [ -4, id ], [ 2, A^2 ] ], a^2 ]
 ]]>
 </Example>
 
 Note that the length <M>21</M> of <C>l1</C> is, as expected, 
 the same as that of <C>r1</C> in <Ref Sect="one-pass-KB"/>. 
-If we write <M>a^+,b^+,a^-,b^-</M> for <C>M1,M2,M3,M4</C> 
+If we write <M>a,b,A,B</M> for <C>M1,M2,M3,M4</C> 
 and label the four original relators as 
-<M>q=a^{+4},r=b^{+4},s=a^+b^+a^+b^-,t=a^{+2}b^{+2}</M> 
+<M>q=a^4,\ r=b^4,\ s=abaB,\ t=a^2b^2</M> 
 then the sixteenth identity (for example) says that 
-<M>b^{+2} = (t^{-1}r^{a^{-2}})a^{+2}</M>. 
+<M>b^2 = (t^{-1}r^{A^2})a^2</M>. 
 To verify this, we may expand the right-hand side as follows: 
 <Display>
-(b^{-2}a^{-2}).a^{+2}(b^{+4})a^{-2}.a^{+2} 
-~=~ b^{-2}(a^{+2}a^{-2})b^{+4}(a^{-2}a^{+2}) 
-~=~ b^{-2}b^{+4} 
-~=~ b^{+2}. 
+(B^2A^2).a^2(b^4)A^2.a^2 
+~=~ B^2(A^2a^2)b^4(A^2a^2) 
+~=~ B^2b^4 
+~=~ b^2. 
 </Display>
 
 <ManSection>
@@ -109,30 +106,26 @@ until no new rules are added and no unnecessary ones are included.
 The output is a reduced complete logged rewrite system.
 <P/>
 As a further example, consider the second rule in <C>l2</C> 
-which shows how <M>b^+a^+</M> reduces to <M>a^+b^-</M>. 
+which shows how <M>ba</M> reduces to <M>aB</M>. 
 For this rule <C>[u,L,v]</C> we will verify that 
 <M>u = n_1^{w_1}n_2^{w_2}n_3^{w_3} v</M>, 
 as in the introduction to this chapter. 
 The rule is: 
-<P/>
-<Listing>
-<![CDATA[
-[ q8_M2*q8_M1, [ [3,q8_M1], [-1,<identity...>], [4,q8_M3] ], q8_M1*q8_M4 ]. 
-]]>
-</Listing>
-<P/> 
+<Display> 
+[ ba, [ [3,a], [-1,id], [4,A] ], aB ]. 
+</Display> 
 The relators <M>3 \equiv s,\; 4 \equiv t</M> 
 and the inverse relator <M>-1 \equiv q^{-1}</M> are 
-<M>a^+b^+a^+b^-,\; a^{+2}b^{+2}</M> and <M>a^{-4}</M>, 
-and these are conjugated by <M>(a^-)^{-1}=a^+, (a^+)^{-1}=a^-</M> 
+<M>abaB,\; a^2b^2</M> and <M>A^4</M>, 
+and these are conjugated by <M>a</M>, <M>A</M> 
 and the identity respectively. 
 So the second and third parts of the rule expand to:
 <Display>
-(a^-(a^+b^+a^+b^-)a^+)(a^{-4})(a^+(a^{+2}b^{+2})a^-)a^+b^- 
+(A(abaB)a)(A^4)(a(a^2b^2)A)aB 
 ~=~ 
-(a^-a^+)b^+a^+(b^-(a^+a^{-4}a^{+3})b^+)(b^+(a^-a^+)b^-) 
+(Aa)ba(B(aA^4a^3)b)(b(Aa)B) 
 </Display>
-which reduces to the first part of the rule, <M>b^+a^+</M>. 
+which reduces to the first part of the rule, <M>ba</M>. 
 <P/>
 In version 2.41 of this package the function <C>LoggedOnePassKB</C> 
 was modified to return a two-element list of lists. 
@@ -146,38 +139,38 @@ See chapter <Ref Sect="chap-idrels"/> for more information about identities.
 <Example>
 <![CDATA[
 gap> l11 := LoggedRewriteReduce( q8, l1[1] );;
-gap> Perform( l11, Display );
-[ q8_M1*q8_M3, [  ], <identity ...> ]
-[ q8_M2^2, [ [ -4, <identity ...> ], [ 2, q8_M3^2 ] ], q8_M1^2 ]
-[ q8_M2*q8_M4, [  ], <identity ...> ]
-[ q8_M3*q8_M1, [  ], <identity ...> ]
-[ q8_M4*q8_M2, [  ], <identity ...> ]
-[ q8_M1^3, [ [ 1, <identity ...> ] ], q8_M3 ]
-[ q8_M1^2*q8_M2, [ [ 4, <identity ...> ] ], q8_M4 ]
-[ q8_M1*q8_M2*q8_M1, [ [ 3, <identity ...> ] ], q8_M2 ]
-[ q8_M2*q8_M1*q8_M4, [ [ 3, q8_M1 ] ], q8_M3 ] 
+gap> PrintUsingLabels( l11, genfgmon, q8labs );      
+[ [ a*A, [ ], id ], [ b^2, [ [ -4, id ], [ 
+2, A^2 ] ], a^2 ], [ b*B, [ ], id ], [ 
+A*a, [ ], id ], [ B*b, [ ], id ], [ a^3, [ [ 1, id ] ], A ], [ a^2*b, [ [ 
+4, id ] ], 
+B ], [ a*b*a, [ [ 3, id ] ], b ], [ b*a*B, [ [ 3, a ] ], A ] ]
 gap> Length( l11 );
 9
 gap> l2 := LoggedKnuthBendix( q8, l11 );;
-gap> l2[1]; 
-[ [ q8_M1*q8_M3, [  ], <identity ...> ], 
-  [ q8_M2*q8_M1, [ [ 3, q8_M1 ], [ -1, <identity ...> ], [ 4, q8_M3 ] ], 
-      q8_M1*q8_M4 ], 
-  [ q8_M2^2, [ [ -4, <identity ...> ], [ 2, q8_M3^2 ] ], q8_M1^2 ], 
-  [ q8_M2*q8_M3, [ [ -3, <identity ...> ] ], q8_M1*q8_M2 ], 
-  [ q8_M2*q8_M4, [  ], <identity ...> ], [ q8_M3*q8_M1, [  ], <identity ...> ]
-    , [ q8_M3*q8_M2, [ [ -1, <identity ...> ], [ 4, q8_M3 ] ], q8_M1*q8_M4 ], 
-  [ q8_M3^2, [ [ -1, <identity ...> ] ], q8_M1^2 ], 
-  [ q8_M3*q8_M4, 
-      [ [ -1, <identity ...> ], [ -2, q8_M3^2 ], [ 4, <identity ...> ], 
-          [ 3, q8_M1*q8_M4 ], [ -3, <identity ...> ] ], q8_M1*q8_M2 ], 
-  [ q8_M4*q8_M1, [ [ -4, <identity ...> ], [ 3, q8_M3 ] ], q8_M1*q8_M2 ], 
-  [ q8_M4*q8_M2, [  ], <identity ...> ], 
-  [ q8_M4*q8_M3, [ [ -3, q8_M1*q8_M2 ] ], q8_M1*q8_M4 ], 
-  [ q8_M4^2, [ [ -4, <identity ...> ] ], q8_M1^2 ], 
-  [ q8_M1^3, [ [ 1, <identity ...> ] ], q8_M3 ], 
-  [ q8_M1^2*q8_M2, [ [ 4, <identity ...> ] ], q8_M4 ], 
-  [ q8_M1^2*q8_M4, [ [ -4, q8_M3^2 ], [ 1, <identity ...> ] ], q8_M2 ] ]
+gap> PrintUsingLabels( l2[1], genfgmon, q8labs );
+gap> l11 := LoggedRewriteReduce( q8, l1[1] );;
+gap> PrintLnUsingLabels( l11, genfgmon, q8labs );      
+[ [ a*A, [ ], id ], [ b^2, [ [ -4, id ], [ 2, A^2 ] ], a^2 ], 
+[ b*B, [ ], id ], [ A*a, [ ], id ], [ B*b, [ ], id ], [ a^3, 
+[ [ 1, id ] ], A ], [ a^2*b, [ [ 4, id ] ], B ], [ a*b*a, [ 
+[ 3, id ] ], b ], [ b*a*B, [ [ 3, a ] ], A ] ]
+gap> Length( l11 );
+9
+gap> l2 := LoggedKnuthBendix( q8, l11 );;
+gap> PrintLnUsingLabels( l2[1], genfgmon, q8labs );
+[ [ a*A, [ ], id ], [ b*a, [ [ 3, a ], [ -1, id ], [ 4, A ] ], a*B ], 
+[ b^2, [ [ -4, id ], [ 2, A^2 ] ], a^2 ], [ b*A, [ [ -3, id ] ], a*b ], 
+[ b*B, [ ], id ], [ A*a, [ ], id ], [ A*b, [ [ -1, id ], [ 4, A ] ], a*B ], 
+[ A^2, [ [ -1, id ] ], a^2 ], [ A*B, [ [ -1, id ], [ -2, A^2 ], 
+[ 4, id ], [ 3, a*B ], [ -3, id ] ], a*b ], [ B*a, [ [ -4, id ], 
+[ 3, A ] ], a*b ], [ B*b, [ ], id ], [ B*A, [ [ -3, a*b ] ], a*B ], 
+[ B^2, [ [ -4, id ] ], a^2 ], [ a^3, [ [ 1, id ] ], A ], [ a^2*b, 
+[ [ 4, id ] ], B ], [ a^2*B, [ [ -4, A^2 ], [ 1, id ] ], b ] ]
+gap> Length( l2[1] );
+16
+gap> Length( l2[2] );
+51
 gap> Length( l2[1] );
 16
 gap> Length( l2[2] );
@@ -224,8 +217,8 @@ In order to clarify the following output, note that, in the log below,
 and to <M>ba</M> in the first <C>lw2</C>. 
 These expand to the initial <C>w0</C> using the given logged parts as follows: 
 <Display>
-(b^{+9}a^{+4}b^{-9})(b^{+4})b^{+5}a^{+5} ~=~ b^{+9}a^{+9} 
-~=~ (b^{+9}a^{+4}b^{-9})(b^{+4})(b^{+5}a^{+4}b^{-5})(b^{+4})b^+a^+\,.  
+(b^9a^4B^9)(b^4)b^5a^5 ~=~ b^9a^9 
+~=~ (b^9a^4B^9)(b^4)(b^5a^4B^5)(b^4)ba\,.  
 </Display> 
 The corresponding expansion of the final <C>lw2</C> is too lengthy 
 to include here. 
@@ -237,35 +230,38 @@ to determine whether or not this logged part can be simplified.)
 </ManSection>
 <Example>
 <![CDATA[
-gap> w0; 
-q8_M2^9*q8_M1^9
-gap> lw1 := LoggedOnePassReduceWord( w0, l0 );
-[ [ [ 1, q8_M2^-9 ], [ 2, <identity ...> ] ], q8_M2^5*q8_M1^5 ]
-gap> lw2 := LoggedReduceWordKB( w0, l0 ); 
-[ [ [ 1, q8_M2^-9 ], [ 2, <identity ...> ], [ 1, q8_M2^-5 ], 
-      [ 2, <identity ...> ] ], q8_M2*q8_M1 ]
-gap> lw2 := LoggedReduceWordKB( w0, l2[1] ); 
-[ [ [ 3, q8_M1*q8_M2^-8 ], [ -1, q8_M2^-8 ], [ 4, q8_M3*q8_M2^-8 ], 
-      [ -4, <identity ...> ], [ 2, q8_M3^2 ], 
-      [ -4, q8_M1^-1*q8_M2^-6*q8_M1^-2 ], 
-      [ 3, q8_M3*q8_M1^-1*q8_M2^-6*q8_M1^-2 ], 
-      [ 1, q8_M2^-1*q8_M1^-2*q8_M2^-6*q8_M1^-2 ], [ 4, <identity ...> ], 
-      [ 3, q8_M1*q8_M2^-4*q8_M4^-1 ], [ -1, q8_M2^-4*q8_M4^-1 ], 
-      [ 4, q8_M3*q8_M2^-4*q8_M4^-1 ], [ -4, q8_M4^-1 ], 
-      [ 2, q8_M3^2*q8_M4^-1 ], 
-      [ -3, q8_M1^-1*q8_M4^-1*q8_M1^-1*q8_M2^-2*q8_M1^-2*q8_M4^-1 ], 
-      [ -4, <identity ...> ], [ 3, q8_M3 ], 
-      [ 1, q8_M2^-1*q8_M1^-2*q8_M4^-1*q8_M1^-1*q8_M2^-1*(q8_M2^-1*q8_M1^-1)^2 
-         ], [ 4, q8_M4^-1*q8_M1^-1*q8_M2^-1*(q8_M2^-1*q8_M1^-1)^2 ], 
-      [ 3, <identity ...> ], [ -1, q8_M1^-1 ], [ 4, q8_M3*q8_M1^-1 ], 
-      [ -4, q8_M4^-1*q8_M1^-2 ], [ 2, q8_M3^2*q8_M4^-1*q8_M1^-2 ], 
-      [ -4, q8_M1^-2 ], [ 3, q8_M3*q8_M1^-2 ], 
-      [ -4, q8_M1^-2*q8_M2^-1*q8_M1^-3 ], [ 1, <identity ...> ], 
-      [ 3, q8_M1*q8_M3^-1 ], [ -1, q8_M3^-1 ], [ 4, <identity ...> ], 
-      [ -4, <identity ...> ], [ 3, q8_M3 ], [ 3, <identity ...> ], 
-      [ -1, q8_M1^-1 ], [ 4, q8_M3*q8_M1^-1 ], [ -4, q8_M1^-2 ], 
-      [ 3, q8_M3*q8_M1^-2 ], [ 1, <identity ...> ], [ -1, <identity ...> ], 
-      [ 4, q8_M3 ] ], q8_M1*q8_M4 ]
+gap> PrintUsingLabels( w0, genfgmon, q8labs );   
+b^9*a^9
+gap> lw1 := LoggedOnePassReduceWord( w0, l0 );;
+gap> PrintUsingLabels( lw1, genfgmon, q8labs );  
+[ [ [ 1, b^-9 ], [ 2, id ] ], b^5*a^5 ]
+gap> lw2 := LoggedReduceWordKB( w0, l0 );; 
+gap> PrintUsingLabels( lw2, genfgmon, q8labs );
+[ [ [ 1, b^-9 ], [ 2, id ], [ 1, b^-5 ], [ 2, id ] ], b*a ]
+gap> lw2 := LoggedReduceWordKB( w0, l2[1] );;
+gap> PrintUsingLabels( lw2, genfgmon, q8labs );
+gap> PrintUsingLabels( w0, genfgmon, q8labs );   
+b^9*a^9
+gap> lw1 := LoggedOnePassReduceWord( w0, l0 );;
+gap> PrintLnUsingLabels( lw1, genfgmon, q8labs );  
+[ [ [ 1, b^-9 ], [ 2, id ] ], b^5*a^5 ]
+gap> lw2 := LoggedReduceWordKB( w0, l0 );; 
+gap> PrintLnUsingLabels( lw2, genfgmon, q8labs );
+[ [ [ 1, b^-9 ], [ 2, id ], [ 1, b^-5 ], [ 2, id ] ], b*a ]
+gap> lw2 := LoggedReduceWordKB( w0, l2[1] );;
+gap> PrintLnUsingLabels( lw2, genfgmon, q8labs );
+[ [ [ 3, a*b^-8 ], [ -1, b^-8 ], [ 4, A*b^-8 ], [ -4, id ], 
+[ 2, A^2 ], [ -4, a^-1*b^-6*a^-2 ], [ 3, A*a^-1*b^-6*a^-2 ], 
+[ 1, b^-1*a^-2*b^-6*a^-2 ], [ 4, id ], [ 3, a*b^-4*B^-1 ], 
+[ -1, b^-4*B^-1 ], [ 4, A*b^-4*B^-1 ], [ -4, B^-1 ], [ 2, A^2*B^-1 ], 
+[ -3, a^-1*B^-1*a^-1*b^-2*a^-2*B^-1 ], [ -4, id ], [ 3, A ], 
+[ 1, b^-1*a^-2*B^-1*a^-1*b^-1*(b^-1*a^-1)^2 ], [ 4, 
+B^-1*a^-1*b^-1*(b^-1*a^-1)^2 ], [ 3, id ], [ -1, a^-1 ], [ 4, A*a^-1 ], 
+[ -4, B^-1*a^-2 ], [ 2, A^2*B^-1*a^-2 ], [ -4, a^-2 ], [ 3, A*a^-2 ], 
+[ -4, a^-2*b^-1*a^-3 ], [ 1, id ], [ 3, a*A^-1 ], [ -1, A^-1 ], 
+[ 4, id ], [ -4, id ], [ 3, A ], [ 3, id ], [ -1, a^-1 ], 
+[ 4, A*a^-1 ], [ -4, a^-2 ], [ 3, A*a^-2 ], [ 1, id ], [ -1, id ], 
+[ 4, A ] ], a*B ]
 ]]>
 </Example>
 
@@ -290,26 +286,15 @@ The rules in the final system are partially ordered by the function
 <Example>
 <![CDATA[
 gap> lrws := LoggedRewritingSystemFpGroup( q8 );;
-gap> Perform( lrws, Display ); 
-[ q8_M4*q8_M2, [  ], <identity ...> ]
-[ q8_M3*q8_M1, [  ], <identity ...> ]
-[ q8_M2*q8_M4, [  ], <identity ...> ]
-[ q8_M1*q8_M3, [  ], <identity ...> ]
-[ q8_M1^2*q8_M4, [ [ -8, q8_M3^2 ], [ 5, <identity ...> ] ], q8_M2 ]
-[ q8_M1^2*q8_M2, [ [ 8, <identity ...> ] ], q8_M4 ]
-[ q8_M1^3, [ [ 5, <identity ...> ] ], q8_M3 ]
-[ q8_M4^2, [ [ -8, <identity ...> ] ], q8_M1^2 ]
-[ q8_M4*q8_M3, [ [ -7, q8_M1*q8_M2 ] ], q8_M1*q8_M4 ]
-[ q8_M4*q8_M1, [ [ -8, <identity ...> ], [ 7, q8_M3 ] ], q8_M1*q8_M2 ]
-[ q8_M3*q8_M4, 
-  [ [ -5, <identity ...> ], [ -6, q8_M3^2 ], [ 8, <identity ...> ], 
-      [ 7, q8_M1*q8_M4 ], [ -7, <identity ...> ] ], q8_M1*q8_M2 ]
-[ q8_M3^2, [ [ -5, <identity ...> ] ], q8_M1^2 ]
-[ q8_M3*q8_M2, [ [ -5, <identity ...> ], [ 8, q8_M3 ] ], q8_M1*q8_M4 ]
-[ q8_M2*q8_M3, [ [ -7, <identity ...> ] ], q8_M1*q8_M2 ]
-[ q8_M2^2, [ [ -8, <identity ...> ], [ 6, q8_M3^2 ] ], q8_M1^2 ]
-[ q8_M2*q8_M1, [ [ 7, q8_M1 ], [ -5, <identity ...> ], [ 8, q8_M3 ] ],
-  q8_M1*q8_M4 ]
+gap> PrintLnUsingLabels( lrws, genfgmon, q8labs );
+[ [ B*b, [ ], id ], [ A*a, [ ], id ], [ b*B, [ ], id ], [ a*A, 
+[ ], id ], [ a^2*B, [ [ -8, A^2 ], [ 5, id ] ], b ], [ a^2*b, 
+[ [ 8, id ] ], B ], [ a^3, [ [ 5, id ] ], A ], [ B^2, [ [ -8, id ] ], a^2 ], 
+[ B*A, [ [ -7, a*b ] ], a*B ], [ B*a, [ [ -8, id ], [ 7, A ] ], a*b ], 
+[ A*B, [ [ -5, id ], [ -6, A^2 ], [ 8, id ], [ 7, a*B ], [ -7, id ] ], 
+a*b ], [ A^2, [ [ -5, id ] ], a^2 ], [ A*b, [ [ -5, id ], [ 8, A ] ], a*B ], 
+[ b*A, [ [ -7, id ] ], a*b ], [ b^2, [ [ -8, id ], [ 6, A^2 ] ], a^2 ], 
+[ b*a, [ [ 7, a ], [ -5, id ], [ 8, A ] ], a*B ] ]
 gap> Length( lrws );
 16
 ]]>
@@ -319,25 +304,22 @@ gap> Length( lrws );
 Consider now the two-generator abelian group <M>T</M> considered in the 
 previous chapter (<Ref Sect="rwsfp"/>). 
 Using the alternative ordering on the monoid generators, 
-<C>[ T_M1</C><M>=a^+</M>, <C>T_M2</C><M>=a^-</M>, 
-<C>T_M3</C><M>=b^+</M>, <C>T_M4</C><M>=b^-</M> <C>]</C>, 
+<C>[ T_M1</C><M>=a</M>, <C>T_M2</C><M>=A</M>, 
+<C>T_M3</C><M>=b</M>, <C>T_M4</C><M>=B</M> <C>]</C>, 
 we obtain the following set of <M>8</M> logged rules. 
 The last of these may be checked as follows: 
 <Display>
-(b^+a^+(b^-a^-b^+a^+)a^-b^-)a^+b^+ ~=~ 
-b^+a^+(b^-(a^-(b^+(a^+a^-)b^-)a^+)b^+) 
+(ba(BAba)AB)ab ~=~ ba(B(A(b(aA)B)a)b) 
 </Display>
-and is a logged version of the rule <M>b^+a^+ \to a^+b^+</M>. 
+and is a logged version of the rule <M>ba \to ab</M>. 
 <P/> 
 <Example>
 <![CDATA[
-gap> lrwsT := LoggedRewritingSystemFpGroup( T );
-[ [ T_M4*T_M3, [  ], <identity ...> ], [ T_M3*T_M4, [  ], <identity ...> ], 
-  [ T_M2*T_M1, [  ], <identity ...> ], [ T_M1*T_M2, [  ], <identity ...> ], 
-  [ T_M4*T_M2, [ [ -5, <identity ...> ] ], T_M2*T_M4 ], 
-  [ T_M4*T_M1, [ [ 5, T_M2 ] ], T_M1*T_M4 ], 
-  [ T_M3*T_M2, [ [ 5, T_M4 ] ], T_M2*T_M3 ], 
-  [ T_M3*T_M1, [ [ -5, T_M2*T_M4 ] ], T_M1*T_M3 ] ]
+gap> lrwsT := LoggedRewritingSystemFpGroup( T );;
+gap> PrintLnUsingLabels( lrwsT, genfgmonT, Tlabs );
+[ [ Y*y, [ ], id ], [ y*Y, [ ], id ], [ X*x, [ ], id ], [ x*X, 
+[ ], id ], [ Y*X, [ [ -5, id ] ], X*Y ], [ Y*x, [ [ 5, X ] ], x*Y ], 
+[ y*X, [ [ 5, Y ] ], X*y ], [ y*x, [ [ -5, X*Y ] ], x*y ] ]
 ]]>
 </Example>
 

@@ -892,6 +892,65 @@ function( l, elmon, rws, sats )
     return lsats;
 end );
 
+##############################################################################
+##
+#M  PrintLnModulePoly
+#M  PrintModulePoly
+##
+InstallMethod( PrintLnModulePoly, "for (list of) module polynomials", 
+    true, [ IsObject, IsList, IsList, IsList, IsList ], 0, 
+function( obj, gens1, labs1, gens2, labs2 ) 
+    IdRelOutputPos := 0; 
+    IdRelOutputDepth := 0; 
+    PrintModulePoly( obj, gens1, labs1, labs1, labs2 ); 
+    Print( "\n" ); 
+    IdRelOutputPos := 0; 
+end );
+
+InstallMethod( PrintModulePoly, "for (list of) module polynomials", 
+    true, [ IsObject, IsList, IsList, IsList, IsList ], 0, 
+function( obj, gens1, labs1, gens2, labs2 ) 
+
+    local j, len, terms; 
+
+    IdRelOutputPos := 0; 
+    IdRelOutputDepth := 0; 
+    if IsList( obj ) then 
+        len := Length( obj ); 
+        if ( len = 0 ) then 
+            Print( "[ ]" ); 
+        else 
+            Print( "[ " ); 
+            IdRelOutputPos := IdRelOutputPos + 2; 
+            for j in [1..len] do 
+                PrintModulePoly( obj[j], gens1, labs1, gens2, labs2 ); 
+                if ( j < len ) then 
+                    Print( ", " ); 
+                    IdRelOutputPos := IdRelOutputPos + 2; 
+                fi; 
+            od; 
+            Print( " ]" ); 
+            IdRelOutputPos := IdRelOutputPos + 2; 
+        fi; 
+    elif IsModulePoly( obj ) then 
+        terms := Terms( obj ); 
+        len := Length( terms ); 
+        for j in [1..len] do 
+            PrintUsingLabels( terms[j][1], gens2, labs2 ); 
+            Print( "*(" );
+            PrintUsingLabels( terms[j][2], gens1, labs1 ); 
+            Print( ")" ); 
+            IdRelOutputPos := IdRelOutputPos + 3; 
+            if ( j < len ) then 
+                Print( " + " ); 
+                IdRelOutputPos := IdRelOutputPos + 2; 
+            fi; 
+        od; 
+    else 
+        Error( "obj is not a module poly" ); 
+    fi; 
+end ); 
+
 ###############*#############################################################
 ##
 #E modpoly.gi . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here

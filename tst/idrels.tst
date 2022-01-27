@@ -2,11 +2,23 @@
 ##
 #W  idrels.tst                   Idrel Package                   Chris Wensley
 #W                                                             & Anne Heyworth
-#Y  Copyright (C) 1999-2021 Anne Heyworth and Chris Wensley
+#Y  Copyright (C) 1999-2022 Anne Heyworth and Chris Wensley
 ##
 
 gap> saved_infolevel_idrel := InfoLevel( InfoIdRel );; 
 gap> SetInfoLevel( InfoIdRel, 0 );;
+
+## items defined in rws.tst 
+gap> F := FreeGroup( 2 );;
+gap> f := F.1;;  g := F.2;;
+gap> rels3 := [ f^3, g^2, f*g*f*g ];; 
+gap> s3 := F/rels3;; 
+gap> SetName( s3, "s3" );; 
+gap> rels8 := [ f^4, g^4, f*g*f*g^-1, f^2*g^2 ];;
+gap> q8 := F/rels8;;
+gap> SetName( q8, "q8" );;
+
+
 
 ## Example 6.1.1
 gap> gseq8 := IdentityRelatorSequences( q8 );;
