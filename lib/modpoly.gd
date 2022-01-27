@@ -4,7 +4,7 @@
 #W                                                             & Anne Heyworth
 ##  Declaration file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2018 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2022 Anne Heyworth and Chris Wensley 
 ##
 ##  This file contains the declarations of operations for module polynomials.
 ##  A ModulePoly is a list of terms [<gen>, <monoid poly> ], 
@@ -137,6 +137,16 @@ DeclareOperation( "ReduceModulePoly", [ IsModulePolyGensPolysRep, IsList ] );
 ##
 DeclareOperation( "LoggedReduceModulePoly", 
     [ IsModulePolyGensPolysRep, IsList, IsList, IsModulePolyGensPolysRep ] );
+
+#############################################################################
+##
+#O  PrintModulePoly( <obj>, <gens1>, <labs1>, <gens2>, <labs2> )
+#O  PrintLnModulePoly( <obj>, <gens1>, <labs1>, <gens2>, <labs2> )
+##
+DeclareOperation( "PrintModulePoly", 
+    [ IsObject, IsList, IsList, IsList, IsList ] );
+DeclareOperation( "PrintLnModulePoly", 
+    [ IsObject, IsList, IsList, IsList, IsList ] );
 
 #############################################################################
 ##

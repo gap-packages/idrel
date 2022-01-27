@@ -1,6 +1,11 @@
 # CHANGES to the IdRel package
 
-## Version 2.43 for GAP 4.10.1 (08/04/21) 
+## 2.43 ->      for GAP 4.11.1 (18/11/21) 
+
+ * (23/11/21) renamed the test files; revised Chapter 2 
+ * (02/11/21) introduced PrintUsingLabels 
+
+## 2.42 -> 2.43 for GAP 4.10.1 (08/04/21) 
 
  * (08/04/21) Switch CI to use GitHub Actions 
  * (16/02/19) added License field in PackageInfo.g 

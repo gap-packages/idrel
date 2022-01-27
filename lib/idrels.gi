@@ -4,7 +4,7 @@
 #W                                                             & Anne Heyworth
 ##  Implementation file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2018 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2022 Anne Heyworth and Chris Wensley 
 ##
 ##  This file contains generic methods for identities among relators 
 
@@ -727,16 +727,11 @@ function( G )
 
     local  idsR, idsY, len, rng;
 
-    if ( HasIdentitiesAmongRelators( G ) and HasIdentityYSequences( G ) ) then
-        idsR := IdentitiesAmongRelators( G );
-        idsY := IdentityYSequences( G ); 
-        len := List( idsY, i -> Length( RelatorModulePoly(i) ) );
-        rng := Filtered( [1..Length(len)], i -> len[i]=1 );
-        return idsR{rng};
-    else
-        Print( "direct method not yet implemented\n" );
-        return fail;
-    fi;
+    idsR := IdentitiesAmongRelators( G );
+    idsY := IdentityYSequences( G ); 
+    len := List( idsY, i -> Length( RelatorModulePoly(i) ) );
+    rng := Filtered( [1..Length(len)], i -> len[i]=1 );
+    return idsR{rng};
 end );
 
 ###############*#############################################################

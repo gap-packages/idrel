@@ -4,7 +4,7 @@
 #W                                                             & Anne Heyworth
 ##  Declaration file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2018 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2022 Anne Heyworth and Chris Wensley 
 ##
 ##  This file contains declarations of operations for logged rewrite systems.
 
@@ -65,6 +65,7 @@ MonoidPolyFam := NewFamily( "MonoidPolyFam", IsMonoidPoly );
 #A  InverseRelatorsOfPresentation( <mon> )
 #A  HomomorphismOfPresentation( <mon> )
 #A  MonoidGeneratorsFpGroup( <G> )
+#A  MonoidGeneratorLabels( <G> )
 #A  ElementsOfMonoidPresentation( <G> )
 #O  PartialElementsOfMonoidPresentation( <G,len> )
 #A  PartialElements( <G> )
@@ -93,6 +94,7 @@ DeclareAttribute( "InverseRelatorsOfPresentation",
 DeclareAttribute( "HomomorphismOfPresentation", 
     IsMonoidPresentationFpGroupRep );
 DeclareAttribute( "MonoidGeneratorsFpGroup", IsFpGroup ); 
+DeclareAttribute( "MonoidGeneratorLabels", IsFpGroup ); 
 DeclareAttribute( "ElementsOfMonoidPresentation", IsFpGroup );
 DeclareOperation( "PartialElementsOfMonoidPresentation", 
     [ IsFpGroup, IsPosInt ] );
@@ -163,6 +165,14 @@ DeclareAttribute( "LoggedRewritingSystemFpGroup", IsGroup );
 #O  RelatorSequenceReduce( <G>, <seq> )
 ##
 DeclareOperation( "RelatorSequenceReduce", [ IsFpGroup, IsHomogeneousList ] );
+
+#############################################################################
+##
+#O  PrintUsingLabels( <obj>, <gens>, <labs> )
+#O  PrintLnUsingLabels( <obj>, <gens>, <labs> )
+##
+DeclareOperation( "PrintUsingLabels", [ IsObject, IsList, IsList ] );
+DeclareOperation( "PrintLnUsingLabels", [ IsObject, IsList, IsList ] );
 
 #############################################################################
 ##

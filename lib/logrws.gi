@@ -4,7 +4,7 @@
 #W                                                             & Anne Heyworth
 ##  Implementation file for functions of the IdRel package
 ##
-#Y  Copyright (C) 1999-2018 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2022 Anne Heyworth and Chris Wensley 
 
 ##############################################################################
 ##
@@ -697,24 +697,28 @@ InstallMethod( LoggedOnePassKB, "for an fp-group and a list of logged rules",
     true, [ IsFpGroup, IsHomogeneousList ], 0, 
 function( G, r0 ) 
 
-    local  monG, FM, id, rules, rule, crit, p, c2, q, d1, np, nq, d2, rseq, 
-           numrseq, newrule, redrule, newrules, len1, r, n, lenr, u, lenu, 
-           v, lenv, i, c1, c2u, iu, c, j, lenc, filt;
+    local  monG, FM, id, rules, numrules, invrules, rule, crit, x, y, 
+           p, c2, q, d1, np, nq, d2, rseq, numrseq, newrule, redrule, newrules, 
+           len1, r, n, lenr, u, lenu, v, lenv, i, c1, c2u, iu, c, j, lenc; 
 
     monG := MonoidPresentationFpGroup( G ); 
     FM := FreeGroupOfPresentation( monG );
-    id := One( r0[1][1] );
-    rules := ShallowCopy( r0 );
-    Info( InfoIdRel, 2, "in LoggedOnePassKB with ", Length(rules) ); 
+    id := One( FM );
+    rules := ShallowCopy( r0 ); 
+    invrules := List( InverseRelatorsOfPresentation( monG), r -> [ r, id ] );
+    numrules := Length( rules ); 
+    Info( InfoIdRel, 2, "in LoggedOnePassKB with ", Length(rules), " rules" ); 
     Info( InfoIdRel, 3, "rules = ", rules );
     newrules := [ ];
     rseq := [ ];
     numrseq := 0;
-    # Find all the critical pairs:
-    for rule in rules do 
+    # Find all the critical pairs: 
+    for x in [1..numrules] do 
+    rule := rules[x]; 
         len1 := Length( rule[1] );
-        filt := Filtered( rules, r -> not( r = rule) );
-        for r in filt do 
+        ##?? why exclude the case x = y ???? 
+        for y in Concatenation( [1..x-1], [x+1..numrules] ) do 
+            r := rules[y]; 
             lenr := Length( r[1] );
             # Search for type 1 pairs:
             # (These occur when r[1] is contained in rule[1] ) 
@@ -734,8 +738,11 @@ function( G, r0 )
                 c1 := rule[2];
                 iu := InverseWordInFreeGroupOfPresentation( FM, u ); 
                 #? c2u := List( r[2], c -> [ c[1], c[2]*u^(-1) ] );
-                c2u := List( r[2], c -> [ c[1], c[2]*iu ] );
-                Info( InfoIdRel, 2, "type 1 pair ", [ u*r[3]*v, rule[3] ] );
+                c2u := List( r[2], 
+                         c -> [ c[1], ReduceWordKB( c[2]*iu, invrules ) ] );
+
+                Info( InfoIdRel, 2, "type 1 pair: ", 
+                                 [x,y], " => ", [ u*r[3]*v, rule[3] ] );
                 p := rule[3];
                 q := u*r[3]*v;
                 d1 := LoggedReduceWordKB( p, rules );
@@ -746,16 +753,16 @@ function( G, r0 )
                 d2 := d2[1];
                 # Orientate them:
                 if ( np < nq ) then
-                    d2 := Reversed( List( d2, c -> [ -c[1], c[2] ] ) );
-                    c2u := Reversed( List( c2u, c -> [ -c[1], c[2] ] ) );
+                    d2 := Reversed( List( d2, c -> [ - c[1], c[2] ] ) );
+                    c2u := Reversed( List( c2u, c -> [ - c[1], c[2] ] ) );
                     newrule := [ nq, Concatenation( d2, c2u, c1, d1 ), np ]; 
                 else 
-                    d1 := Reversed( List( d1, c -> [ -c[1], c[2] ] ) );
-                    c1 := Reversed( List( c1, c -> [ -c[1], c[2] ] ) );
+                    d1 := Reversed( List( d1, c -> [ - c[1], c[2] ] ) );
+                    c1 := Reversed( List( c1, c -> [ - c[1], c[2] ] ) );
                     newrule := [ np, Concatenation( d1, c1, c2u, d2 ), nq ];
                 fi;
                 # Add them in as new rules:
-                if ( np = nq ) then
+                if ( np = nq ) then 
                     redrule := RelatorSequenceReduce( G, newrule[2] ); 
                     if ( redrule <> [ ] ) then
                         Info( InfoIdRel, 2, " !! np = nq at:\n", newrule[2] );
@@ -780,7 +787,7 @@ function( G, r0 )
                     newrule[2] := c;
                     Add( newrules, newrule );
                 fi;
-            fi;
+            fi; 
             # Now we have to search for type 2 pairs:
             # (These occur when the right of rule[1] 
             # coincides with the left of r[1]) 
@@ -798,11 +805,12 @@ function( G, r0 )
                     else
                         v := Subword( r[1], i+1, lenr );
                     fi;
-                    Info( InfoIdRel, 2, "type 2 overlap word = ", rule[1]*v ); 
+                    Info( InfoIdRel, 2, "type 2 overlap word: ", 
+                                        [x,y], " => ", rule[1]*v ); 
                     c1 := rule[2];
                     iu := InverseWordInFreeGroupOfPresentation( FM, u ); 
-                    #? c2u := List( r[2], c -> [ c[1], c[2]*u^(-1) ] );
-                    c2u := List( r[2], c -> [ c[1], c[2]*iu ] );
+                    c2u := List( r[2], 
+                           c -> [ c[1], ReduceWordKB( c[2]*iu, invrules ) ] );
                     p := rule[3]*v;
                     q := u*r[3];
                     d1 := LoggedReduceWordKB( p, rules );
@@ -813,16 +821,17 @@ function( G, r0 )
                     d2 := d2[1];
                     # Orientate them:
                     if ( np < nq ) then
-                        d2 := Reversed( List( d2, c -> [ -c[1], c[2] ] ) );
-                        c2u := Reversed( List( c2u, c -> [ -c[1], c[2] ] ) );
+                        d2 := Reversed( List( d2, c -> [ - c[1], c[2] ] ) );
+                        c2u := Reversed( List( c2u, c -> [ - c[1], c[2] ] ) );
                         newrule := [ nq, Concatenation(d2, c2u, c1, d1), np ];
                     else
-                        d1 := Reversed( List( d1, c -> [ -c[1], c[2] ] ) );
-                        c1 := Reversed( List( c1, c -> [ -c[1], c[2] ] ) );
+                        d1 := Reversed( List( d1, c -> [ - c[1], c[2] ] ) );
+                        c1 := Reversed( List( c1, c -> [ - c[1], c[2] ] ) );
                         newrule := [ np, Concatenation(d1, c1, c2u, d2), nq ];
                     fi;
                     # Add them in as new rules:
-                    if ( np = nq ) then
+                    if ( np = nq ) then 
+                        Info( InfoIdRel, 2, "LHS = RHS" ); 
                         redrule := RelatorSequenceReduce( G, newrule[2] ); 
                         if ( redrule <> [ ] ) then
                             Info( InfoIdRel, 2, " !! type2, np = nq at:" );
@@ -831,7 +840,7 @@ function( G, r0 )
                             Add( rseq, [ numrseq, redrule ] );
                         fi;
                     else 
-                        Info( InfoIdRel, 2, "newrule2 = ", newrule );
+                        Info( InfoIdRel, 2, "newrule = ", newrule );
                         c := newrule[2]; 
                         lenc := Length( c );
                         j := 1;
@@ -932,13 +941,13 @@ function( G, r0 )
             if ( np > nq ) then 
                 rule[1] := np;
                 rule[3] := nq;
-                c1 := Reversed( List( c1, c -> [ -c[1], c[2] ] ) );
+                c1 := Reversed( List( c1, c -> [ - c[1], c[2] ] ) );
                 rule[2] := Concatenation( c1, c0, c2 );
             else 
                 rule[1] := nq;
                 rule[3] := np;
-                c2 := Reversed( List( c2, c -> [ -c[1], c[2] ] ) );
-                c0 := Reversed( List( c0, c -> [ -c[1], c[2] ] ) );
+                c2 := Reversed( List( c2, c -> [ - c[1], c[2] ] ) );
+                c0 := Reversed( List( c0, c -> [ - c[1], c[2] ] ) );
                 rule[2] := Concatenation( c2, c0, c1 );
             fi;
         fi; 
@@ -960,7 +969,7 @@ function( G, r0 )
     local  result, rules, newrules, passes, k, K2, K2a, mseq;
 
     rules := ShallowCopy( r0 );
-    result := LoggedOnePassKB( G, rules );
+    result := LoggedOnePassKB( G, rules ); 
     newrules := result[1];
     Info( InfoIdRel, 1, "number of rules generated: ", Length( newrules ) ); 
     newrules := LoggedRewriteReduce( G, newrules );
@@ -968,7 +977,7 @@ function( G, r0 )
     if ( InfoLevel( InfoIdRel ) > 1 ) then 
         Print( "     which are reduced to : ", Length( newrules ), "\n" ); 
         Print( "        number of passes : ", passes, "\n" );
-    fi;
+    fi; 
     while not( rules = newrules ) do 
         rules := newrules; 
         result := LoggedOnePassKB( G, rules );
@@ -1198,7 +1207,7 @@ function( G, seq )
     while ( k < len ) do 
         s1 := seq[k]; 
         s2 := seq[k+1]; 
-        if ( s1[1] = -s2[1] ) then 
+        if ( s1[1] = - s2[1] ) then 
             if ( s1[2] = s2[2] ) then 
                 seq := Concatenation( seq{[1..k-1]}, seq{[k+2..len]} );
                 k := k - 2;
@@ -1284,6 +1293,166 @@ function( G, len )
     fi; 
     return words; 
 end );
+
+##############################################################################
+##
+#M  PrintLnUsingLabels
+#M  PrintUsingLabels
+##
+InstallMethod( PrintLnUsingLabels, "for words in a monoid presentation", 
+    true, [ IsObject, IsList, IsList ], 0, 
+function( obj, gens, labs ) 
+    IdRelOutputPos := 0; 
+    IdRelOutputDepth := 0; 
+    PrintUsingLabels( obj, gens, labs ); 
+    Print( "\n" ); 
+    IdRelOutputPos := 0; 
+end );
+
+InstallMethod( PrintUsingLabels, "for words in a monoid presentation", 
+    true, [ IsObject, IsList, IsList ], 0, 
+function( obj, gens, labs )
+
+    local j, len, wgens, z, num, zlen, coeffs, words; 
+
+    IdRelOutputDepth := IdRelOutputDepth + 1; 
+    if IsList( obj ) then 
+        if ( IdRelOutputPos > 60 ) then 
+            Print( "\n" ); 
+            IdRelOutputPos := 0; 
+        fi; 
+        len := Length( obj ); 
+        if ( len = 0 ) then 
+            Print( "[ ]" ); 
+            IdRelOutputPos := IdRelOutputPos + 3; 
+        else 
+            Print( "[ " ); 
+            IdRelOutputPos := IdRelOutputPos + 2; 
+            for j in [1..len] do 
+                PrintUsingLabels( obj[j], gens, labs ); 
+                if ( j < len ) then 
+                    Print( ", " ); 
+                    IdRelOutputPos := IdRelOutputPos + 2; 
+                fi; 
+            od; 
+            Print( " ]" ); 
+            IdRelOutputPos := IdRelOutputPos + 2; 
+        fi; 
+    elif IsInt( obj ) then 
+        Print( obj ); 
+        IdRelOutputPos := IdRelOutputPos + 2; 
+    elif IsMonoidPoly( obj ) then 
+        len := Length( obj ); 
+        coeffs := Coeffs( obj ); 
+        words := Words( obj ); 
+        for j in [1..len] do 
+            Print( coeffs[j], "*" ); 
+            PrintUsingLabels( words[j], gens, labs ); 
+            if ( j < len ) then Print( " + " ); fi; 
+        od; 
+    else 
+        z := NiceStringAssocWord( obj ); 
+        if ( z = "<identity ...>" ) then 
+            Print( "id" ); 
+            IdRelOutputPos := IdRelOutputPos + 2; 
+        else 
+            len := Length( gens ); 
+            wgens := List( [1..len], j -> NiceStringAssocWord( gens[j]) ); 
+            for j in [1..len] do 
+                z := SubstitutionSublist( z, wgens[j], labs[j] ); 
+            od; 
+            zlen := Length( z ); 
+            if ( IdRelOutputPos + zlen > 75 ) then 
+                Print( "\n" ); 
+                IdRelOutputPos := 0; 
+            fi; 
+            Print( z ); 
+            IdRelOutputPos := IdRelOutputPos + Length(z); 
+        fi; 
+    fi; 
+    IdRelOutputDepth := IdRelOutputDepth - 1; 
+##    if ( IdRelOutputDepth = 0 ) then 
+##        IdRelOutputPos := 0; 
+##    fi; 
+end ); 
+
+InstallOtherMethod( PrintLnUsingLabels, "for words and relators", 
+    true, [ IsObject, IsList, IsList, IsList, IsList ], 0, 
+function( obj, gens, labs, Rgens, Rlabs ) 
+    PrintUsingLabels( obj, gens, labs, Rgens, Rlabs ); 
+    Print( "\n" ); 
+end ); 
+
+InstallOtherMethod( PrintUsingLabels, "for words and relators", 
+    true, [ IsObject, IsList, IsList, IsList, IsList ], 0, 
+function( obj, gens, labs, Rgens, Rlabs )
+
+    local j, len, wgens, z, num, zlen, coeffs, words; 
+
+    IdRelOutputDepth := IdRelOutputDepth + 1; 
+    if IsList( obj ) then 
+        len := Length( obj ); 
+        if ( len = 0 ) then 
+            Print( "[ ]" ); 
+        else 
+            Print( "[ " ); 
+            IdRelOutputPos := IdRelOutputPos + 2; 
+            for j in [1..len] do 
+                PrintUsingLabels( obj[j], gens, labs, Rgens, Rlabs ); 
+                if ( j < len ) then 
+                    Print( ", " ); 
+                    IdRelOutputPos := IdRelOutputPos + 2; 
+                fi; 
+            od; 
+            Print( " ]" ); 
+            IdRelOutputPos := IdRelOutputPos + 2; 
+        fi; 
+    elif IsInt( obj ) then 
+        Print( obj ); 
+        IdRelOutputPos := IdRelOutputPos + 2; 
+    elif IsMonoidPoly( obj ) then 
+        len := Length( obj ); 
+        coeffs := Coeffs( obj ); 
+        words := Words( obj ); 
+        for j in [1..len] do 
+            Print( coeffs[j], "*" ); 
+            PrintUsingLabels( words[j], gens, labs, Rgens, Rlabs ); 
+            if ( j < len ) then Print( " + " ); fi; 
+        od; 
+    else 
+        z := NiceStringAssocWord( obj ); 
+        if ( z = "<identity ...>" ) then 
+            if ( IdRelOutputPos > 60 ) then 
+                Print( "\n" ); 
+                IdRelOutputPos := 0; 
+            fi; 
+            Print( "id" ); 
+            IdRelOutputPos := IdRelOutputPos + 2; 
+        else 
+            len := Length( gens ); 
+            wgens := List( [1..len], j -> NiceStringAssocWord( gens[j]) ); 
+            for j in [1..len] do 
+                z := SubstitutionSublist( z, wgens[j], labs[j] ); 
+            od; 
+            len := Length( Rgens ); 
+            wgens := List( [1..len], j -> NiceStringAssocWord( Rgens[j]) );
+            for j in [1..len] do 
+                z := SubstitutionSublist( z, wgens[j], Rlabs[j] ); 
+            od; 
+            zlen := Length( z ); 
+            if ( IdRelOutputPos + zlen > 75 ) then 
+                Print( "\n" ); 
+                IdRelOutputPos := 0; 
+            fi; 
+            Print( z ); 
+            IdRelOutputPos := IdRelOutputPos + Length(z); 
+        fi; 
+    fi; 
+    IdRelOutputDepth := IdRelOutputDepth - 1; 
+    if ( IdRelOutputDepth = 0 ) then 
+        IdRelOutputPos := 0; 
+    fi; 
+end ); 
 
 #############################################################################
 ##
