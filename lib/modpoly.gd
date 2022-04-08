@@ -74,10 +74,8 @@ DeclareOperation( "ZeroModulePoly", [ IsFreeGroup, IsFreeGroup ] );
 #############################################################################
 ##
 #A  FreeYSequenceGroup( <G> )
-#A  FreeYSequenceGroupKB( <G> )
 ##
 DeclareAttribute( "FreeYSequenceGroup", IsFpGroup );
-DeclareAttribute( "FreeYSequenceGroupKB", IsFpGroup );
 
 #############################################################################
 ##

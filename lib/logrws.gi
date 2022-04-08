@@ -127,10 +127,9 @@ InstallMethod( OnePassReduceWord, "generic method for word and list of rules",
     true, [ IsWord, IsHomogeneousList ], 0, 
 function( word, rules )
 
-    local  id, lenw, posw, r, lenr, posr, u, v; 
+    local  id, id2, lenw, posw, r, lenr, posr, u, v; 
 
-    # id := One( FamilyObj( word) );
-    id := One( word );
+    id := One( rules[1][1] ); 
     for r in rules do 
         posr := PositionWord( word, r[1], 1 );
         if IsInt( posr ) then 
@@ -161,8 +160,12 @@ InstallMethod( ReduceWordKB, "generic method for word and list of rules",
     true, [ IsWord, IsHomogeneousList ], 0, 
 function( word, rules )
 
-    local  w, rw;
+    local  id, w, rw;
 
+    id := One( rules[1][1] ); 
+    if ( Length( word ) = 0 ) then 
+        return word; 
+    fi; 
     w := word;
     rw := OnePassReduceWord( w, rules );
     while not( w = rw ) do
@@ -174,17 +177,21 @@ end );
 
 ##############################################################################
 ##
-## OnePassKB( < rules> )
+## OnePassKB( <mG>, <rules> )
 ##
-InstallMethod( OnePassKB, "generic method for a list of rules", true, 
-    [ IsHomogeneousList ], 0, 
-function( r0 )
+InstallMethod( OnePassKB, 
+    "for a monoid presentation and a list of rules", true, 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ], 0, 
+function( mG, r0 ) 
 
-    local  nargs, rules, rule, crit1, crit2, red1, red2, newrules, i, 
-           rule1, l1, r1, len1, pos1, rule2, l2, r2, len2, pos2, 
-           u, v, lenu, lenv, ur2v, critnum, critn, id;
+    local  fmG, gfmG, nargs, rules, rule, crit1, crit2, newrule, id, 
+           red1, red2, newrules, i, rule1, l1, r1, len1, pos1, rule2, 
+           l2, r2, len2, pos2, u, v, lenu, lenv, ur2v, critnum, critn, 
+           numrules, use;
 
-    id := One( r0[1][1] );
+    fmG := FreeGroupOfPresentation( mG ); 
+    gfmG := GeneratorsOfGroup( fmG ); 
+    id := One( fmG );
     rules := ShallowCopy( r0 );
     newrules := [ ];
     critnum := 0;
@@ -217,24 +224,24 @@ function( r0 )
                     critnum := critnum + 1;
                     critn := critn + 1;
                     crit1 := ur2v;
-                    red1 := OnePassReduceWord( crit1, rules );
-                    while not( crit1 = red1 ) do 
-                        crit1 := red1;
-                        red1 := OnePassReduceWord( crit1, rules );
-                    od;
+                    red1 := ReduceWordKB( crit1, rules );
                     crit2 := r1;
-                    red2 := OnePassReduceWord( crit2, rules );
-                    while not( crit2 = red2 ) do 
-                        crit2 := red2;
-                        red2 := OnePassReduceWord( crit2, rules );
-                    od;
-                    if ( crit1 < crit2 ) then 
-                        crit2 := crit1;
-                        crit1 := red2;
+                    red2 := ReduceWordKB( crit2, rules );
+                    if ( ( red1 in gfmG ) and ( red2 in gfmG ) ) then 
+                        if ( Position( gfmG, red1 ) 
+                             > Position( gfmG, red2 ) ) then 
+                            newrule := [ red1, red2 ]; 
+                        else 
+                            newrule := [ red2, red1 ]; 
+                        fi; 
+                    elif ( red1 < red2 ) then 
+                        newrule := [ red2, red1 ]; 
+                    elif ( red2 < red1 ) then 
+                        newrule := [ red1, red2 ]; 
                     fi;
-                    if not( crit1 = crit2 ) then 
-                        Info( InfoIdRel, 3, "type 1: ", [ crit1, crit2 ] ); 
-                        Add( newrules, [ crit1, crit2 ] );
+                    if not( red1 = red2 ) then 
+                        Info( InfoIdRel, 2, "type 1: ", newrule ); 
+                        Add( newrules, newrule );
                     fi;
                 fi; 
             fi;
@@ -258,24 +265,24 @@ function( r0 )
                         critnum := critnum + 1;
                         critn := critn + 1;
                         crit1 := r1*v;
-                        red1 := OnePassReduceWord( crit1, rules );
-                        while not( crit1 = red1 ) do 
-                            crit1 := red1;
-                            red1 := OnePassReduceWord( crit1, rules );
-                        od;
+                        red1 := ReduceWordKB( crit1, rules );
                         crit2 := u*r2;
-                        red2 := OnePassReduceWord( crit2, rules );
-                        while not( crit2 = red2 ) do 
-                            crit2 := red2;
-                            red2 := OnePassReduceWord( crit2, rules );
-                        od;
-                        if ( crit1 < crit2 ) then 
-                            crit2 := crit1;
-                            crit1 := red2;
+                        red2 := ReduceWordKB( crit2, rules );
+                        if ( ( red1 in gfmG ) and ( red2 in gfmG ) ) then 
+                            if ( Position( gfmG, red1 ) 
+                                 > Position( gfmG, red2 ) ) then 
+                                newrule := [ red1, red2 ]; 
+                            else 
+                                newrule := [ red2, red1 ]; 
+                            fi; 
+                        elif ( red1 < red2 ) then 
+                            newrule := [ red2, red1 ]; 
+                        elif ( red2 < red1 ) then 
+                            newrule := [ red1, red2 ]; 
                         fi;
-                        if not( crit1 = crit2 ) then 
-                            Info( InfoIdRel, 3, "type2 : ", [ crit1, crit2 ] );
-                            Add( newrules, [ crit1, crit2 ] );
+                        if not( red1 = red2 ) then 
+                            Info( InfoIdRel, 2, "type 2: ", newrule ); 
+                            Add( newrules, newrule );
                         fi;
                     fi;
                 fi;
@@ -292,53 +299,113 @@ function( r0 )
     fi;
     # Add them in as new rules:
     Append( rules, newrules );
-    return rules;
+    Sort( rules, BetterRuleByReductionOrLength );
+    ## remove duplicates 
+    numrules := Length( rules ); 
+    use := [1..numrules]; 
+    for i in [2..numrules] do 
+        if ( rules[i] = rules[i-1] ) then 
+            use := Difference( use, [i] ); 
+        fi; 
+    od; 
+    return rules{use};
 end );
 
 ##############################################################################
 ##
-#M  RewriteReduce( <rules> )
+#M  RewriteReduce( <mG>, <rules> )
 ##
-InstallMethod( RewriteReduce, "generic method for a list of rules", true, 
-    [ IsHomogeneousList ], 0, function( r0 )
+InstallMethod( RewriteReduce, 
+    "for a monoid presentation and a list of rules", true, 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ], 0, 
 
-    local  nargs, rules, rule, r, r1, r2, newrules, i, j;
+function( mG, r0 )
 
-    rules := List( Set ( ShallowCopy( r0 ) ) );
+    local  fmG, gfmG, rules, rule, pos, omit, r, r1, r2, len1, len2, 
+           newrules, numrules, use, i;
+
+    fmG := FreeGroupOfPresentation( mG ); 
+    gfmG := GeneratorsOfGroup( fmG ); 
+    rules := ShallowCopy( r0 ); 
     for rule in rules do 
-        newrules := Filtered( rules, r -> not( r = rule) );
+        pos := Position( rules, rule ); 
+        omit := false; 
+        newrules := Filtered( rules, r -> not( r[1] = rule[1] ) );
         r1 := ReduceWordKB( rule[1], newrules );
-        r2 := ReduceWordKB( rule[2], newrules );
+        r2 := ReduceWordKB( rule[2], newrules ); 
+        len1 := Length( r1 ); 
+        len2 := Length( r2 ); 
+        r := [ r1, r2 ]; 
         if ( ( r1 < rule[1] ) or ( r2 < rule[2] ) ) then 
-            if ( r1 > r2 ) then 
-                rule[1] := r1;
-                rule[2] := r2;
+            if ( ( len1 = 1 ) and ( len2 = 1 ) ) then 
+                ## treat generators/inverses as a special case 
+                if ( ( r1 in gfmG ) and ( r2 in gfmG ) ) then 
+                    if Position( gfmG, r1 ) < Position( gfmG, r2 ) then 
+                        r[1] := r2; 
+                        r[2] := r1; 
+                    else 
+                        r[1] := r1; 
+                        r[2] := r2; 
+                    fi; 
+                elif ( r1 in gfmG ) then 
+                    r[1] := r2; 
+                    r[2] := r1; 
+                elif ( r2 in gfmG ) then 
+                    r[1] := r1; 
+                    r[2] := r2; 
+                fi; 
+                if ( r1 = r2 ) then 
+                    omit := true; 
+                fi;
+            elif ( r1 > r2 ) then 
+                r[1] := r1;
+                r[2] := r2; 
             elif ( r1 < r2 ) then 
-                rule[1] := r2;
-                rule[2] := r1;
+                r[1] := r2;
+                r[2] := r1; 
             else 
-                rules := newrules;
-            fi;
+                ## r1 = r2 
+                omit := true; 
+            fi; 
+            if omit then 
+                rules := newrules; 
+            else 
+                rules := Concatenation( rules{[1..pos-1]}, [ r ], 
+                                        rules{[pos+1..Length(rules)]} ); 
+            fi; 
         fi;
-    od;
-    return List( Set( rules ) );
+    od; 
+    Sort( rules, BetterRuleByReductionOrLength ); 
+    ## remove duplicates 
+    numrules := Length( rules ); 
+    use := [1..numrules]; 
+    for i in [2..numrules] do 
+        if ( rules[i] = rules[i-1] ) then 
+            use := Difference( use, [i] ); 
+        fi; 
+    od; 
+    return rules{use}; 
 end );
 
 ##############################################################################
 ##
-#M KnuthBendix( <rules> )
+#M  KnuthBendix( <mG>, <rules> )
 ##
-InstallMethod( KnuthBendix, "generic method for a list of rules", true, 
-    [ IsHomogeneousList ], 0, 
-function( r )
+InstallMethod( KnuthBendix, 
+    "for a monoid presentation and a list of rules", true, 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ], 0, 
+function( mG, r )
 
-    local  rules, newrules, passes;
+    local  fmG, gfmG, rules, newrules, passes; 
+
+    fmG := FreeGroupOfPresentation( mG ); 
+    gfmG := GeneratorsOfGroup( fmG ); 
     rules := ShallowCopy( r );
     passes := 0;
-    newrules := RewriteReduce( OnePassKB( rules) );
+    newrules := RewriteReduce( mG, OnePassKB( mG, rules) );
     while not( rules = newrules ) do 
         rules := newrules;
-        newrules := RewriteReduce( OnePassKB( rules) );
+        newrules := RewriteReduce( mG, OnePassKB( mG, rules) );
         passes := passes + 1;
         if ( InfoLevel( InfoIdRel ) > 2 ) then 
             Print( "number of rules generated = ", Length(rules), "\n" );
@@ -357,7 +424,7 @@ InstallMethod( ArrangeMonoidGenerators, "generic method for an fp-group",
     true, [ IsFpGroup, IsHomogeneousList ], 0, 
 function( G, agm ) 
 
-    local n, n2, ok, i, pos, neg; 
+    local n, n2, ok, i, pos, neg, inv, posi, invi; 
 
     n := Length( GeneratorsOfGroup( G ) ); 
     n2 := n+n;
@@ -372,7 +439,7 @@ function( G, agm )
     if not ok then 
         Error( "arrangement agm is not a perm of [1,2,...n,-1,-2,...-n]" ); 
     else
-        SetArrangementOfMonoidGenerators( G, agm );
+        SetArrangementOfMonoidGenerators( G, agm ); 
         return agm; 
     fi; 
 end ); 
@@ -399,7 +466,7 @@ function( w, fam, L )
 
     local  rep, i, j, p, k;
 
-    ### added ShallowCopy(  07/10/05 ???
+    ### added ShallowCopy(  07/10/05 ??? 
     rep := ShallowCopy( ExtRepOfObj( w ) );
     j := 2;
     while( j <= Length( rep ) ) do 
@@ -425,9 +492,10 @@ InstallMethod( MonoidPresentationFpGroup, "generic method for an fp-group",
     true, [ IsFpGroup ], 0, 
 function( G )
 
-    local  F, freerels, genF, genG, geninv, numgen, numrel, relrange, str, 
-           FM, genFM, invgenFM, relsmon, i, list, j, elt, pos, neg, geninvrels, 
-           famFM, r, rep, fam, filter, mon, mu, ok, numgen2, agm;
+    local  F, genF, genG, numgen, numgen2, agm, Grels, numrel, relrange, 
+           relsmon, str, FM, genFM, idFM, famFM, invgenFM, i, pos, neg, 
+           geninvrels, invrules, mG, genmG, geninv, imgenG, j, 
+           isoG, mu, fam, filter, mon;
 
     F := FreeGroupOfFpGroup( G );
     genF:= GeneratorsOfGroup( F );
@@ -439,21 +507,9 @@ function( G )
         agm := ArrangeMonoidGenerators( G ); 
     else 
         agm := ArrangementOfMonoidGenerators( G ); 
-    fi;
-    ## previously:  geninv := Concatenation( genF, List(genF,g->g^-1) ); 
-    geninv := 0 * [1..numgen2]; 
-    for i in [1..numgen2] do
-        j := agm[i]; 
-        if (j>0) then 
-            geninv[i] := genF[j]; 
-        else 
-            geninv[i] := genF[-j]^-1; 
-        fi; 
-    od; 
-    Info( InfoIdRel, 2, "geninv = ", geninv ); 
-
-    freerels := RelatorsOfFpGroup( G );
-    numrel := Length( freerels );
+    fi; 
+    Grels := RelatorsOfFpGroup( G ); 
+    numrel := Length( Grels );
     relrange := [1..numrel];
     relsmon := ListWithIdenticalEntries( numrel, 0 );
     if HasName( G ) then 
@@ -461,9 +517,11 @@ function( G )
     else 
         str := "mon";
     fi;
-    # should be FM := FreeMonoid ... ???
     FM := FreeGroup( 2*numgen, str );
-    genFM := GeneratorsOfGroup( FM );
+    genFM := GeneratorsOfGroup( FM ); 
+    idFM := One( FM ); 
+    famFM := ElementsFamily( FamilyObj( FM ) );
+    famFM!.monoidPolyFam := MonoidPolyFam;
     invgenFM := ShallowCopy( genFM ); 
     for i in [1..numgen] do
         pos := Position( agm, i ); 
@@ -471,13 +529,6 @@ function( G )
         invgenFM[pos] := genFM[neg]; 
         invgenFM[neg] := genFM[pos]; 
     od; 
-    mu := GroupHomomorphismByImages( FM, F, genFM, geninv );
-    famFM := ElementsFamily( FamilyObj( FM ) );
-    famFM!.monoidPolyFam := MonoidPolyFam;
-    for i in relrange do 
-        relsmon[i] := MonoidWordFpWord( freerels[i], famFM, agm );
-    od;
-    Info( InfoIdRel, 3, "relsmon = ", relsmon ); 
     geninvrels := [1..numgen2];
     for i in [1..numgen] do 
         j := Position( agm, i ); 
@@ -485,10 +536,32 @@ function( G )
         geninvrels[i] := genFM[j] * genFM[pos];
         geninvrels[numgen+i] := genFM[pos] * genFM[j];
     od;
-    if ( InfoLevel( InfoIdRel ) > 2 ) then 
-        Print( "inverse relators are: \n", geninvrels, "\n" );
-        Print( "new group relators are: \n", relsmon, "\n" );
-    fi;
+    invrules := Concatenation( List( geninvrels, r -> [ r, idFM ] ), 
+                List( [1..numgen2], i -> [ genFM[i]^(-1), invgenFM[i] ] ) ); 
+    Sort( invrules, BetterRuleByReductionOrLength ); 
+    for i in relrange do 
+        relsmon[i] := MonoidWordFpWord( Grels[i], famFM, agm );
+    od;
+    mG := FM / Concatenation( geninvrels, relsmon ); 
+    genmG := GeneratorsOfGroup( mG ); 
+    Info( InfoIdRel, 2, "invrules = ", invrules ); 
+    Info( InfoIdRel, 2, "inverse relators = ", geninvrels ); 
+    Info( InfoIdRel, 3, "relsmon = ", relsmon ); 
+    geninv := 0 * [1..numgen2]; 
+    imgenG := 0 * [1..numgen]; 
+    for i in [1..numgen2] do
+        j := agm[i]; 
+        if (j>0) then 
+            geninv[i] := genF[j]; 
+            imgenG[j] := genmG [i]; 
+        else 
+            geninv[i] := genF[-j]^(-1); 
+        fi; 
+    od; 
+    Info( InfoIdRel, 2, "geninv = ", geninv ); 
+    Info( InfoIdRel, 2, "imgenG = ", imgenG ); 
+    isoG := GroupHomomorphismByImages( G, mG, genG, imgenG ); 
+    mu := GroupHomomorphismByImages( FM, F, genFM, geninv );
     fam := FamilyObj( [ geninv, relsmon, geninvrels, mu ] );
     filter := IsMonoidPresentationFpGroupRep;
     mon := rec(); 
@@ -498,8 +571,12 @@ function( G )
       FreeGroupOfPresentation, FM, 
       GroupRelatorsOfPresentation, relsmon, 
       InverseRelatorsOfPresentation, geninvrels, 
-      HomomorphismOfPresentation, mu );
+      InverseRulesOfPresentation, invrules, 
+      HomomorphismOfPresentation, mu ); 
+    SetIsomorphicFpGroup( G, mG ); 
+    SetIsomorphismByPresentation( G, isoG ); 
     SetInverseGeneratorsOfFpGroup( FM, invgenFM ); 
+    SetUnderlyingGroupOfPresentation( mon, G ); 
     return mon;
 end );
 
@@ -528,45 +605,45 @@ end );
 ##
 InstallMethod( BetterRuleByReductionOrLength, "generic method for 2 rules", 
     true, [ IsHomogeneousList, IsHomogeneousList ], 0, 
-function( r1, r2 )
+function( rule1, rule2 )
  
-    local  l1, l2, len1, len2, d1, d2, id, i1, i2;
+    local  l1, l2, len1, len2, r1, r2, d1, d2;
 
-    # words that equate generators are best (includes inverse relators)
-    id := One( r1[1] );
-    l1 := r1[1];
-    l2 := r2[1];
-    i1 := ( ( r1[2] = id ) and ( Length( l1 ) = 2 ) and
-            ( Subword( l1, 1, 1 ) <> Subword( l1, 2, 2 ) ) );
-    i2 := ( ( r2[2] = id ) and ( Length( l2 ) = 2 ) and
-            ( Subword( l2, 1, 1 ) <> Subword( l2, 2, 2 ) ) );
-    if ( i1 and i2 ) then 
-        if ( l1 < l2 ) then 
-            return true;
-        elif ( l1 > l2 ) then 
-            return false;
-        fi;
-    elif i1 then
-        return true;
-    elif i2 then 
-        return false;
-    fi;
+    l1 := rule1[1];
+    len1 := Length( l1 ); 
+    l2 := rule2[1]; 
+    len2 := Length( l2 ); 
+
+    # rewrite rules are best 
+    if ( len1 = 1 ) then 
+        if ( len2 = 1 ) then 
+            return l1 < l2; 
+        else 
+            return true; 
+        fi; 
+    fi; 
+    # shorter left-hand sides are next best 
+    if ( len1 < len2 ) then 
+        return true; 
+    elif ( len2 < len1 ) then 
+        return false; 
+    fi; 
+    r1 := rule1[2]; 
+    r2 := rule2[2]; 
     # rules which reduce length the most are next best 
-    len1 := Length( l1); 
-    len2 := Length( l2 );
-    d1 := len1 - Length( r1[2] );
-    d2 := len2 - Length( r2[2] );
+    d1 := len1 - Length( r1 );
+    d2 := len2 - Length( r2 );
     if ( d1 > d2 ) then 
         return true;
     elif ( d1 < d2 ) then 
         return false;
-    elif ( len1 > len2 ) then 
-        return true;
-    elif ( len1 < len2 ) then 
-        return false;
-    else 
-        return ( l1 > l2 );
-fi;
+    fi; 
+    if ( l1 < l2 ) then 
+        return true; 
+    elif ( l1 > l2 ) then 
+        return false; 
+    fi; 
+    return ( r1 < r2 ); 
 end );
 
 ##############################################################################
@@ -577,14 +654,14 @@ InstallMethod( RewritingSystemFpGroup, "generic method for an fp-group",
     true, [ IsFpGroup ], 0, 
 function( G )
 
-    local  id, monG, monrels, rules;
+    local  mG, fmG, id, rules;
 
-    monG := MonoidPresentationFpGroup( G );
-    monrels := Concatenation( InverseRelatorsOfPresentation( monG ), 
-                              GroupRelatorsOfPresentation( monG ) );
-    id := One( monrels[1] );
-    rules := List( monrels, r -> [ r, id ] );
-    rules := KnuthBendix( rules );
+    mG := MonoidPresentationFpGroup( G );
+    fmG := FreeGroupOfPresentation( mG ); 
+    id := One( fmG );
+    rules := List( GroupRelatorsOfPresentation( mG ), r -> [ r, id ] );
+    rules := Concatenation( rules, InverseRulesOfPresentation( mG ) ); 
+    rules := KnuthBendix( mG, rules );
     Sort( rules, BetterRuleByReductionOrLength );
     return rules;
 end );
@@ -597,13 +674,13 @@ InstallMethod( MonoidGeneratorsFpGroup, "generic method for an fp-group",
     true, [ IsFpGroup ], 0, 
 function( G )
 
-    local  monG, genG, fgmon, amg, genmon, genpos;
+    local  mG, genG, fmG, amg, genmon, genpos;
 
-    monG := MonoidPresentationFpGroup( G );
+    mG := MonoidPresentationFpGroup( G );
     genG := GeneratorsOfGroup( G );
-    fgmon := FreeGroupOfPresentation( monG );
+    fmG := FreeGroupOfPresentation( mG );
     amg := ArrangementOfMonoidGenerators( G );
-    genmon := GeneratorsOfGroup( fgmon ); 
+    genmon := GeneratorsOfGroup( fmG ); 
     genpos := List( [1..Length(genG)], i -> Position( amg, i ) ); 
     return List( genpos, i -> genmon[i] ); 
 end );
@@ -616,19 +693,19 @@ InstallMethod( ElementsOfMonoidPresentation, "generic method for an fp-group",
     true, [ IsFpGroup ], 0, 
 function( G )
 
-    local  monG, genG, elG, fgmon, genpos, rws, elmon;
+    local  mG, genG, elG, fmG, genpos, rws, elmG;
 
-    monG := MonoidPresentationFpGroup( G );
+    mG := MonoidPresentationFpGroup( G );
     genG := GeneratorsOfGroup( G );
     elG := Elements( G );
-    fgmon := FreeGroupOfPresentation( monG );
-    genpos := GeneratorsOfGroup( fgmon ){[1..Length(genG)]};
-    elmon := List( elG, g -> MappedWord( g, genG, genpos ) );
+    fmG := FreeGroupOfPresentation( mG );
+    genpos := GeneratorsOfGroup( fmG ){[1..Length(genG)]};
+    elmG := List( elG, g -> MappedWord( g, genG, genpos ) );
     rws := RewritingSystemFpGroup( G );
-    elmon := List( elmon, g -> ReduceWordKB( g, rws ) );
-#   ?? should elmon be sorted ??
-    Sort( elmon );
-    return elmon;
+    elmG := List( elmG, g -> ReduceWordKB( g, rws ) );
+#   ?? should elmG be sorted ??
+    Sort( elmG );
+    return elmG;
 end );
 
 #############################################################################
@@ -643,7 +720,7 @@ function( word, rules )
     local  id, pair, r, posr, lenr, lenu, lenv, u, v, c;
 
     pair := [ [ ], word ];
-    id := One( FamilyObj( word ) );
+    id := One( rules[1][1] ); 
     for r in rules do 
         posr := PositionWord( pair[2], r[1], 1 );
         if IsInt( posr ) then 
@@ -660,7 +737,7 @@ function( word, rules )
             else 
                 v := Subword( pair[2], lenu+lenr+1, lenu+lenr+lenv );
             fi;
-            c := List( r[2], ci -> [ ci[1], ci[2]*u^-1 ] );
+            c := List( r[2], ci -> [ ci[1], ci[2]*u^(-1) ] ); 
             pair := [ Concatenation( pair[1], c ), u*r[3]*v ];
         fi;
     od;
@@ -691,288 +768,322 @@ end );
 
 ##############################################################################
 ##
-#M  LoggedOnePassKB( <G>, <rules> )
+#M  LoggedOnePassKB( <mG>, <rules> )
 ##
-InstallMethod( LoggedOnePassKB, "for an fp-group and a list of logged rules", 
-    true, [ IsFpGroup, IsHomogeneousList ], 0, 
-function( G, r0 ) 
+InstallMethod( LoggedOnePassKB, 
+    "for a monoid presentation and a list of logged rules", true, 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ], 0, 
+function( mG, r0 ) 
 
-    local  monG, FM, id, rules, numrules, invrules, rule, crit, x, y, 
-           p, c2, q, d1, np, nq, d2, rseq, numrseq, newrule, redrule, newrules, 
-           len1, r, n, lenr, u, lenu, v, lenv, i, c1, c2u, iu, c, j, lenc; 
+    local  fmG, gfmG, id, rules, invrules, newrules, newrule, critnum, critn, 
+           rule1, l1, c1, r1, len1, rule2, l2, c2, r2, len2, 
+           pos1, pos2, u, v, iu, ur2v, red1, log1, ilog1, red2, log2, ilog2, 
+           crit1, crit2, redrule, n, lenu, lenv, i, c2u, ic2u, ic1, c, j, 
+           lenc, L, iL, numrules, use; 
 
-    monG := MonoidPresentationFpGroup( G ); 
-    FM := FreeGroupOfPresentation( monG );
-    id := One( FM );
+    fmG := FreeGroupOfPresentation( mG ); 
+    gfmG := GeneratorsOfGroup( fmG );
+    id := One( fmG );
     rules := ShallowCopy( r0 ); 
-    invrules := List( InverseRelatorsOfPresentation( monG), r -> [ r, id ] );
-    numrules := Length( rules ); 
+    invrules := InverseRulesOfPresentation( mG ); 
     Info( InfoIdRel, 2, "in LoggedOnePassKB with ", Length(rules), " rules" ); 
     Info( InfoIdRel, 3, "rules = ", rules );
-    newrules := [ ];
-    rseq := [ ];
-    numrseq := 0;
+    newrules := [ ]; 
+    critnum := 0; 
+    critn := 0; 
     # Find all the critical pairs: 
-    for x in [1..numrules] do 
-    rule := rules[x]; 
-        len1 := Length( rule[1] );
-        ##?? why exclude the case x = y ???? 
-        for y in Concatenation( [1..x-1], [x+1..numrules] ) do 
-            r := rules[y]; 
-            lenr := Length( r[1] );
-            # Search for type 1 pairs:
-            # (These occur when r[1] is contained in rule[1] ) 
-            if IsInt( PositionWord( rule[1], r[1], 1 ) ) then 
-                lenu := PositionWord( rule[1], r[1], 1 ) - 1;
-                lenv := len1 - lenu - lenr;
-                if ( lenu = 0 ) then
+    for rule1 in rules do 
+        l1 := rule1[1]; 
+        c1 := rule1[2]; 
+        r1 := rule1[3];  
+        len1 := Length( l1 );
+        for rule2 in rules do 
+            l2 := rule2[1]; 
+            c2 := rule2[2]; 
+            r2 := rule2[3]; 
+            len2 := Length( l2 );
+            # Search for type 1 pairs (when l2 is contained in l1): 
+            pos1 := PositionWord( l1, l2, 1 ); 
+            if IsInt( pos1 ) then 
+                pos2 := pos1 + len2; 
+                if ( pos1 = 1 ) then
                     u := id;
                 else 
-                    u := Subword( rule[1], 1, lenu );
+                    u := Subword( l1, 1, pos1-1 );
                 fi;
-                if ( lenv = 0 ) then
+                if ( pos2-1 = len1 ) then
                     v := id;
                 else 
-                    v := Subword( rule[1], lenu+lenr+1, lenu+lenr+lenv );
+                    v := Subword( l1, pos2, len1 );
                 fi;
-                c1 := rule[2];
-                iu := InverseWordInFreeGroupOfPresentation( FM, u ); 
-                #? c2u := List( r[2], c -> [ c[1], c[2]*u^(-1) ] );
-                c2u := List( r[2], 
+                iu := InverseWordInFreeGroupOfPresentation( fmG, u ); 
+                ur2v := u * r2 * v; 
+                if not ( ur2v = r1 ) then 
+                    critnum := critnum + 1; 
+                    Info( InfoIdRel, 2, "type 1 pair: ", [ u*r2*v, r1 ] );
+                    critn := critn + 1; 
+                    crit1 := ur2v; 
+                    c2u := List( c2, 
                          c -> [ c[1], ReduceWordKB( c[2]*iu, invrules ) ] );
-
-                Info( InfoIdRel, 2, "type 1 pair: ", 
-                                 [x,y], " => ", [ u*r[3]*v, rule[3] ] );
-                p := rule[3];
-                q := u*r[3]*v;
-                d1 := LoggedReduceWordKB( p, rules );
-                np := d1[2];
-                d1 := d1[1];
-                d2 := LoggedReduceWordKB( q, rules );
-                nq := d2[2];
-                d2 := d2[1];
-                # Orientate them:
-                if ( np < nq ) then
-                    d2 := Reversed( List( d2, c -> [ - c[1], c[2] ] ) );
-                    c2u := Reversed( List( c2u, c -> [ - c[1], c[2] ] ) );
-                    newrule := [ nq, Concatenation( d2, c2u, c1, d1 ), np ]; 
-                else 
-                    d1 := Reversed( List( d1, c -> [ - c[1], c[2] ] ) );
-                    c1 := Reversed( List( c1, c -> [ - c[1], c[2] ] ) );
-                    newrule := [ np, Concatenation( d1, c1, c2u, d2 ), nq ];
-                fi;
-                # Add them in as new rules:
-                if ( np = nq ) then 
-                    redrule := RelatorSequenceReduce( G, newrule[2] ); 
-                    if ( redrule <> [ ] ) then
-                        Info( InfoIdRel, 2, " !! np = nq at:\n", newrule[2] );
-                        numrseq := numrseq + 1; 
-                        Add( rseq, [ numrseq, redrule ] );
+                    red1 := LoggedReduceWordKB( crit1, rules ); 
+                    log1 := List( red1[1], 
+                         c -> [ c[1], ReduceWordKB( c[2], invrules ) ] ); 
+                    red1 := red1[2]; 
+                    crit2 := r1; 
+                    red2 := LoggedReduceWordKB( crit2, rules ); 
+                    log2 := List( red2[1], 
+                         c -> [ c[1], ReduceWordKB( c[2], invrules ) ] ); 
+                    red2 := red2[2]; 
+                    # Orientate them:
+                    ilog2 := Reversed( List( log2, c -> [ -c[1], c[2] ] ) );
+                    ilog1 := Reversed( List( log1, c -> [ -c[1], c[2] ] ) );
+                    ic2u := Reversed( List( c2u, c -> [ -c[1], c[2] ] ) ); 
+                    ic1 := Reversed( List( c1, c -> [ -c[1], c[2] ] ) ); 
+                    L := Concatenation( ilog2, ic2u, c1, log1 ); 
+                    iL := Concatenation( ilog1, ic1, c2u, log2 ); 
+                    if ( ( red1 in gfmG ) and ( red2 in gfmG ) ) then 
+                        if ( Position( gfmG, red1 ) 
+                             > Position( gfmG, red2 ) ) then 
+                            newrule := [ red1, iL, red2 ]; 
+                        else 
+                            newrule := [ red2, L, red1 ]; 
+                        fi; 
+                    elif ( red1 < red2 ) then
+                        newrule := [ red2, L, red1 ]; 
+                    elif ( red2 < red1 ) then  
+                        newrule := [ red1, iL, red2 ];
                     fi;
-                else 
-                    Info( InfoIdRel, 2, "newrule1 = ", newrule ); 
-                    c := newrule[2];
-                    lenc := Length( c );
-                    j := 1;
-                    while( j < lenc ) do
-                        if ( ( c[j][1] = - c[j+1][1] ) and 
-                             ( c[j][2] =   c[j+1][2] ) ) then 
-                            c := Concatenation( c{[1..j-1]}, c{[j+2..lenc]} );
-                            j := j - 2;
-                            Info( InfoIdRel, 2, "reduced to: ", c );
-                            lenc := lenc - 2;
+                    # Add them in as new rules:
+                    if ( red1 = red2 ) then 
+                        redrule := RelatorSequenceReduce( mG, L ); 
+                        if ( redrule <> [ ] ) then
+                            Info( InfoIdRel, 2, " !! red1 = red2 at:\n", L ); 
                         fi;
-                        j := j + 1;
-                    od;
-                    newrule[2] := c;
-                    Add( newrules, newrule );
-                fi;
+                    else 
+                        c := newrule[2];
+                        lenc := Length( c );
+                        j := 1;
+                        while( j < lenc ) do
+                            if ( ( c[j][1] = - c[j+1][1] ) and 
+                                 ( c[j][2] =   c[j+1][2] ) ) then 
+                                c := Concatenation( c{[1..j-1]}, 
+                                                    c{[j+2..lenc]} );
+                                j := j - 2;
+                                Info( InfoIdRel, 2, "reduced to: ", c );
+                                lenc := lenc - 2;
+                            fi;
+                            j := j + 1;
+                        od;
+                        newrule[2] := c;
+                        Add( newrules, newrule );
+                        Info( InfoIdRel, 2, "(1) newrule = ", newrule ); 
+                    fi;
+                fi; 
             fi; 
             # Now we have to search for type 2 pairs:
-            # (These occur when the right of rule[1] 
-            # coincides with the left of r[1]) 
+            # These occur when the right of l1 overlaps the left of l2 
             i := 1;
-            while not( ( i > lenr ) or ( i > len1 ) ) do 
-                if ( Subword( rule[1], len1-i+1, len1 ) 
-                     = Subword( r[1], 1, i ) ) then 
+            while not( ( i > len2 ) or ( i > len1 ) ) do 
+                if ( Subword( l1, len1-i+1, len1 ) 
+                     = Subword( l2, 1, i ) ) then 
                     if ( len1 = i ) then 
                         u := id;
                     else 
-                        u := Subword( rule[1], 1, len1-i );
+                        u := Subword( l1, 1, len1-i );
                     fi;
-                    if ( lenr = i ) then
+                    if ( len2 = i ) then
                         v := id;
                     else
-                        v := Subword( r[1], i+1, lenr );
+                        v := Subword( l2, i+1, len2 );
                     fi;
                     Info( InfoIdRel, 2, "type 2 overlap word: ", 
-                                        [x,y], " => ", rule[1]*v ); 
-                    c1 := rule[2];
-                    iu := InverseWordInFreeGroupOfPresentation( FM, u ); 
-                    c2u := List( r[2], 
-                           c -> [ c[1], ReduceWordKB( c[2]*iu, invrules ) ] );
-                    p := rule[3]*v;
-                    q := u*r[3];
-                    d1 := LoggedReduceWordKB( p, rules );
-                    np := d1[2];
-                    d1 := d1[1];
-                    d2 := LoggedReduceWordKB( q, rules );
-                    nq := d2[2];
-                    d2 := d2[1];
-                    # Orientate them:
-                    if ( np < nq ) then
-                        d2 := Reversed( List( d2, c -> [ - c[1], c[2] ] ) );
-                        c2u := Reversed( List( c2u, c -> [ - c[1], c[2] ] ) );
-                        newrule := [ nq, Concatenation(d2, c2u, c1, d1), np ];
-                    else
-                        d1 := Reversed( List( d1, c -> [ - c[1], c[2] ] ) );
-                        c1 := Reversed( List( c1, c -> [ - c[1], c[2] ] ) );
-                        newrule := [ np, Concatenation(d1, c1, c2u, d2), nq ];
-                    fi;
-                    # Add them in as new rules:
-                    if ( np = nq ) then 
-                        Info( InfoIdRel, 2, "LHS = RHS" ); 
-                        redrule := RelatorSequenceReduce( G, newrule[2] ); 
-                        if ( redrule <> [ ] ) then
-                            Info( InfoIdRel, 2, " !! type2, np = nq at:" );
-                            Info( InfoIdRel, 2, newrule[2] ); 
-                            numrseq := numrseq + 1; 
-                            Add( rseq, [ numrseq, redrule ] );
+                                        rule1[1]*v ); 
+                    c1 := rule1[2];
+                    iu := InverseWordInFreeGroupOfPresentation( fmG, u ); 
+                    c2u := List( rule2[2], 
+                           c -> [ c[1], ReduceWordKB( c[2]*iu, invrules ) ] ); 
+                    if not ( r1*v = u*r2 ) then 
+                        critnum := critnum + 1; 
+                        critn := critn + 1; 
+                        crit1 := r1*v;
+                        red1 := LoggedReduceWordKB( crit1, rules ); 
+                        log1 := List( red1[1], 
+                          c -> [ c[1], ReduceWordKB( c[2], invrules ) ] ); 
+                        red1 := red1[2]; 
+                        crit2 := u*r2; 
+                        red2 := LoggedReduceWordKB( crit2, rules );
+                        log2 := List( red2[1], 
+                          c -> [ c[1], ReduceWordKB( c[2], invrules ) ] ); 
+                        red2 := red2[2]; 
+                        # Orientate them:
+                        ilog2 := Reversed( List( log2, c -> [ -c[1], c[2] ] ) );
+                        ilog1 := Reversed( List( log1, c -> [ -c[1], c[2] ] ) );
+                        ic2u := Reversed( List( c2u, c -> [ -c[1], c[2] ] ) ); 
+                        ic1 := Reversed( List( c1, c -> [ -c[1], c[2] ] ) ); 
+                        L := Concatenation( ilog2, ic2u, c1, log1 ); 
+                        iL := Concatenation( ilog1, ic1, c2u, log2 ); 
+                        if ( ( red1 in gfmG ) and ( red2 in gfmG ) ) then 
+                            if ( Position( gfmG, red1 ) 
+                                 > Position( gfmG, red2 ) ) then 
+                                newrule := [ red1, iL, red2 ]; 
+                            else 
+                                newrule := [ red2, L, red1 ]; 
+                            fi; 
+                        elif ( red1 < red2 ) then
+                            newrule := [ red2, L, red1 ]; 
+                        elif ( red2 < red1 ) then  
+                            newrule := [ red1, iL, red2 ];
                         fi;
-                    else 
-                        Info( InfoIdRel, 2, "newrule = ", newrule );
-                        c := newrule[2]; 
-                        lenc := Length( c );
-                        j := 1;
-                        while ( j < lenc ) do 
-                            if ( ( c[j][1] = - c[j+1][1] ) and 
-                                 ( c[j][2] =   c[j+1][2] ) ) then 
-                                c := Concatenation(c{[1..j-1]},c{[j+2..lenc]});
-                                j := j - 2;
-                                Info( InfoIdRel, 2, "reduced to : ", c );
-                                lenc := lenc - 2;
-                                if ( ( j = -1 ) and ( lenc > 0 ) ) then
-                                    j := 0;
-                                fi;
+                        # Add them in as new rules:
+                        if ( red1 = red2 ) then 
+                            Info( InfoIdRel, 2, "LHS = RHS" ); 
+                            redrule := RelatorSequenceReduce( mG, L ); 
+                            if ( redrule <> [ ] ) then
+                                Info( InfoIdRel, 2, 
+                                  " !! type2, red1=red2= ", red1, " at:", L ); 
                             fi;
-                           j := j + 1;
-                        od;
-                        newrule[2] := c;
-                        Add( newrules, newrule ); 
-                    fi;
-                fi;
-                i := i + 1;
-            od;
+                        else 
+                            c := newrule[2]; 
+                            lenc := Length( c );
+                            j := 1;
+                            while ( j < lenc ) do 
+                                if ( ( c[j][1] = - c[j+1][1] ) and 
+                                     ( c[j][2] =   c[j+1][2] ) ) then 
+                                    c := Concatenation( c{[1..j-1]}, 
+                                                        c{[j+2..lenc]});
+                                    j := j - 2;
+                                    Info( InfoIdRel, 2, "reduced to : ", c); 
+                                    lenc := lenc - 2;
+                                    if ( ( j = -1 ) and ( lenc > 0 ) ) then
+                                        j := 0;
+                                    fi;
+                                fi;
+                                j := j + 1;
+                            od;
+                            newrule[2] := c;
+                            Add( newrules, newrule ); 
+                            Info( InfoIdRel, 2, "(2) newrule = ", newrule ); 
+                        fi;
+                    fi; 
+                fi; 
+                i := i + 1; 
+            od; 
         od; 
     od;
     Append( rules, newrules );
-    if ( Length( rseq ) > 0 ) then 
-        if ( InfoLevel( InfoIdRel ) > 1 ) then
-            Print( "\nthere were ", Length(rseq), 
-                   " relator sequences found during LoggedOnePassKB:\n" ); 
-            Print( "with lengths: ", List( rseq, y -> Length(y[2]) ), "\n\n" ); 
-        fi;
-        if ( InfoLevel( InfoIdRel ) > 2 ) then 
-            Perform( rseq, Display ); 
-        fi;
-    fi;
-    Info( InfoIdRel, 3, "length of rseq in LoggedOnePassKB: ", Length(rseq) ); 
-    return [ rules, rseq ];
+    Sort( rules, BetterLoggedRuleByReductionOrLength );
+    ## remove duplicates 
+    numrules := Length( rules ); 
+    use := [1..numrules]; 
+    for i in [2..numrules] do 
+        if ( rules[i] = rules[i-1] ) then 
+            use := Difference( use, [i] ); 
+        fi; 
+    od; 
+    return rules{use}; 
 end );
 
 ##############################################################################
 ##
-#M LoggedRewriteReduce( <G>, <rules> )
+#M  LoggedRewriteReduce( <mG>, <rules> )
 ##
-InstallMethod( LoggedRewriteReduce, "for an fp-group and list of logged rules", 
-    true, [ IsFpGroup, IsHomogeneousList ], 0, 
-function( G, r0 )
+InstallMethod( LoggedRewriteReduce, 
+    "for a monoid presentation and list of logged rules", true, 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ], 0, 
+function( mG, r0 )
 
-    local  rules, rule, r, newrules, nolog, p, q, np, nq, c0, c1, c2, d, 
-           rng, keep, rpos, lpos, l1, l2, w1, w2, s1, s2, i, j;
+    local  fmG, id, gfmG, rules, numrules, rule, rule1, rule2, rule3, irule2, 
+           pos, use, r, red1, red3, len1, len3, omit, 
+           r1, r3, log1, ilog1, log3, ilog3, c13, c31, newrules, i;
 
-    rules := List( Set( ShallowCopy( r0 ) ) ); 
-    keep := ListWithIdenticalEntries( Length( rules ), -1 );
-    rng := [1..Length(rules)];
-    for r in rng do 
-        rule := rules[r];
-        if ( keep[r] < 0 ) then 
-            rpos := Filtered( rng, 
-                i -> ( ( rules[i][1]=rule[1] ) and ( rules[i][3]=rule[3] ) ) );
-            lpos := Length( rpos );
-            if ( lpos > 1 ) then 
-                # choose which logged rule to keep 
-                c1 := rules[rpos[1]][2];
-                j := 1;
-                for i in [2..lpos] do 
-                    c2 := rules[rpos[i]][2];
-                    if ( c2 < c1 ) then
-                         j := i;
-                         c1 := c2;
-                    fi;
-                od;
-                for i in [1..lpos] do 
-                    if ( i = j ) then 
-                        keep[rpos[i]] := 1;
-                    else
-                        keep[rpos[i]] := 0;
-                    fi;
-                od; 
+    fmG := FreeGroupOfPresentation( mG ); 
+    id := One( fmG ); 
+    gfmG := GeneratorsOfGroup( fmG ); 
+    rules := ShallowCopy( r0 ); 
+    numrules := Length( rules ); 
+    for rule in rules do 
+        pos := Position( rules, rule ); 
+        omit := false; 
+        newrules := Filtered( rules, r -> not( r[1] = rule[1] ) );
+        rule1 := rule[1]; 
+        rule2 := rule[2]; 
+        irule2 := Reversed( List( rule2, c -> [ - c[1], c[2] ] ) ); 
+        rule3 := rule[3]; 
+        red1 := LoggedReduceWordKB( rule1, newrules ); 
+        log1 := red1[1]; 
+        ilog1 := Reversed( List( log1, c -> [ - c[1], c[2] ] ) ); 
+        r1 := red1[2]; 
+        len1 := Length( r1 ); 
+        red3 := LoggedReduceWordKB( rule3, newrules ); 
+        log3 := red3[1]; 
+        ilog3 := Reversed( List( log3, c -> [ - c[1], c[2] ] ) ); 
+        r3 := red3[2]; 
+        len3 := Length( r3 ); 
+        c13 := Concatenation( ilog1, rule2, log3 ); 
+        c31 := Concatenation( ilog3, irule2, log1 ); 
+        if ( ( r1 < rule[1] ) or ( r3 < rule[3] ) ) then 
+            if ( ( len1 = 1 ) and ( len3 = 1 ) ) then 
+                ## treat generators/inverses as a special case 
+                if ( ( r1 in gfmG ) and ( r3 in gfmG ) ) then 
+                    if Position( gfmG, r1 ) < Position( gfmG, r3 ) then 
+                        r := [ r3, c31, r1 ]; 
+                    else 
+                        r := [ r1, c13, r3 ]; 
+                    fi; 
+                elif ( r1 in gfmG ) then 
+                    r := [ r3, c31, r1 ]; 
+                elif ( r3 in gfmG ) then 
+                    r := [ r1, c13, r3 ]; 
+                fi; 
+                if ( r1 = r3 ) then 
+                    omit := true; 
+                fi;
+            elif ( r1 > r3 ) then 
+                r := [ r1, c13, r3 ]; 
+            elif ( r1 < r3 ) then 
+                r := [ r3, c31, r1 ]; 
+            else 
+                ## r1 = r3 
+                omit := true; 
+            fi; 
+            if omit then 
+                rules := newrules; 
+            else 
+                rules := Concatenation( rules{[1..pos-1]}, [r], 
+                                        rules{[pos+1..Length(rules)]} ); 
             fi; 
         fi; 
     od;
-    rpos := Filtered( rng, j -> ( keep[j] <> 0 ) );
-    rules := rules{rpos};
-    for rule in rules do 
-#       change next line?
-        newrules := Filtered( rules, r -> not( r = rule) );
-        # removes rule and any equivalent rules
-        p := rule[1];
-        c0 := rule[2]; 
-        q := rule[3]; 
-        np := LoggedReduceWordKB( p, newrules )[2];
-        nq := LoggedReduceWordKB( q, newrules )[2];
-        if ( np = nq ) then 
-            rules := newrules;
-        fi;
-        if ( not( np=nq ) and ( not( ( np=p ) and ( nq=q ) ) ) ) then
-            c1 := LoggedReduceWordKB( p, newrules )[1];
-            c2 := LoggedReduceWordKB( q, newrules )[1];
-            if ( np > nq ) then 
-                rule[1] := np;
-                rule[3] := nq;
-                c1 := Reversed( List( c1, c -> [ - c[1], c[2] ] ) );
-                rule[2] := Concatenation( c1, c0, c2 );
-            else 
-                rule[1] := nq;
-                rule[3] := np;
-                c2 := Reversed( List( c2, c -> [ - c[1], c[2] ] ) );
-                c0 := Reversed( List( c0, c -> [ - c[1], c[2] ] ) );
-                rule[2] := Concatenation( c2, c0, c1 );
-            fi;
+    Sort( rules, BetterLoggedRuleByReductionOrLength ); 
+    ## remove duplicates 
+    ## this is where we could catch some identities if we so wished 
+    numrules := Length( rules ); 
+    use := [1..numrules]; 
+    for i in [2..numrules] do 
+        if ( ( rules[i][1] = rules[i-1][1] ) and 
+             ( rules[i][3] = rules[i-1][3] ) ) then 
+            use := Difference( use, [i] ); 
         fi; 
-    od;
-    nolog := List( rules, r -> [ r[1], r[3] ] );
-    rules := Filtered( rules,
-        r -> not( [r[1],r[3]] in nolog{[1..Position(rules,r)-1]} ) );
-    return List( Set(rules) );
+    od; 
+    return rules{use}; 
 end );
 
 ##############################################################################
 ##
-#M  LoggedKnuthBendix( <G>, <rules> )
+#M  LoggedKnuthBendix( <mG>, <rules> )
 ##
-InstallMethod( LoggedKnuthBendix, "for an fp-group and a list of rules", 
-    true, [ IsFpGroup, IsHomogeneousList ], 0, 
-function( G, r0 )
+InstallMethod( LoggedKnuthBendix, 
+    "for a monoid presentation and a list of rules", true, 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ], 0, 
+function( mG, r0 )
 
-    local  result, rules, newrules, passes, k, K2, K2a, mseq;
+    local  fmG, rules, newrules, passes, k, K2, K2a, mseq;
 
+    fmG := FreeGroupOfPresentation( mG ); 
     rules := ShallowCopy( r0 );
-    result := LoggedOnePassKB( G, rules ); 
-    newrules := result[1];
+    newrules := LoggedOnePassKB( mG, rules ); 
     Info( InfoIdRel, 1, "number of rules generated: ", Length( newrules ) ); 
-    newrules := LoggedRewriteReduce( G, newrules );
+    newrules := LoggedRewriteReduce( mG, newrules );
     passes := 1;
     if ( InfoLevel( InfoIdRel ) > 1 ) then 
         Print( "     which are reduced to : ", Length( newrules ), "\n" ); 
@@ -980,24 +1091,16 @@ function( G, r0 )
     fi; 
     while not( rules = newrules ) do 
         rules := newrules; 
-        result := LoggedOnePassKB( G, rules );
-        newrules := result[1]; 
+        newrules := LoggedOnePassKB( mG, rules ); 
         Info( InfoIdRel, 2, "number of rules generated: ", Length(newrules) );
-        newrules := LoggedRewriteReduce( G, newrules );
+        newrules := LoggedRewriteReduce( mG, newrules );
         passes := passes + 1; 
         if ( InfoLevel( InfoIdRel ) > 1 ) then 
             Print(" which are reduced to : ", Length( newrules ), "\n" );
             Print( " number of passes: ", passes, "\n" );
         fi;
     od;
-    ## the second part of the final result is a set of group relator sequences 
-    mseq := result[2]; 
-    if ( InfoLevel( InfoIdRel ) > 1 ) then 
-        Print( "there were ", Length(mseq), 
-            " group relator sequences found during logged Knuth Bendix\n" ); 
-    fi;
-    mseq := List( mseq, L -> L[2] );
-    return [ rules, mseq ];
+    return rules;
 end );
 
 #################################*############################################
@@ -1022,79 +1125,134 @@ end );
 
 ############################################################*#################
 ##
+#M  BetterLoggedList 
 #M  BetterLoggedRuleByReductionOrLength
 ##
-InstallMethod( BetterLoggedRuleByReductionOrLength, "generic method for 2 rules",
-    true, [ IsList, IsList ], 0, 
-function( r1, r2 )
+InstallMethod( BetterLoggedList, 
+    "generic method for 2 logged lists", true, [ IsList, IsList ], 0, 
+function( c1, c2 )
 
-    local  l1, l2, d1, d2, id, i1, i2;
+    local  len1, len2, i, t1, t2; 
 
-    # words that map to the identity are best 
-    # id:= One( FamilyObj( r1[1] ) );
-    id := One( r1[1] );
-    i1 := ( r1[3] = id );
-    i2 := ( r2[3] = id );
-    if i1 then 
-        if i2 then 
-            return ( r1[1] > r2[1] );
+    if ( c1 = c2 ) then 
+        return false; 
+    fi; 
+    len1 := Length( c1 ); 
+    len2 := Length( c2 ); 
+    if ( len1 < len2 ) then 
+        return true; 
+    elif ( len1 > len2 ) then 
+        return false; 
+    fi; 
+    i := 1;
+    while ( c1[i] = c2[i] ) do 
+        i := i+1; 
+    od; 
+    t1 := c1[i]; 
+    t2 := c2[i]; 
+    if ( t1[1] < t2[1] ) then 
+        return true; 
+    elif ( t1[1] > t2[1] ) then 
+        return false; 
+    fi; 
+    if ( t1[2] < t2[2] ) then 
+        return true; 
+    elif ( t1[2] > t2[2] ) then 
+        return false; 
+    fi; 
+    ## should never get here 
+    Error( "here" ); 
+end ); 
+
+InstallMethod( BetterLoggedRuleByReductionOrLength, 
+    "generic method for 2 logged rules", true, [ IsList, IsList ], 0, 
+function( rule1, rule2 )
+
+    local  l1, l2, len1, len2, r1, r2, d1, d2;
+
+    # must give same results as BetterRuleByReductionOrLength 
+    # so use the logged components as part of the test only at the very end 
+    l1 := rule1[1];
+    len1 := Length( l1 ); 
+    l2 := rule2[1]; 
+    len2 := Length( l2 ); 
+
+    # rewrite rules are best 
+    if ( len1 = 1 ) then 
+        if ( len2 = 1 ) then 
+            return l1 < l2; 
         else 
-            return true;
-        fi;
-    elif i2 then 
-        return false;
-    fi;
+            return true; 
+        fi; 
+    fi; 
+    # shorter left-hand sides are next best 
+    if ( len1 < len2 ) then 
+        return true; 
+    elif ( len2 < len1 ) then 
+        return false; 
+    fi; 
+    r1 := rule1[3]; 
+    r2 := rule2[3]; 
     # rules which reduce length the most are next best 
-    l1 := Length( r1[1] );
-    l2 := Length( r2[1] );
-    d1 := l1 - Length( r1[3] );
-    d2 := l2 - Length( r2[3] );
+    d1 := len1 - Length( r1 );
+    d2 := len2 - Length( r2 );
     if ( d1 > d2 ) then 
         return true;
     elif ( d1 < d2 ) then 
         return false;
+    else 
+    fi; 
+    if ( l1 < l2 ) then 
+        return true; 
     elif ( l1 > l2 ) then 
-        return true;
-    elif ( l1 < l2 ) then 
-        return false;
-    else
-        return ( r1[1] > r2[1] );
-    fi;
+        return false; 
+    fi; 
+    if ( r1 < r2 ) then 
+        return true; 
+    elif ( r1 > r2 ) then 
+        return false; 
+    fi; 
+    return BetterLoggedList( rule1[2], rule2[2] ); 
 end );
 
 ##############################################################################
 ##
-#M  InitialLoggedRules
+#M  InitialLoggedRulesOfPresentation
 ##
-InstallMethod( InitialLoggedRules, "generic method for an fp-group",
-    true, [ IsFpGroup ], 0, 
-function( G ) 
+InstallMethod( InitialLoggedRulesOfPresentation, 
+    "generic method for an  presentation", true, 
+    [ IsMonoidPresentationFpGroup ], 0, 
+function( mG ) 
 
-    local monG, invrels, mu, idmu, leni, grprels, ngrels, monrels, id, 
-          invrules, len, r0, i, r; 
+    local fmG, invrules, leni, r0, r1, grel, igrel, ngrel, id, rules; 
 
-    monG := MonoidPresentationFpGroup( G );
-    invrels := InverseRelatorsOfPresentation( monG );
-    mu := HomomorphismOfPresentation( monG );
-    idmu := One( Source( mu ) ); 
-    leni := Length( invrels );
-    grprels := GroupRelatorsOfPresentation( monG );
-    ngrels := Length( grprels );
-    monrels := Concatenation( invrels, grprels ); 
-    id := One( monrels[1] );
-    invrules := List( invrels, r -> [ r, id ] );
-    Info( InfoIdRel, 3, "invrules = ", invrules, "\n" ); 
-    len := Length( monrels );
-    r0 := [1..len];
-    for i in [1..len] do 
-        r := monrels[i];
-        if ( i > leni ) then
-            r0[i] := [ r, [ [ i, id ] ], id ];
-        else
-            r0[i] := [ r, [ ], id ];
-        fi;
-    od;
-    return r0; 
+    fmG := FreeGroupOfPresentation( mG ); 
+    id := One( fmG ); 
+    invrules := InverseRulesOfPresentation( mG ); 
+    leni := Length( invrules ); 
+    r0 := List( invrules, r -> [ r[1], [ ], r[2] ] ); 
+    grel := GroupRelatorsOfPresentation( mG );
+    ngrel := Length( grel ); 
+    igrel := List( [1..ngrel], i -> ReduceWordKB( grel[i]^-1, invrules ) ); 
+    r1 := List( [1..ngrel], i -> [ grel[i], [ [ i+leni, id ] ], id ] ); 
+    rules := Concatenation( r0, r1 ); 
+    Sort( rules, BetterLoggedRuleByReductionOrLength ); 
+    return rules; 
+end );
+
+##############################################################################
+##
+#M  InitialRulesOfPresentation
+##
+InstallMethod( InitialRulesOfPresentation, 
+    "generic method for an fp-group presentation", true, 
+    [ IsMonoidPresentationFpGroup ], 0, 
+function( mG ) 
+
+    local rules; 
+
+    rules := InitialLoggedRulesOfPresentation( mG ); 
+    return List( rules, L -> [ L[1], L[3] ] ); 
 end );
 
 ##############################################################################
@@ -1105,21 +1263,21 @@ InstallMethod( LoggedRewritingSystemFpGroup, "generic method for an fp-group",
     true, [ IsFpGroup ], 0, 
 function( G )
 
-    local  idmu, id, monG, mu, grprels, ngrels, monrels, len, invrels, invrules, 
-           leni, i, r, r0, r1, c, p, lenc, j, result, mseq, lenseq, gseq;
+    local  fmG, mu, idmu, id, mG, grprels, ngrels, monrels, len, 
+           invrels, invrules, leni, i, r, r0, r1, c, p, p2, lenc, j;
 
-    monG := MonoidPresentationFpGroup( G );
-    invrels := InverseRelatorsOfPresentation( monG );
-    mu := HomomorphismOfPresentation( monG );
+    mG := MonoidPresentationFpGroup( G ); 
+    fmG := FreeGroupOfPresentation( mG ); 
+    id := One( fmG ); 
+    invrels := InverseRelatorsOfPresentation( mG );
+    mu := HomomorphismOfPresentation( mG );
     idmu := One( Source( mu ) ); 
-    grprels := GroupRelatorsOfPresentation( monG );
+    grprels := GroupRelatorsOfPresentation( mG );
     monrels := Concatenation( invrels, grprels ); 
-    id := One( monrels[1] );
     invrules := List( invrels, r -> [ r, id ] );
-    r0 := InitialLoggedRules( G );
+    r0 := InitialLoggedRulesOfPresentation( mG );
     Info( InfoIdRel, 3, "initial rules = ", r0 ); 
-    result := LoggedKnuthBendix( G, r0 );
-    r1 := result[1]; 
+    r1 := LoggedKnuthBendix( mG, r0 ); 
     Info( InfoIdRel, 2, "rules after KB2 = ", r1 ); 
     # put the inverse relators at the front ..
     # expect them to be the only ones which map to the identity 
@@ -1137,67 +1295,61 @@ function( G )
             fi;
             j := j + 1;
         od;
-        r[2] := c;
+        r := [ r[1], c, r[3] ];
     od; 
-    Info( InfoIdRel, 3, "rules before reduction : ", r1 );
+    Info( InfoIdRel, 2, "rules before reduction : ", r1 );
     for j in [1..Length(r1)] do
         r := r1[j];
         c := r[2];
         for p in c do 
             ###### should not need this condition!!! ###### 
             if ( FamilyObj( p[2]) = FamilyObj( idmu ) ) then 
-                p[2] := ReduceWordKB( p[2], invrules );
+                p2 := ReduceWordKB( p[2], invrules ); 
+                p := [ p[1], p2 ]; 
             else 
                 Print( "Warning: ", p[2], " not in M at j = ", j, "\n" );
             fi;
         od;
-        r[2] := c;
-    od;
-    ## now save the relator sequences found during logged Knuth Bendix 
-    mseq := result[2];
-    lenseq := Length( mseq );
-    mseq := List( [1..lenseq], i -> [ i, mseq[i] ] );
-    gseq := ConvertToGroupRelatorSequences( G, mseq );
-    gseq := ReduceGroupRelatorSequences( gseq ); 
-    lenseq := Length( gseq );
-    gseq := List( [1..lenseq], i -> [ i, gseq[i][1], gseq[i][2] ] ); 
-    SetIdentityRelatorSequencesKB( G, gseq );
-    Info( InfoIdRel, 1 , "#IdentityRelatorsequencesKB:\n", lenseq ); 
-    return r1;
+        r1[j] := [ r[1], c, r[3] ];
+    od; 
+    Sort( r1, BetterLoggedRuleByReductionOrLength );
+    SetLoggedRewritingSystemFpGroup( G, r1 ); 
+    return r1; 
 end );
 
 ##############################################################################
 ##
 #M  RelatorSequenceReduce
 ##
-InstallMethod( RelatorSequenceReduce, "for an fp-group and a relator sequence", 
-    true, [ IsFpGroup, IsHomogeneousList ], 0, 
-function( G, seq )
+InstallMethod( RelatorSequenceReduce, 
+    "for a monoid presentation and a relator sequence", true, 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ], 0, 
+function( mG, seq )
 
-    local monG, FM, idFM, genFM, invgenFM, invrels, invrules, invinvrules, 
-          len, w, ew, k, s1, s2, x1, x2, i, j;
+    local fmG, idfmG, gfmG, numgfmG, invgfmG, invrels, invrules, 
+          invrules2, invinvrules, len, w, ew, k, s1, s2, x1, x2, i, j;
 
-    monG := MonoidPresentationFpGroup( G ); 
-    FM := FreeGroupOfPresentation( monG );
-    idFM := One( FM ); 
-    genFM := GeneratorsOfGroup( FM );
-    invgenFM := InverseGeneratorsOfFpGroup( FM ); 
-    invrels := InverseRelatorsOfPresentation( monG ); 
-    invrules := List( invrels, r -> [ r, idFM ] ); 
-    invinvrules := Concatenation( invrules, 
-                       List( invrules, r -> [ r[1]^(-1), r[2] ] ) ); 
+# seq := ShallowCopy( L ); 
+    fmG := FreeGroupOfPresentation( mG );
+    idfmG := One( fmG ); 
+    gfmG := GeneratorsOfGroup( fmG ); 
+    numgfmG := Length( gfmG ); 
+    invgfmG := InverseGeneratorsOfFpGroup( fmG ); 
+    invrels := InverseRelatorsOfPresentation( mG ); 
+    invrules := List( invrels, r -> [ r, idfmG ] ); 
+    invinvrules := InverseRulesOfPresentation( mG ); 
     len := Length( seq );
     for k in [1..len] do 
         w := ReduceWordKB( seq[k][2], invinvrules ); 
-        if ( w = idFM ) then 
-            seq[k][2] := idFM; 
+        if ( w = idfmG ) then 
+            seq[k] := [ seq[k][1], idfmG ]; 
         else 
             ## replace each negative power with its positive equivalent 
             ew := ShallowCopy( ExtRepOfObj( w ) );
             for i in [1..Length(ew)/2] do 
                 j := 2*i; 
                 if ( ew[j] < 0 ) then 
-                    ew[j-1] := Position( genFM, invgenFM[ ew[j-1] ] ); 
+                    ew[j-1] := Position( gfmG, invgfmG[ ew[j-1] ] ); 
                     ew[j] := - ew[j]; 
                 fi; 
             od;
@@ -1231,17 +1383,17 @@ InstallMethod( PartialElementsOfMonoidPresentation,
     [ IsFpGroup, IsPosInt ], 0, 
 function( G, len ) 
 
-    local  monG, amg, fam, FM, genFM, invgenFM, idM, numgenM, logrws, rws, 
+    local  mG, amg, fam, fmG, gfmG, invgfmG, idM, numgenM, logrws, rws, 
            edgesT, words, iwords, pos1, pos2, l, k, u, g, gen, v, pos, 
            ev, lev, i, j, m, P, IP, lenP, T, lenT, lenET;
 
-    monG := MonoidPresentationFpGroup( G ); 
+    mG := MonoidPresentationFpGroup( G ); 
     amg := ArrangementOfMonoidGenerators( G ); 
-    FM := FreeGroupOfPresentation( monG );
-    genFM := GeneratorsOfGroup( FM );
-    invgenFM := InverseGeneratorsOfFpGroup( FM ); 
-    idM := One( FM );
-    numgenM := Length( genFM );
+    fmG := FreeGroupOfPresentation( mG );
+    gfmG := GeneratorsOfGroup( fmG );
+    invgfmG := InverseGeneratorsOfFpGroup( fmG ); 
+    idM := One( fmG );
+    numgenM := Length( gfmG );
     logrws := LoggedRewritingSystemFpGroup( G );
     rws := List( logrws, r -> [ r[1], r[3] ] );
     edgesT := [ ];
@@ -1255,14 +1407,14 @@ function( G, len )
         for k in [pos1+1..pos2] do 
             u := words[k]; 
             for g in [1..numgenM] do 
-                gen := genFM[g];  
+                gen := gfmG[g];  
                 v := ReduceWordKB( u*gen, rws ); 
                 pos := Position( words, v );
                 if ( pos = fail ) then 
                     Add( words, v ); 
-                    Add( iwords, InverseWordInFreeGroupOfPresentation(FM,v) ); 
+                    Add( iwords, InverseWordInFreeGroupOfPresentation(fmG,v) ); 
                     Add( edgesT, [ u, gen ] ); 
-                    Add( edgesT, [ v, invgenFM[g] ] ); 
+                    Add( edgesT, [ v, invgfmG[g] ] ); 
                 fi; 
             od;
         od;
@@ -1315,65 +1467,66 @@ function( obj, gens, labs )
 
     local j, len, wgens, z, num, zlen, coeffs, words; 
 
-    IdRelOutputDepth := IdRelOutputDepth + 1; 
-    if IsList( obj ) then 
-        if ( IdRelOutputPos > 60 ) then 
-            Print( "\n" ); 
-            IdRelOutputPos := 0; 
-        fi; 
-        len := Length( obj ); 
-        if ( len = 0 ) then 
-            Print( "[ ]" ); 
-            IdRelOutputPos := IdRelOutputPos + 3; 
-        else 
-            Print( "[ " ); 
-            IdRelOutputPos := IdRelOutputPos + 2; 
-            for j in [1..len] do 
-                PrintUsingLabels( obj[j], gens, labs ); 
-                if ( j < len ) then 
-                    Print( ", " ); 
-                    IdRelOutputPos := IdRelOutputPos + 2; 
-                fi; 
-            od; 
-            Print( " ]" ); 
-            IdRelOutputPos := IdRelOutputPos + 2; 
-        fi; 
-    elif IsInt( obj ) then 
+    if ( labs = [ ] ) then 
         Print( obj ); 
-        IdRelOutputPos := IdRelOutputPos + 2; 
-    elif IsMonoidPoly( obj ) then 
-        len := Length( obj ); 
-        coeffs := Coeffs( obj ); 
-        words := Words( obj ); 
-        for j in [1..len] do 
-            Print( coeffs[j], "*" ); 
-            PrintUsingLabels( words[j], gens, labs ); 
-            if ( j < len ) then Print( " + " ); fi; 
-        od; 
     else 
-        z := NiceStringAssocWord( obj ); 
-        if ( z = "<identity ...>" ) then 
-            Print( "id" ); 
-            IdRelOutputPos := IdRelOutputPos + 2; 
-        else 
-            len := Length( gens ); 
-            wgens := List( [1..len], j -> NiceStringAssocWord( gens[j]) ); 
-            for j in [1..len] do 
-                z := SubstitutionSublist( z, wgens[j], labs[j] ); 
-            od; 
-            zlen := Length( z ); 
-            if ( IdRelOutputPos + zlen > 75 ) then 
+        IdRelOutputDepth := IdRelOutputDepth + 1; 
+        if IsList( obj ) then 
+            if ( IdRelOutputPos > 60 ) then 
                 Print( "\n" ); 
                 IdRelOutputPos := 0; 
             fi; 
-            Print( z ); 
-            IdRelOutputPos := IdRelOutputPos + Length(z); 
+            len := Length( obj ); 
+            if ( len = 0 ) then 
+                Print( "[ ]" ); 
+                IdRelOutputPos := IdRelOutputPos + 3; 
+            else 
+                Print( "[ " ); 
+                IdRelOutputPos := IdRelOutputPos + 2; 
+                for j in [1..len] do 
+                    PrintUsingLabels( obj[j], gens, labs ); 
+                    if ( j < len ) then 
+                        Print( ", " ); 
+                        IdRelOutputPos := IdRelOutputPos + 2; 
+                    fi; 
+                od; 
+                Print( " ]" ); 
+                IdRelOutputPos := IdRelOutputPos + 2; 
+            fi; 
+        elif IsInt( obj ) then 
+            Print( obj ); 
+            IdRelOutputPos := IdRelOutputPos + 2; 
+        elif IsMonoidPoly( obj ) then 
+            len := Length( obj ); 
+            coeffs := Coeffs( obj ); 
+            words := Words( obj ); 
+            for j in [1..len] do 
+                Print( coeffs[j], "*" ); 
+                PrintUsingLabels( words[j], gens, labs ); 
+                if ( j < len ) then Print( " + " ); fi; 
+            od; 
+        else 
+            z := NiceStringAssocWord( obj ); 
+            if ( z = "<identity ...>" ) then 
+                Print( "id" ); 
+                IdRelOutputPos := IdRelOutputPos + 2; 
+            else 
+                len := Length( gens ); 
+                wgens := List( [1..len], j -> NiceStringAssocWord( gens[j]) ); 
+                for j in [1..len] do 
+                    z := SubstitutionSublist( z, wgens[j], labs[j] ); 
+                od; 
+                zlen := Length( z ); 
+                if ( IdRelOutputPos + zlen > 75 ) then 
+                    Print( "\n" ); 
+                    IdRelOutputPos := 0; 
+                fi; 
+                Print( z ); 
+                IdRelOutputPos := IdRelOutputPos + Length(z); 
+            fi; 
         fi; 
+        IdRelOutputDepth := IdRelOutputDepth - 1; 
     fi; 
-    IdRelOutputDepth := IdRelOutputDepth - 1; 
-##    if ( IdRelOutputDepth = 0 ) then 
-##        IdRelOutputPos := 0; 
-##    fi; 
 end ); 
 
 InstallOtherMethod( PrintLnUsingLabels, "for words and relators", 

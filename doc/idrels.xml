@@ -25,34 +25,36 @@ as the <E>identities among relators</E> for <M>G</M>.
 <P/> 
 Here are some of the details when working with the group 
 <M> S_3 = \langle a,b ~|~ \rho=a^3, \sigma=b^2, \tau=(ab)^2 \rangle</M>. 
-The monoid presentation has generators <M>\{a^+,b^+,a^-,b^-\}</M> 
+The monoid presentation has generators <M>\{a,b,A,B\}</M> 
 and relators 
 <Display>
-[~ 1 = a^+a^-,~ 2 = b^+b^-,~ 3 = a^-a^+,~ 4 = b^-b^+,~ 
-   5 = a^{+3},~ 6 = b^{+2},~ 7 = (a^+b^+)^2 ~]\ , 
+[~ 1 = aA,~ 2 = bB,~ 3 = Aa,~ 4 = Bb,~ 
+   5 = a^3,~ 6 = b^2,~ 7 = (ab)^2 ~]\ , 
 </Display>
-and the elements are <M>\{{\rm id}, a^+,b^+,a^-,a^+b^-,b^+a^+\}</M>. 
+and the elements are <M>\{{\rm id}, a,b,A,ab,ba\}</M>. 
 The logged rewriting system has relations 
 <Table Align="|l|">
   <HorLine/>
   <Row> 
-    <Item> <M>a^+a^- = {\rm id},\quad b^+b^- = {\rm id},\quad  
-              a^-a^+ = {\rm id},\quad b^-b^+ = {\rm id},</M>  
+    <Item> <M>aA = {\rm id},\quad   
+              Aa = {\rm id},\quad 
+               B = [-6,{\rm id}]b,</M>  
     </Item>
   </Row>
   <Row>
-    <Item> <M>a^{+2} = [5,{\rm id}]a^-,\quad a^{-2} = [-5,{\rm id}]a^+,\quad 
-              b^{+2} = [6,{\rm id}]{\rm id},\quad  b^- = [-6,{\rm id}]b^+,</M> 
+    <Item> <M>a^2 = [5,{\rm id}]A,\quad 
+              A^2 = [-5,{\rm id}]a,\quad 
+              b^2 = [6,{\rm id}]{\rm id},</M> 
     </Item>
   </Row>
   <Row>
-    <Item> <M>b^+a^- = [-7,a^+b^-][6,{\rm id}]a^+b^+,\quad 
-              a^-b^+ = [-7,a^+][6,a^-b^-]b^+a^+,</M> 
+    <Item> <M>bA = [-7,aB][6,{\rm id}]ab,\quad 
+              Ab = [-7,a][6,AB]ba,</M> 
     </Item>
   </Row>
   <Row>
-    <Item> <M>a^+b^+a^+ = [7,{\rm id}][-6,{\rm id}]b^+,\quad 
-              b^+a^+b^+ = [7,a^+]a^-.</M>
+    <Item> <M>aba = [7,{\rm id}][-6,{\rm id}]b,\quad 
+              bab = [7,a]A.</M>
     </Item>
   </Row>
   <HorLine/>
@@ -61,31 +63,28 @@ The logged rewriting system has relations
 To construct the <E>identity monoid relator sequences</E> 
 we follow in turn the relators <M>5=\rho,6=\sigma,7=\tau</M> 
 at each of the elements of <M>S_3</M>. 
-For example, applying <M>\tau</M> at <M>a^+</M> gives the cycle: 
+For example, applying <M>\tau</M> at <M>a</M> gives the cycle: 
 <Display>
-a^+ \stackrel{a^+}{\longrightarrow} a^- 
-    \stackrel{b^+}{\longrightarrow} b^+a^+ 
-    \stackrel{a^+}{\longrightarrow} a^+b^+ 
-    \stackrel{b^+}{\longrightarrow} a^+\ .
+a \stackrel{a}{\longrightarrow} A 
+    \stackrel{b}{\longrightarrow} ba 
+    \stackrel{a}{\longrightarrow} ab 
+    \stackrel{b}{\longrightarrow} a\ .
 </Display>
 Each of these edges has a non-trivial logged rewrite, 
-particularly the third edge where <M>b^+a^+a^+ \to b^+a^- \to a^+b^+</M>. 
+particularly the third edge where <M>baa \to bA \to ab</M>. 
 Combining this log information we obtain the sequence: 
 <Display>
-[5,{\rm id}].[-7,a^+][6,a^-b^-].
-[5,{\rm id}]^{b^-}[-7,a^+b^-][6,{\rm id}].[6,{\rm id}]^{a^-}\ .
+[5,{\rm id}].[-7,a][6,AB].[5,B][-7,aB][6,{\rm id}].[6,A]\ .
 </Display>
 Expanding this gives: 
 <Display>
-a^+a^+a^+.a^-b^-a^-b^-a^-a^+.b^+a^+b^+b^+a^-b^-.b^+a^+a^+a^+b^-. 
-b^+a^-b^-a^-b^-a^-a^+b^-.b^+b^+.a^+b^+b^+a^-
+aaa.ABABAa.babbAB.baaaB.bABABAaB.bb.abbA
 </Display>
-which cancels to leave, as expected, <M>a^+(a^+b^+a^+b^+)a^- = [7,a^-]</M>. 
-Adding the inverse <M>[-7,a^-]</M> to the front of the log expression 
+which cancels to leave, as expected, <M>a \tau A = [7,A]</M>. 
+Adding the inverse <M>[-7,A]</M> to the front of the log expression 
 gives the identity  
 <Display>
-[-7,a^-].[5,{\rm id}].[-7,a^+][6,a^-b^-].
-[5,b^-][-7,a^+b^-][6,{\rm id}].[6,a^-]\ .
+[-7,A].[5,{\rm id}].[-7,a][6,AB].[5,B][-7,aB][6,{\rm id}].[6,A]\ .
 </Display>
 Converting this back to the group presentation, 
 and conjugating by <M>a</M>, we obtain the 
@@ -93,14 +92,14 @@ and conjugating by <M>a</M>, we obtain the
 (<Ref Sect="sect-illustration"/>): 
 <Display>
 \tau^{-1}\; \rho^a\;
-\left(\tau^{-1}\right)^{a^2}\; \sigma^{a^{-1}b^{-1}a}\; 
-\rho^{b^{-1}a}\; \left(\tau^{-1}\right)^{ab^{-1}a}\; 
+\left(\tau^{-1}\right)^{a^2}\; \sigma^{ABa}\; 
+\rho^{Ba}\; \left(\tau^{-1}\right)^{aBa}\; 
 \sigma^a\; \sigma\ .
 </Display> 
 This is then transformed into the module polynomial 
 <Display>
-  \rho(a^+ + b^+a^+) + \sigma({\rm id} + a^+ + a^+b^+) 
-- \tau({\rm id} + a^- + b^+)\ ,
+  \rho(a + ba) + \sigma({\rm id} + a + ab) 
+- \tau({\rm id} + A + b)\ ,
 </Display> 
 where the monoid elements are transformed into their normal forms. 
 <P/> 
@@ -137,10 +136,10 @@ See Example 5.1 of <Cite Key="HeWe1" /> for further details.
 </ManSection>
 <Example>
 <![CDATA[
-gap> gseq8 := IdentityRelatorSequences( q8 );;
-gap> Length( gseq8 );
+gap> q8seq := IdentityRelatorSequences( q8 );;
+gap> Length( q8seq );
 19
-gap> gseq8[1];
+gap> q8seq[1];
 [ 1, 9, [ [ q8_R1^-1, <identity ...> ], [ q8_R1, f1^-1 ] ] ]
 gap> idsq8 := IdentitiesAmongRelators( q8 );;
 gap> Length( idsq8 );
@@ -190,14 +189,14 @@ For <C>q8</C> only two of the four relators are proper powers,
 <M>\pi=a^4</M> and <M>\rho=b^4</M>, so the root identities are 
 <M>\pi^a\pi^{-1}</M> and <M>\rho^b\rho^{-1}</M>. 
 In the listing below the second of these is displayed as 
-<M>\rho^{-1}(\xi^{-1})^{b^{-1}}\rho^{a^{-2}b^{-1}}\xi^{b^{-1}}</M>, 
+<M>\rho^{-1}(\xi^{-1})^{B}\rho^{A^2B}\xi^{B}</M>, 
 where <M>\xi = a^2b^2</M>. 
 Because the second term is the inverse of the fourth, we may convert 
 the final three terms into a conjugate of the third, 
 so that the identity is equivalent to <M>\rho^{-1}\rho^b</M>: 
 <Display>
-\left(\rho^{a^{-2}b^{-1}}\right)^{\xi^{b^{-1}}} 
-~=~ \left(\rho^{a^{-2}b^{-1}}\right)^{b(a^2b^2)b^{-1}} 
+\left(\rho^{A^2B}\right)^{\xi^{B}} 
+~=~ \left(\rho^{A^2B}\right)^{b(a^2b^2)B} 
 ~=~ \rho^b~. 
 </Display> 
  

@@ -66,7 +66,6 @@ gap> zeromp := ZeroModulePoly( q8R, freeq8 );
 zero modpoly 
 ]]>
 </Example>
-</Section>
 
 <ManSection>
    <Oper Name="PrintLnModulePoly"

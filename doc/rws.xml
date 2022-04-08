@@ -11,8 +11,8 @@
 
 This chapter describes functions to construct rewriting systems 
 for finitely presented groups which store rewriting information.
-The main example used is a presentation of the quaternion group 
-<M>q8 = F/[a^4, b^4, abab^{-1}, a^2b^2]</M>.
+The main example used throughout this manual is a presentation 
+of the quaternion group <M>q8 = F/[a^4, b^4, abab^{-1}, a^2b^2]</M>.
 
 
 <Section><Heading>Monoid Presentations of FpGroups</Heading>
@@ -37,17 +37,15 @@ mapping each generator to the corresponding word.
 </ManSection>
 <Example>
 <![CDATA[
-gap> F := FreeGroup( 2 );;
-gap> f := F.1;; g:= F.2;;
-gap> rels := [ f^4, g^4, f*g*f*g^-1, f^2*g^2];;
-gap> q8 := F/rels;;
-gap> SetName( q8, "q8" );
-gap> q8R := FreeRelatorGroup( q8 );
-q8_R 
+gap> rels8 := [ f^4, g^4, f*g*f*g^-1, f^2*g^2 ];;
+gap> q8 := F/rels8;;
+gap> SetName( q8, "q8" );;
+gap> q8R := FreeRelatorGroup( q8 ); 
+q8_R
 gap> genq8R := GeneratorsOfGroup( q8R );
 [ q8_R1, q8_R2, q8_R3, q8_R4]
 gap> homq8R := FreeRelatorHomomorphism( q8 );
-[ q8_R1, q8_R2, q8_R3, q8_R4] -> [ f1^4, f2^4, f1*f2*f1*f2^-1, f1^2*f2^2]
+[ q8_R1, q8_R2, q8_R3, q8_R4 ] -> [ f1^4, f2^4, f1*f2*f1*f2^-1, f1^2*f2^2 ]
 ]]>
 </Example>
 
@@ -68,9 +66,9 @@ gap> homq8R := FreeRelatorHomomorphism( q8 );
          Arg="mon" />
 <Description>
 A monoid presentation for a finitely presented group <C>G</C> 
-has two monoid generators <M>g^+,g^-</M> for each group generator <M>g</M>. 
+has two monoid generators <M>g,G</M> for each group generator <M>g</M>. 
 The relators of the monoid presentation comprise the group relators, 
-and relators <M>g^+g^-</M> specifying the inverses. 
+and relators <M>gG, Gg</M> specifying the inverses. 
 The function <C>MonoidPresentationFpGroup</C> returns the monoid presentation 
 derived in this way from an fp-presentation. 
 <P/> 
@@ -80,7 +78,7 @@ returns the free group on the monoid generators.
 The function <C>GroupRelatorsOfPresentation</C> returns those relators 
 of the monoid which correspond to the relators of the group. 
 All negative powers in the group relators are converted to positive powers 
-of the <M>g^-</M>.
+of the <M>G</M>'s.
 The function <C>InverseRelatorsOfPresentation</C> returns relators 
 which specify the inverse pairs of the monoid generators.
 <P/>
@@ -91,23 +89,23 @@ of the group presentation.
 The attribute <C>ArrangementOfMonoidGenerators</C> will be discussed 
 before the second example in the next section.
 <P/>
-In the example below, the four monoid generators <M>a^+, b^+, a^-, b^-</M> 
+In the example below, the four monoid generators <M>a,b,A,B</M> 
 are named <C>q8_M1, q8_M2, q8_M3, q8_M4</C> respectively. 
 </Description>
 </ManSection>
 <Example>
 <![CDATA[
-gap> mon := MonoidPresentationFpGroup( q8 );
+gap> mq8 := MonoidPresentationFpGroup( q8 );
 monoid presentation with group relators 
 [ q8_M1^4, q8_M2^4, q8_M1*q8_M2*q8_M1*q8_M4, q8_M1^2*q8_M2^2 ]
-gap> fgmon := FreeGroupOfPresentation( mon ); 
+gap> fmq8 := FreeGroupOfPresentation( mq8 ); 
 <free group on the generators [ q8_M1, q8_M2, q8_M3, q8_M4 ]>
-gap> genfgmon := GeneratorsOfGroup( fgmon );;
-gap> gprels := GroupRelatorsOfPresentation( mon ); 
+gap> genfmq8 := GeneratorsOfGroup( fmq8 );;
+gap> gprels := GroupRelatorsOfPresentation( mq8 ); 
 [ q8_M1^4, q8_M2^4, q8_M1*q8_M2*q8_M1*q8_M4, q8_M1^2*q8_M2^2 ]
-gap> invrels := InverseRelatorsOfPresentation( mon ); 
+gap> invrels := InverseRelatorsOfPresentation( mq8 ); 
 [ q8_M1*q8_M3, q8_M2*q8_M4, q8_M3*q8_M1, q8_M4*q8_M2 ]
-gap> hompres := HomomorphismOfPresentation( mon ); 
+gap> hompres := HomomorphismOfPresentation( mq8 ); 
 [ q8_M1, q8_M2, q8_M3, q8_M4 ] -> [ f1, f2, f1^-1, f2^-1 ]
 ]]>
 </Example>
@@ -119,9 +117,7 @@ gap> hompres := HomomorphismOfPresentation( mon );
          Arg="args" /> 
 <Description>
 The labels <C>q8_M1, q8_M2, q8_M3, q8_M4</C> are rather unhelpful 
-in lengthy output, so we may wish to specify easier ones. 
-One common convention is to use <C>[a,b]</C> for the generators 
-and <C>[A,B]</C> for their inverses. 
+in lengthy output, so it is convenient to use <M>[a,b,A,B]</M> as above. 
 Then the function <C>PrintUsingLabels</C> takes as input a word in the monoid, 
 the generators of the monoid, and a set of labels for these generators. 
 This function also treats lists of words and lists of lists in a similar way.
@@ -133,10 +129,8 @@ and then appends a newline.
 <Example>
 <![CDATA[
 gap> q8labs := [ "a", "b", "A", "B" ];; 
-gap> SetMonoidGeneratorLabels( q8, q8labs );; 
-gap> PrintUsingLabels( gprels[3]*gprels[4]^5, genfgmon, q8labs ); 
-a*b*a*B*(a^2*b^2)^5
-gap> PrintLnUsingLabels( gprels, genfgmon, q8labs ); 
+gap> SetMonoidPresentationLabels( q8, q8labs );; 
+gap> PrintLnUsingLabels( gprels, genfmq8, q8labs ); 
 [ a^4, b^4, a*b*a*B, a^2*b^2 ]
 ]]>
 </Example>
@@ -158,8 +152,8 @@ conveniently extended versions of the non-logged code.
    <Attr Name="RewritingSystemFpGroup"
          Arg="grp" />
 <Description>
-This function attempts to return a complete rewrite system 
-for the group <C>G</C> obtained from the monoid presentation <C>mon</C>, 
+This function attempts to return a complete rewrite system for the 
+fp-group <C>G</C> obtained using the group's monoid presentation <C>mon</C>, 
 with a length-lexicographical ordering on the words in <C>fgmon</C>, 
 by applying Knuth-Bendix completion. 
 Such a rewrite system can be obtained for all finite groups. 
@@ -171,28 +165,28 @@ in the rewriting system <C>rws</C>:
 <Table Align="|c|">
   <HorLine/>
   <Row> 
-    <Item> <M>a^+a^- \to \rm{id}, \quad 
-              b^+b^- \to \rm{id}, \quad 
-              a^-a^+ \to \rm{id}, \quad
-	      b^-b^+ \to \rm{id}, </M>  
+    <Item> <M>B^{-1} \to b, \quad 
+              A^{-1} \to a, \quad 
+              b^{-1} \to B, \quad
+	      a^{-1} \to A, </M> 
+    </Item>
+  </Row>
+  <Row> 
+    <Item> <M>B*b \to \rm{id}, \quad 
+              Aa  \to \rm{id}, \quad 
+              bB  \to \rm{id}, \quad
+              aA  \to \rm{id}, \quad 
+              B^2 \to a^2, \quad 
+              BA  \to aB,  </M>  
     </Item>
   </Row>
   <Row>
-    <Item> <M>a^{+2}b^- \to b^+, \quad 
-              a^{+2}b^+ \to b^-, \quad 
-              a^{+3} \to a^-, \quad
-              b^{-2} \to a^{+2}, \quad 
-              b^-a^- \to a^+b^-, \quad 
-              b^-a^+ \to a^+b^+, </M> 
-    </Item>
-  </Row>
-  <Row>
-    <Item> <M>a^-b^- \to a^+b^+, \quad 
-              a^{-2} \to a^{+2}, \quad 
-              a^-b^+ \to a^+b^-, \quad 
-              b^+a^- \to a^+b^+, \quad 
-              b^{+2} \to a^{+2}, \quad 
-              b^+a^+ \to a^+b^-. </M>
+    <Item> <M>Ba   \to ab, \quad
+              b^2  \to a^2, \quad 
+              ba   \to aB, \quad 
+              a^2B \to b, \quad 
+              a^2b \to B, \quad 
+              a^3  \to A. </M>
     </Item>
   </Row>
   <HorLine/>
@@ -202,11 +196,11 @@ in the rewriting system <C>rws</C>:
 <Example>
 <![CDATA[
 gap> rws := RewritingSystemFpGroup( q8 );;
-gap> PrintLnUsingLabels( rws, genfgmon, q8labs );
-[ [ a*A, id ], [ b*B, id ], [ A*a, id ], [ B*b, id ], [ a^2*B, b ], 
-[ a^2*b, B ], [ a^3, A ], [ B^2, a^2 ], [ B*A, a*B ], [ B*a, a*b ], 
-[ A*B, a*b ], [ A^2, a^2 ], [ A*b, a*B ], [ b*A, a*b ], [ b^2, a^2 ], 
-[ b*a, a*B ] ]
+gap> PrintLnUsingLabels( rws, genfmq8, q8labs );
+[ [ B^-1, b ], [ A^-1, a ], [ b^-1, B ], [ a^-1, A ], [ B*b, id ], 
+[ A*a, id ], [ b*B, id ], [ a*A, id ], [ B^2, a^2 ], [ B*A, a*B ], 
+[ B*a, a*b ], [ A*B, a*b ], [ A^2, a^2 ], [ A*b, a*B ], [ b*A, a*b ], 
+[ b^2, a^2 ], [ b*a, a*B ], [ a^2*B, b ], [ a^2*b, B ], [ a^3, A ] ]
 ]]>
 </Example>
 
@@ -229,15 +223,16 @@ gap> T := F/[Comm(f,g)];
 gap> SetName( T, "T" );                   
 gap> SetArrangementOfMonoidGenerators( T, [1,-1,2,-2] );
 gap> Tlabs := [ "x", "X", "y", "Y" ];; 
-gap> monT := MonoidPresentationFpGroup( T );              
+gap> mT := MonoidPresentationFpGroup( T );              
 monoid presentation with group relators [ T_M2*T_M4*T_M1*T_M3 ]
-gap> fgmonT := FreeGroupOfPresentation( monT );; 
-gap> genfgmonT := GeneratorsOfGroup( fgmonT );;
-gap> SetMonoidGeneratorLabels( T, Tlabs );; 
+gap> fgmT := FreeGroupOfPresentation( mT );; 
+gap> genfgmT := GeneratorsOfGroup( fgmT );;
+gap> SetMonoidPresentationLabels( T, Tlabs );; 
 gap> rwsT := RewritingSystemFpGroup( T );;
-gap> PrintLnUsingLabels( rwsT, genfgmonT, Tlabs );       
-[ [ x*X, id ], [ X*x, id ], [ y*Y, id ], [ Y*y, id ], [ Y*X, X*Y ], 
-[ Y*x, x*Y ], [ y*X, X*y ], [ y*x, x*y ] ]
+gap> PrintLnUsingLabels( rwsT, genfgmT, Tlabs );       
+[ [ Y^-1, y ], [ y^-1, Y ], [ X^-1, x ], [ x^-1, X ], [ Y*y, id ], 
+[ y*Y, id ], [ X*x, id ], [ x*X, id ], [ Y*X, X*Y ], [ Y*x, x*Y ], 
+[ y*X, X*y ], [ y*x, x*y ] ]
 ]]>
 </Example>
 The last four rules show that generators <M>x</M> and <M>y</M> commute. 
@@ -280,27 +275,17 @@ where <M>b^+a^+ \to a^+b^-</M> is the last rule.
 </ManSection>
 <Example>
 <![CDATA[
-gap> monrels := Concatenation( gprels, invrels );; 
-gap> PrintLnUsingLabels( monrels, genfgmon, q8labs );
-[ a^4, b^4, a*b*a*B, a^2*b^2, a*A, b*B, A*a, B*b ]
-gap> id := One( monrels[1] );;
-gap> r0 := List( monrels, r -> [ r, id ] );; 
-gap> PrintLnUsingLabels( r0, genfgmon, q8labs );     
-[ [ a^4, id ], [ b^4, id ], [ a*b*a*B, id ], [ a^2*b^2, id ], 
-[ a*A, id ], [ b*B, id ], [ A*a, id ], [ B*b, id ] ]
-gap> a := genfgmon[1];;
-gap> b := genfgmon[2];;
-gap> A := genfgmon[3];;
-gap> B := genfgmon[4];;
-gap> w0 := b^9 * a^9;; 
-gap> PrintUsingLabels( w0, genfgmon, q8labs );
-b^9*a^9
-gap> w1 := OnePassReduceWord( w0, r0 );; 
-gap> PrintUsingLabels( w1, genfgmon, q8labs );
-b^5*a^5
-gap> w2 := ReduceWordKB( w0, r0 );; 
-gap> PrintUsingLabels( w2, genfgmon, q8labs );
-b*a
+gap> a := genfmq8[1];;  b := genfmq8[2];; 
+gap> A := genfmq8[3];;  B := genfmq8[4];; 
+gap> w0 := b^9 * a^-9;; 
+gap> PrintLnUsingLabels( w0, genfmq8, q8labs ); 
+b^9*a^-9
+gap> w1 := OnePassReduceWord( w0, rws );; 
+gap> PrintLnUsingLabels( w1, genfmq8, q8labs ); 
+B*b^4*a*B*b*a^-8
+gap> w2 := ReduceWordKB( w0, rws );; 
+gap> PrintLnUsingLabels( w2, genfmq8, q8labs ); 
+a*b
 ]]>
 </Example>
 
@@ -308,11 +293,11 @@ b*a
 
 <ManSection Label="one-pass-KB">
    <Oper Name="OnePassKB"
-         Arg="rules" />
+         Arg="mon rules" />
    <Oper Name="RewriteReduce"
-         Arg="rules" />
+         Arg="mon rules" />
    <Oper Name="KnuthBendix"
-         Arg="rules" />
+         Arg="mon rules" />
    <Oper Name="ShorterRule"
          Arg="rule1, rule2" />
 <Description>
@@ -357,32 +342,35 @@ Now <M>b^9a^9</M> correctly reduces to <M>ab^{-1}</M>.
 </ManSection>
 <Example>
 <![CDATA[
-gap> r1 := OnePassKB( r0 );;
-gap> PrintLnUsingLabels( r1, genfgmon, q8labs );
-[ [ a^4, id ], [ b^4, id ], [ a*b*a*B, id ], [ a^2*b^2, id ], 
-[ a*A, id ], [ b*B, id ], [ A*a, id ], [ B*b, id ], [ b*a*B, a^3 ], 
-[ a*b^2, a^3 ], [ b^2, a^2 ], [ a^3, A ], [ b^3, B ], [ a*b*a, b ], 
-[ b^3, a^2*b ], [ b^2, a^2 ], [ a^2*b, B ], [ a^3, A ], [ b*a*B, A ], 
-[ a*b^2, A ], [ b^3, B ] ]
-gap> Length( r1 );
-21
-gap> r1 := RewriteReduce( r1 );; 
-gap> PrintLnUsingLabels( r1, genfgmon, q8labs );
-[ [ a*A, id ], [ b^2, a^2 ], [ b*B, id ], [ A*a, id ], [ B*b, id ], 
-[ a^3, A ], [ a^2*b, B ], [ a*b*a, b ], [ b*a*B, A ] ]
-gap> Length( r1 );
-9
-gap> r2 := KnuthBendix( r1 );;
-gap> PrintLnUsingLabels( r2, genfgmon, q8labs );
-[ [ a*A, id ], [ b*a, a*B ], [ b^2, a^2 ], [ b*A, a*b ], [ b*B, id ], 
-[ A*a, id ], [ A*b, a*B ], [ A^2, a^2 ], [ A*B, a*b ], [ B*a, a*b ], 
-[ B*b, id ], [ B*A, a*B ], [ B^2, a^2 ], [ a^3, A ], [ a^2*b, B ], 
-[ a^2*B, b ] ]
-gap> Length( r2 );
-16
-gap> w2 := ReduceWordKB( w0, r2 );;
-gap> PrintUsingLabels( w2, genfgmon, q8labs );
-a*B
+gap> q0 := InitialRulesOfPresentation( mq8 );;
+gap> PrintLnUsingLabels( q0, genfmq8, q8labs );
+[ [ a*A, id ], [ b*B, id ], [ A*a, id ], [ B*b, id ], [ a^-1, A ], 
+[ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a^4, id ], [ b^4, id ], 
+[ a*b*a*B, id ], [ a^2*b^2, id ] ]
+gap> q1 := OnePassKB( mq8, q0 );; 
+gap> Length( q1 ); 
+25
+gap> PrintLnUsingLabels( q1, genfmq8, q8labs ); 
+[ [ a*A, id ], [ b*B, id ], [ A*a, id ], [ B*b, id ], [ a^-1, A ], 
+[ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a^4, id ], [ b^4, id ], 
+[ a*b*a*B, id ], [ a^2*b^2, id ], [ a^3, A ], [ b*a*B, A ], [ a*b^2, A ], 
+[ b^3, B ], [ a^3, A ], [ b*a*B, a^3 ], [ a*b^2, a^3 ], [ b^2, a^2 ], 
+[ b^3, B ], [ a*b*a, b ], [ a^2*b, B ], [ b^3, a^2*b ], [ b^2, a^2 ] ]
+gap> q2 := RewriteReduce( mq8, q1 );; 
+gap> Length( q2 ); 
+13
+gap> PrintLnUsingLabels( q2, genfmq8, q8labs ); 
+[ [ a^-1, A ], [ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a*A, id ], 
+[ b^2, a^2 ], [ b*B, id ], [ A*a, id ], [ B*b, id ], [ a^3, A ], 
+[ a^2*b, B ], [ a*b*a, b ], [ b*a*B, A ] ]
+gap> q3 := KnuthBendix( mq8, q0 );; 
+gap> Length( q3 ); 
+20
+gap> PrintLnUsingLabels( q3, genfmq8, q8labs ); 
+[ [ a^-1, A ], [ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a*A, id ], 
+[ b*a, a*B ], [ b^2, a^2 ], [ b*A, a*b ], [ b*B, id ], [ A*a, id ], 
+[ A*b, a*B ], [ A^2, a^2 ], [ A*B, a*b ], [ B*a, a*b ], [ B*b, id ], 
+[ B*A, a*B ], [ B^2, a^2 ], [ a^3, A ], [ a^2*b, B ], [ a^2*B, b ] ]
 ]]>
 </Example>
 
@@ -415,8 +403,8 @@ For <C>q8</C> this list is
 <![CDATA[
 gap> elq8 := Elements( q8 ); 
 [ <identity ...>, f1, f1^3, f2, f1^2*f2, f1^2, f1*f2, f1^3*f2 ]
-gap> elmonq8 := ElementsOfMonoidPresentation( q8 );;
-gap> PrintLnUsingLabels( elmonq8, genfgmon, q8labs );
+gap> elmq8 := ElementsOfMonoidPresentation( q8 );; 
+gap> PrintLnUsingLabels( elmq8, genfmq8, q8labs ); 
 [ id, a, b, A, B, a^2, a*b, a*B ]
 ]]>
 </Example>
