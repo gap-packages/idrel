@@ -34,38 +34,22 @@ DeclareAttribute( "FreeRelatorHomomorphism", IsFpGroup );
 
 #############################################################################
 ##
-#O  OnePassReduceWord( <word>, <rules> )
-#O  ReduceWordKB( <word>, <rules> )
-#O  OnePassKB( <rules> )
-#O  RewriteReduce( <rules> )
-#O  KnuthBendix( <rules> )
-##
-DeclareOperation( "OnePassReduceWord", [ IsWord, IsHomogeneousList ] );
-DeclareOperation( "ReduceWordKB", [ IsWord, IsHomogeneousList ] );
-DeclareOperation( "OnePassKB", [ IsHomogeneousList ] );
-DeclareOperation( "RewriteReduce", [ IsHomogeneousList ] );
-DeclareOperation( "KnuthBendix", [ IsHomogeneousList ] );
-
-#############################################################################
-##
-#C  IsMonoidPoly
-DeclareCategory( "IsMonoidPoly", IsMultiplicativeElement );
-MonoidPolyFam := NewFamily( "MonoidPolyFam", IsMonoidPoly );
-
-#############################################################################
-##
 #R  IsMonoidPresentationFpGroupRep( <G> )
 #P  IsMonoidPresentationFpGroup( <G> )
 #O  ArrangeMonoidGenerators( <G>, <L> )
 #A  ArrangementOfMonoidGenerators( <G> ) 
-#A  MonoidPresentationFpGroup( <G> )
-#A  InverseGeneratorsOfFpGroup( <G> ) 
+#A  InversesOfMonoidGenerators( <G> ) 
+#A  MonoidPresentationFpGroup( <G> ) 
+#A  UnderlyingGroupOfPresentation( <mon> ) 
 #A  FreeGroupOfPresentation( <mon> )
 #A  GroupRelatorsOfPresentation( <mon> )
 #A  InverseRelatorsOfPresentation( <mon> )
-#A  HomomorphismOfPresentation( <mon> )
+#A  InverseRulesOfPresentation( <mon> )
+#A  HomomorphismOfPresentation( <mon> ) 
+#A  IsomorphicFpGroup( <G> ) 
+#A  IsomorphismByPresentation( <G> ); 
 #A  MonoidGeneratorsFpGroup( <G> )
-#A  MonoidGeneratorLabels( <G> )
+#A  MonoidPresentationLabels( <G> )
 #A  ElementsOfMonoidPresentation( <G> )
 #O  PartialElementsOfMonoidPresentation( <G,len> )
 #A  PartialElements( <G> )
@@ -82,19 +66,25 @@ DeclareRepresentation( "IsMonoidPresentationFpGroupRep",
       "HomomorphismOfPresentation" ] );
 DeclareProperty( "IsMonoidPresentationFpGroup", IsList );
 DeclareAttribute( "MonoidPresentationFpGroup", IsFpGroup ); 
+DeclareAttribute( "UnderlyingGroupOfPresentation", 
+    IsMonoidPresentationFpGroup ); 
 DeclareOperation( "ArrangeMonoidGenerators", [ IsFpGroup, IsHomogeneousList ] ); 
 DeclareAttribute( "ArrangementOfMonoidGenerators", IsFpGroup ); 
+DeclareAttribute( "InverseGeneratorsOfFpGroup", IsFpGroup ); 
 DeclareAttribute( "FreeGroupOfPresentation", 
     IsMonoidPresentationFpGroupRep );
-DeclareAttribute( "InverseGeneratorsOfFpGroup", IsFpGroup );
 DeclareAttribute( "GroupRelatorsOfPresentation", 
     IsMonoidPresentationFpGroupRep );
 DeclareAttribute( "InverseRelatorsOfPresentation", 
     IsMonoidPresentationFpGroupRep );
+DeclareAttribute( "InverseRulesOfPresentation", 
+    IsMonoidPresentationFpGroupRep );
 DeclareAttribute( "HomomorphismOfPresentation", 
     IsMonoidPresentationFpGroupRep );
+DeclareAttribute( "IsomorphicFpGroup", IsFpGroup ); 
+DeclareAttribute( "IsomorphismByPresentation", IsFpGroup ); 
 DeclareAttribute( "MonoidGeneratorsFpGroup", IsFpGroup ); 
-DeclareAttribute( "MonoidGeneratorLabels", IsFpGroup ); 
+DeclareAttribute( "MonoidPresentationLabels", IsFpGroup ); 
 DeclareAttribute( "ElementsOfMonoidPresentation", IsFpGroup );
 DeclareOperation( "PartialElementsOfMonoidPresentation", 
     [ IsFpGroup, IsPosInt ] );
@@ -104,6 +94,29 @@ DeclareAttribute( "PartialElementsLength", IsFpGroup, "mutable" );
 DeclareAttribute( "GenerationTree", IsFpGroup, "mutable" ); 
 DeclareOperation( "InverseWordInFreeGroupOfPresentation", 
     [ IsFpGroup, IsWord ] ); 
+
+#############################################################################
+##
+#O  OnePassReduceWord( <word>, <rules> )
+#O  ReduceWordKB( <word>, <rules> )
+#O  OnePassKB( <monG>, <rules> )
+#O  RewriteReduce( <monG>, <rules> )
+#O  KnuthBendix( <monG>, <rules> )
+##
+DeclareOperation( "OnePassReduceWord", [ IsWord, IsHomogeneousList ] );
+DeclareOperation( "ReduceWordKB", [ IsWord, IsHomogeneousList ] );
+DeclareOperation( "OnePassKB", 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ] );
+DeclareOperation( "RewriteReduce", 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ] );
+DeclareOperation( "KnuthBendix", 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ] );
+
+#############################################################################
+##
+#C  IsMonoidPoly
+DeclareCategory( "IsMonoidPoly", IsMultiplicativeElement );
+MonoidPolyFam := NewFamily( "MonoidPolyFam", IsMonoidPoly );
 
 #############################################################################
 ##
@@ -126,19 +139,29 @@ DeclareAttribute( "RewritingSystemFpGroup", IsFpGroup );
 
 #############################################################################
 ##
-#O  InitialLoggedRules( <G> )
+#A  InitialLoggedRulesOfPresentation( <mG> )
+#A  InitialRulesOfPresentation( <mG> )
+DeclareAttribute( "InitialLoggedRulesOfPresentation", 
+    IsMonoidPresentationFpGroup ); 
+DeclareAttribute( "InitialRulesOfPresentation", 
+    IsMonoidPresentationFpGroup ); 
+
+#############################################################################
+##
 #O  LoggedOnePassReduceWord( <word>, <rules> )
 #O  LoggedReduceWordKB( <word>, <rules> )
-#O  LoggedOnePassKB( <G>, <rules> )
-#O  LoggedRewriteReduce( <G>, <rules> )
-#O  LoggedKnuthBendix( <G>, <rules> )
+#O  LoggedOnePassKB( <mG>, <rules> )
+#O  LoggedRewriteReduce( <mG>, <rules> )
+#O  LoggedKnuthBendix( <mG>, <rules> )
 ##
-DeclareOperation( "InitialLoggedRules", [ IsFpGroup ] ); 
 DeclareOperation( "LoggedOnePassReduceWord", [ IsWord, IsHomogeneousList ] );
 DeclareOperation( "LoggedReduceWordKB", [ IsWord, IsHomogeneousList ] );
-DeclareOperation( "LoggedOnePassKB", [ IsFpGroup, IsHomogeneousList ] );
-DeclareOperation( "LoggedRewriteReduce", [ IsFpGroup, IsHomogeneousList ] );
-DeclareOperation( "LoggedKnuthBendix", [ IsFpGroup, IsHomogeneousList ] );
+DeclareOperation( "LoggedOnePassKB", 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ] );
+DeclareOperation( "LoggedRewriteReduce", 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ] );
+DeclareOperation( "LoggedKnuthBendix", 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ] );
 
 #############################################################################
 ##
@@ -148,23 +171,28 @@ DeclareOperation( "CheckLoggedKnuthBendix", [ IsHomogeneousList ] );
 
 #############################################################################
 ##
-#O  BetterLoggedRuleByReductionOrLength( <rulel>, <rule2> )
+#O  BetterLoggedRuleByReductionOrLength( <rulel>, <rule2> ) 
+#O  BetterLoggedList( <L1>, <L2> ) 
 ##
 ##  cannot require homogeneous lists because of middle terms
 ##
 DeclareOperation( "BetterLoggedRuleByReductionOrLength", [ IsList, IsList ] );
+DeclareOperation( "BetterLoggedList", [ IsList, IsList ] ); 
+
+#############################################################################
+## 
+#A  LoggedRewritingSystemFpGroup( <G> ) 
+#A  IdentitiesFromLoggedRewriting( <G> ) 
+## 
+DeclareAttribute( "LoggedRewritingSystemFpGroup", IsFpGroup ); 
+DeclareAttribute( "IdentitiesFromLoggedRewriting", IsFpGroup ); 
 
 #############################################################################
 ##
-#A  LoggedRewritingSystemFpGroup( <G> )
+#O  RelatorSequenceReduce( <mG>, <seq> )
 ##
-DeclareAttribute( "LoggedRewritingSystemFpGroup", IsGroup );
-
-#############################################################################
-##
-#O  RelatorSequenceReduce( <G>, <seq> )
-##
-DeclareOperation( "RelatorSequenceReduce", [ IsFpGroup, IsHomogeneousList ] );
+DeclareOperation( "RelatorSequenceReduce", 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ] );
 
 #############################################################################
 ##

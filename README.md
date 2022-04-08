@@ -22,19 +22,19 @@ IdRel became an accepted package in May 2015.
 
 The IdRel package is distributed with the accepted GAP packages.
 It may also be obtained from the GitHub repository at:
-  <http://gap-packages.github.io/idrel/> 
+  <https://gap-packages.github.io/idrel/> 
 
 ## Copyright
 
 The IdRel package is Copyright {\copyright} Chris Wensley and Anne Heyworth, 
-1999--2017. 
+1999--2022. 
 
 IdRel is free software; you can redistribute it and/or modify it 
 under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version. 
 
-For details, see <http://www.gnu.org/licenses/gpl.html>. 
+For details, see <https://www.gnu.org/licenses/gpl.html>. 
 
 ## Installation
 
@@ -46,7 +46,7 @@ For details, see <http://www.gnu.org/licenses/gpl.html>.
 
     true
 
- * The documentation is in the `doc' subdirectory.
+ * The documentation is in the `doc` subdirectory.
  * To run the test file read `testall.g` from the `idrel/tst/` directory. 
 
 ## Contact

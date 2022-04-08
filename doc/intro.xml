@@ -108,21 +108,32 @@ In the listings below, <C>s3_Ri</C> is the <C>i</C>-th relator for <C>s3</C>, an
 <P/>
 <Example>
 <![CDATA[
-gap> F := FreeGroup( 2 );;
-gap> f := F.1;;  g := F.2;;
+gap> F := FreeGroup( 2 );; 
+gap> f := F.1;;  g := F.2;; 
 gap> rels3 := [ f^3, g^2, f*g*f*g ]; 
 [ f1^3, f2^2, (f1*f2)^2 ]
 gap> s3 := F/rels3; 
 <fp group on the generators [ f1, f2 ]>
 gap> SetName( s3, "s3" );; 
-gap> idrels3 := IdentitiesAmongRelators( s3 );;
-gap> Display( idrels3 );
-[ [ [ s3_R1^-1, <identity ...> ], [ s3_R1, f1^-1 ] ], 
-  [ [ s3_R2^-1, <identity ...> ], [ s3_R2, f2 ] ], 
-  [ [ s3_R3^-1, <identity ...> ], [ s3_R3, f1*f2 ] ], 
-  [ [ s3_R3^-1, <identity ...> ], [ s3_R1, f1 ], [ s3_R3^-1, f1^2 ], 
-      [ s3_R2, f1^-1*f2^-1*f1 ], [ s3_R1, f2^-1*f1 ], 
-      [ s3_R3^-1, f1*f2^-1*f1 ], [ s3_R2, f1 ], [ s3_R2, <identity ...> ] ] ]
+gap> idrels3 := IdentityRelatorSequences( s3 );  
+[ [ [ -11, <identity ...> ], [ 11, s3_M1*s3_M2 ] ], 
+  [ [ -10, <identity ...> ], [ 10, s3_M2 ] ], 
+  [ [ -9, <identity ...> ], [ 9, s3_M1 ] ], 
+  [ [ -9, <identity ...> ], [ 9, s3_M1^2 ] ], 
+  [ [ -11, <identity ...> ], [ 11, s3_M1*s3_M2 ], [ -10, s3_M2*s3_M1*s3_M2 ], 
+      [ 10, s3_M1*s3_M2 ] ], 
+  [ [ -10, <identity ...> ], [ 11, s3_M1*s3_M2*s3_M1 ], 
+      [ 10, (s3_M2*s3_M1)^2 ], [ -11, s3_M1*s3_M2*s3_M1 ] ], 
+  [ [ -9, <identity ...> ], [ 11, s3_M1*s3_M2 ], [ -10, s3_M2*s3_M1*s3_M2 ], 
+      [ 9, s3_M1*s3_M4*s3_M1*s3_M2 ], [ 10, s3_M2*s3_M1*s3_M2 ], 
+      [ -11, s3_M1*s3_M2 ] ], 
+  [ [ -11, <identity ...> ], [ 9, s3_M1^2 ], [ 10, s3_M2*s3_M1^2 ], 
+      [ -11, s3_M1^2 ], [ 9, s3_M1*s3_M4*s3_M1 ], [ 10, s3_M2*s3_M1 ], 
+      [ -11, s3_M1 ], [ 10, <identity ...> ] ], 
+  [ [ -11, <identity ...> ], [ 9, s3_M1^2 ], [ 10, s3_M2^2*s3_M1 ], 
+      [ -11, s3_M2*s3_M1 ], [ 10, s3_M3*s3_M2*s3_M1 ], 
+      [ 9, s3_M1*s3_M2*s3_M1 ], [ 10, (s3_M2*s3_M1)^2 ], 
+      [ -11, s3_M1*s3_M2*s3_M1 ] ] ]
 ]]>
 </Example>
 

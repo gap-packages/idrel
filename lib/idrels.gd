@@ -4,7 +4,7 @@
 #W                                                             & Anne Heyworth
 ##  Declaration file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2018 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2022 Anne Heyworth and Chris Wensley 
 ##
 ##  This file contains the declarations of operations for 
 ##  identities among relators.
@@ -15,8 +15,9 @@
 #O  ConvertToGroupRelatorSequences( <G>, <S> )
 #O  ConvertToYSequences( <G>, <F>, <S> )
 #O  ModuleRelatorSequenceReduce( <Y> )
-#O  YSequenceConjugateAndReduce( <Y>, <rws> )
-#O  ReduceGroupRelatorSequences( <seq> )
+#O  YSequenceConjugateAndReduce( <Y>, <rws> ) 
+#O  RewriteRulesFromIdentities( <G>, <seq> ) 
+#O  ReduceGroupRelatorSequences( <G>, <seq> )
 ##
 DeclareOperation( "GroupRelatorSequenceLessThan", [ IsList, IsList ] );
 DeclareOperation( "ConvertToGroupRelatorSequences", 
@@ -24,16 +25,44 @@ DeclareOperation( "ConvertToGroupRelatorSequences",
 DeclareOperation( "ConvertToYSequences", 
     [ IsFpGroup, IsFreeGroup, IsHomogeneousList ] ); 
 DeclareOperation( "ModuleRelatorSequenceReduce", [ IsList ] );
-DeclareOperation( "YSequenceConjugateAndReduce", [IsList,IsHomogeneousList] );
-DeclareOperation( "ReduceGroupRelatorSequences", [ IsHomogeneousList ] );
+DeclareOperation( "YSequenceConjugateAndReduce", [IsList,IsHomogeneousList] ); 
+DeclareOperation( "ReduceGroupRelatorSequences", 
+    [ IsFpGroup, IsHomogeneousList ] );
+
+##############################################################################
+##
+#O  SwapIdentitySequence( <mG>, <L>, <p> ) 
+#O  SwapIdentitySequenceLeft( <mG>, <L>, <p> ) 
+#O  SwapIdentitySequenceRight( <mG>, <L>, <p> ) 
+#O  PermuteIdentitySequence( <mG>, <L>, <p>, <q> ) 
+##
+DeclareOperation( "SwapIdentitySequence", 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsPosInt ] ); 
+DeclareOperation( "SwapIdentitySequenceLeft", 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsPosInt ] ); 
+DeclareOperation( "SwapIdentitySequenceRight", 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsPosInt ] ); 
+DeclareOperation( "PermuteIdentitySequence", 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsPosInt, IsPosInt ] ); 
+
 
 #############################################################################
 ##  
-#A  IdentityRelatorSequences( <G> )
-#A  IdentityRelatorSequencesKB( <G> )
+#A  IdentitySequenceRewriteRules( <mon> ) 
+#O  MakeIdentitySequenceRewriteRules( <mon> ) 
+#O  OnePassReduceSequence( <seq> <rules> ) 
+#O  IdentityRelatorSequences( <G> )
+#O  AreEquivalentIdentitiies( <G> <L1> <L2> ) 
 ##
-DeclareAttribute( "IdentityRelatorSequences", IsFpGroup );
-DeclareAttribute( "IdentityRelatorSequencesKB", IsFpGroup );
+DeclareAttribute( "IdentitySequenceRewriteRules", 
+    IsMonoidPresentationFpGroup, "mutable" ); 
+DeclareOperation( "MakeIdentitySequenceRewriteRules", 
+    [ IsMonoidPresentationFpGroup ] ); 
+DeclareOperation( "OnePassReduceSequence", 
+    [ IsHomogeneousList, IsHomogeneousList ] ); 
+DeclareOperation( "IdentityRelatorSequences", [ IsFpGroup ] );
+DeclareOperation( "AreEquivalentIdentities", 
+    [ IsFpGroup, IsHomogeneousList, IsHomogeneousList ] ); 
 
 #############################################################################
 ##
@@ -44,17 +73,17 @@ DeclareOperation( "ReduceModulePolyList",
 
 #############################################################################
 ##
-#A  IdentitiesAmongRelators( <G> )
+#A  IdentitiesAmongRelators( <G> ) 
+#A  PowerIdentities( <G> ) 
 #A  IdentityYSequences( <G> )
-#A  IdentitiesAmongRelatorsKB( <G> )
 #A  IdentityYSequencesKB( <G> )
 #A  RootIdentities( <G> )
 ##
-DeclareAttribute( "IdentitiesAmongRelators", IsGroup );
-DeclareAttribute( "IdentityYSequences", IsGroup );
-DeclareAttribute( "IdentitiesAmongRelatorsKB", IsGroup );
-DeclareAttribute( "IdentityYSequencesKB", IsGroup );
-DeclareAttribute( "RootIdentities", IsGroup );
+DeclareAttribute( "IdentitiesAmongRelators", IsFpGroup ); 
+DeclareAttribute( "PowerIdentities", IsFpGroup ); 
+DeclareAttribute( "IdentityYSequences", IsFpGroup );
+DeclareAttribute( "IdentityYSequencesKB", IsFpGroup );
+DeclareAttribute( "RootIdentities", IsFpGroup );
 
 #############################################################################
 ##

@@ -4,7 +4,7 @@
 #W                                                             & Anne Heyworth
 ##  Implementation file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2018 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2022 Anne Heyworth and Chris Wensley 
 ##
 ##  This file contains generic methods for module polynomials
 
@@ -643,7 +643,6 @@ end );
 #############################################################################
 ##
 #M  FreeYSequenceGroup( <G> )
-#M  FreeYSequenceGroupKB( <G> )
 ##
 InstallMethod( FreeYSequenceGroup, "generic method for FpGroup", true, 
     [ IsFpGroup ], 0, 
@@ -657,29 +656,6 @@ function( G )
         str := "FY";
     fi;
     idY := IdentityRelatorSequences( G );
-    len := Length( idY );
-    Flen := FreeGroup( len, str );
-    L := Filtered( [1..len], i -> not( idY[i] = [ ] ) );
-    genFY := GeneratorsOfGroup( Flen ){L};
-    FY := Subgroup( Flen, genFY );
-    SetName( FY, str );
-    famY := ElementsFamily( FamilyObj( FY ) );
-    famY!.modulePolyFam := ModulePolyFam;
-    return FY;
-end );
-
-InstallMethod( FreeYSequenceGroupKB, "generic method for FpGroup", true, 
-    [ IsFpGroup ], 0, 
-function( G )
-
-    local  idY, len, str, Flen, L, genFY, FY, famY;
-
-    if HasName( G ) then 
-        str := Concatenation( Name( G ), "_Z" );
-    else
-        str := "FZ";
-    fi;
-    idY := IdentityRelatorSequencesKB( G );
     len := Length( idY );
     Flen := FreeGroup( len, str );
     L := Filtered( [1..len], i -> not( idY[i] = [ ] ) );

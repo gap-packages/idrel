@@ -9,7 +9,7 @@ SetPackageInfo( rec(
 PackageName := "idrel",
 Subtitle := "Identities among relations",
 Version := "2.43dev",
-Date := "26/01/2022", # dd/mm/yyyy format
+Date := "08/04/2022", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -92,7 +92,7 @@ Keywords := ["logged rewriting","identities among relations",
 BannerString := Concatenation( 
     "Loading IdRel ", String( ~.Version ), " (Identities among Relations)\n", 
     "by Anne Heyworth and ", 
-    "Chris Wensley (http://pages.bangor.ac.uk/~mas023/)\n", 
+    "Chris Wensley (https://github.com/cdwensley)\n", 
  "-----------------------------------------------------------------------\n" ),
 
 AutoDoc := rec(
