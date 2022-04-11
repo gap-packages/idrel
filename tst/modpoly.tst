@@ -14,20 +14,21 @@ gap> f := F.1;;  g := F.2;;
 gap> rels8 := [ f^4, g^4, f*g*f*g^-1, f^2*g^2 ];;
 gap> q8 := F/rels8;;
 gap> SetName( q8, "q8" );;
-gap> mon := MonoidPresentationFpGroup( q8 );;
-gap> fgmon := FreeGroupOfPresentation( mon );; 
-gap> genfgmon := GeneratorsOfGroup( fgmon );;
-gap> gprels := GroupRelatorsOfPresentation( mon );; 
-gap> invrels := InverseRelatorsOfPresentation( mon );; 
+gap> mq8 := MonoidPresentationFpGroup( q8 );;
+gap> fmq8 := FreeGroupOfPresentation( mq8 );; 
+gap> genfmq8 := GeneratorsOfGroup( fmq8 );;
+gap> gprels := GroupRelatorsOfPresentation( mq8 );; 
+gap> invrels := InverseRelatorsOfPresentation( mq8 );; 
 gap> monrels := Concatenation( gprels, invrels );; 
 gap> id := One( monrels[1] );;
 gap> r0 := List( monrels, r -> [ r, id ] );; 
-gap> r1 := OnePassKB( r0 );;
-gap> r1 := RewriteReduce( r1 );; 
-gap> r2 := KnuthBendix( r1 );;
+gap> r1 := OnePassKB( mq8, r0 );;
+gap> r1 := RewriteReduce( mq8, r1 );; 
+gap> r2 := KnuthBendix( mq8, r1 );;
 gap> q8labs := [ "a", "b", "A", "B" ];; 
+gap> SetMonoidPresentationLabels( q8, q8labs );; 
 gap> freeq8 := FreeGroupOfFpGroup( q8 );; 
-gap> M := GeneratorsOfGroup( fgmon );;
+gap> M := GeneratorsOfGroup( fmq8 );;
 gap> mp1 := MonoidPolyFromCoeffsWords( [9,-7,5], 
 >               [ M[1]*M[3], M[2]^3, M[4]*M[3]*M[2] ] );; 
 gap> rmp1 := ReduceMonoidPoly( mp1, r2 );;
@@ -39,7 +40,7 @@ gap> genq8R := GeneratorsOfGroup( q8R );
 [ q8_R1, q8_R2, q8_R3, q8_R4 ]
 gap> Print( rmp1, "\n" ); 
  - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>
-gap> M := GeneratorsOfGroup( fgmon ); 
+gap> M := GeneratorsOfGroup( fmq8 ); 
 [ q8_M1, q8_M2, q8_M3, q8_M4 ]
 gap> mp2 := MonoidPolyFromCoeffsWords( [4,-5], [ M[4], M[1] ] );;
 gap> Print( mp2, "\n" ); 
@@ -51,11 +52,11 @@ zero modpoly
 gap> q8R := FreeRelatorGroup( q8 );; 
 gap> q8Rlabs := [ "q", "r", "s", "t" ];; 
 gap> s1 := ModulePoly( [ genq8R[4], genq8R[1] ], [ rmp1, mp2 ] );;
-gap> PrintLnModulePoly( s1, genfgmon, q8labs, genq8R, q8Rlabs );
+gap> PrintLnModulePoly( s1, genfmq8, q8labs, genq8R, q8Rlabs );
 q*(4*B + -5*a) + t*(-7*B + 5*a + 9*id)
 gap> s2 := ModulePoly( [ genq8R[3], genq8R[2], genq8R[1] ], 
 >       [ -1*rmp1, 3*mp2, (rmp1+mp2) ] );;
-gap> PrintLnModulePoly( s2, genfgmon, q8labs, genq8R, q8Rlabs );
+gap> PrintLnModulePoly( s2, genfmq8, q8labs, genq8R, q8Rlabs );
 q*(-3*B + 9*id) + r*(12*B + -15*a) + s*(7*B + -5*a + -9*id)
 
 ## Example 5.2.1

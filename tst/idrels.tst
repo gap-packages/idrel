@@ -18,17 +18,18 @@ gap> rels8 := [ f^4, g^4, f*g*f*g^-1, f^2*g^2 ];;
 gap> q8 := F/rels8;;
 gap> SetName( q8, "q8" );;
 gap> q8labs := [ "a", "b", "A", "B" ];; 
-gap> mon := MonoidPresentationFpGroup( q8 );;
-gap> fgmon := FreeGroupOfPresentation( mon );; 
-gap> genfgmon := GeneratorsOfGroup( fgmon );;
+gap> SetMonoidPresentationLabels( q8, q8labs );; 
+gap> mq8 := MonoidPresentationFpGroup( q8 );;
+gap> fmq8 := FreeGroupOfPresentation( mq8 );; 
+gap> genfmq8 := GeneratorsOfGroup( fmq8 );;
 
 
 ## Example 6.1.1
 gap> q8seq := IdentityRelatorSequences( q8 );;
 gap> Length( q8seq );
-19
+23
 gap> q8seq[1];
-[ 1, 9, [ [ q8_R1^-1, <identity ...> ], [ q8_R1, f1^-1 ] ] ]
+[ [ -10, <identity ...> ], [ 10, q8_M2 ] ]
 gap> idsq8 := IdentitiesAmongRelators( q8 );;
 gap> Length( idsq8 );
 7

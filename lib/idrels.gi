@@ -165,7 +165,7 @@ function( G )
           idF, numgenF, genrangeF, g, k, gfmGpos, freerels, numrel, relrange, 
           FR, genFR, idR, omega, uptolen, words, fam, iwords, numelts, 
           edgesT, mseq, e, elt, rho, numa, ide, r, lenr, edgelist, 
-          edge, w, lw, v, posv, inv, lenv, j, numids; 
+          edge, w, lw, v, posv, inv, lenv, j, numids, rules; 
 
     genG := GeneratorsOfGroup( G ); 
     mG := MonoidPresentationFpGroup( G ); 
@@ -235,6 +235,7 @@ function( G )
     fi; 
     numelts := Length( words ); 
     edgesT := GenerationTree( G ); 
+    rules := IdentitySequenceRewriteRules( mG ); 
     mseq := ShallowCopy( PowerIdentities( G ) ); 
     ##  now work through the list of elements, adding each relator in turn 
     e := 1;  ## number of monoid elements processed - no need to process id  
@@ -442,7 +443,7 @@ function( G, L1, L2 )
     mG := MonoidPresentationFpGroup( G );
     fmG := FreeGroupOfPresentation( mG ); 
     gfmG := GeneratorsOfGroup( fmG ); 
-    Glabs := MonoidPresentationLabels( mG ); 
+    Glabs := MonoidPresentationLabels( G ); 
     rules := IdentitySequenceRewriteRules( mG ); 
     J1 := ShallowCopy( L1 ); 
     J2 := ShallowCopy( L2 ); 
@@ -528,7 +529,7 @@ function( mG )
             m := i + len; 
             idi := [ [ -m, id], [ m, g ] ]; 
             Add( powers, idi ); 
-Print( "idi ", i, " = ", idi, "\n" ); 
+Info( InfoIdRel, 1, "idi ", i, " = ", idi ); 
             w := g; 
             v := ReduceWordKB( w^-1, invrules ); 
             rule := [ [ m, w ], [ m, id ] ]; 
@@ -553,7 +554,7 @@ Print( "idi ", i, " = ", idi, "\n" );
             fi; 
         fi; 
     od; 
-Print( "number of rewrites found = ", Length( rewrites ), "\n" ); 
+Info( InfoIdRel, 1, "number of rewrites found = ", Length( rewrites ) ); 
     SetPowerIdentities( G, powers ); 
     return rewrites; 
 end ); 
@@ -795,7 +796,6 @@ function( G, L )
     else 
         Glabs := MonoidPresentationLabels( mG ); 
     fi; 
-    powers := PowerIdentities( G ); 
     idrules := ListWithIdenticalEntries( Length(L), 0 ); 
     L4 := startwithid( L ); 
     lenL := Length( L4 ); 
@@ -808,6 +808,7 @@ function( G, L )
         Print( "\ndetermining the rewrite rules\n" ); 
     fi; 
     rules := IdentitySequenceRewriteRules ( mG ); 
+    powers := PowerIdentities( G ); 
 if Length(rules)=0 then Error("here"); fi; 
     numrules := Length( rules ); 
     if ( info > 1 ) then 
