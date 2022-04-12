@@ -1,6 +1,6 @@
 # CHANGES to the IdRel package
 
-## 2.43 ->      for GAP 4.11.1 (18/11/21) 
+## 2.43 -> 2.43dev for GAP 4.11.1 (18/11/21) 
 
  * (23/11/21) renamed the test files; revised Chapter 2 
  * (02/11/21) introduced PrintUsingLabels 
@@ -104,8 +104,6 @@
 
 ## 2.03 -> 2.04  (14/11/2008)
 
- * new Bangor website, so move the IdRel pages to 
-   <http//www.maths.bangor.ac.uk/chda/idrel/> 
  * added GNU General Public License declaration 
  * added a test file, `tst/idrel_manual.tst`, 
  * fixed a bug in RootIdentities, 

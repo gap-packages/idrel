@@ -43,7 +43,7 @@
   <school>University of Wales, Bangor</school>
   <year>1999</year>
   <note>
-    <URL>http://www.maths.bangor.ac.uk/research/ftp/theses/heyworth.ps.gz</URL>
+    <URL>https://www.researchgate.net/profile/Anne-Heyworth/research</URL>
   </note>
 </phdthesis></entry>
 
@@ -69,7 +69,9 @@
   <year>2017</year>
   <other type="note">
     GAP package, 
-    <URL>http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc/index.html</URL>
+    <URL>
+      https://www.math.rwth-aachen.de/~Frank.Luebeck/gap/GAPDoc/index.html
+    </URL>
   </other>
 </manual></entry>
 
