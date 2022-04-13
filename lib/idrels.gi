@@ -888,9 +888,10 @@ if Length(rules)=0 then Error("here"); fi;
             od; 
         fi; 
     od;
-Print( "adjusted L4 = \n" ); 
-Print( List( L4, L -> Length(L) ), "\n" ); 
-PrintLnUsingLabels( L4, gfmG, Glabs );
+Info( InfoIdRel, 2, "adjusted L4 = ", List( L4, L -> Length(L) ) ); 
+if ( InfoLevel( InfoIdRel ) > 1 ) then 
+  PrintLnUsingLabels( L4, gfmG, Glabs ); 
+fi;
     return removeempties( L4 ); 
 end );
 
@@ -1138,7 +1139,7 @@ function( G )
         gymp := GeneratorsOfModulePoly( ymp )[1]; 
         pos := Position( FYgens, gymp );
         seq := iseq[pos]; 
-        ids[r] := seq[3]; 
+        ids[r] := seq; 
     od; 
     #? return [ irrepols, irrerems ]; 
     return ids; 
@@ -1165,6 +1166,60 @@ function( G )
     od;
     return roots;
 end );
+
+##############################################################################
+##
+#M  PrintLnYSequence
+#M  PrintYSequence 
+##
+InstallMethod( PrintLnYSequence, "for (list of) Ysequences", 
+    true, [ IsObject, IsList, IsList, IsList, IsList ], 0, 
+function( obj, gens1, labs1, gens2, labs2 ) 
+    IdRelOutputPos := 0; 
+    IdRelOutputDepth := 0; 
+    PrintYSequence( obj, gens1, labs1, gens2, labs2 ); 
+    Print( "\n" ); 
+    IdRelOutputPos := 0; 
+end );
+
+InstallMethod( PrintYSequence, "for (list of) module polynomials", 
+    true, [ IsObject, IsList, IsList, IsList, IsList ], 0, 
+function( obj, gens1, labs1, gens2, labs2 ) 
+
+    local j, len, ys, gys, mys, rp; 
+
+    IdRelOutputPos := 0; 
+    IdRelOutputDepth := 0; 
+    if IsList( obj ) then 
+        len := Length( obj ); 
+        if ( len = 0 ) then 
+            Print( "[ ]" ); 
+        else 
+            Print( "[ " ); 
+            IdRelOutputPos := IdRelOutputPos + 2; 
+            for j in [1..len] do 
+                PrintYSequence( obj[j], gens1, labs1, gens2, labs2 ); 
+                if ( j < len ) then 
+                    Print( ", " ); 
+                    IdRelOutputPos := IdRelOutputPos + 2; 
+                fi; 
+            od; 
+            Print( " ]" ); 
+            IdRelOutputPos := IdRelOutputPos + 2; 
+        fi; 
+    else ## IsYSequence( obj ) we hope 
+        ys := YSequenceModulePoly( obj ); 
+        gys := GeneratorsOfModulePoly( ys )[1]; 
+        mys := MonoidPolys( ys )[1]; 
+        Print( gys, "*(" ); 
+        PrintUsingLabels( mys, gens1, labs1 ); 
+        Print( "), " ); 
+        rp := RelatorModulePoly( obj ); 
+        PrintModulePoly( rp, gens1, labs1, gens2, labs2 ); 
+        Print( ") " ); 
+        IdRelOutputPos := IdRelOutputPos + 6; 
+    fi; 
+end ); 
 
 ###############*#############################################################
 ##

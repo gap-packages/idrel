@@ -87,5 +87,15 @@ DeclareAttribute( "RootIdentities", IsFpGroup );
 
 #############################################################################
 ##
+#O  PrintYSequence( <obj>, <gens1>, <labs1>, <gens2>, <labs2> )
+#O  PrintLnYSequence( <obj>, <gens1>, <labs1>, <gens2>, <labs2> )
+##
+DeclareOperation( "PrintYSequence", 
+    [ IsObject, IsList, IsList, IsList, IsList ] );
+DeclareOperation( "PrintLnYSequence", 
+    [ IsObject, IsList, IsList, IsList, IsList ] );
+
+#############################################################################
+##
 #E idrels.gd  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here
 ##

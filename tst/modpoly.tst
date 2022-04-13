@@ -38,6 +38,7 @@ gap> rmp1 := ReduceMonoidPoly( mp1, r2 );;
 gap> q8R := FreeRelatorGroup( q8 );; 
 gap> genq8R := GeneratorsOfGroup( q8R ); 
 [ q8_R1, q8_R2, q8_R3, q8_R4 ]
+gap> q8Rlabs := [ "q", "r", "s", "t" ];; 
 gap> Print( rmp1, "\n" ); 
  - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>
 gap> M := GeneratorsOfGroup( fmq8 ); 
@@ -49,8 +50,6 @@ gap> zeromp := ZeroModulePoly( q8R, freeq8 );
 zero modpoly 
 
 ## Example 5.1.2
-gap> q8R := FreeRelatorGroup( q8 );; 
-gap> q8Rlabs := [ "q", "r", "s", "t" ];; 
 gap> s1 := ModulePoly( [ genq8R[4], genq8R[1] ], [ rmp1, mp2 ] );;
 gap> PrintLnModulePoly( s1, genfmq8, q8labs, genq8R, q8Rlabs );
 q*(4*B + -5*a) + t*(-7*B + 5*a + 9*id)
@@ -64,16 +63,22 @@ gap> [ Length(s1), Length(s2) ];
 [ 2, 3 ]
 gap> One( s1 );
 <identity ...>
-gap> Terms( s1 );
-[ [ q8_R1, 4*q8_M4 - 5*q8_M1 ], 
-  [ q8_R4,  - 7*q8_M4 + 5*q8_M1 + 9*<identity ...> ] ]
-gap> Print( LeadTerm( s1 ), "\n" );
-[ q8_R4,  - 7*q8_M4 + 5*q8_M1 + 9*<identity ...> ]
-gap> Print( LeadTerm( s2 ), "\n" );
-[ q8_R3, 7*q8_M4 - 5*q8_M1 - 9*<identity ...> ]
-gap> Print( LeadMonoidPoly( s1 ), "\n" );
+gap> terms := Terms( s1 );;
+gap> for t in terms do 
+>        PrintModulePolyTerm( t, genfmq8, q8labs, genq8R, q8Rlabs ); 
+>        Print( "\n" );
+>    od; 
+q*(4*B + -5*a)
+t*(-7*B + 5*a + 9*id)
+gap> t1 := LeadTerm( s1 );;
+gap> PrintModulePolyTerm( t1, genfmq8, q8labs, genq8R, q8Rlabs );
+t*(-7*B + 5*a + 9*id)
+gap> t2 := LeadTerm( s2 );;
+gap> PrintModulePolyTerm( t2, genfmq8, q8labs, genq8R, q8Rlabs );
+s*(7*B + -5*a + -9*id) 
+gap> p1 := LeadMonoidPoly( s1 ); 
  - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>
-gap> Print( LeadMonoidPoly( s2 ), "\n" );
+gap> p2 := LeadMonoidPoly( s2 );
 7*q8_M4 - 5*q8_M1 - 9*<identity ...>
 
 ## Example 5.3.1

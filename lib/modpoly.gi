@@ -871,16 +871,26 @@ end );
 ##############################################################################
 ##
 #M  PrintLnModulePoly
-#M  PrintModulePoly
+#M  PrintModulePoly 
+#M  PrintModulePolyTerm 
 ##
 InstallMethod( PrintLnModulePoly, "for (list of) module polynomials", 
     true, [ IsObject, IsList, IsList, IsList, IsList ], 0, 
 function( obj, gens1, labs1, gens2, labs2 ) 
     IdRelOutputPos := 0; 
     IdRelOutputDepth := 0; 
-    PrintModulePoly( obj, gens1, labs1, labs1, labs2 ); 
+    PrintModulePoly( obj, gens1, labs1, gens2, labs2 ); 
     Print( "\n" ); 
     IdRelOutputPos := 0; 
+end );
+
+InstallMethod( PrintModulePolyTerm, "for a module polynomial term", 
+    true, [ IsObject, IsList, IsList, IsList, IsList ], 0, 
+function( t, gens1, labs1, gens2, labs2 ) 
+    PrintUsingLabels( t[1], gens2, labs2 ); 
+    Print( "*(" );
+    PrintUsingLabels( t[2], gens1, labs1 ); 
+    Print( ")" ); 
 end );
 
 InstallMethod( PrintModulePoly, "for (list of) module polynomials", 
@@ -912,10 +922,7 @@ function( obj, gens1, labs1, gens2, labs2 )
         terms := Terms( obj ); 
         len := Length( terms ); 
         for j in [1..len] do 
-            PrintUsingLabels( terms[j][1], gens2, labs2 ); 
-            Print( "*(" );
-            PrintUsingLabels( terms[j][2], gens1, labs1 ); 
-            Print( ")" ); 
+            PrintModulePolyTerm( terms[j], gens1, labs1, gens2, labs2 ); 
             IdRelOutputPos := IdRelOutputPos + 3; 
             if ( j < len ) then 
                 Print( " + " ); 

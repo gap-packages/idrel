@@ -47,23 +47,33 @@ gap> r0 := InitialLoggedRulesOfPresentation( mq8 );;
 gap> r1 := LoggedOnePassKB( mq8, r0 );;
 gap> Length( r1 );
 25
-gap> PrintLnUsingLabels( r1[20], genfmq8, q8labs );
-[ b*a*B, [ [ -9, id ], [ 11, A^3 ] ], a^3 ]
+gap> PrintLnUsingLabels( r1, genfmq8, q8labs );
+[ [ a^-1, [ ], A ], [ b^-1, [ ], B ], [ A^-1, [ ], a ], [ B^-1, 
+[ ], b ], [ a*A, [ ], id ], [ b*B, [ ], id ], [ A*a, [ ], id ], 
+[ B*b, [ ], id ], [ b^2, [ [ -12, id ], [ 10, A^2 ] ], a^2 ], 
+[ b^2, [ [ -9, id ], [ 12, A^2 ] ], a^2 ], [ a^3, [ [ 9, id ] ], A ], 
+[ a^3, [ [ 9, a ] ], A ], [ a^2*b, [ [ 12, id ] ], B ], [ a*b*a, 
+[ [ 11, id ] ], b ], [ a*b^2, [ [ 12, a ] ], A ], [ b*a*B, [ 
+[ 11, a ] ], A ], [ b^3, [ [ 10, id ] ], B ], [ b^3, [ [ 10, b ] ], B ], 
+[ a*b^2, [ [ -9, id ], [ 12, A^3 ] ], a^3 ], [ b*a*B, [ [ -9, id ], 
+[ 11, A^3 ] ], a^3 ], [ b^3, [ [ -12, id ], [ 10, B*A^2 ] ], a^2*b ], 
+[ a^4, [ [ 9, id ] ], id ], [ a^2*b^2, [ [ 12, id ] ], id ], 
+[ a*b*a*B, [ [ 11, id ] ], id ], [ b^4, [ [ 10, id ] ], id ] ]
 
 ## Example 3.1.2
-gap> r11 := LoggedRewriteReduce( mq8, r1 );;
-gap> Length( r11 );
+gap> r2 := LoggedRewriteReduce( mq8, r1 );;
+gap> Length( r2 );
 13
-gap> PrintLnUsingLabels( r11, genfmq8, q8labs );      
+gap> PrintLnUsingLabels( r2, genfmq8, q8labs );      
 [ [ a^-1, [ ], A ], [ b^-1, [ ], B ], [ A^-1, [ ], a ], [ B^-1, 
 [ ], b ], [ a*A, [ ], id ], [ b*B, [ ], id ], [ A*a, [ ], id ], 
 [ B*b, [ ], id ], [ b^2, [ [ -12, id ], [ 10, A^2 ] ], a^2 ], 
 [ a^3, [ [ 9, id ] ], A ], [ a^2*b, [ [ 12, id ] ], B ], [ a*b*a, 
 [ [ 11, id ] ], b ], [ b*a*B, [ [ 11, a ] ], A ] ]
-gap> r2 := LoggedKnuthBendix( mq8, r0 );;
-gap> Length( r2 );
+gap> r3 := LoggedKnuthBendix( mq8, r0 );;
+gap> Length( r3 );
 20
-gap> PrintLnUsingLabels( r2, genfmq8, q8labs );
+gap> PrintLnUsingLabels( r3, genfmq8, q8labs );
 [ [ a^-1, [ ], A ], [ b^-1, [ ], B ], [ A^-1, [ ], a ], [ B^-1, 
 [ ], b ], [ a*A, [ ], id ], [ b*B, [ ], id ], [ A*a, [ ], id ], 
 [ B*b, [ ], id ], [ b*a, [ [ -11, id ], [ 12, B*A ] ], a*B ], 
@@ -73,24 +83,6 @@ gap> PrintLnUsingLabels( r2, genfmq8, q8labs );
 [ B*A, [ [ -11, a*b ] ], a*B ], [ B^2, [ [ -12, id ] ], a^2 ], 
 [ a^3, [ [ 9, id ] ], A ], [ a^2*b, [ [ 12, id ] ], B ], [ a^2*B, 
 [ [ -12, A^2 ], [ 9, id ] ], b ] ]
-
-## Example 3.2.1
-gap> w0;   
-q8_M2^9*q8_M1^-9
-gap> lw1 := LoggedOnePassReduceWord( w0, r0 );;
-gap> PrintLnUsingLabels( lw1, genfmq8, q8labs );  
-[ [ [ 10, id ] ], b^5*A*a^-8 ]
-gap> lw2 := LoggedReduceWordKB( w0, r0 );; 
-gap> PrintLnUsingLabels( lw2, genfmq8, q8labs );
-[ [ [ 10, id ], [ 10, id ] ], b*A^9 ]
-gap> lw2 := LoggedReduceWordKB( w0, r2 );;
-gap> PrintLnUsingLabels( lw2, genfmq8, q8labs );
-[ [ [ -12, id ], [ 10, A^2 ], [ -11, b^-6*a^-2 ], [ 12, id ], [ -11, b^-3 ], 
-[ 12, B*A*b^-3 ], [ -12, id ], [ 10, A^2 ], [ -11, B^-1*a^-1*b^-1*a^-2 ], 
-[ -12, a^-1*b^-1*a^-2 ], [ 11, A*a^-1*b^-1*a^-2 ], [ 12, id ], 
-[ -12, a^-2*B^-1 ], [ 10, A^2*a^-2*B^-1 ], [ -12, id ], [ 11, A ], 
-[ 9, b^-1*a^-1 ], [ -11, a^-1 ], [ -9, b^-1*a^-2 ], [ 12, id ], 
-[ -11, a*b ], [ -11, a*b*a^-1 ], [ -12, A^2 ], [ 9, id ], [ -11, id ] ], a*b ]
 
 ## Example 3.2.2
 gap> lrws := LoggedRewritingSystemFpGroup( q8 );;
@@ -106,6 +98,23 @@ gap> PrintLnUsingLabels( lrws, genfmq8, q8labs );
 [ [ -12, A^2 ], [ 9, id ] ], b ] ]
 gap> Length( lrws );
 20
+
+## Example 3.2.1
+gap> PrintLnUsingLabels( w0, genfmq8, q8labs ); 
+b^9*a^-9
+gap> lw1 := LoggedOnePassReduceWord( w0, lrws );;
+gap> PrintLnUsingLabels( lw1, genfmq8, q8labs );  
+[ [ [ -12, id ], [ 10, A^2 ], [ -11, b^-6*a^-2 ], [ 12, id ] ], 
+B*b^5*a*b*a^-8 ]
+gap> lw2 := LoggedReduceWordKB( w0, lrws );; 
+gap> PrintLnUsingLabels( lw2, genfmq8, q8labs );
+[ [ [ -12, id ], [ 10, A^2 ], [ -11, b^-6*a^-2 ], [ 12, id ], [ -11, b^-3 ], 
+[ 12, B*A*b^-3 ], [ -12, id ], [ 10, A^2 ], [ -11, B^-1*a^-1*b^-1*a^-2 ], 
+[ -12, a^-1*b^-1*a^-2 ], [ 11, A*a^-1*b^-1*a^-2 ], [ 12, id ], 
+[ -12, a^-2*B^-1 ], [ 10, A^2*a^-2*B^-1 ], [ -12, id ], [ 11, A ], 
+[ 9, b^-1*a^-1 ], [ -11, a^-1 ], [ -9, b^-1*a^-2 ], [ 12, id ], 
+[ -11, a*b ], [ -11, a*b*a^-1 ], [ -12, A^2 ], [ 9, id ], [ -11, id ] ], a*b ]
+
 gap> lrwsT := LoggedRewritingSystemFpGroup( T );;
 gap> PrintLnUsingLabels( lrwsT, genfgmT, Tlabs );
 [ [ x^-1, [ ], X ], [ X^-1, [ ], x ], [ y^-1, [ ], Y ], [ Y^-1, 

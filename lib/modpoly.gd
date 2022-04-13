@@ -139,9 +139,12 @@ DeclareOperation( "LoggedReduceModulePoly",
 #############################################################################
 ##
 #O  PrintModulePoly( <obj>, <gens1>, <labs1>, <gens2>, <labs2> )
+#O  PrintModulePolyTerm( <obj>, <gens1>, <labs1>, <gens2>, <labs2> )
 #O  PrintLnModulePoly( <obj>, <gens1>, <labs1>, <gens2>, <labs2> )
 ##
 DeclareOperation( "PrintModulePoly", 
+    [ IsObject, IsList, IsList, IsList, IsList ] );
+DeclareOperation( "PrintModulePolyTerm", 
     [ IsObject, IsList, IsList, IsList, IsList ] );
 DeclareOperation( "PrintLnModulePoly", 
     [ IsObject, IsList, IsList, IsList, IsList ] );
