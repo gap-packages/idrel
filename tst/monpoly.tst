@@ -20,7 +20,7 @@ gap> genfmq8 := GeneratorsOfGroup( fmq8 );;
 gap> gprels := GroupRelatorsOfPresentation( mq8 );; 
 gap> invrels := InverseRelatorsOfPresentation( mq8 );; 
 gap> hompres := HomomorphismOfPresentation( mq8 );; 
-gap> q8labs := [ "a", "b", "A", "B" ];;/Applications/gap/my-dev/pkg/idrel/tst/modpoly.tst 
+gap> q8labs := [ "a", "b", "A", "B" ];;
 gap> SetMonoidPresentationLabels( q8, q8labs );; 
 gap> rws := RewritingSystemFpGroup( q8 );;
 gap> monrels := Concatenation( gprels, invrels );; 

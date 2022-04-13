@@ -738,7 +738,7 @@ function( word, rules )
                 v := Subword( pair[2], lenu+lenr+1, lenu+lenr+lenv );
             fi;
             c := List( r[2], ci -> [ ci[1], ci[2]*u^(-1) ] ); 
-            pair := [ Concatenation( pair[1], c ), u*r[3]*v ];
+            pair := [ Concatenation( pair[1], c ), u*r[3]*v ]; 
         fi;
     od;
     return pair;

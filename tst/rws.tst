@@ -68,6 +68,8 @@ gap> PrintLnUsingLabels( gprels, genfmq8, q8labs );
 
 ## Example 2.2.1
 gap> rws := RewritingSystemFpGroup( q8 );;
+gap> Length( rws );
+20
 gap> PrintLnUsingLabels( rws, genfmq8, q8labs );
 [ [ a^-1, A ], [ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a*A, id ], 
 [ b*B, id ], [ A*a, id ], [ B*b, id ], [ b*a, a*B ], [ b^2, a^2 ], 
