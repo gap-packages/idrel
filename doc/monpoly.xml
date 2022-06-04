@@ -40,7 +40,7 @@ The zero monoid polynomial is the polynomial with no terms.
 </ManSection>
 <Example>
 <![CDATA[
-gap> rels8 := RelatorsOfFpGroup( q8 ); 
+gap> relq8 := RelatorsOfFpGroup( q8 ); 
 [ f1^4, f2^4, f1*f2*f1*f2^-1, f1^2*f2^2 ]
 gap> freeq8 := FreeGroupOfFpGroup( q8 );; 
 gap> gens := GeneratorsOfGroup( freeq8 );;
@@ -51,7 +51,7 @@ gap> pg := MonoidPolyFromCoeffsWords( cg, gens );;
 gap> Print( pg, "\n" ); 
 7*f2 + 6*f1
 gap> cr := [3,4,-5,-2];;
-gap> pr := MonoidPolyFromCoeffsWords( cr, rels8 );; 
+gap> pr := MonoidPolyFromCoeffsWords( cr, relq8 );; 
 gap> Print( pr, "\n" );
 4*f2^4 - 5*f1*f2*f1*f2^-1 - 2*f1^2*f2^2 + 3*f1^4
 gap> Print( ZeroMonoidPoly( freeq8 ), "\n" );
@@ -96,7 +96,7 @@ gap> Terms( pr );
 gap> Words( pr );
 [ f2^4, f1*f2*f1*f2^-1, f1^2*f2^2, f1^4 ]
 gap> LeadTerm( pr );
-[ 4, f2^4]
+[ 4, f2^4 ]
 gap> LeadCoeffMonoidPoly( pr );
 4
 ]]>
@@ -115,9 +115,9 @@ by dividing all the coefficients by the leading coefficient.
 </ManSection>
 <Example>
 <![CDATA[
-gap> mpr := Monic( pr );;
-gap> Print( mpr, "\n" );
-f2^4 - 5/4*f1*f2*f1*f2^-1 - 1/2*f1^2*f2^2 + 3/4*f1^4
+gap> mpr := Monic( pr );; 
+gap> Print( mpr, "\n" ); 
+ f2^4 - 5/4*f1*f2*f1*f2^-1 - 1/2*f1^2*f2^2 + 3/4*f1^4
 ]]>
 </Example>
 
@@ -132,10 +132,10 @@ given by its coeffiecient and word, to an existing polynomial.
 </ManSection>
 <Example>
 <![CDATA[
-gap> w := gens[1]^gens[2];
+gap> w := gens[1]^gens[2]; 
 f2^-1*f1*f2
-gap> cw := 3/4;;
-gap> wpg:= AddTermMonoidPoly( pg, cw, w);;
+gap> cw := 3/4;;  
+gap> wpg := AddTermMonoidPoly( pg, cw, w );;
 gap> Print( wpg, "\n" );
 3/4*f2^-1*f1*f2 + 7*f2 + 6*f1
 ]]>
@@ -186,16 +186,6 @@ gap> Print( pg * pr, "\n" );
 <Description>
 This function returns the number of distinct terms in the monoid polynomial.
 <P/>
-</Description>
-</ManSection>
-<Example>
-<![CDATA[
-gap> Length( pr );
-4
-]]>
-</Example>
-</Section>
-
 The boolean function <C>poly1 > poly2</C>  returns <K>true</K> 
 if the first polynomial has more terms than the second. 
 If the polynomials are the same length it will compare their leading terms. 
@@ -206,14 +196,18 @@ than the coefficient of the second then true is returned.
 If the leading terms are equal then the next terms are compared 
 in the same way. 
 If all terms are the same then <K>false</K> is returned.
-<P/>
+<P/> 
+</Description> 
+</ManSection> 
 <Example>
 <![CDATA[
+gap> Length( pr );
+4
 gap> [ pr > 3*pr, pr > pg ];
 [ false, true ] 
 ]]>
 </Example>
-
+</Section> 
 
 <Section><Heading>Reduction of a Monoid Polynomial</Heading>
 
@@ -236,13 +230,13 @@ The list of rules <C>r2</C> is displayed in section 2.3.3.
 </ManSection>
 <Example>
 <![CDATA[
-gap> M := genfgmon;; 
+gap> M := genfmq8;; 
 gap> mp1 := MonoidPolyFromCoeffsWords( [9,-7,5], 
 >               [ M[1]*M[3], M[2]^3, M[4]*M[3]*M[2] ] );; 
-gap> PrintUsingLabels( mp1, genfgmon, labs ); 
+gap> PrintUsingLabels( mp1, genfmq8, q8labs ); 
 5*B*A*b + -7*b^3 + 9*a*A
 gap> rmp1 := ReduceMonoidPoly( mp1, r2 );;
-gap> PrintUsingLabels( rmp1, genfgmon, labs );         
+gap> PrintUsingLabels( rmp1, genfmq8, q8labs );         
 -7*B + 5*a + 9*id
 ]]>
 </Example>

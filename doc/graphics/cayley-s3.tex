@@ -1,0 +1,46 @@
+%% diag-s3.tex,  version 30/05/22
+
+%% to LaTeX typeset use <shift><command>L 
+%% to run BibDesk use:  <shift><command>B
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+
+%\usepackage{latexsym,amssymb,amsmath,enumerate,theorem}
+\usepackage[all]{xy}
+
+\setlength{\textwidth}{11cm}
+\setlength{\textheight}{9cm}
+\setlength{\topmargin}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\headheight}{0pt}
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+
+\thispagestyle{empty}
+
+%\input{newcomm}   %%% file of \newcommand's
+
+\begin{document}
+
+% p.29 
+$$
+\xy
+\xymatrix{
+   & & & & gf \ar@{-->}@/_2ex/[dd]^(0.6){g} \ar@{-->}[ddddddrrrr]_{f} 
+           & & & & \\
+   & & & & & & & & \\ 
+   & & & & F \ar[llddd]^{f} \ar@{-->}@/_2ex/[uu]^(0.6){g}
+           & & & & \\
+   & & & & & & & & \\ 
+   & & & &  & & & & \\
+   & & {\rm id} \ar[rrrr]^{f} \ar@/_2ex/[lld]^(0.6){g}
+       & & & & f \ar@{-->}[lluuu]^{f} \ar@/_2ex/[rrd]^(0.6){g}
+               & & \\ 
+   g \ar[uuuuuurrrr]^{f} \ar@{-->}@/_2ex/[rru]^(0.6){g}
+   & & & & & & & & fg \ar@{-->}[llllllll]^{f} \ar@{-->}@/_2ex/[llu]^(0.6){g}\\ 
+}
+\endxy
+$$
+
+\end{document}

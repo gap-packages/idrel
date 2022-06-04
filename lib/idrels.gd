@@ -9,60 +9,83 @@
 ##  This file contains the declarations of operations for 
 ##  identities among relators.
 
-##############################################################################
+#############################################################################
 ##
-#O  GroupRelatorSequenceLessThan( <YI>, <Y2> )
-#O  ConvertToGroupRelatorSequences( <G>, <S> )
-#O  ConvertToYSequences( <G>, <F>, <S> )
-#O  ModuleRelatorSequenceReduce( <Y> )
-#O  YSequenceConjugateAndReduce( <Y>, <rws> ) 
-#O  RewriteRulesFromIdentities( <G>, <seq> ) 
-#O  ReduceGroupRelatorSequences( <G>, <seq> )
+#A  IdentitiesAmongRelators( <G> ) 
+#A  RootIdentities( <G> )
+#A  RootPositions( <G> )
 ##
-DeclareOperation( "GroupRelatorSequenceLessThan", [ IsList, IsList ] );
-DeclareOperation( "ConvertToGroupRelatorSequences", 
-    [ IsFpGroup, IsHomogeneousList ] ); 
-DeclareOperation( "ConvertToYSequences", 
-    [ IsFpGroup, IsFreeGroup, IsHomogeneousList ] ); 
-DeclareOperation( "ModuleRelatorSequenceReduce", [ IsList ] );
-DeclareOperation( "YSequenceConjugateAndReduce", [IsList,IsHomogeneousList] ); 
-DeclareOperation( "ReduceGroupRelatorSequences", 
-    [ IsFpGroup, IsHomogeneousList ] );
+DeclareAttribute( "IdentitiesAmongRelators", IsFpGroup ); 
+DeclareAttribute( "RootIdentities", IsFpGroup );
+DeclareAttribute( "RootPositions", IsFpGroup );
 
 ##############################################################################
 ##
-#O  SwapIdentitySequence( <mG>, <L>, <p> ) 
-#O  SwapIdentitySequenceLeft( <mG>, <L>, <p> ) 
-#O  SwapIdentitySequenceRight( <mG>, <L>, <p> ) 
-#O  PermuteIdentitySequence( <mG>, <L>, <p>, <q> ) 
+#O  LogSequenceLessThan( <J>, <K> )
+#O  ReduceLogSequences( <G>, <seq> )
+#O  ExpandLogSequence( <mG>, <L> ) 
+#O  MoveLeftLogSequence( <mG>, <K>, <L>, <q> ) 
+#O  MoveRightLogSequence( <mG>, <L>, <p>, <q> ) 
+#O  SwapLogSequence( <mG>, <L>, <p>, <q> ) 
+#O  CancelInversesLogSequence( <mG>, <K> ) 
+#O  CancelImmediateInversesLogSequence( <K> ) 
+#O  ConjugateByWordLogSequence( <mG>, <J>, <w> ) 
+#O  FixFirstTermLogSequence( <mG>, <J> ) 
+#O  ChangeStartLogSequence( <mG>, <J>, <p> ) 
+#O  InverseLogSequence( <J> ) 
+#O  ConjugatingWordOfLoggedTerm( <mG>, <t> ) 
 ##
-DeclareOperation( "SwapIdentitySequence", 
-    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsPosInt ] ); 
-DeclareOperation( "SwapIdentitySequenceLeft", 
-    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsPosInt ] ); 
-DeclareOperation( "SwapIdentitySequenceRight", 
-    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsPosInt ] ); 
-DeclareOperation( "PermuteIdentitySequence", 
+DeclareOperation( "LogSequenceLessThan", [ IsList, IsList ] );
+DeclareOperation( "ReduceLogSequences", [ IsFpGroup, IsHomogeneousList ] );
+DeclareOperation( "ExpandLogSequence", 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ] ); 
+DeclareOperation( "MoveLeftLogSequence", 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsList, IsPosInt ] ); 
+DeclareOperation( "MoveRightLogSequence", 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsList, IsPosInt ] ); 
+DeclareOperation( "SwapLogSequence", 
     [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsPosInt, IsPosInt ] ); 
-
+DeclareOperation( "CancelInversesLogSequence", 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ] ); 
+DeclareOperation( "CancelImmediateInversesLogSequence", 
+    [ IsHomogeneousList ] ); 
+DeclareOperation( "ConjugateByWordLogSequence", 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsWord ] ); 
+DeclareOperation( "FixFirstTermLogSequence", 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ] ); 
+DeclareOperation( "ChangeStartLogSequence", 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsPosInt ] ); 
+DeclareOperation( "InverseLogSequence", 
+    [ IsHomogeneousList ] ); 
+DeclareOperation( "ConjugatingWordOfLoggedTerm", 
+    [ IsMonoidPresentationFpGroup, IsList ] );
 
 #############################################################################
 ##  
-#A  IdentitySequenceRewriteRules( <mon> ) 
-#O  MakeIdentitySequenceRewriteRules( <mon> ) 
-#O  OnePassReduceSequence( <seq> <rules> ) 
+#A  LogSequenceRewriteRules( <mon> ) 
+#O  OnePassReduceLogSequence( <seq> <rules> ) 
+#O  SubstituteLogSubsequence( <seq> <sub1> <sub2 > ) 
 #O  IdentityRelatorSequences( <G> )
 #O  AreEquivalentIdentitiies( <G> <L1> <L2> ) 
 ##
-DeclareAttribute( "IdentitySequenceRewriteRules", 
+DeclareAttribute( "LogSequenceRewriteRules", 
     IsMonoidPresentationFpGroup, "mutable" ); 
-DeclareOperation( "MakeIdentitySequenceRewriteRules", 
-    [ IsMonoidPresentationFpGroup ] ); 
-DeclareOperation( "OnePassReduceSequence", 
+DeclareOperation( "OnePassReduceLogSequence", 
     [ IsHomogeneousList, IsHomogeneousList ] ); 
+DeclareOperation( "SubstituteLogSubsequence", [ IsMonoidPresentationFpGroup, 
+    IsHomogeneousList, IsHomogeneousList, IsHomogeneousList ] ); 
 DeclareOperation( "IdentityRelatorSequences", [ IsFpGroup ] );
 DeclareOperation( "AreEquivalentIdentities", 
     [ IsFpGroup, IsHomogeneousList, IsHomogeneousList ] ); 
+
+##############################################################################
+##
+#O  ConvertToGroupRelatorSequences( <G>, <S> )
+#O  ModuleRelatorSequenceReduce( <Y> )
+##
+DeclareOperation( "ConvertToGroupRelatorSequences", 
+    [ IsFpGroup, IsHomogeneousList ] ); 
+DeclareOperation( "ModuleRelatorSequenceReduce", [ IsList ] );
 
 #############################################################################
 ##
@@ -71,19 +94,16 @@ DeclareOperation( "AreEquivalentIdentities",
 DeclareOperation( "ReduceModulePolyList", 
     [ IsFpGroup, IsHomogeneousList, IsHomogeneousList, IsHomogeneousList ] );
 
-#############################################################################
+##############################################################################
 ##
-#A  IdentitiesAmongRelators( <G> ) 
-#A  PowerIdentities( <G> ) 
 #A  IdentityYSequences( <G> )
-#A  IdentityYSequencesKB( <G> )
-#A  RootIdentities( <G> )
-##
-DeclareAttribute( "IdentitiesAmongRelators", IsFpGroup ); 
-DeclareAttribute( "PowerIdentities", IsFpGroup ); 
+#O  ConvertToYSequences( <G>, <F>, <S> )
+#O  YSequenceConjugateAndReduce( <Y>, <rws> ) 
+## 
 DeclareAttribute( "IdentityYSequences", IsFpGroup );
-DeclareAttribute( "IdentityYSequencesKB", IsFpGroup );
-DeclareAttribute( "RootIdentities", IsFpGroup );
+DeclareOperation( "ConvertToYSequences", 
+    [ IsFpGroup, IsFreeGroup, IsHomogeneousList ] ); 
+DeclareOperation( "YSequenceConjugateAndReduce", [IsList,IsHomogeneousList] ); 
 
 #############################################################################
 ##

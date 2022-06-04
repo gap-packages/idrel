@@ -11,8 +11,8 @@ gap> SetInfoLevel( InfoIdRel, 0 );;
 ## items defined in rws.tst and monpoly.tst 
 gap> F := FreeGroup( 2 );;
 gap> f := F.1;;  g := F.2;;
-gap> rels8 := [ f^4, g^4, f*g*f*g^-1, f^2*g^2 ];;
-gap> q8 := F/rels8;;
+gap> relq8 := [ f^4, g^4, f*g*f*g^-1, f^2*g^2 ];;
+gap> q8 := F/relq8;;
 gap> SetName( q8, "q8" );;
 gap> mq8 := MonoidPresentationFpGroup( q8 );;
 gap> fmq8 := FreeGroupOfPresentation( mq8 );; 
@@ -48,9 +48,11 @@ gap> Print( mp2, "\n" );
 4*q8_M4 - 5*q8_M1
 gap> zeromp := ZeroModulePoly( q8R, freeq8 );
 zero modpoly 
+gap> s1 := ModulePoly( [ genq8R[4], genq8R[1] ], [ rmp1, mp2 ] );
+q8_R1*(4*q8_M4 - 5*q8_M1) + q8_R4*( - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>)
 
 ## Example 5.1.2
-gap> s1 := ModulePoly( [ genq8R[4], genq8R[1] ], [ rmp1, mp2 ] );;
+gap> q8Rlabs := [ "q", "r", "s", "t" ];; 
 gap> PrintLnModulePoly( s1, genfmq8, q8labs, genq8R, q8Rlabs );
 q*(4*B + -5*a) + t*(-7*B + 5*a + 9*id)
 gap> s2 := ModulePoly( [ genq8R[3], genq8R[2], genq8R[1] ], 

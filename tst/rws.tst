@@ -16,28 +16,20 @@ gap> rels3 := [ f^3, g^2, f*g*f*g ];
 gap> s3 := F/rels3; 
 <fp group on the generators [ f1, f2 ]>
 gap> SetName( s3, "s3" );; 
-gap> idrels3 := IdentityRelatorSequences( s3 );  
-[ [ [ -11, <identity ...> ], [ 11, s3_M1*s3_M2 ] ], 
-  [ [ -10, <identity ...> ], [ 10, s3_M2 ] ], 
-  [ [ -9, <identity ...> ], [ 9, s3_M1 ] ], 
-  [ [ -9, <identity ...> ], [ 9, s3_M3 ] ], 
-  [ [ -11, <identity ...> ], [ -10, s3_M3 ], [ 11, s3_M1*s3_M2 ], 
-      [ 10, s3_M1*s3_M2 ] ], 
-  [ [ -10, <identity ...> ], [ -11, <identity ...> ], 
-      [ 10, s3_M3*s3_M4*s3_M3 ], [ 11, <identity ...> ] ], 
-  [ [ -9, <identity ...> ], [ -10, s3_M3 ], [ 11, s3_M1*s3_M2 ], 
-      [ 9, s3_M4*s3_M1*s3_M2 ], [ -11, s3_M1*s3_M2 ], [ 10, s3_M3 ] ], 
-  [ [ -11, <identity ...> ], [ 9, s3_M1 ], [ -11, s3_M1^2 ], 
-      [ 10, s3_M3*s3_M4*s3_M1 ], [ 9, s3_M4*s3_M1 ], [ -11, s3_M1 ], 
-      [ 10, s3_M3*s3_M4 ], [ 10, <identity ...> ] ], 
-  [ [ -11, <identity ...> ], [ 9, s3_M1 ], [ -11, s3_M2*s3_M1 ], 
-      [ 10, s3_M3*s3_M4*s3_M3*s3_M2*s3_M1 ], [ 10, s3_M3*s3_M2*s3_M1 ], 
-      [ 9, s3_M2*s3_M1 ], [ -11, s3_M1*s3_M2*s3_M1 ], [ 10, <identity ...> ] 
-     ] ]
+gap> IdentitiesAmongRelators( s3 );
+[ [ [ -1, <identity ...> ], [ 1, s3_M1 ] ], 
+  [ [ -2, <identity ...> ], [ 2, s3_M2 ] ], 
+  [ [ -3, <identity ...> ], [ 3, s3_M1*s3_M2 ] ], 
+  [ [ 1, <identity ...> ], [ -3, s3_M1 ], [ 2, s3_M3*s3_M4 ], [ 1, s3_M4 ], 
+      [ -3, <identity ...> ], [ 2, s3_M3*s3_M4*s3_M3 ], [ 2, s3_M3 ], 
+      [ -3, s3_M3 ] ], 
+  [ [ 1, <identity ...> ], [ -3, s3_M2 ], [ 2, s3_M3*s3_M4*s3_M3*s3_M2 ], 
+      [ 2, s3_M3*s3_M2 ], [ 1, s3_M2 ], [ -3, <identity ...> ], [ 2, s3_M3 ], 
+      [ -3, s3_M3 ] ] ]
 
 ## Example 2.1.1
-gap> rels8 := [ f^4, g^4, f*g*f*g^-1, f^2*g^2 ];;
-gap> q8 := F/rels8;;
+gap> relq8 := [ f^4, g^4, f*g*f*g^-1, f^2*g^2 ];;
+gap> q8 := F/relq8;;
 gap> SetName( q8, "q8" );;
 gap> q8R := FreeRelatorGroup( q8 ); 
 q8_R
@@ -65,6 +57,13 @@ gap> q8labs := [ "a", "b", "A", "B" ];;
 gap> SetMonoidPresentationLabels( q8, q8labs );; 
 gap> PrintLnUsingLabels( gprels, genfmq8, q8labs ); 
 [ a^4, b^4, a*b*a*B, a^2*b^2 ]
+
+## Example 2.1.4 
+gap> q0 := InitialRulesOfPresentation( mq8 );;  
+gap> PrintLnUsingLabels( q0, genfmq8, q8labs );
+[ [ a^-1, A ], [ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a*A, id ], 
+[ b*B, id ], [ A*a, id ], [ B*b, id ], [ a^4, id ], [ a^2*b^2, id ], 
+[ a*b*a*B, id ], [ b^4, id ] ]
 
 ## Example 2.2.1
 gap> rws := RewritingSystemFpGroup( q8 );;
@@ -106,11 +105,6 @@ gap> PrintLnUsingLabels( w2, genfmq8, q8labs );
 a*b
 
 ## Example 2.2.3
-gap> q0 := InitialRulesOfPresentation( mq8 );;
-gap> PrintLnUsingLabels( q0, genfmq8, q8labs );
-[ [ a^-1, A ], [ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a*A, id ], 
-[ b*B, id ], [ A*a, id ], [ B*b, id ], [ a^4, id ], [ a^2*b^2, id ], 
-[ a*b*a*B, id ], [ b^4, id ] ]
 gap> q1 := OnePassKB( mq8, q0 );; 
 gap> Length( q1 ); 
 22
@@ -119,7 +113,9 @@ gap> PrintLnUsingLabels( q1, genfmq8, q8labs );
 [ b*B, id ], [ A*a, id ], [ B*b, id ], [ b^2, a^2 ], [ a^3, A ], 
 [ a^2*b, B ], [ a*b*a, b ], [ a*b^2, A ], [ b*a*B, A ], [ b^3, B ], 
 [ a*b^2, a^3 ], [ b*a*B, a^3 ], [ b^3, a^2*b ], [ a^4, id ], 
-[ a^2*b^2, id ], [ a*b*a*B, id ], [ b^4, id ] ]
+[ a^2*b^2, id ], [ a*b*a*B, id ], [ b^4, id ] ] 
+
+## Example 2.2.4 
 gap> q2 := RewriteReduce( mq8, q1 );; 
 gap> Length( q2 ); 
 13
@@ -127,6 +123,8 @@ gap> PrintLnUsingLabels( q2, genfmq8, q8labs );
 [ [ a^-1, A ], [ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a*A, id ], 
 [ b*B, id ], [ A*a, id ], [ B*b, id ], [ b^2, a^2 ], [ a^3, A ], 
 [ a^2*b, B ], [ a*b*a, b ], [ b*a*B, A ] ]
+
+## Example 2.2.5 
 gap> q3 := KnuthBendix( mq8, q0 );; 
 gap> Length( q3 ); 
 20
