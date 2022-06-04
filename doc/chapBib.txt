@@ -1,0 +1,37 @@
+  
+  
+  [1XReferences[101X
+  
+  [[20XBH82[120X]  [16XBrown,  R.  and  Huebschumann,  J.[116X  ([1m[31mBrown, R. and Thickstun, T. L.[15X,
+  Eds.),  [17XIdentities  among  relations[117X, in Low-Dimensional Topology, Cambridge
+  University Press, London Math. Soc. Lecture Note Series, [19X46[119X (1982), 153–202.
+  
+  [[20XBRS99[120X]  [16XBrown,  R.  and  Razak Salleh, A.[116X, [17XOn the computation of identities
+  among relations and of free crossed resolutions of groups[117X, [18XLondon Math. Soc.
+  J. Comput. Math.[118X, [19X2[119X (1999), 28–61.
+  
+  [[20XGH17[120X]  [16XGutsche,  S. and Horn, M.[116X, [17XAutoDoc - Generate documentation from GAP
+  source    code    (Version    2017.09.15)[117X    (2017),    ((    GAP   package,
+  https://github.com/gap-packages/AutoDoc )).
+  
+  [[20XHey99[120X]  [16XHeyworth,  A.[116X, [17XApplications of Rewriting Systems and Groebner Bases
+  to  Computing  Kan  Extensions and Identities Among Relations[117X, Ph.D. thesis,
+  University         of         Wales,         Bangor        (1999),        ((
+  https://www.researchgate.net/profile/Anne-Heyworth/research )).
+  
+  [[20XHor14[120X] [16XHorn, M.[116X, [17XGitHubPagesForGAP - Template for easily using GitHub Pages
+  within    GAP    packages    (Version   0.1)[117X   (2014),   ((   GAP   package,
+  https://github.com/fingolfin/GitHubPagesForGAP/ )).
+  
+  [[20XHW03[120X]  [16XHeyworth,  A.  and Wensley, C. D.[116X ([1m[31mCampbell, C. M., Robertson, E. F.
+  and  Smith, G. C.[15X, Eds.), [17XLogged rewriting and identities among relators[117X, in
+  Groups  St  Andrews 2001 in Oxford, Cambridge University Press, London Math.
+  Soc. Lecture Note Series, [19X304[119X (2003), 256–276.
+  
+  [[20XLN17[120X]  [16XLübeck,  F.  and  Neunhöffer,  M.[116X, [17XGAPDoc (version 1.6)[117X, RWTH Aachen
+  (2017),                   ((                   GAP                  package,
+  https://www.math.rwth-aachen.de/~Frank.Luebeck/gap/GAPDoc/index.html )).
+  
+  
+  
+  [32X

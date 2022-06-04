@@ -1,0 +1,691 @@
+  
+  [1X6 [33X[0;0YIdentities Among Relators[133X[101X
+  
+  [33X[0;0YThe  identities  among  the  relators  for  a finitely presented group [22XG[122X are
+  constructed as logged module polynomials. The procedure, described in [HW03]
+  and  based  on  work in [BRS99], is to construct a full set of [13Xgroup relator
+  sequences[113X  for the group; convert these into module polynomials (eliminating
+  empty sequences); and then apply simplification rules (including the primary
+  identity property) to eliminate obvious duplicates and conjugates.[133X
+  
+  [33X[0;0YWhen  a  reduced set of polynomials has been obtained, the relator sequences
+  from  which  they  were formed are returned as the [13Xidentities among relators[113X
+  for [22XG[122X.[133X
+  
+  
+  [1X6.1 [33X[0;0YConstructing identities[133X[101X
+  
+  [1X6.1-1 RootIdentities[101X
+  
+  [33X[1;0Y[29X[2XRootIdentities[102X( [3Xgrp[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XRootPositions[102X( [3Xgrp[103X ) [32X attribute[133X
+  
+  [33X[0;0YThe [13Xroot identities[113X of [22XG[122X are identities of the form [22XR^-1R^w[122X where [22XR = w^n[122X is
+  a proper power relator and [22Xn>1[122X. (For equivalent forms invert, or permute the
+  factors cyclically, or act with [22Xw^-1[122X.)[133X
+  
+  [33X[0;0YFor  [22XS_3  = ⟨ f,g ~|~ ρ=f^3, σ=g^2, τ=(fg)^2 ⟩[122X all three relators are proper
+  powers:  [22X[1  ≡  ρ=f^3,  2 ≡ σ=g^2, 3 ≡ τ=(fg)^2][122X. So the root identities are
+  [22Xρ^-1 ρ^a, σ^-1 σ^b[122X and [22Xτ^-1 τ^ab[122X.[133X
+  
+  [33X[0;0YFor [22XQ_8 = ⟨ a,b ~|~ q=a^4, r=b^4, s=abab^-1, t=a^2b^2 ⟩[122X only two of the four
+  relators  are  proper  powers,  so the root identities are [22Xq^-1 q^a[122X and [22Xr^-1
+  r^b[122X.[133X
+  
+  [33X[0;0YIn the example we see that the attribute [10XRootIdentities[110X returns a list which
+  includes  [22XR^-1R^w^-1}[122X  as  well  as  [22XR^-1R^w[122X.  Relator  [22Xρ^-1ρ^f[122X is stored as
+  [10X[[-1,id],[1,f]][110X, etc.[133X
+  
+  [33X[0;0YThe  [10XRootPositions[110X  attribute  is  a  boolean  list  specifying which of the
+  relators are proper powers.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xroots3 := RootIdentities(s3);[127X[104X
+    [4X[28X[ [ [ -1, <identity ...> ], [ 1, s3_M1 ] ], [128X[104X
+    [4X[28X  [ [ -1, <identity ...> ], [ 1, s3_M3 ] ], [128X[104X
+    [4X[28X  [ [ -2, <identity ...> ], [ 2, s3_M2 ] ], [128X[104X
+    [4X[28X  [ [ -2, <identity ...> ], [ 2, s3_M4 ] ], [128X[104X
+    [4X[28X  [ [ -3, <identity ...> ], [ 3, s3_M1*s3_M2 ] ], [128X[104X
+    [4X[28X  [ [ -3, <identity ...> ], [ 3, s3_M4*s3_M3 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XRootPositions(s3);[127X[104X
+    [4X[28X[ true, true, true ][128X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( RootIdentities(q8), genfmq8, q8labs );[127X[104X
+    [4X[28X[ [ [ -1, id ], [ 1, a ] ], [ [ -1, id ], [ 1, A ] ], [ [ -2, id ], [128X[104X
+    [4X[28X[ 2, b ] ], [ [ -2, id ], [ 2, B ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XRootPositions(q8);[127X[104X
+    [4X[28X[ true, true, false, false ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X6.1-2 IdentityRelatorSequences[101X
+  
+  [33X[1;0Y[29X[2XIdentityRelatorSequences[102X( [3Xgrp[103X ) [32X attribute[133X
+  
+  [33X[0;0YTo  construct  the  [13Xidentity  relator  sequences[113X for a group [22XG[122X we apply each
+  relator [22XR[122X at each non-identity element [22Xx[122X, reducing the resulting words using
+  the logged rewrite system.[133X
+  
+  [33X[0;0YWith  the  [10Xs3[110X  example, the monoid presentation has generators [22X{f,g,F,G}[122X and
+  relators[133X
+  
+  
+  [24X[33X[0;6Y[~ fF,~ gG,~ Ff,~ Gg,~ f^3,~ g^2,~ (fg)^2 ~]\ ,[133X
+  
+  [124X
+  
+  [33X[0;0Yand the elements are [22X{ id, f, g, F, fg, gf}[122X. The logged rewriting system has
+  relations[133X
+  
+      ┌──────────────────────────────────────────────────────────────────────────────────────────┐
+      │ [22Xf^-1 = F, quad g^-1 = [-2, id]g, quad F^-1 = f, quad G^-1 = g, quad G = [-2,id]g,[122X        │ 
+      │ [22XfF = id, quad g^2 = [2, id] id, quad Ff = id, quad f^2 = [1, id]F, quad F^2 = [-1, id]f,[122X │ 
+      │ [22XgF = [-3, id][2,FGF]fg, quad Fg = [-3,f][2,FG]gf,[122X                                        │ 
+      │ [22Xfgf = [-2,FGF][3, id]g, quad gfg = [3,f]F[122X                                                │ 
+      └──────────────────────────────────────────────────────────────────────────────────────────┘
+  
+  [33X[0;0YHere is the Cayley graphs of [22XS_3[122X, with the solid arrows forming the spanning
+  tree:  Applying  [22XR  =  τ  =  (fg)^2[122X at [22Xx = f[122X gives the cycle (top right-hand
+  quadrilateral):[133X
+  
+  
+  [24X[33X[0;6Yf    \stackrel{f}{\longrightarrow}    F   \stackrel{g}{\longrightarrow}   gf
+  \stackrel{f}{\longrightarrow} fg \stackrel{g}{\longrightarrow} f\ .[133X
+  
+  [124X
+  
+  [33X[0;0YEach of these edges has a non-trivial logged rewrite, particularly the third
+  edge where [22Xgff -> gF -> fg[122X. Combining this log information we obtain:[133X
+  
+  
+  [24X[33X[0;6Y[\tau,F]\,f   ~=~   f.\tau   ~=~   [1,{\rm   id}].[-3,f][2,FG].[1,G][-3,{\rm
+  id}][2,FGF].[2,F]\,f .[133X
+  
+  [124X
+  
+  [33X[0;0YExpanding [22X[1, id][-3,f][2,FG][1,G][-3, id][2,FGF][2,F][-3,F][122X gives[133X
+  
+  
+  [24X[33X[0;6Yfff.FGFGFf.gfggFG.gfffG.GFGF.fgfggFGF.fggF.fGFGFF[133X
+  
+  [124X
+  
+  [33X[0;0Ywhich  cancels  to  the  identity,  as expected. Converting this back to the
+  group  presentation, we obtain the fourth identity given in the introduction
+  ([14X1.1[114X):[133X
+  
+  
+  [24X[33X[0;6Y\iota_{(\tau,f)}  ~=~ \rho\ (\tau^{-1})^f\ \sigma^{FG}\ \rho^G\ (\tau^{-1})\
+  \sigma^{FGF}\ \sigma^F\ (\tau^{-1})^F\, .[133X
+  
+  [124X
+  
+  [33X[0;0YThe  operation  [10XIdentityRelatorSequences[110X  returns  a  list  which  omits any
+  duplicates  or empty lists. For the [10Xs3[110X example, all of the possible [22X5*3 = 15[122X
+  sequences are added to the root identities.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xms3 := MonoidPresentationFpGroup( s3 );;[127X[104X
+    [4X[25Xgap>[125X [27Xfms3 := FreeGroupOfPresentation( ms3 );;[127X[104X
+    [4X[25Xgap>[125X [27Xgenfms3 := GeneratorsOfGroup(fms3 );;[127X[104X
+    [4X[25Xgap>[125X [27Xs3labs := ["f","g","F","G"];; [127X[104X
+    [4X[25Xgap>[125X [27XSetMonoidPresentationLabels( ms3, s3labs );; [127X[104X
+    [4X[25Xgap>[125X [27Xidss3 := IdentityRelatorSequences( s3 );;          [127X[104X
+    [4X[25Xgap>[125X [27Xlenidss3 := Length( idss3 );                                   [127X[104X
+    [4X[28X17[128X[104X
+    [4X[25Xgap>[125X [27XList( idss3, L -> Length(L) );[127X[104X
+    [4X[28X[ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 6, 8, 8 ][128X[104X
+    [4X[25Xgap>[125X [27X for i in [1..Length(idss3)] do                     [127X[104X
+    [4X[25X>[125X [27X      PrintLnUsingLabels( idss3[i], genfms3, s3labs );[127X[104X
+    [4X[25X>[125X [27X    od;[127X[104X
+    [4X[28X[ [ -3, id ], [ 3, f*g ] ][128X[104X
+    [4X[28X[ [ -3, id ], [ 3, G*F ] ][128X[104X
+    [4X[28X[ [ -2, id ], [ 2, g ] ][128X[104X
+    [4X[28X[ [ -2, id ], [ 2, G ] ][128X[104X
+    [4X[28X[ [ -1, id ], [ 1, f ] ][128X[104X
+    [4X[28X[ [ -1, id ], [ 1, F ] ][128X[104X
+    [4X[28X[ [ 1, id ], [ -1, f ] ][128X[104X
+    [4X[28X[ [ 1, id ], [ -1, F ] ][128X[104X
+    [4X[28X[ [ 1, G ], [ -1, F*G ] ][128X[104X
+    [4X[28X[ [ 2, id ], [ -2, G ] ][128X[104X
+    [4X[28X[ [ 2, F ], [ -2, G*F ] ][128X[104X
+    [4X[28X[ [ 3, f ], [ -3, G ] ][128X[104X
+    [4X[28X[ [ -3, f ], [ 2, F*G ], [ 3, f ], [ -2, f ] ][128X[104X
+    [4X[28X[ [ -2, F*G*F ], [ 3, id ], [ 2, id ], [ -3, G*F ] ][128X[104X
+    [4X[28X[ [ -2, F*G*F ], [ 3, id ], [ 1, G ], [ -3, id ], [ 2, F*G*F ], [128X[104X
+    [4X[28X[ -1, G*F ] ][128X[104X
+    [4X[28X[ [ 1, id ], [ -3, f ], [ 2, F*G ], [ 1, G ], [ -3, id ], [128X[104X
+    [4X[28X[ 2, F*G*F ], [ 2, F ], [ -3, F ] ][128X[104X
+    [4X[28X[ [ 1, G ], [ -3, id ], [ 2, F*G*F ], [ 2, F ], [ 1, id ], [128X[104X
+    [4X[28X[ -3, f ], [ 2, F*G ], [ -3, F*G ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X6.1-3 LogSequenceLessThan[101X
+  
+  [33X[1;0Y[29X[2XLogSequenceLessThan[102X( [3XJ[103X, [3XK[103X ) [32X operation[133X
+  
+  [33X[0;0YThis  is  an  operation  used to sort lists of identity sequences. First the
+  lengths  of  sequences  [10XJ, K[110X are compared. If the lengths are equal then the
+  sequences  are  compared  as  lists.  The  list  [10Xidss3[110X  is sorted using this
+  function.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XLogSequenceLessThan( idss3[7], idss3[8] ); [127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X6.1-4 ExpandLogSequence[101X
+  
+  [33X[1;0Y[29X[2XExpandLogSequence[102X( [3XmG[103X, [3XL[103X ) [32X operation[133X
+  
+  [33X[0;0YThis  operation takes a log sequence [22XL[122X, writes each term as a conjugate of a
+  relator,  takes  the  product  of all of these, and then cancels consecutive
+  inverse  generators  to return a word in the free group of the presentation.
+  This  is precisely what we did by hand with [22Xι_(τ,f)[122X on the previous page. If
+  the  sequence  is  an  identity  sequence  the  identity  element  should be
+  returned, so this provides a useful check.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XExpandLogSequence( ms3, idss3[17] );[127X[104X
+    [4X[28X<identity ...>[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.2 [33X[0;0YIdentities for [22XS_3[122X[101X[1X[133X[101X
+  
+  [33X[0;0YWe  now  return  to  the  example considered in section [14X1.1[114X. In the previous
+  section we have constructed [22X17[122X identity sequences, and we now wish to reduce
+  this number to find a minimal set.[133X
+  
+  [1X6.2-1 ReduceLogSequences[101X
+  
+  [33X[1;0Y[29X[2XReduceLogSequences[102X( [3XG[103X, [3Xids[103X ) [32X operation[133X
+  
+  [33X[0;0YThis  operation  applies a collection of operations, which will be described
+  in the following section, to reduce the list [10Xidss3[110X from [22X17[122X to [22X5[122X identities.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xridss3 := ReduceLogSequences( s3, idss3 );;[127X[104X
+    [4X[25Xgap>[125X [27Xlenridss3 := Length( ridss3 );                                   [127X[104X
+    [4X[28X5[128X[104X
+    [4X[25Xgap>[125X [27Xfor i in [1..lenridss3] do                                [127X[104X
+    [4X[25X>[125X [27X       PrintLnUsingLabels( ridss3[i], genfms3, s3labs );   [127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[28X[ [ -3, id ], [ 3, f*g ] ][128X[104X
+    [4X[28X[ [ -2, id ], [ 2, g ] ][128X[104X
+    [4X[28X[ [ -1, id ], [ 1, f ] ][128X[104X
+    [4X[28X[ [ 1, id ], [ -3, f ], [ 2, F*G ], [ 1, G ], [ -3, id ], [128X[104X
+    [4X[28X[ 2, F*G*F ], [ 2, F ], [ -3, F ] ][128X[104X
+    [4X[28X[ [ 1, id ], [ -3, g ], [ 2, F*G*F*g ], [ 2, F*g ], [ 1, g ], [128X[104X
+    [4X[28X[ -3, id ], [ 2, F ], [ -3, F ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  wish  to show that the fifth of these identities is a combination of the
+  first four. Recall that the fourth identity was obtained by applying [22XR = τ =
+  (fg)^2[122X  at  [22Xx = f[122X. The fifth comes from applying [22XR = τ[122X at [22Xx = gf[122X, so this is
+  the same cycle but with a different start point.[133X
+  
+  [1X6.2-2 ConjugateByWordLogSequence[101X
+  
+  [33X[1;0Y[29X[2XConjugateByWordLogSequence[102X( [3XmG[103X, [3XK[103X, [3Xw[103X ) [32X operation[133X
+  
+  [33X[0;0YThis  operation  conjugates  every  term  in a log sequence by a word in the
+  generators.  In the example we conjugate the fifth identity [10XK5[110X by [22XG[122X. It then
+  becomes  apparent that the fourth identity [10XK4[110X has the form [10X[ A, B, [ -3, F ]
+  ][110X while [10XK5[110X has the form [10X[ B, A, [ -3, FG ] ][110X, where the [10XF[110X and the [10XGF[110X are the
+  inverses of the vertices where the cycle starts.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XK4 := ShallowCopy( ridss3[4] );; [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( K4, genfms3, s3labs ); [127X[104X
+    [4X[28X[ [ 1, id ], [ -3, f ], [ 2, F*G ], [ 1, G ], [ -3, id ], [128X[104X
+    [4X[28X[ 2, F*G*F ], [ 2, F ], [ -3, F ] ][128X[104X
+    [4X[25Xgap>[125X [27XL5 := ShallowCopy( ridss3[5] );; [127X[104X
+    [4X[25Xgap>[125X [27XK5 := ConjugateByWordLogSequence( ms3, L5, genfms3[4] );; [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( K5, genfms3, s3labs ); [127X[104X
+    [4X[28X[ [ 1, G ], [ -3, id ], [ 2, F*G*F ], [ 2, F ], [ 1, id ], [128X[104X
+    [4X[28X[ -3, f ], [ 2, F*G ], [ -3, F*G ] ][128X[104X
+    [4X[25Xgap>[125X [27XA := K4{[1..3]};;              [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( A, genfms3, s3labs ); [127X[104X
+    [4X[28X[ [ 1, id ], [ -3, f ], [ 2, F*G ] ][128X[104X
+    [4X[25Xgap>[125X [27XB := K4{[4..7]};;              [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( B, genfms3, s3labs ); [127X[104X
+    [4X[28X[ [ 1, G ], [ -3, id ], [ 2, F*G*F ], [ 2, F ] ][128X[104X
+    [4X[25Xgap>[125X [27XPositionSublist( K5, A ); [127X[104X
+    [4X[28X5[128X[104X
+    [4X[25Xgap>[125X [27XPositionSublist( K5, B ); [127X[104X
+    [4X[28X1[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X6.2-3 ChangeStartLogSequence[101X
+  
+  [33X[1;0Y[29X[2XChangeStartLogSequence[102X( [3Xmon[103X, [3XK[103X, [3Xp[103X ) [32X operation[133X
+  
+  [33X[0;0YThe  start  point of an identity log sequence can be chosen at random (since
+  every  conjugate of an identity is that identity). This operation permutes a
+  given sequence [22XK[122X so as to start at the [22Xp[122X-th position.[133X
+  
+  [33X[0;0YIn  our  example  we  wish  to show that [10XK4[110X and [10XK5[110X are equivalent up to root
+  identities. To do this we first replace [10XK4[110X by [10XJ4 = [ B, [ -3, F ], A ][110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XJ4 := ChangeStartLogSequence( ms3, K4, 4 );;[127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( J4, genfms3, s3labs ); [127X[104X
+    [4X[28X[ [ 1, G ], [ -3, id ], [ 2, F*G*F ], [ 2, F ], [ -3, F ], [128X[104X
+    [4X[28X[ 1, id ], [ -3, f ], [ 2, F*G ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X6.2-4 InverseLogSequence[101X
+  
+  [33X[1;0Y[29X[2XInverseLogSequence[102X( [3XK[103X ) [32X operation[133X
+  
+  [33X[0;0YTo  invert a log sequence we reverse the order of the terms and replace each
+  [10X[m,w][110X by [10X[-m,w][110X.[133X
+  
+  [33X[0;0YWe continue our example by replacing [10XJ4[110X by its inverse.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XJ4 := InverseLogSequence( J4 );; [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( J4, genfms3, s3labs ); [127X[104X
+    [4X[28X[ [ -2, F*G ], [ 3, f ], [ -1, id ], [ 3, F ], [ -2, F ], [ -2, F*G*F ], [128X[104X
+    [4X[28X[ 3, id ], [ -1, G ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X6.2-5 CancelImmediateInversesLogSequence[101X
+  
+  [33X[1;0Y[29X[2XCancelImmediateInversesLogSequence[102X( [3XK[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XCancelInversesLogSequence[102X( [3XmG[103X, [3XK[103X ) [32X operation[133X
+  
+  [33X[0;0YConcatenating  [10XJ4[110X and [10XK5[110X, we get [10X[ A^-1, [ 3, F ], B^-1, B, A, [ -3, FG ] ][110X,
+  with  length  [22X16[122X.  Cancelling  immediate  inverses  removes the [10X[ B^-1, B ][110X.
+  Cancelling  inverses  gets  rid of the terms [10Xa^-1[110X and [10XA[110X, converting [10X[ 3, F ][110X
+  into  [10X[  3,  fgFG ] = [ 3, FG ][110X. Conjugating with [10Xgf[110X produces the third root
+  identity [10X[ [ 3, fg ], [ -3, id ] ][110X, which then cancels.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XJ4K5 := Concatenation( J4, K5 );; [127X[104X
+    [4X[25Xgap>[125X [27XJ4K5 := CancelImmediateInversesLogSequence( J4K5 );; [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( J4K5, genfms3, s3labs ); [127X[104X
+    [4X[28X[ [ -2, F*G ], [ 3, f ], [ -1, id ], [ 3, F ], [ 1, id ], [128X[104X
+    [4X[28X[ -3, f ], [ 2, F*G ], [ -3, F*G ] ][128X[104X
+    [4X[25Xgap>[125X [27XJ4K5 := CancelInversesLogSequence( ms3, J4K5 ); [127X[104X
+    [4X[28X[ ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.3 [33X[0;0YReducing identities[133X[101X
+  
+  [33X[0;0YIn  this  section  we  list  some  further  operations  which may be used to
+  simplify  the  list  of  identities returned by [10XIdentityRelatorSequences[110X. We
+  will use our [22XQ_8[122X presentation in the examples.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xmq8 := MonoidPresentationFpGroup( q8 );;[127X[104X
+    [4X[25Xgap>[125X [27Xfmq8 := FreeGroupOfPresentation( mq8 );;[127X[104X
+    [4X[25Xgap>[125X [27Xgenfmq8 := GeneratorsOfGroup(fmq8 );;[127X[104X
+    [4X[25Xgap>[125X [27Xq8labs := ["a","b","A","B"];; [127X[104X
+    [4X[25Xgap>[125X [27XSetMonoidPresentationLabels( mq8, q8labs );; [127X[104X
+    [4X[25Xgap>[125X [27Xidsq8 := IdentityRelatorSequences( q8 );;          [127X[104X
+    [4X[25Xgap>[125X [27Xlenidsq8 := Length( idsq8 );                                   [127X[104X
+    [4X[28X28[128X[104X
+    [4X[25Xgap>[125X [27XList( idsq8, L -> Length(L) );[127X[104X
+    [4X[28X[ 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 8, 8, 8, [128X[104X
+    [4X[28X  9, 10, 10 ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X6.3-1 LogSequenceRewriteRules[101X
+  
+  [33X[1;0Y[29X[2XLogSequenceRewriteRules[102X( [3XmG[103X ) [32X attribute[133X
+  
+  [33X[0;0YThe root identity [22XR^-1R^w[122X may be converted into the rewrite rule [22XR^w -> R[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xrulesq8 := LogSequenceRewriteRules( mq8 );;[127X[104X
+    [4X[25Xgap>[125X [27Xfor i in [1..8] do [127X[104X
+    [4X[25X>[125X [27X       PrintLnUsingLabels( rulesq8[i], genfmq8, q8labs );[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[28X[ [ 1, a ], [ 1, id ] ][128X[104X
+    [4X[28X[ [ -1, a ], [ -1, id ] ][128X[104X
+    [4X[28X[ [ 1, A ], [ 1, id ] ][128X[104X
+    [4X[28X[ [ -1, A ], [ -1, id ] ][128X[104X
+    [4X[28X[ [ 2, b ], [ 2, id ] ][128X[104X
+    [4X[28X[ [ -2, b ], [ -2, id ] ][128X[104X
+    [4X[28X[ [ 2, B ], [ 2, id ] ][128X[104X
+    [4X[28X[ [ -2, B ], [ -2, id ] ][128X[104X
+    [4X[28X[ [ 3, a*b*a*B ], [ 3, id ] ][128X[104X
+    [4X[28X[ [ 3, b*A*B*A ], [ 3, id ] ][128X[104X
+    [4X[28X[ [ -3, a*b*a*B ], [ -3, id ] ][128X[104X
+    [4X[28X[ [ -3, b*A*B*A ], [ -3, id ] ][128X[104X
+    [4X[28X[ [ 4, a^2*b^2 ], [ 4, id ] ][128X[104X
+    [4X[28X[ [ 4, B^2*A^2 ], [ 4, id ] ][128X[104X
+    [4X[28X[ [ -4, a^2*b^2 ], [ -4, id ] ][128X[104X
+    [4X[28X[ [ -4, B^2*A^2 ], [ -4, id ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X6.3-2 OnePassReduceLogSequence[101X
+  
+  [33X[1;0Y[29X[2XOnePassReduceLogSequence[102X( [3XJ[103X, [3Xrules[103X ) [32X operation[133X
+  
+  [33X[0;0YThe  rewrite  rules  returned  by  [10XLogSequenceRewriteRules[110X  may  be  used to
+  simplify  other  identity sequences. In the example the fourth rule [22X(q^-1)^A
+  -> q^-1[122X, applied twice, reduces [22X(q^-1)^A^2[122X to [22Xq^-1[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XJ7 := idsq8[7];[127X[104X
+    [4X[28X[ [ 1, <identity ...> ], [ -1, q8_M3^2 ] ][128X[104X
+    [4X[25Xgap>[125X [27XOnePassReduceLogSequence( J7, rulesq8 );[127X[104X
+    [4X[28X[ [ 1, <identity ...> ], [ -1, <identity ...> ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  operation [10XReduceLogSequences[110X, described in subsection [14X6.2-1[114X, applied to
+  the list [10Xidsq8[110X reduces the [22X28[122X identities to [22X15[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xridsq8 := ReduceLogSequences( q8, idsq8 );;[127X[104X
+    [4X[25Xgap>[125X [27Xlenrids := Length( ridsq8 );                                   [127X[104X
+    [4X[28X15[128X[104X
+    [4X[25Xgap>[125X [27Xfor i in [1..lenrids] do                                [127X[104X
+    [4X[25X>[125X [27X       PrintLnUsingLabels( ridsq8[i], genfmq8, q8labs );   [127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[28X[ [ -2, id ], [ 2, b ] ][128X[104X
+    [4X[28X[ [ -1, id ], [ 1, a ] ][128X[104X
+    [4X[28X[ [ -4, id ], [ 2, A^2 ], [ 1, id ], [ -4, a^2 ] ][128X[104X
+    [4X[28X[ [ -4, id ], [ 3, A ], [ 4, a ], [ -3, b ] ][128X[104X
+    [4X[28X[ [ 1, id ], [ -4, id ], [ 2, A^2 ], [ -4, A^2 ] ][128X[104X
+    [4X[28X[ [ -4, id ], [ 3, A ], [ 3, id ], [ 2, id ], [ -4, b ] ][128X[104X
+    [4X[28X[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 1, id ], [ -3, a ] ][128X[104X
+    [4X[28X[ [ -3, id ], [ 4, B*A ], [ -4, A^2 ], [ 1, id ], [ -3, B ] ][128X[104X
+    [4X[28X[ [ -4, id ], [ 3, A ], [ -4, A ], [ 2, A^3 ], [ 1, id ], [128X[104X
+    [4X[28X[ -3, b ] ][128X[104X
+    [4X[28X[ [ -4, id ], [ 4, B*A^2 ], [ -4, A^2 ], [ 1, id ], [ 2, id ], [128X[104X
+    [4X[28X[ -4, b ] ][128X[104X
+    [4X[28X[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 3, A^2 ], [ 4, id ], [128X[104X
+    [4X[28X[ -4, B ] ][128X[104X
+    [4X[28X[ [ -4, id ], [ 3, A ], [ 4, B*A ], [ -4, A ], [ 1, id ], [128X[104X
+    [4X[28X[ -3, a ], [ 4, B ], [ -1, b ] ][128X[104X
+    [4X[28X[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 3, A^2 ], [ 4, B*A^2 ], [128X[104X
+    [4X[28X[ -4, A^2 ], [ 1, id ], [ -1, B ] ][128X[104X
+    [4X[28X[ [ 4, id ], [ -4, b ], [ 1, b ], [ -3, a^2*b ], [ 4, B*a*b ], [128X[104X
+    [4X[28X[ -4, a*b ], [ 3, b ], [ -1, id ] ][128X[104X
+    [4X[28X[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 1, id ], [ -4, a ], [128X[104X
+    [4X[28X[ 2, A ], [ 1, id ], [ -4, a^2 ], [ -3, B ] ] [128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe now demonstrate that this list may be reduced further.[133X
+  
+  [1X6.3-3 MoveRightLogSequence[101X
+  
+  [33X[1;0Y[29X[2XMoveRightLogSequence[102X( [3XmG[103X, [3XJ[103X, [3XL[103X, [3Xq[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XMoveLeftLogSequence[102X( [3XmG[103X, [3XJ[103X, [3XL[103X, [3Xq[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XSwapLogSequence[102X( [3XmG[103X, [3XJ[103X, [3Xp[103X, [3Xq[103X ) [32X operation[133X
+  
+  [33X[0;0YThe terms in an identity sequence may be interchanged because[133X
+  
+  
+  [24X[33X[0;6YR^w Q^v ~=~ Q^v R^{wQ^v} ~=~ Q^{v(R^w)^{-1}} R^w.[133X
+  
+  [124X
+  
+  [33X[0;0YIn  the first two of these three operations [10XL =[110X [22X[p..r][122X is a range specifying
+  a  sublist  [10XK=J{[p..r]}[110X  of  [10XJ[110X,  and  [22Xl[122X  is  the  length of [10XJ[110X. The operation
+  [10XMoveRightLogSequence(mG,J,L,q)[110X,  with [22X0[122X < [22Xp[122X < [22Xq[122X and [22Xq+r ≤ p+l[122X, moves sublist
+  [10XK[110X  to  the  [22Xq[122X-th  position, conjugating entries in [22XJ{[p+1 ... q]}[122X and moving
+  them all to the left.[133X
+  
+  [33X[0;0YSimilarly  [10XMoveLeftLogSequence(mG,J,L,q)[110X,  with  [22X0[122X  <  [22Xq[122X < [22Xp[122X nd [22Xr ≤ l[122X, moves
+  sublist  [10XK[110X  to  the [22Xq[122X-th position, conjugating entries in [22XJ{[q ... p-1]}[122X and
+  moving them all to the right.[133X
+  
+  [33X[0;0YThe  operation [10XSwapLogSequence(mG,J,p,q)[110X with [22Xp[122X < [22Xq[122X swaps a pair of terms in
+  a sequence [10XJ[110X by calling the two previous commands.[133X
+  
+  [33X[0;0YIn   all   three  operations  the  procedure  is  completed  by  a  call  to
+  [10XOnePassReduceLogSequence[110X.[133X
+  
+  [33X[0;0YIn  the example the third identity is converted into the fifth by moving the
+  third  term  one place right and then changing the start position, so it may
+  be omitted.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XJ3 := ShallowCopy( ridsq8[3] );;                            [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( J3, genfmq8, q8labs );   [127X[104X
+    [4X[28X[ [ -4, id ], [ 2, A^2 ], [ 1, id ], [ -4, a^2 ] ][128X[104X
+    [4X[25Xgap>[125X [27XK3 := MoveRightLogSequence( mq8, J3, [3], 4 );;[127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( K3, genfmq8, q8labs );    [127X[104X
+    [4X[28X[ [ -4, id ], [ 2, A^2 ], [ -4, A^2 ], [ 1, id ] ][128X[104X
+    [4X[25Xgap>[125X [27XJ5 := ShallowCopy( ridsq8[5] );; [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( J5, genfmq8, q8labs );[127X[104X
+    [4X[28X[ [ 1, id ], [ -4, id ], [ 2, A^2 ], [ -4, A^2 ] ][128X[104X
+    [4X[25Xgap>[125X [27XJ5 = ChangeStartLogSequence( mq8, K3, 4 );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X6.3-4 SubstituteLogSubsequence[101X
+  
+  [33X[1;0Y[29X[2XSubstituteLogSubsequence[102X( [3XmG[103X, [3XK[103X, [3XJ1[103X, [3XJ2[103X ) [32X operation[133X
+  
+  [33X[0;0YIf  we  move  the  second  term in [10XJ5[110X to the right, we find that sublist [10XU =
+  [[1,id],[2,id]][110X  is  equal  to  [10XV = [[4,A^2],[4,id]][110X, with both expanding to
+  [22Xa^4b^4[122X.[133X
+  
+  [33X[0;0YNow  [10XU[110X  appears  in the tenth identity, and if we replace it with [10XV[110X and then
+  cancel, we obtain the empty list. So the tenth identity may be omitted.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XK5 := MoveRightLogSequence( mq8, J5, [2], 3 );;[127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( K5, genfmq8, q8labs );       [127X[104X
+    [4X[28X[ [ 1, id ], [ 2, id ], [ -4, id ], [ -4, A^2 ] ][128X[104X
+    [4X[25Xgap>[125X [27XK5a := K5{[1..2]};; [127X[104X
+    [4X[25Xgap>[125X [27XK5b := InverseLogSequence( K5{[3..4]} );;[127X[104X
+    [4X[25Xgap>[125X [27XK5a;K5b;[127X[104X
+    [4X[28X[ [ 1, <identity ...> ], [ 2, <identity ...> ] ][128X[104X
+    [4X[28X[ [ 4, q8_M3^2 ], [ 4, <identity ...> ] ][128X[104X
+    [4X[25Xgap>[125X [27XJ10 := ShallowCopy( ridsq8[10] );;[127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( J10, genfmq8, q8labs );[127X[104X
+    [4X[28X[ [ -4, id ], [ 4, B*A^2 ], [ -4, A^2 ], [ 1, id ], [ 2, id ], [128X[104X
+    [4X[28X[ -4, b ] ][128X[104X
+    [4X[25Xgap>[125X [27XK10 := SubstituteLogSubsequence( mq8, J10, K5a, K5b );;[127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( K10, genfmq8, q8labs );            [127X[104X
+    [4X[28X[ [ -4, id ], [ 4, B*A^2 ], [ -4, A^2 ], [ 4, A^2 ], [ 4, id ], [128X[104X
+    [4X[28X[ -4, b ] ][128X[104X
+    [4X[25Xgap>[125X [27XCancelInversesLogSequence( mq8, K10 );[127X[104X
+    [4X[28X[  ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSimilarly, we may reduce the ninth identity. Initially, [10XU[110X does not appear as
+  a  sublist  of  [10XJ9[110X. Swapping the fourth and fifth terms and conjugating by [22XA[122X
+  produces  [10XU[110X,  which is then replaced by [10XV[110X. After a cancellation, we obtain a
+  conjugate of the fourth identity.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XJ9 := ShallowCopy( ridsq8[9] );; [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( J9, genfmq8, q8labs );            [127X[104X
+    [4X[28X[ [ -4, id ], [ 3, A ], [ -4, A ], [ 2, A^3 ], [ 1, id ], [128X[104X
+    [4X[28X[ -3, b ] ][128X[104X
+    [4X[25Xgap>[125X [27XK9 := MoveLeftLogSequence( mq8, J9, [5], 4 );; [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( K9, genfmq8, q8labs );            [127X[104X
+    [4X[28X[ [ -4, id ], [ 3, A ], [ -4, A ], [ 1, id ], [ 2, a ], [ -3, b ] ][128X[104X
+    [4X[25Xgap>[125X [27XL9 := ConjugateByWordLogSequence( mq8, K9, genfmq8[3] );;[127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( L9, genfmq8, q8labs );            [127X[104X
+    [4X[28X[ [ -4, A ], [ 3, A^2 ], [ -4, A^2 ], [ 1, id ], [ 2, id ], [128X[104X
+    [4X[28X[ -3, b*A ] ][128X[104X
+    [4X[25Xgap>[125X [27XM9 := SubstituteLogSubsequence( mq8, L9, K5a, K5b);;[127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( M9, genfmq8, q8labs );            [127X[104X
+    [4X[28X[ [ -4, A ], [ 3, A^2 ], [ -4, A^2 ], [ 4, A^2 ], [ 4, id ], [128X[104X
+    [4X[28X[ -3, b*A ] ][128X[104X
+    [4X[25Xgap>[125X [27XN9 := CancelInversesLogSequence( mq8, M9 );;[127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( N9, genfmq8, q8labs );            [127X[104X
+    [4X[28X[ [ -4, A ], [ 3, A^2 ], [ 4, id ], [ -3, b*A ] ][128X[104X
+    [4X[25Xgap>[125X [27XP9 := ConjugateByWordLogSequence( mq8, N9, genfmq8[1] );;[127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( P9, genfmq8, q8labs );            [127X[104X
+    [4X[28X[ [ -4, id ], [ 3, A ], [ 4, a ], [ -3, b ] ][128X[104X
+    [4X[25Xgap>[125X [27XP9 = ridsq8[4];[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe will not, for now, attempt to reduce the list of identities further.[133X
+  
+  
+  [1X6.4 [33X[0;0YThe original approach[133X[101X
+  
+  [33X[0;0YThis section describes the approach used from the earliest versions of [5XIdRel[105X
+  up  to version 2.38 in 2017. For version 2.39 the methods were revised so as
+  to  produce  some  data  for  infinite  groups.  This  experimental  work is
+  described in later sections.[133X
+  
+  [1X6.4-1 IdentitiesAmongRelators[101X
+  
+  [33X[1;0Y[29X[2XIdentitiesAmongRelators[102X( [3Xgrp[103X ) [32X attribute[133X
+  
+  [33X[0;0YIt  is [13Xnot[113X guaranteed that a minimal set of identities is obtained. For [10Xq8[110X a
+  set  of  seven  identities  is returned, whereas a minimal set contains only
+  six. See Example 5.1 of [HW03] for further details.[133X
+  
+  [33X[0;0YWhy [10Xidrelq8[110X in the following example is shorter than [10Xridsq8[110X above remains to
+  be investigated![133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xidrelq8 := IdentitiesAmongRelators( q8 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( idrelq8 );[127X[104X
+    [4X[28X14[128X[104X
+    [4X[25Xgap>[125X [27Xfor i in [1..14] do [127X[104X
+    [4X[25X>[125X [27X      PrintLnUsingLabels( idrelq8[i], genfmq8, q8labs ); [127X[104X
+    [4X[25X>[125X [27X   od; [127X[104X
+    [4X[28X[ [ -1, id ], [ 1, a ] ][128X[104X
+    [4X[28X[ [ -2, id ], [ 2, b ] ][128X[104X
+    [4X[28X[ [ -4, id ], [ 3, A ], [ 3, id ], [ 2, id ], [ -4, b ] ][128X[104X
+    [4X[28X[ [ -4, id ], [ 2, A^2 ], [ 1, id ], [ -4, a^2 ] ][128X[104X
+    [4X[28X[ [ 1, id ], [ -4, id ], [ 2, A^2 ], [ -4, A^2 ] ][128X[104X
+    [4X[28X[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 1, id ], [ -3, a ] ][128X[104X
+    [4X[28X[ [ -4, id ], [ 3, A ], [ 4, a ], [ -3, b ] ][128X[104X
+    [4X[28X[ [ -3, id ], [ 4, B*A ], [ -4, A^2 ], [ 1, id ], [ -3, B ] ][128X[104X
+    [4X[28X[ [ -4, id ], [ 4, B*A^2 ], [ -4, A^2 ], [ 1, id ], [ 2, id ], [128X[104X
+    [4X[28X[ -4, b ] ][128X[104X
+    [4X[28X[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 3, A^2 ], [ 4, id ], [128X[104X
+    [4X[28X[ -4, B ] ][128X[104X
+    [4X[28X[ [ -4, id ], [ 3, A ], [ -4, A ], [ 2, A^3 ], [ 1, id ], [128X[104X
+    [4X[28X[ -3, b ] ][128X[104X
+    [4X[28X[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 1, id ], [ -4, a ], [128X[104X
+    [4X[28X[ 2, A ], [ 1, id ], [ -4, a^2 ], [ -3, B ] ][128X[104X
+    [4X[28X[ [ -4, id ], [ 3, A ], [ 4, B*A ], [ -4, A ], [ 1, id ], [128X[104X
+    [4X[28X[ -3, a ], [ 4, B ], [ -1, b ] ][128X[104X
+    [4X[28X[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 3, A^2 ], [ 4, B*A^2 ], [128X[104X
+    [4X[28X[ -4, A^2 ], [ 1, id ], [ -1, B ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X6.4-2 IdentityYSequences[101X
+  
+  [33X[1;0Y[29X[2XIdentityYSequences[102X( [3Xgrp[103X ) [32X attribute[133X
+  
+  [33X[0;0YThese identities are then transformed into module polynomials[133X
+  
+  
+  [24X[33X[0;6Y\rho(a + ba) + \sigma({\rm id} + ab + ba) - \tau({\rm id} + a + A)\ ,[133X
+  
+  [124X
+  
+  [33X[0;0Ywhere the monoid elements are transformed into their normal forms.[133X
+  
+  [33X[0;0YThe collection of saturated sets of these module polynomials is then reduced
+  as   far  as  possible,  and  the  minimal  set  obtained  returned  as  the
+  [10XIdentityYSequences[110X  of  the group. The group relator sequences corresponding
+  to these module polynomials form the [10XIdentitiesAmongRelators[110X for the group.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xidyseq8 := IdentityYSequences( q8 );; [127X[104X
+    [4X[25Xgap>[125X [27Xfor y in idyseq8 do [127X[104X
+    [4X[25X>[125X [27X       PrintLnYSequence( y, genfmq8, q8labs, genq8R, q8Rlabs ); [127X[104X
+    [4X[25X>[125X [27X   od; [127X[104X
+    [4X[28Xq8_Y2*(1*A), q^-1*(-1*A) + q*(1*id)) [128X[104X
+    [4X[28Xq8_Y1*(1*B), r^-1*(-1*B) + r*(1*id)) [128X[104X
+    [4X[28Xq8_Y6*(-1*id), r*(-1*id) + s*(-1*A + -1*id) + t^-1*(1*b + 1*id)) [128X[104X
+    [4X[28Xq8_Y3*(-1*a), q*(-1*a) + r*(-1*A) + t^-1*(1*A + 1*a)) [128X[104X
+    [4X[28Xq8_Y5*(-1*a), q*(-1*a) + r*(-1*A) + t^-1*(1*A + 1*a)) [128X[104X
+    [4X[28Xq8_Y7*(1*a*b), q*(1*a*b) + s^-1*(-1*a*b + -1*B) + t^-1*(-1*b) + t*(1*id)) [128X[104X
+    [4X[28Xq8_Y4*(1*A), s^-1*(-1*a*b) + s*(1*a^2) + t^-1*(-1*A) + t*(1*id)) [128X[104X
+    [4X[28Xq8_Y8*(1*a*b), q*(1*a*b) + s^-1*(-1*a*b + -1*A) + t^-1*(-1*a*B) + t*(1*id)) [128X[104X
+    [4X[28Xq8_Y10*(1*B), q*(1*B) + r*(1*B) + t^-1*(-1*B + -1*b + -1*id) + t*(1*id)) [128X[104X
+    [4X[28Xq8_Y11*(1*b), s^-1*(-1*b) + s*(1*B) + t^-1*(-1*a*B + -1*id) + t*(1*b + 1*a)) [128X[104X
+    [4X[28Xq8_Y9*(-1*a), q*(-1*a) + r*(-1*a^2) + s^-1*(1*a*B) + s*(-1*id) + t^-1*(1*a + [128X[104X
+    [4X[28X1*id)) [128X[104X
+    [4X[28Xq8_Y15*(1*a*b), q*(2*a*b) + r*(1*b) + s^-1*(-1*a*b + -1*A) + t^-1*(-1*a*B + [128X[104X
+    [4X[28X-1*B + -1*b) + t*(1*id)) [128X[104X
+    [4X[28Xq8_Y12*(1*b), q^-1*(-1*a^2) + q*(1*b) + s^-1*(-1*a*b) + s*(1*a*B) + t^-1*([128X[104X
+    [4X[28X-1*a*B + -1*b) + t*(1*a + 1*id)) [128X[104X
+    [4X[28Xq8_Y13*(1*a*b), q^-1*(-1*A) + q*(1*a*b) + s^-1*(-1*a*b) + s*(1*a*B) + t^-1*([128X[104X
+    [4X[28X-1*a*B + -1*b) + t*(1*a + 1*id)) [128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.5 [33X[0;0YPartial lists of elements[133X[101X
+  
+  [33X[0;0YAs  we  have  seen, the procedure for obtaining identities involves applying
+  each  relator  at  each  element of the group. Since this will not terminate
+  when the group is infinite, we include an operation to construct words up to
+  a given length in the monoid representation of the group.[133X
+  
+  [1X6.5-1 PartialElementsOfMonoidRepresentation[101X
+  
+  [33X[1;0Y[29X[2XPartialElementsOfMonoidRepresentation[102X( [3XG[103X, [3Xlen[103X ) [32X operation[133X
+  
+  [33X[0;0YAs an example we take the group [22X⟨ u,v,w ~|~ u^3, v^2, w^2, (uv)^2, (vw)^2⟩[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup(3);;[127X[104X
+    [4X[25Xgap>[125X [27Xu := F.1;;  v := F.2;;  w := F.3;;[127X[104X
+    [4X[25Xgap>[125X [27Xrels := [ u^3, v^2, w^2, (u*v)^2, (v*w)^2 ];;[127X[104X
+    [4X[25Xgap>[125X [27Xq0 := F/rels;;[127X[104X
+    [4X[25Xgap>[125X [27XSetArrangementOfMonoidGenerators( q0, [1,-1,2,-2,3,-3] );[127X[104X
+    [4X[25Xgap>[125X [27XSetName( q0, "q0" );[127X[104X
+    [4X[25Xgap>[125X [27Xmq0 := MonoidPresentationFpGroup( q0 );;[127X[104X
+    [4X[25Xgap>[125X [27Xfmq0 := FreeGroupOfPresentation( mq0 );;[127X[104X
+    [4X[25Xgap>[125X [27Xgenfmq0 := GeneratorsOfGroup( fmq0 );;[127X[104X
+    [4X[25Xgap>[125X [27Xq0labs := ["u","U","v","V","w","W"];; [127X[104X
+    [4X[25Xgap>[125X [27XSetMonoidPresentationLabels( mq0, q0labs );; [127X[104X
+    [4X[25Xgap>[125X [27Xlrws := LoggedRewritingSystemFpGroup( q0 );;[127X[104X
+    [4X[25Xgap>[125X [27Xpe1 := PartialElementsOfMonoidPresentation( q0, 1 );; [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( pe1, genfmq0, q0labs ); [127X[104X
+    [4X[28X[ id, u, U, v, w ][128X[104X
+    [4X[25Xgap>[125X [27Xpe2 := PartialElementsOfMonoidPresentation( q0, 2 );;[127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( pe2, genfmq0, q0labs ); [127X[104X
+    [4X[28X[ id, u, U, v, w, u*v, u*w, U*v, U*w, v*w, w*u, w*U ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y [133X
+  

@@ -1,0 +1,163 @@
+  
+  [1X5 [33X[0;0YModule Polynomials[133X[101X
+  
+  [33X[0;0YIn this chapter we consider finitely generated modules over the monoid rings
+  considered   previously.  We  call  an  element  of  this  module  a  [13Xmodule
+  polynomial[113X,  and  we  describe functions to construct module polynomials and
+  the standard algebraic operations for such polynomials.[133X
+  
+  [33X[0;0YA  module  polynomial [10Xmodpoly[110X is recorded as a list of pairs, [10X[ gen, monpoly
+  ][110X,  where [10Xgen[110X is a module generator (basis element), and [10Xmonpoly[110X is a monoid
+  polynomial.  The  module  polynomial  is printed as the formal sum of monoid
+  polynomial multiples of the generators. Note that the monoid polynomials are
+  the  coefficients  of  the module polynomials and appear to the right of the
+  generator, as we choose to work with right modules.[133X
+  
+  [33X[0;0YThe  examples  we  are aiming for are the identities among the relators of a
+  finitely presented group (see section [12X5.4[112X).[133X
+  
+  
+  [1X5.1 [33X[0;0YConstruction of module polynomials[133X[101X
+  
+  [1X5.1-1 ModulePoly[101X
+  
+  [33X[1;0Y[29X[2XModulePoly[102X( [3Xgens[103X, [3Xmonpolys[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XModulePoly[102X( [3Xargs[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XZeroModulePoly[102X( [3XFgens[103X, [3XFmon[103X ) [32X operation[133X
+  
+  [33X[0;0YThe  function  [10XModulePoly[110X  returns  a  module  polynomial.  The terms of the
+  polynomial may be input as a list of generators followed by a list of monoid
+  polynomials or as one list of [10X[generator, monoid polynomial][110X pairs.[133X
+  
+  [33X[0;0YAssuming  that  [10XFgens[110X is the free group on the module generators and [10XFmon[110X is
+  the free group on the monoid generators, the function [10XZeroModulePoly[110X returns
+  the  zero  module  polynomial,  which has no terms, and is an element of the
+  module.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xq8R := FreeRelatorGroup( q8 );; [127X[104X
+    [4X[25Xgap>[125X [27Xgenq8R := GeneratorsOfGroup( q8R ); [127X[104X
+    [4X[28X[ q8_R1, q8_R2, q8_R3, q8_R4 ][128X[104X
+    [4X[25Xgap>[125X [27Xq8Rlabs := [ "q", "r", "s", "t" ];; [127X[104X
+    [4X[25Xgap>[125X [27XPrint( rmp1, "\n" ); [127X[104X
+    [4X[28X - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>[128X[104X
+    [4X[25Xgap>[125X [27XM := GeneratorsOfGroup( fmq8 ); [127X[104X
+    [4X[28X[ q8_M1, q8_M2, q8_M3, q8_M4 ][128X[104X
+    [4X[25Xgap>[125X [27Xmp2 := MonoidPolyFromCoeffsWords( [4,-5], [ M[4], M[1] ] );;[127X[104X
+    [4X[25Xgap>[125X [27XPrint( mp2, "\n" ); [127X[104X
+    [4X[28X4*q8_M4 - 5*q8_M1[128X[104X
+    [4X[25Xgap>[125X [27Xzeromp := ZeroModulePoly( q8R, freeq8 );[127X[104X
+    [4X[28Xzero modpoly [128X[104X
+    [4X[25Xgap>[125X [27Xs1 := ModulePoly( [ genq8R[4], genq8R[1] ], [ rmp1, mp2 ] );[127X[104X
+    [4X[28Xq8_R1*(4*q8_M4 - 5*q8_M1) + q8_R4*( - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>)[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X5.1-2 PrintLnModulePoly[101X
+  
+  [33X[1;0Y[29X[2XPrintLnModulePoly[102X( [3Xobj[103X, [3Xgens1[103X, [3Xlabs1[103X, [3Xgens2[103X, [3Xlabs2[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XPrintModulePoly[102X( [3Xobj[103X, [3Xgens1[103X, [3Xlabs1[103X, [3Xgens2[103X, [3Xlabs2[103X ) [32X operation[133X
+  
+  [33X[0;0YThe  function [10XPrintModulePoly[110X prints a module polynomial, using the function
+  [10XPrintUsingLabels[110X.  Two  lists of labels are involved: those for the fp-group
+  being  investigated, and those for the free relator group of this group. The
+  function  [10XPrintLnModulePoly[110X  does  exactly  the  same,  and  then  appends a
+  newline.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xq8Rlabs := [ "q", "r", "s", "t" ];; [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnModulePoly( s1, genfgmon, q8labs, genq8R, q8Rlabs );[127X[104X
+    [4X[28Xq*(4*B + -5*a) + t*(-7*B + 5*a + 9*id)[128X[104X
+    [4X[25Xgap>[125X [27Xs2 := ModulePoly( [ genq8R[3], genq8R[2], genq8R[1] ], [127X[104X
+    [4X[25X>[125X [27X      [ -1*rmp1, 3*mp2, (rmp1+mp2) ] );;[127X[104X
+    [4X[25Xgap>[125X [27XPrintLnModulePoly( s2, genfgmon, q8labs, genq8R, q8Rlabs );[127X[104X
+    [4X[28Xq*(-3*B + 9*id) + r*(12*B + -15*a) + s*(7*B + -5*a + -9*id)[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X5.2 [33X[0;0YComponents of a module polynomial[133X[101X
+  
+  [1X5.2-1 Terms[101X
+  
+  [33X[1;0Y[29X[2XTerms[102X( [3Xmodpoly[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XLeadTerm[102X( [3Xmodpoly[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XLeadMonoidPoly[102X( [3Xmodpoly[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XLength[102X( [3Xmodpoly[103X ) [32X method[133X
+  [33X[1;0Y[29X[2XOne[102X( [3Xmodpoly[103X ) [32X attribute[133X
+  
+  [33X[0;0YThe  function  [10XTerms[110X  returns  the terms of a module polynomial as a list of
+  pairs. In [10XLeadTerm[110X, the generators are ordered, and the term of [10Xmodpoly[110X with
+  the  highest  value  generator is defined to be the leading term. The monoid
+  polynomial  (coefficient)  part  of  the  leading  term  is  returned by the
+  function [10XLeadMonoidPoly[110X.[133X
+  
+  [33X[0;0YThe  function  [10XLength[110X  counts the number of module generators which occur in
+  [10Xmodpoly[110X  (a generator occurs in a polynomial if it has nonzero coefficient).
+  The function [10XOne[110X returns the identity in the free group on the generators.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27X[ Length(s1), Length(s2) ];[127X[104X
+    [4X[28X[ 2, 3 ][128X[104X
+    [4X[25Xgap>[125X [27XOne( s1 );[127X[104X
+    [4X[28X<identity ...>[128X[104X
+    [4X[25Xgap>[125X [27Xterms := Terms( s1 );;[127X[104X
+    [4X[25Xgap>[125X [27Xfor t in terms do [127X[104X
+    [4X[25X>[125X [27X       PrintModulePolyTerm( t, genfmq8, q8labs, genq8R, q8Rlabs ); [127X[104X
+    [4X[25X>[125X [27X       Print( "\n" );[127X[104X
+    [4X[25X>[125X [27X   od; [127X[104X
+    [4X[28Xq*(4*B + -5*a)[128X[104X
+    [4X[28Xt*(-7*B + 5*a + 9*id)[128X[104X
+    [4X[25Xgap>[125X [27Xt1 := LeadTerm( s1 );;[127X[104X
+    [4X[25Xgap>[125X [27XPrintModulePolyTerm( t1, genfmq8, q8labs, genq8R, q8Rlabs );[127X[104X
+    [4X[28Xt*(-7*B + 5*a + 9*id)[128X[104X
+    [4X[25Xgap>[125X [27Xt2 := LeadTerm( s2 );;[127X[104X
+    [4X[25Xgap>[125X [27XPrintModulePolyTerm( t2, genfmq8, q8labs, genq8R, q8Rlabs );[127X[104X
+    [4X[28Xs*(7*B + -5*a + -9*id) [128X[104X
+    [4X[25Xgap>[125X [27Xp1 := LeadMonoidPoly( s1 ); [127X[104X
+    [4X[28X - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>[128X[104X
+    [4X[25Xgap>[125X [27Xp2 := LeadMonoidPoly( s2 );[127X[104X
+    [4X[28X7*q8_M4 - 5*q8_M1 - 9*<identity ...>[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X5.3 [33X[0;0YModule Polynomial Operations[133X[101X
+  
+  [1X5.3-1 AddTermModulePoly[101X
+  
+  [33X[1;0Y[29X[2XAddTermModulePoly[102X( [3Xmodpoly[103X, [3Xgen[103X, [3Xmonpoly[103X ) [32X operation[133X
+  
+  [33X[0;0YThe  function  [10XAddTermModulePoly[110X  adds  a  term  [10X[gen,  monpoly][110X to a module
+  polynomial [10Xmodpoly[110X.[133X
+  
+  [33X[0;0YTests for equality and arithmetic operations are performed in the usual way.
+  Module  polynomials may be added or subtracted. A module polynomial can also
+  be  multiplied  on the right by a word or by a scalar. The effect of this is
+  to  multiply the monoid polynomial parts of each term by the word or scalar.
+  This is made clearer in the example.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xmp0 := MonoidPolyFromCoeffsWords( [6], [ M[2] ] );;[127X[104X
+    [4X[25Xgap>[125X [27Xs0 := AddTermModulePoly( s1, genq8R[3], mp0 ); [127X[104X
+    [4X[28Xq8_R1*(4*q8_M4 - 5*q8_M1) + q8_R3*(6*q8_M2) + q8_R4*( - 7*q8_M4 + 5*q8_M1 + [128X[104X
+    [4X[28X9*<identity ...>)[128X[104X
+    [4X[25Xgap>[125X [27XPrint( s1 + s2, "\n" );[127X[104X
+    [4X[28Xq8_R1*( q8_M4 - 5*q8_M1 + 9*<identity ...>) + q8_R2*(12*q8_M4 - [128X[104X
+    [4X[28X15*q8_M1) + q8_R3*(7*q8_M4 - 5*q8_M1 - 9*<identity ...>) + q8_R4*( - [128X[104X
+    [4X[28X7*q8_M4 + 5*q8_M1 + 9*<identity ...>)[128X[104X
+    [4X[25Xgap>[125X [27XPrint( s1 - s0, "\n" );[127X[104X
+    [4X[28Xq8_R3*( - 6*q8_M2)[128X[104X
+    [4X[25Xgap>[125X [27XPrint( s1 * 1/2, "\n" );[127X[104X
+    [4X[28Xq8_R1*(2*q8_M4 - 5/2*q8_M1) + q8_R4*( - 7/2*q8_M4 + 5/2*q8_M1 + 9/[128X[104X
+    [4X[28X2*<identity ...>)[128X[104X
+    [4X[25Xgap>[125X [27XPrint( s1 * M[1], "\n" );[127X[104X
+    [4X[28Xq8_R1*(4*q8_M4*q8_M1 - 5*q8_M1^2) + q8_R4*( - 7*q8_M4*q8_M1 + 5*q8_M1^2 + [128X[104X
+    [4X[28X9*q8_M1)[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  

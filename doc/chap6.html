@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (IdRel) - Chapter 6: Identities Among Relators</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap6"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap5.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap6_mj.html">[MathJax on]</a></p>
+<p><a id="X78038BF07E998E21" name="X78038BF07E998E21"></a></p>
+<div class="ChapSects"><a href="chap6.html#X78038BF07E998E21">6 <span class="Heading">Identities Among Relators</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X788AFE547F49A8AF">6.1 <span class="Heading">Constructing identities</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7BEE0DBB78F9355E">6.1-1 RootIdentities</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7933DDE27D5254A4">6.1-2 IdentityRelatorSequences</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7D9664267BC57E09">6.1-3 LogSequenceLessThan</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X84E1E018809BE464">6.1-4 ExpandLogSequence</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X79EE179E7AD81F44">6.2 <span class="Heading">Identities for <span class="SimpleMath">S_3</span></span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8064D8CE783CB70A">6.2-1 ReduceLogSequences</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82CCDCDF7BE58F35">6.2-2 ConjugateByWordLogSequence</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8220EF3585706C00">6.2-3 ChangeStartLogSequence</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7E3DACB581C67E3C">6.2-4 InverseLogSequence</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X8325D1257B791ABC">6.2-5 CancelImmediateInversesLogSequence</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X82CE16C9788F883A">6.3 <span class="Heading">Reducing identities</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X80F769D9796954FC">6.3-1 LogSequenceRewriteRules</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X82F66A16877FCDFE">6.3-2 OnePassReduceLogSequence</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X85814EFA81FE864F">6.3-3 MoveRightLogSequence</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7EE8CE5E79598779">6.3-4 SubstituteLogSubsequence</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X7D428F9B8054F5FB">6.4 <span class="Heading">The original approach</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7FD998C87BF9AAC9">6.4-1 IdentitiesAmongRelators</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X78A94CB77B98ACAA">6.4-2 IdentityYSequences</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X8448909D82CF6FE9">6.5 <span class="Heading">Partial lists of elements</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7FCEF03E7A57C331">6.5-1 PartialElementsOfMonoidRepresentation</a></span>
+</div></div>
+</div>
+
+<h3>6 <span class="Heading">Identities Among Relators</span></h3>
+
+<p>The identities among the relators for a finitely presented group <span class="SimpleMath">G</span> are constructed as logged module polynomials. The procedure, described in <a href="chapBib.html#biBHeWe1">[HW03]</a> and based on work in <a href="chapBib.html#biBBrSa">[BRS99]</a>, is to construct a full set of <em>group relator sequences</em> for the group; convert these into module polynomials (eliminating empty sequences); and then apply simplification rules (including the primary identity property) to eliminate obvious duplicates and conjugates.</p>
+
+<p>When a reduced set of polynomials has been obtained, the relator sequences from which they were formed are returned as the <em>identities among relators</em> for <span class="SimpleMath">G</span>.</p>
+
+<p><a id="X788AFE547F49A8AF" name="X788AFE547F49A8AF"></a></p>
+
+<h4>6.1 <span class="Heading">Constructing identities</span></h4>
+
+<p><a id="X7BEE0DBB78F9355E" name="X7BEE0DBB78F9355E"></a></p>
+
+<h5>6.1-1 RootIdentities</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RootIdentities</code>( <var class="Arg">grp</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RootPositions</code>( <var class="Arg">grp</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>The <em>root identities</em> of <span class="SimpleMath">G</span> are identities of the form <span class="SimpleMath">R^-1R^w</span> where <span class="SimpleMath">R = w^n</span> is a proper power relator and <span class="SimpleMath">n&gt;1</span>. (For equivalent forms invert, or permute the factors cyclically, or act with <span class="SimpleMath">w^-1</span>.)</p>
+
+<p>For <span class="SimpleMath">S_3 = ⟨ f,g ~|~ ρ=f^3, σ=g^2, τ=(fg)^2 ⟩</span> all three relators are proper powers: <span class="SimpleMath">[1 ≡ ρ=f^3, 2 ≡ σ=g^2, 3 ≡ τ=(fg)^2]</span>. So the root identities are <span class="SimpleMath">ρ^-1 ρ^a, σ^-1 σ^b</span> and <span class="SimpleMath">τ^-1 τ^ab</span>.</p>
+
+<p>For <span class="SimpleMath">Q_8 = ⟨ a,b ~|~ q=a^4, r=b^4, s=abab^-1, t=a^2b^2 ⟩</span> only two of the four relators are proper powers, so the root identities are <span class="SimpleMath">q^-1 q^a</span> and <span class="SimpleMath">r^-1 r^b</span>.</p>
+
+<p>In the example we see that the attribute <code class="code">RootIdentities</code> returns a list which includes <span class="SimpleMath">R^-1R^w^-1}</span> as well as <span class="SimpleMath">R^-1R^w</span>. Relator <span class="SimpleMath">ρ^-1ρ^f</span> is stored as <code class="code">[[-1,id],[1,f]]</code>, etc.</p>
+
+<p>The <code class="code">RootPositions</code> attribute is a boolean list specifying which of the relators are proper powers.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">roots3 := RootIdentities(s3);</span>
+[ [ [ -1, &lt;identity ...&gt; ], [ 1, s3_M1 ] ], 
+  [ [ -1, &lt;identity ...&gt; ], [ 1, s3_M3 ] ], 
+  [ [ -2, &lt;identity ...&gt; ], [ 2, s3_M2 ] ], 
+  [ [ -2, &lt;identity ...&gt; ], [ 2, s3_M4 ] ], 
+  [ [ -3, &lt;identity ...&gt; ], [ 3, s3_M1*s3_M2 ] ], 
+  [ [ -3, &lt;identity ...&gt; ], [ 3, s3_M4*s3_M3 ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">RootPositions(s3);</span>
+[ true, true, true ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( RootIdentities(q8), genfmq8, q8labs );</span>
+[ [ [ -1, id ], [ 1, a ] ], [ [ -1, id ], [ 1, A ] ], [ [ -2, id ], 
+[ 2, b ] ], [ [ -2, id ], [ 2, B ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">RootPositions(q8);</span>
+[ true, true, false, false ]
+
+</pre></div>
+
+<p><a id="X7933DDE27D5254A4" name="X7933DDE27D5254A4"></a></p>
+
+<h5>6.1-2 IdentityRelatorSequences</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IdentityRelatorSequences</code>( <var class="Arg">grp</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>To construct the <em>identity relator sequences</em> for a group <span class="SimpleMath">G</span> we apply each relator <span class="SimpleMath">R</span> at each non-identity element <span class="SimpleMath">x</span>, reducing the resulting words using the logged rewrite system.</p>
+
+<p>With the <code class="code">s3</code> example, the monoid presentation has generators <span class="SimpleMath">{f,g,F,G}</span> and relators</p>
+
+<p class="pcenter">
+[~ fF,~ gG,~ Ff,~ Gg,~ f^3,~ g^2,~ (fg)^2 ~]\ , 
+</p>
+
+<p>and the elements are <span class="SimpleMath">{ id, f, g, F, fg, gf}</span>. The logged rewriting system has relations</p>
+
+<div class="pcenter"><table class="GAPDocTable">
+<tr>
+<td class="tdleft"><span class="SimpleMath">f^-1 = F, quad g^-1 = [-2, id]g, quad F^-1 = f, quad G^-1 = g, quad G = [-2,id]g,</span></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">fF = id, quad g^2 = [2, id] id, quad Ff = id, quad f^2 = [1, id]F, quad F^2 = [-1, id]f,</span></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">gF = [-3, id][2,FGF]fg, quad Fg = [-3,f][2,FG]gf,</span></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">fgf = [-2,FGF][3, id]g, quad gfg = [3,f]F</span></td>
+</tr>
+</table><br /><p>&nbsp;</p><br />
+</div>
+
+<p>Here is the Cayley graphs of <span class="SimpleMath">S_3</span>, with the solid arrows forming the spanning tree: <img src="./graphics/cayley-s3.jpg"></img> Applying <span class="SimpleMath">R = τ = (fg)^2</span> at <span class="SimpleMath">x = f</span> gives the cycle (top right-hand quadrilateral):</p>
+
+<p class="pcenter">
+f \stackrel{f}{\longrightarrow} F 
+  \stackrel{g}{\longrightarrow} gf 
+  \stackrel{f}{\longrightarrow} fg 
+  \stackrel{g}{\longrightarrow} f\ .
+</p>
+
+<p>Each of these edges has a non-trivial logged rewrite, particularly the third edge where <span class="SimpleMath">gff -&gt; gF -&gt; fg</span>. Combining this log information we obtain:</p>
+
+<p class="pcenter"> 
+[\tau,F]\,f ~=~ f.\tau ~=~ 
+[1,{\rm id}].[-3,f][2,FG].[1,G][-3,{\rm id}][2,FGF].[2,F]\,f .
+</p>
+
+<p>Expanding <span class="SimpleMath">[1, id][-3,f][2,FG][1,G][-3, id][2,FGF][2,F][-3,F]</span> gives</p>
+
+<p class="pcenter">
+fff.FGFGFf.gfggFG.gfffG.GFGF.fgfggFGF.fggF.fGFGFF 
+</p>
+
+<p>which cancels to the identity, as expected. Converting this back to the group presentation, we obtain the fourth identity given in the introduction (<a href="chap1.html#X80F39D77788BD099"><span class="RefLink">1.1</span></a>):</p>
+
+<p class="pcenter"> 
+\iota_{(\tau,f)} ~=~ 
+\rho\ (\tau^{-1})^f\ \sigma^{FG}\ \rho^G\ 
+(\tau^{-1})\ \sigma^{FGF}\ \sigma^F\ (\tau^{-1})^F\, .
+</p>
+
+<p>The operation <code class="code">IdentityRelatorSequences</code> returns a list which omits any duplicates or empty lists. For the <code class="code">s3</code> example, all of the possible <span class="SimpleMath">5*3 = 15</span> sequences are added to the root identities.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ms3 := MonoidPresentationFpGroup( s3 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">fms3 := FreeGroupOfPresentation( ms3 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">genfms3 := GeneratorsOfGroup(fms3 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">s3labs := ["f","g","F","G"];; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetMonoidPresentationLabels( ms3, s3labs );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">idss3 := IdentityRelatorSequences( s3 );;          </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lenidss3 := Length( idss3 );                                   </span>
+17
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( idss3, L -&gt; Length(L) );</span>
+[ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 6, 8, 8 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"> for i in [1..Length(idss3)] do                     </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      PrintLnUsingLabels( idss3[i], genfms3, s3labs );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    od;</span>
+[ [ -3, id ], [ 3, f*g ] ]
+[ [ -3, id ], [ 3, G*F ] ]
+[ [ -2, id ], [ 2, g ] ]
+[ [ -2, id ], [ 2, G ] ]
+[ [ -1, id ], [ 1, f ] ]
+[ [ -1, id ], [ 1, F ] ]
+[ [ 1, id ], [ -1, f ] ]
+[ [ 1, id ], [ -1, F ] ]
+[ [ 1, G ], [ -1, F*G ] ]
+[ [ 2, id ], [ -2, G ] ]
+[ [ 2, F ], [ -2, G*F ] ]
+[ [ 3, f ], [ -3, G ] ]
+[ [ -3, f ], [ 2, F*G ], [ 3, f ], [ -2, f ] ]
+[ [ -2, F*G*F ], [ 3, id ], [ 2, id ], [ -3, G*F ] ]
+[ [ -2, F*G*F ], [ 3, id ], [ 1, G ], [ -3, id ], [ 2, F*G*F ], 
+[ -1, G*F ] ]
+[ [ 1, id ], [ -3, f ], [ 2, F*G ], [ 1, G ], [ -3, id ], 
+[ 2, F*G*F ], [ 2, F ], [ -3, F ] ]
+[ [ 1, G ], [ -3, id ], [ 2, F*G*F ], [ 2, F ], [ 1, id ], 
+[ -3, f ], [ 2, F*G ], [ -3, F*G ] ]
+
+</pre></div>
+
+<p><a id="X7D9664267BC57E09" name="X7D9664267BC57E09"></a></p>
+
+<h5>6.1-3 LogSequenceLessThan</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LogSequenceLessThan</code>( <var class="Arg">J</var>, <var class="Arg">K</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>This is an operation used to sort lists of identity sequences. First the lengths of sequences <code class="code">J, K</code> are compared. If the lengths are equal then the sequences are compared as lists. The list <code class="code">idss3</code> is sorted using this function.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LogSequenceLessThan( idss3[7], idss3[8] ); </span>
+true
+
+</pre></div>
+
+<p><a id="X84E1E018809BE464" name="X84E1E018809BE464"></a></p>
+
+<h5>6.1-4 ExpandLogSequence</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ExpandLogSequence</code>( <var class="Arg">mG</var>, <var class="Arg">L</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>This operation takes a log sequence <span class="SimpleMath">L</span>, writes each term as a conjugate of a relator, takes the product of all of these, and then cancels consecutive inverse generators to return a word in the free group of the presentation. This is precisely what we did by hand with <span class="SimpleMath">ι_(τ,f)</span> on the previous page. If the sequence is an identity sequence the identity element should be returned, so this provides a useful check.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ExpandLogSequence( ms3, idss3[17] );</span>
+&lt;identity ...&gt;
+
+</pre></div>
+
+<p><a id="X79EE179E7AD81F44" name="X79EE179E7AD81F44"></a></p>
+
+<h4>6.2 <span class="Heading">Identities for <span class="SimpleMath">S_3</span></span></h4>
+
+<p>We now return to the example considered in section <a href="chap1.html#X80F39D77788BD099"><span class="RefLink">1.1</span></a>. In the previous section we have constructed <span class="SimpleMath">17</span> identity sequences, and we now wish to reduce this number to find a minimal set.</p>
+
+<p><a id="X8064D8CE783CB70A" name="X8064D8CE783CB70A"></a></p>
+
+<h5>6.2-1 ReduceLogSequences</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ReduceLogSequences</code>( <var class="Arg">G</var>, <var class="Arg">ids</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>This operation applies a collection of operations, which will be described in the following section, to reduce the list <code class="code">idss3</code> from <span class="SimpleMath">17</span> to <span class="SimpleMath">5</span> identities.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ridss3 := ReduceLogSequences( s3, idss3 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lenridss3 := Length( ridss3 );                                   </span>
+5
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for i in [1..lenridss3] do                                </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       PrintLnUsingLabels( ridss3[i], genfms3, s3labs );   </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   od;</span>
+[ [ -3, id ], [ 3, f*g ] ]
+[ [ -2, id ], [ 2, g ] ]
+[ [ -1, id ], [ 1, f ] ]
+[ [ 1, id ], [ -3, f ], [ 2, F*G ], [ 1, G ], [ -3, id ], 
+[ 2, F*G*F ], [ 2, F ], [ -3, F ] ]
+[ [ 1, id ], [ -3, g ], [ 2, F*G*F*g ], [ 2, F*g ], [ 1, g ], 
+[ -3, id ], [ 2, F ], [ -3, F ] ]
+
+</pre></div>
+
+<p>We wish to show that the fifth of these identities is a combination of the first four. Recall that the fourth identity was obtained by applying <span class="SimpleMath">R = τ = (fg)^2</span> at <span class="SimpleMath">x = f</span>. The fifth comes from applying <span class="SimpleMath">R = τ</span> at <span class="SimpleMath">x = gf</span>, so this is the same cycle but with a different start point.</p>
+
+<p><a id="X82CCDCDF7BE58F35" name="X82CCDCDF7BE58F35"></a></p>
+
+<h5>6.2-2 ConjugateByWordLogSequence</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ConjugateByWordLogSequence</code>( <var class="Arg">mG</var>, <var class="Arg">K</var>, <var class="Arg">w</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>This operation conjugates every term in a log sequence by a word in the generators. In the example we conjugate the fifth identity <code class="code">K5</code> by <span class="SimpleMath">G</span>. It then becomes apparent that the fourth identity <code class="code">K4</code> has the form <code class="code">[ A, B, [ -3, F ] ]</code> while <code class="code">K5</code> has the form <code class="code">[ B, A, [ -3, FG ] ]</code>, where the <code class="code">F</code> and the <code class="code">GF</code> are the inverses of the vertices where the cycle starts.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">K4 := ShallowCopy( ridss3[4] );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( K4, genfms3, s3labs ); </span>
+[ [ 1, id ], [ -3, f ], [ 2, F*G ], [ 1, G ], [ -3, id ], 
+[ 2, F*G*F ], [ 2, F ], [ -3, F ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">L5 := ShallowCopy( ridss3[5] );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">K5 := ConjugateByWordLogSequence( ms3, L5, genfms3[4] );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( K5, genfms3, s3labs ); </span>
+[ [ 1, G ], [ -3, id ], [ 2, F*G*F ], [ 2, F ], [ 1, id ], 
+[ -3, f ], [ 2, F*G ], [ -3, F*G ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A := K4{[1..3]};;              </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( A, genfms3, s3labs ); </span>
+[ [ 1, id ], [ -3, f ], [ 2, F*G ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">B := K4{[4..7]};;              </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( B, genfms3, s3labs ); </span>
+[ [ 1, G ], [ -3, id ], [ 2, F*G*F ], [ 2, F ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PositionSublist( K5, A ); </span>
+5
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PositionSublist( K5, B ); </span>
+1
+
+</pre></div>
+
+<p><a id="X8220EF3585706C00" name="X8220EF3585706C00"></a></p>
+
+<h5>6.2-3 ChangeStartLogSequence</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ChangeStartLogSequence</code>( <var class="Arg">mon</var>, <var class="Arg">K</var>, <var class="Arg">p</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>The start point of an identity log sequence can be chosen at random (since every conjugate of an identity is that identity). This operation permutes a given sequence <span class="SimpleMath">K</span> so as to start at the <span class="SimpleMath">p</span>-th position.</p>
+
+<p>In our example we wish to show that <code class="code">K4</code> and <code class="code">K5</code> are equivalent up to root identities. To do this we first replace <code class="code">K4</code> by <code class="code">J4 = [ B, [ -3, F ], A ]</code>.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">J4 := ChangeStartLogSequence( ms3, K4, 4 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( J4, genfms3, s3labs ); </span>
+[ [ 1, G ], [ -3, id ], [ 2, F*G*F ], [ 2, F ], [ -3, F ], 
+[ 1, id ], [ -3, f ], [ 2, F*G ] ]
+
+</pre></div>
+
+<p><a id="X7E3DACB581C67E3C" name="X7E3DACB581C67E3C"></a></p>
+
+<h5>6.2-4 InverseLogSequence</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InverseLogSequence</code>( <var class="Arg">K</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>To invert a log sequence we reverse the order of the terms and replace each <code class="code">[m,w]</code> by <code class="code">[-m,w]</code>.</p>
+
+<p>We continue our example by replacing <code class="code">J4</code> by its inverse.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">J4 := InverseLogSequence( J4 );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( J4, genfms3, s3labs ); </span>
+[ [ -2, F*G ], [ 3, f ], [ -1, id ], [ 3, F ], [ -2, F ], [ -2, F*G*F ], 
+[ 3, id ], [ -1, G ] ]
+
+</pre></div>
+
+<p><a id="X8325D1257B791ABC" name="X8325D1257B791ABC"></a></p>
+
+<h5>6.2-5 CancelImmediateInversesLogSequence</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CancelImmediateInversesLogSequence</code>( <var class="Arg">K</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CancelInversesLogSequence</code>( <var class="Arg">mG</var>, <var class="Arg">K</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Concatenating <code class="code">J4</code> and <code class="code">K5</code>, we get <code class="code">[ A^-1, [ 3, F ], B^-1, B, A, [ -3, FG ] ]</code>, with length <span class="SimpleMath">16</span>. Cancelling immediate inverses removes the <code class="code">[ B^-1, B ]</code>. Cancelling inverses gets rid of the terms <code class="code">a^-1</code> and <code class="code">A</code>, converting <code class="code">[ 3, F ]</code> into <code class="code">[ 3, fgFG ] = [ 3, FG ]</code>. Conjugating with <code class="code">gf</code> produces the third root identity <code class="code">[ [ 3, fg ], [ -3, id ] ]</code>, which then cancels.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">J4K5 := Concatenation( J4, K5 );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">J4K5 := CancelImmediateInversesLogSequence( J4K5 );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( J4K5, genfms3, s3labs ); </span>
+[ [ -2, F*G ], [ 3, f ], [ -1, id ], [ 3, F ], [ 1, id ], 
+[ -3, f ], [ 2, F*G ], [ -3, F*G ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">J4K5 := CancelInversesLogSequence( ms3, J4K5 ); </span>
+[ ]
+
+</pre></div>
+
+<p><a id="X82CE16C9788F883A" name="X82CE16C9788F883A"></a></p>
+
+<h4>6.3 <span class="Heading">Reducing identities</span></h4>
+
+<p>In this section we list some further operations which may be used to simplify the list of identities returned by <code class="code">IdentityRelatorSequences</code>. We will use our <span class="SimpleMath">Q_8</span> presentation in the examples.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mq8 := MonoidPresentationFpGroup( q8 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">fmq8 := FreeGroupOfPresentation( mq8 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">genfmq8 := GeneratorsOfGroup(fmq8 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q8labs := ["a","b","A","B"];; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetMonoidPresentationLabels( mq8, q8labs );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">idsq8 := IdentityRelatorSequences( q8 );;          </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lenidsq8 := Length( idsq8 );                                   </span>
+28
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( idsq8, L -&gt; Length(L) );</span>
+[ 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 8, 8, 8, 
+  9, 10, 10 ]
+
+</pre></div>
+
+<p><a id="X80F769D9796954FC" name="X80F769D9796954FC"></a></p>
+
+<h5>6.3-1 LogSequenceRewriteRules</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LogSequenceRewriteRules</code>( <var class="Arg">mG</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>The root identity <span class="SimpleMath">R^-1R^w</span> may be converted into the rewrite rule <span class="SimpleMath">R^w -&gt; R</span>.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">rulesq8 := LogSequenceRewriteRules( mq8 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for i in [1..8] do </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       PrintLnUsingLabels( rulesq8[i], genfmq8, q8labs );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   od;</span>
+[ [ 1, a ], [ 1, id ] ]
+[ [ -1, a ], [ -1, id ] ]
+[ [ 1, A ], [ 1, id ] ]
+[ [ -1, A ], [ -1, id ] ]
+[ [ 2, b ], [ 2, id ] ]
+[ [ -2, b ], [ -2, id ] ]
+[ [ 2, B ], [ 2, id ] ]
+[ [ -2, B ], [ -2, id ] ]
+[ [ 3, a*b*a*B ], [ 3, id ] ]
+[ [ 3, b*A*B*A ], [ 3, id ] ]
+[ [ -3, a*b*a*B ], [ -3, id ] ]
+[ [ -3, b*A*B*A ], [ -3, id ] ]
+[ [ 4, a^2*b^2 ], [ 4, id ] ]
+[ [ 4, B^2*A^2 ], [ 4, id ] ]
+[ [ -4, a^2*b^2 ], [ -4, id ] ]
+[ [ -4, B^2*A^2 ], [ -4, id ] ]
+
+</pre></div>
+
+<p><a id="X82F66A16877FCDFE" name="X82F66A16877FCDFE"></a></p>
+
+<h5>6.3-2 OnePassReduceLogSequence</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OnePassReduceLogSequence</code>( <var class="Arg">J</var>, <var class="Arg">rules</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>The rewrite rules returned by <code class="code">LogSequenceRewriteRules</code> may be used to simplify other identity sequences. In the example the fourth rule <span class="SimpleMath">(q^-1)^A -&gt; q^-1</span>, applied twice, reduces <span class="SimpleMath">(q^-1)^A^2</span> to <span class="SimpleMath">q^-1</span>.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">J7 := idsq8[7];</span>
+[ [ 1, &lt;identity ...&gt; ], [ -1, q8_M3^2 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">OnePassReduceLogSequence( J7, rulesq8 );</span>
+[ [ 1, &lt;identity ...&gt; ], [ -1, &lt;identity ...&gt; ] ]
+
+</pre></div>
+
+<p>The operation <code class="code">ReduceLogSequences</code>, described in subsection <a href="chap6.html#X8064D8CE783CB70A"><span class="RefLink">6.2-1</span></a>, applied to the list <code class="code">idsq8</code> reduces the <span class="SimpleMath">28</span> identities to <span class="SimpleMath">15</span>.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ridsq8 := ReduceLogSequences( q8, idsq8 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lenrids := Length( ridsq8 );                                   </span>
+15
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for i in [1..lenrids] do                                </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       PrintLnUsingLabels( ridsq8[i], genfmq8, q8labs );   </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   od;</span>
+[ [ -2, id ], [ 2, b ] ]
+[ [ -1, id ], [ 1, a ] ]
+[ [ -4, id ], [ 2, A^2 ], [ 1, id ], [ -4, a^2 ] ]
+[ [ -4, id ], [ 3, A ], [ 4, a ], [ -3, b ] ]
+[ [ 1, id ], [ -4, id ], [ 2, A^2 ], [ -4, A^2 ] ]
+[ [ -4, id ], [ 3, A ], [ 3, id ], [ 2, id ], [ -4, b ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 1, id ], [ -3, a ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A^2 ], [ 1, id ], [ -3, B ] ]
+[ [ -4, id ], [ 3, A ], [ -4, A ], [ 2, A^3 ], [ 1, id ], 
+[ -3, b ] ]
+[ [ -4, id ], [ 4, B*A^2 ], [ -4, A^2 ], [ 1, id ], [ 2, id ], 
+[ -4, b ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 3, A^2 ], [ 4, id ], 
+[ -4, B ] ]
+[ [ -4, id ], [ 3, A ], [ 4, B*A ], [ -4, A ], [ 1, id ], 
+[ -3, a ], [ 4, B ], [ -1, b ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 3, A^2 ], [ 4, B*A^2 ], 
+[ -4, A^2 ], [ 1, id ], [ -1, B ] ]
+[ [ 4, id ], [ -4, b ], [ 1, b ], [ -3, a^2*b ], [ 4, B*a*b ], 
+[ -4, a*b ], [ 3, b ], [ -1, id ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 1, id ], [ -4, a ], 
+[ 2, A ], [ 1, id ], [ -4, a^2 ], [ -3, B ] ] 
+
+</pre></div>
+
+<p>We now demonstrate that this list may be reduced further.</p>
+
+<p><a id="X85814EFA81FE864F" name="X85814EFA81FE864F"></a></p>
+
+<h5>6.3-3 MoveRightLogSequence</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MoveRightLogSequence</code>( <var class="Arg">mG</var>, <var class="Arg">J</var>, <var class="Arg">L</var>, <var class="Arg">q</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MoveLeftLogSequence</code>( <var class="Arg">mG</var>, <var class="Arg">J</var>, <var class="Arg">L</var>, <var class="Arg">q</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SwapLogSequence</code>( <var class="Arg">mG</var>, <var class="Arg">J</var>, <var class="Arg">p</var>, <var class="Arg">q</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>The terms in an identity sequence may be interchanged because</p>
+
+<p class="pcenter">
+R^w Q^v ~=~ Q^v R^{wQ^v} ~=~ Q^{v(R^w)^{-1}} R^w.
+</p>
+
+<p>In the first two of these three operations <code class="code">L =</code> <span class="SimpleMath">[p..r]</span> is a range specifying a sublist <code class="code">K=J{[p..r]}</code> of <code class="code">J</code>, and <span class="SimpleMath">l</span> is the length of <code class="code">J</code>. The operation <code class="code">MoveRightLogSequence(mG,J,L,q)</code>, with <span class="SimpleMath">0</span> &lt; <span class="SimpleMath">p</span> &lt; <span class="SimpleMath">q</span> and <span class="SimpleMath">q+r ≤ p+l</span>, moves sublist <code class="code">K</code> to the <span class="SimpleMath">q</span>-th position, conjugating entries in <span class="SimpleMath">J{[p+1 ... q]}</span> and moving them all to the left.</p>
+
+<p>Similarly <code class="code">MoveLeftLogSequence(mG,J,L,q)</code>, with <span class="SimpleMath">0</span> &lt; <span class="SimpleMath">q</span> &lt; <span class="SimpleMath">p</span> nd <span class="SimpleMath">r ≤ l</span>, moves sublist <code class="code">K</code> to the <span class="SimpleMath">q</span>-th position, conjugating entries in <span class="SimpleMath">J{[q ... p-1]}</span> and moving them all to the right.</p>
+
+<p>The operation <code class="code">SwapLogSequence(mG,J,p,q)</code> with <span class="SimpleMath">p</span> &lt; <span class="SimpleMath">q</span> swaps a pair of terms in a sequence <code class="code">J</code> by calling the two previous commands.</p>
+
+<p>In all three operations the procedure is completed by a call to <code class="code">OnePassReduceLogSequence</code>.</p>
+
+<p>In the example the third identity is converted into the fifth by moving the third term one place right and then changing the start position, so it may be omitted.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">J3 := ShallowCopy( ridsq8[3] );;                            </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( J3, genfmq8, q8labs );   </span>
+[ [ -4, id ], [ 2, A^2 ], [ 1, id ], [ -4, a^2 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">K3 := MoveRightLogSequence( mq8, J3, [3], 4 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( K3, genfmq8, q8labs );    </span>
+[ [ -4, id ], [ 2, A^2 ], [ -4, A^2 ], [ 1, id ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">J5 := ShallowCopy( ridsq8[5] );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( J5, genfmq8, q8labs );</span>
+[ [ 1, id ], [ -4, id ], [ 2, A^2 ], [ -4, A^2 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">J5 = ChangeStartLogSequence( mq8, K3, 4 );</span>
+true
+
+</pre></div>
+
+<p><a id="X7EE8CE5E79598779" name="X7EE8CE5E79598779"></a></p>
+
+<h5>6.3-4 SubstituteLogSubsequence</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SubstituteLogSubsequence</code>( <var class="Arg">mG</var>, <var class="Arg">K</var>, <var class="Arg">J1</var>, <var class="Arg">J2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>If we move the second term in <code class="code">J5</code> to the right, we find that sublist <code class="code">U = [[1,id],[2,id]]</code> is equal to <code class="code">V = [[4,A^2],[4,id]]</code>, with both expanding to <span class="SimpleMath">a^4b^4</span>.</p>
+
+<p>Now <code class="code">U</code> appears in the tenth identity, and if we replace it with <code class="code">V</code> and then cancel, we obtain the empty list. So the tenth identity may be omitted.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">K5 := MoveRightLogSequence( mq8, J5, [2], 3 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( K5, genfmq8, q8labs );       </span>
+[ [ 1, id ], [ 2, id ], [ -4, id ], [ -4, A^2 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">K5a := K5{[1..2]};; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">K5b := InverseLogSequence( K5{[3..4]} );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">K5a;K5b;</span>
+[ [ 1, &lt;identity ...&gt; ], [ 2, &lt;identity ...&gt; ] ]
+[ [ 4, q8_M3^2 ], [ 4, &lt;identity ...&gt; ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">J10 := ShallowCopy( ridsq8[10] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( J10, genfmq8, q8labs );</span>
+[ [ -4, id ], [ 4, B*A^2 ], [ -4, A^2 ], [ 1, id ], [ 2, id ], 
+[ -4, b ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">K10 := SubstituteLogSubsequence( mq8, J10, K5a, K5b );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( K10, genfmq8, q8labs );            </span>
+[ [ -4, id ], [ 4, B*A^2 ], [ -4, A^2 ], [ 4, A^2 ], [ 4, id ], 
+[ -4, b ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CancelInversesLogSequence( mq8, K10 );</span>
+[  ]
+
+</pre></div>
+
+<p>Similarly, we may reduce the ninth identity. Initially, <code class="code">U</code> does not appear as a sublist of <code class="code">J9</code>. Swapping the fourth and fifth terms and conjugating by <span class="SimpleMath">A</span> produces <code class="code">U</code>, which is then replaced by <code class="code">V</code>. After a cancellation, we obtain a conjugate of the fourth identity.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">J9 := ShallowCopy( ridsq8[9] );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( J9, genfmq8, q8labs );            </span>
+[ [ -4, id ], [ 3, A ], [ -4, A ], [ 2, A^3 ], [ 1, id ], 
+[ -3, b ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">K9 := MoveLeftLogSequence( mq8, J9, [5], 4 );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( K9, genfmq8, q8labs );            </span>
+[ [ -4, id ], [ 3, A ], [ -4, A ], [ 1, id ], [ 2, a ], [ -3, b ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">L9 := ConjugateByWordLogSequence( mq8, K9, genfmq8[3] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( L9, genfmq8, q8labs );            </span>
+[ [ -4, A ], [ 3, A^2 ], [ -4, A^2 ], [ 1, id ], [ 2, id ], 
+[ -3, b*A ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">M9 := SubstituteLogSubsequence( mq8, L9, K5a, K5b);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( M9, genfmq8, q8labs );            </span>
+[ [ -4, A ], [ 3, A^2 ], [ -4, A^2 ], [ 4, A^2 ], [ 4, id ], 
+[ -3, b*A ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">N9 := CancelInversesLogSequence( mq8, M9 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( N9, genfmq8, q8labs );            </span>
+[ [ -4, A ], [ 3, A^2 ], [ 4, id ], [ -3, b*A ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">P9 := ConjugateByWordLogSequence( mq8, N9, genfmq8[1] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( P9, genfmq8, q8labs );            </span>
+[ [ -4, id ], [ 3, A ], [ 4, a ], [ -3, b ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">P9 = ridsq8[4];</span>
+true
+
+</pre></div>
+
+<p>We will not, for now, attempt to reduce the list of identities further.</p>
+
+<p><a id="X7D428F9B8054F5FB" name="X7D428F9B8054F5FB"></a></p>
+
+<h4>6.4 <span class="Heading">The original approach</span></h4>
+
+<p>This section describes the approach used from the earliest versions of <strong class="pkg">IdRel</strong> up to version 2.38 in 2017. For version 2.39 the methods were revised so as to produce some data for infinite groups. This experimental work is described in later sections.</p>
+
+<p><a id="X7FD998C87BF9AAC9" name="X7FD998C87BF9AAC9"></a></p>
+
+<h5>6.4-1 IdentitiesAmongRelators</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IdentitiesAmongRelators</code>( <var class="Arg">grp</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>It is <em>not</em> guaranteed that a minimal set of identities is obtained. For <code class="code">q8</code> a set of seven identities is returned, whereas a minimal set contains only six. See Example 5.1 of <a href="chapBib.html#biBHeWe1">[HW03]</a> for further details.</p>
+
+<p>Why <code class="code">idrelq8</code> in the following example is shorter than <code class="code">ridsq8</code> above remains to be investigated!</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">idrelq8 := IdentitiesAmongRelators( q8 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length( idrelq8 );</span>
+14
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for i in [1..14] do </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      PrintLnUsingLabels( idrelq8[i], genfmq8, q8labs ); </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   od; </span>
+[ [ -1, id ], [ 1, a ] ]
+[ [ -2, id ], [ 2, b ] ]
+[ [ -4, id ], [ 3, A ], [ 3, id ], [ 2, id ], [ -4, b ] ]
+[ [ -4, id ], [ 2, A^2 ], [ 1, id ], [ -4, a^2 ] ]
+[ [ 1, id ], [ -4, id ], [ 2, A^2 ], [ -4, A^2 ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 1, id ], [ -3, a ] ]
+[ [ -4, id ], [ 3, A ], [ 4, a ], [ -3, b ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A^2 ], [ 1, id ], [ -3, B ] ]
+[ [ -4, id ], [ 4, B*A^2 ], [ -4, A^2 ], [ 1, id ], [ 2, id ], 
+[ -4, b ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 3, A^2 ], [ 4, id ], 
+[ -4, B ] ]
+[ [ -4, id ], [ 3, A ], [ -4, A ], [ 2, A^3 ], [ 1, id ], 
+[ -3, b ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 1, id ], [ -4, a ], 
+[ 2, A ], [ 1, id ], [ -4, a^2 ], [ -3, B ] ]
+[ [ -4, id ], [ 3, A ], [ 4, B*A ], [ -4, A ], [ 1, id ], 
+[ -3, a ], [ 4, B ], [ -1, b ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 3, A^2 ], [ 4, B*A^2 ], 
+[ -4, A^2 ], [ 1, id ], [ -1, B ] ]
+
+</pre></div>
+
+<p><a id="X78A94CB77B98ACAA" name="X78A94CB77B98ACAA"></a></p>
+
+<h5>6.4-2 IdentityYSequences</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IdentityYSequences</code>( <var class="Arg">grp</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>These identities are then transformed into module polynomials</p>
+
+<p class="pcenter">
+  \rho(a + ba) + \sigma({\rm id} + ab + ba) 
+- \tau({\rm id} + a + A)\ ,
+</p>
+
+<p>where the monoid elements are transformed into their normal forms.</p>
+
+<p>The collection of saturated sets of these module polynomials is then reduced as far as possible, and the minimal set obtained returned as the <code class="code">IdentityYSequences</code> of the group. The group relator sequences corresponding to these module polynomials form the <code class="code">IdentitiesAmongRelators</code> for the group.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">idyseq8 := IdentityYSequences( q8 );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for y in idyseq8 do </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       PrintLnYSequence( y, genfmq8, q8labs, genq8R, q8Rlabs ); </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   od; </span>
+q8_Y2*(1*A), q^-1*(-1*A) + q*(1*id)) 
+q8_Y1*(1*B), r^-1*(-1*B) + r*(1*id)) 
+q8_Y6*(-1*id), r*(-1*id) + s*(-1*A + -1*id) + t^-1*(1*b + 1*id)) 
+q8_Y3*(-1*a), q*(-1*a) + r*(-1*A) + t^-1*(1*A + 1*a)) 
+q8_Y5*(-1*a), q*(-1*a) + r*(-1*A) + t^-1*(1*A + 1*a)) 
+q8_Y7*(1*a*b), q*(1*a*b) + s^-1*(-1*a*b + -1*B) + t^-1*(-1*b) + t*(1*id)) 
+q8_Y4*(1*A), s^-1*(-1*a*b) + s*(1*a^2) + t^-1*(-1*A) + t*(1*id)) 
+q8_Y8*(1*a*b), q*(1*a*b) + s^-1*(-1*a*b + -1*A) + t^-1*(-1*a*B) + t*(1*id)) 
+q8_Y10*(1*B), q*(1*B) + r*(1*B) + t^-1*(-1*B + -1*b + -1*id) + t*(1*id)) 
+q8_Y11*(1*b), s^-1*(-1*b) + s*(1*B) + t^-1*(-1*a*B + -1*id) + t*(1*b + 1*a)) 
+q8_Y9*(-1*a), q*(-1*a) + r*(-1*a^2) + s^-1*(1*a*B) + s*(-1*id) + t^-1*(1*a + 
+1*id)) 
+q8_Y15*(1*a*b), q*(2*a*b) + r*(1*b) + s^-1*(-1*a*b + -1*A) + t^-1*(-1*a*B + 
+-1*B + -1*b) + t*(1*id)) 
+q8_Y12*(1*b), q^-1*(-1*a^2) + q*(1*b) + s^-1*(-1*a*b) + s*(1*a*B) + t^-1*(
+-1*a*B + -1*b) + t*(1*a + 1*id)) 
+q8_Y13*(1*a*b), q^-1*(-1*A) + q*(1*a*b) + s^-1*(-1*a*b) + s*(1*a*B) + t^-1*(
+-1*a*B + -1*b) + t*(1*a + 1*id)) 
+
+</pre></div>
+
+<p><a id="X8448909D82CF6FE9" name="X8448909D82CF6FE9"></a></p>
+
+<h4>6.5 <span class="Heading">Partial lists of elements</span></h4>
+
+<p>As we have seen, the procedure for obtaining identities involves applying each relator at each element of the group. Since this will not terminate when the group is infinite, we include an operation to construct words up to a given length in the monoid representation of the group.</p>
+
+<p><a id="X7FCEF03E7A57C331" name="X7FCEF03E7A57C331"></a></p>
+
+<h5>6.5-1 PartialElementsOfMonoidRepresentation</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PartialElementsOfMonoidRepresentation</code>( <var class="Arg">G</var>, <var class="Arg">len</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>As an example we take the group <span class="SimpleMath">⟨ u,v,w ~|~ u^3, v^2, w^2, (uv)^2, (vw)^2⟩</span>.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">F := FreeGroup(3);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">u := F.1;;  v := F.2;;  w := F.3;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">rels := [ u^3, v^2, w^2, (u*v)^2, (v*w)^2 ];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q0 := F/rels;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetArrangementOfMonoidGenerators( q0, [1,-1,2,-2,3,-3] );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetName( q0, "q0" );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mq0 := MonoidPresentationFpGroup( q0 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">fmq0 := FreeGroupOfPresentation( mq0 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">genfmq0 := GeneratorsOfGroup( fmq0 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">q0labs := ["u","U","v","V","w","W"];; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetMonoidPresentationLabels( mq0, q0labs );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lrws := LoggedRewritingSystemFpGroup( q0 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pe1 := PartialElementsOfMonoidPresentation( q0, 1 );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( pe1, genfmq0, q0labs ); </span>
+[ id, u, U, v, w ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pe2 := PartialElementsOfMonoidPresentation( q0, 2 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( pe2, genfmq0, q0labs ); </span>
+[ id, u, U, v, w, u*v, u*w, U*v, U*w, v*w, w*u, w*U ]
+
+</pre></div>
+
+<p> </p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap5.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

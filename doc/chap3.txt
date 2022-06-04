@@ -1,0 +1,271 @@
+  
+  [1X3 [33X[0;0YLogged Rewriting Systems[133X[101X
+  
+  [33X[0;0YA [13Xlogged rewrite system[113X is associated with a group presentation. Each [13Xlogged
+  rewrite rule[113X contains, in addition to the standard rewrite rule, a record or
+  [13Xlog  component[113X which expresses the rule in terms of the original relators of
+  the  group.  We  represent  such  a rule by a triple [10X[ u, [L1,L2,..,Lk], v][110X,
+  where  [10X[u,v][110X  is  a  rewrite  rule  and [22XL_i = [n_i,w_i][122X where [22Xn_i[122X is a group
+  relator  and  [22Xw_i[122X  is  a  word. These three components obey the identity [22Xu =
+  n_1^w_1 ... n_k^w_k v[122X.[133X
+  
+  
+  [1X3.1 [33X[0;0YLogged Knuth-Bendix Completion[133X[101X
+  
+  [33X[0;0YThe  functions  in  this  section  are  the  logged versions of those in the
+  previous chapter.[133X
+  
+  [1X3.1-1 InitialLoggedRulesOfPresentation[101X
+  
+  [33X[1;0Y[29X[2XInitialLoggedRulesOfPresentation[102X( [3Xmon[103X ) [32X function[133X
+  
+  [33X[0;0YThe  [22X12[122X  initial  logged rules for [22Xmq8[122X correspond to the [22X12[122X initial rules in
+  section  [14X2.1-4[114X. Rules of the form [22Xg^-1 -> G[122X and [22XgG -> id[122X apply to the monoid
+  presentation,  but  not  to  the  group  presentation, so are given an empty
+  logged  component.  The  remaining  four  rules,  which  corresppond  to the
+  relators  [22Xr  ∈  [a^4,  b^4,  abab^-1,  a^2b^2][122X  are  given logged components
+  [22X[r,[[n,id]], id][122X for [22Xn ∈ [9..12][122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xr0 := InitialLoggedRulesOfPresentation( mq8 );; [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( r0, genfmq8, q8labs );[127X[104X
+    [4X[28X[ [ a^-1, [ ], A ], [ b^-1, [ ], B ], [ A^-1, [ ], a ], [ B^-1, [128X[104X
+    [4X[28X[ ], b ], [ a*A, [ ], id ], [ b*B, [ ], id ], [ A*a, [ ], id ], [128X[104X
+    [4X[28X[ B*b, [ ], id ], [ a^4, [ [ 1, id ] ], id ], [ a^2*b^2, [ [ 4, id ] ], id ], [128X[104X
+    [4X[28X[ a*b*a*B, [ [ 3, id ] ], id ], [ b^4, [ [ 2, id ] ], id ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X3.1-2 LoggedOnePassKB[101X
+  
+  [33X[1;0Y[29X[2XLoggedOnePassKB[102X( [3Xgrp[103X, [3Xloggedrules[103X ) [32X operation[133X
+  
+  [33X[0;0YGiven a logged rewrite system for the group [10Xgrp[110X, this function finds all the
+  rules  that  would  be  added to complete the rewrite system of [10XOnePassKB[110X in
+  [14X2.2-3[114X,  and  also  the logs which relate the new rules to the originals. The
+  result  of  applying this function to [10Xloggedrules[110X is to add new logged rules
+  to the system without changing the monoid it defines.[133X
+  
+  [33X[0;0YIn  the  example,  we apply one pass of the logged Knuth-Bendix procedure to
+  the initial set of logged rules.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xr1 := LoggedOnePassKB( mq8, r0 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( r1 );[127X[104X
+    [4X[28X25[128X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( r1, genfmq8, q8labs );[127X[104X
+    [4X[28X[ [ a^-1, [ ], A ], [ b^-1, [ ], B ], [ A^-1, [ ], a ], [ B^-1, [128X[104X
+    [4X[28X[ ], b ], [ a*A, [ ], id ], [ b*B, [ ], id ], [ A*a, [ ], id ], [128X[104X
+    [4X[28X[ B*b, [ ], id ], [ b^2, [ [ -4, id ], [ 2, A^2 ] ], a^2 ], [128X[104X
+    [4X[28X[ b^2, [ [ -1, id ], [ 4, A^2 ] ], a^2 ], [ a^3, [ [ 1, id ] ], A ], [128X[104X
+    [4X[28X[ a^3, [ [ 1, a ] ], A ], [ a^2*b, [ [ 4, id ] ], B ], [ a*b*a, [128X[104X
+    [4X[28X[ [ 3, id ] ], b ], [ a*b^2, [ [ 4, a ] ], A ], [ b*a*B, [ [128X[104X
+    [4X[28X[ 3, a ] ], A ], [ b^3, [ [ 2, id ] ], B ], [ b^3, [ [ 2, b ] ], B ], [128X[104X
+    [4X[28X[ a*b^2, [ [ -1, id ], [ 4, A^3 ] ], a^3 ], [ b*a*B, [ [ -1, id ], [128X[104X
+    [4X[28X[ 3, A^3 ] ], a^3 ], [ b^3, [ [ -4, id ], [ 2, B*A^2 ] ], a^2*b ], [128X[104X
+    [4X[28X[ a^4, [ [ 1, id ] ], id ], [ a^2*b^2, [ [ 4, id ] ], id ], [128X[104X
+    [4X[28X[ a*b*a*B, [ [ 3, id ] ], id ], [ b^4, [ [ 2, id ] ], id ] ][128X[104X
+    [4X[28X [128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNote  that  [22Xr1[122X  has length [22X25[122X, three more than the length [22X22[122X of [10Xq1[110X in [14X2.2-3[114X.
+  This  because  the  three rules [22Xb^2 -> a^2;~ a^3 -> A;~ b^3 -> B[122X each appear
+  twice, with alternative logged components.[133X
+  
+  [33X[0;0YIf  we write [22Xa,b,A,B[122X for [10XM1,M2,M3,M4[110X and label the four original relators as
+  [22Xq=a^4,  r=b^4,  s=abaB,  t=a^2b^2[122X then the ninth identity (for example) says
+  that [22Xb^2 = (t^-1r^A^2)a^2[122X. To verify this, we may expand the right-hand side
+  as follows:[133X
+  
+  
+  [24X[33X[0;6Y(B^2A^2).a^2(b^4)A^2.a^2 ~=~ B^2(A^2a^2)b^4(A^2a^2) ~=~ B^2b^4 ~=~ b^2.[133X
+  
+  [124X
+  
+  [1X3.1-3 LoggedRewriteReduce[101X
+  
+  [33X[1;0Y[29X[2XLoggedRewriteReduce[102X( [3Xgrp[103X, [3Xloggedrules[103X ) [32X operation[133X
+  
+  [33X[0;0YThe  function  [10XLoggedRewriteReduce[110X  removes  unnecessary rules from a logged
+  rewrite  system.  It  works on the same principle as [10XRewriteReduce[110X in [14X2.2-4[114X.
+  Note that [22Xq2[122X nd [22Xr2[122X both have length [22X13[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xr2 := LoggedRewriteReduce( mq8, r1 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( r2 );[127X[104X
+    [4X[28X13[128X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( r2, genfmq8, q8labs );      [127X[104X
+    [4X[28X[ [ a^-1, [ ], A ], [ b^-1, [ ], B ], [ A^-1, [ ], a ], [ B^-1, [128X[104X
+    [4X[28X[ ], b ], [ a*A, [ ], id ], [ b*B, [ ], id ], [ A*a, [ ], id ], [128X[104X
+    [4X[28X[ B*b, [ ], id ], [ b^2, [ [ -4, id ], [ 2, A^2 ] ], a^2 ], [128X[104X
+    [4X[28X[ a^3, [ [ 1, id ] ], A ], [ a^2*b, [ [ 4, id ] ], B ], [ a*b*a, [128X[104X
+    [4X[28X[ [ 3, id ] ], b ], [ b*a*B, [ [ 3, a ] ], A ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X3.1-4 LoggedKnuthBendix[101X
+  
+  [33X[1;0Y[29X[2XLoggedKnuthBendix[102X( [3Xgrp[103X, [3Xloggedrules[103X ) [32X operation[133X
+  
+  [33X[0;0YThe  function [10XLoggedKnuthBendix[110X repeatedly applies functions [10XLoggedOnePassKB[110X
+  and [10XLoggedRewriteReduce[110X until no new rules are added and no unnecessary ones
+  are included. The output is a reduced complete logged rewrite system.[133X
+  
+  [33X[0;0YAs  a  further  example,  consider  the  ninth rule in [10Xr3[110X which shows how [22Xba[122X
+  reduces   to   [22XaB[122X.   For   this  rule  [10X[u,L,v][110X  we  will  verify  that  [22Xu  =
+  n_1^w_1n_2^w_2n_3^w_3  v[122X,  as  in the introduction to this chapter. The rule
+  is:[133X
+  
+  
+  [24X[33X[0;6Y[ ba, [ [-11,id], [12,BA] ], aB ].[133X
+  
+  [124X
+  
+  [33X[0;0YThe relators are [22X-11 ≡ s^-1 = bABA[122X and [22X12 ≡ t = a^2b^2[122X. These are conjugated
+  by  the  identity  and [22XBA[122X respectively. So the second and third parts of the
+  rule expand to:[133X
+  
+  
+  [24X[33X[0;6Y(bABA)(ab(aabb)BA)aB  ~=~  bAB(Aa)baab(bB)(Aa)B  ~=~ bA(Bb)aa(bB) ~=~ b(Aa)a
+  ~=~ ba,[133X
+  
+  [124X
+  
+  [33X[0;0Ythe first part of the rule.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xr3 := LoggedKnuthBendix( mq8, r0 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( r3 );[127X[104X
+    [4X[28X20[128X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( r3, genfmq8, q8labs );[127X[104X
+    [4X[28X[ [ a^-1, [ ], A ], [ b^-1, [ ], B ], [ A^-1, [ ], a ], [ B^-1, [128X[104X
+    [4X[28X[ ], b ], [ a*A, [ ], id ], [ b*B, [ ], id ], [ A*a, [ ], id ], [128X[104X
+    [4X[28X[ B*b, [ ], id ], [ b*a, [ [ -3, id ], [ 4, B*A ] ], a*B ], [128X[104X
+    [4X[28X[ b^2, [ [ -4, id ], [ 2, A^2 ] ], a^2 ], [ b*A, [ [ -3, id ] ], a*b ], [128X[104X
+    [4X[28X[ A*b, [ [ -1, id ], [ 4, A ] ], a*B ], [ A^2, [ [ -1, id ] ], a^2 ], [128X[104X
+    [4X[28X[ A*B, [ [ -4, a ] ], a*b ], [ B*a, [ [ -4, id ], [ 3, A ] ], a*b ], [128X[104X
+    [4X[28X[ B*A, [ [ -3, a*b ] ], a*B ], [ B^2, [ [ -4, id ] ], a^2 ], [128X[104X
+    [4X[28X[ a^3, [ [ 1, id ] ], A ], [ a^2*b, [ [ 4, id ] ], B ], [ a^2*B, [128X[104X
+    [4X[28X[ [ -4, A^2 ], [ 1, id ] ], b ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X3.1-5 LoggedRewritingSystemFpGroup[101X
+  
+  [33X[1;0Y[29X[2XLoggedRewritingSystemFpGroup[102X( [3Xgrp[103X ) [32X attribute[133X
+  
+  [33X[0;0YGiven   a  group  presentation,  the  function  [10XLoggedRewritingSystemFpGroup[110X
+  determines a logged rewrite system based on the relators. The initial logged
+  rewrite system associated with a group presentation consists of two types of
+  rule.  These  are  logged  versions  of  the two types of rule in the monoid
+  presentation.  Corresponding to the j-th relator [10Xrel[110X of the group there is a
+  logged  rule  [10X[rel,[[j,id]],id][110X.  For each inverse relator there is a logged
+  rule  [10X[  gen*inv,  [],  id ][110X. The function then attempts a completion of the
+  logged  rewrite  system. The rules in the final system are partially ordered
+  by the function [10XShorterLoggedRule[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xlrws := LoggedRewritingSystemFpGroup( q8 );;[127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( lrws, genfgmon, q8labs );[127X[104X
+    [4X[28X[ [ a^-1, [ ], A ], [ b^-1, [ ], B ], [ A^-1, [ ], a ], [ B^-1, [128X[104X
+    [4X[28X[ ], b ], [ a*A, [ ], id ], [ b*B, [ ], id ], [ A*a, [ ], id ], [128X[104X
+    [4X[28X[ B*b, [ ], id ], [ b*a, [ [ -3, id ], [ 4, B*A ] ], a*B ], [128X[104X
+    [4X[28X[ b^2, [ [ -4, id ], [ 2, A^2 ] ], a^2 ], [ b*A, [ [ -3, id ] ], a*b ], [128X[104X
+    [4X[28X[ A*b, [ [ -1, id ], [ 4, A ] ], a*B ], [ A^2, [ [ -1, id ] ], a^2 ], [128X[104X
+    [4X[28X[ A*B, [ [ -4, a ] ], a*b ], [ B*a, [ [ -4, id ], [ 3, A ] ], a*b ], [128X[104X
+    [4X[28X[ B*A, [ [ -3, a*b ] ], a*B ], [ B^2, [ [ -4, id ] ], a^2 ], [128X[104X
+    [4X[28X[ a^3, [ [ 1, id ] ], A ], [ a^2*b, [ [ 4, id ] ], B ], [ a^2*B, [128X[104X
+    [4X[28X[ [ -4, A^2 ], [ 1, id ] ], b ] ][128X[104X
+    [4X[25Xgap>[125X [27XLength( lrws );[127X[104X
+    [4X[28X16[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YConsider  now  the  two-generator abelian group [22XT[122X considered in the previous
+  chapter  ([14X2.2-1[114X). Using the alternative ordering on the monoid generators, [10X[
+  T_M1[110X[22X=a[122X,  [10XT_M2[110X[22X=A[122X,  [10XT_M3[110X[22X=b[122X,  [10XT_M4[110X[22X=B[122X [10X][110X, we obtain the following set of [22X8[122X logged
+  rules. The last of these may be checked as follows:[133X
+  
+  
+  [24X[33X[0;6Y(ba(BAba)AB)ab ~=~ ba(B(A(b(aA)B)a)b)[133X
+  
+  [124X
+  
+  [33X[0;0Yand is a logged version of the rule [22Xba -> ab[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XlrwsT := LoggedRewritingSystemFpGroup( T );;[127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( lrwsT, genfgmonT, Tlabs );[127X[104X
+    [4X[28X[ [ x^-1, [ ], X ], [ X^-1, [ ], x ], [ y^-1, [ ], Y ], [ Y^-1, [128X[104X
+    [4X[28X[ ], y ], [ x*X, [ ], id ], [ X*x, [ ], id ], [ y*Y, [ ], id ], [128X[104X
+    [4X[28X[ Y*y, [ ], id ], [ y*x, [ [ -1, X*Y ] ], x*y ], [ y*X, [ [ 1, Y ] ], X*y ], [128X[104X
+    [4X[28X[ Y*x, [ [ 1, X ] ], x*Y ], [ Y*X, [ [ -1, id ] ], X*Y ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X3.2 [33X[0;0YLogged reduction of a word[133X[101X
+  
+  [1X3.2-1 LoggedReduceWordKB[101X
+  
+  [33X[1;0Y[29X[2XLoggedReduceWordKB[102X( [3Xword[103X, [3Xloggedrules[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XLoggedOnePassReduceWord[102X( [3Xword[103X, [3Xloggedrules[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XShorterLoggedRule[102X( [3Xlogrule1[103X, [3Xlogrule2[103X ) [32X operation[133X
+  
+  [33X[0;0YGiven    a    word    and    a   logged   rewrite   system,   the   function
+  [10XLoggedOnePassReduceWord[110X  makes  one  reduction  pass  of  the word (possibly
+  involving  several  reductions)  (as  does  [10XOnePassReduceWord[110X  in [14X2.2-2[114X) and
+  records this, using the log part of the rule(s) used and the position in the
+  original word of the replaced part.[133X
+  
+  [33X[0;0YThe  function  [10XLoggedReduceWordKB[110X repeatedly applies [10XOnePassLoggedReduceWord[110X
+  until  the  word  can  no  longer  be reduced. Each step of the reduction is
+  logged,  showing  how  the  original  word  can be expressed in terms of the
+  original relators and the irreducible word. When [10Xloggedrules[110X is complete the
+  reduced  word is a unique normal form for that group element. The log of the
+  reduction depends on the order in which the rules are applied.[133X
+  
+  [33X[0;0YThe  function  [10XShorterLoggedrule[110X  decides  whether one logged rule is better
+  than  another,  using  the  same  criteria  as  [10XShorterRule[110X in [14X2.2-3[114X. In the
+  example  we  perform logged reductions of [22Xw_0 = a^9b^-9[122X corresponding to the
+  ordinary reductions performed in the previous chapter (section [14X2.2-2[114X).[133X
+  
+  [33X[0;0YIn  order  to  clarify  the  following  output, note that, in the log below,
+  [22Xb^9a^-9[122X  reduces to [22XBb^5aba^-8[122X in [10Xlw1[110X, just as in section [14X2.2-2[114X. This may be
+  checked by cancelling terms in:[133X
+  
+  
+  [24X[33X[0;6Y(b^2A^2)(a^2.b^4.A^2)(a^2b^6.bABA.b^6A^2)(a^2b^2)Bb^5aba^{-8} ~=~ b^9a^9.[133X
+  
+  [124X
+  
+  [33X[0;0YThe  corresponding  expansion  of  [10Xlw2[110X is too lengthy to include here. (It's
+  hard  to  believe  that  the  logged  part  of this identity is the simplest
+  possible.  Further  investigation is needed to determine whether or not this
+  logged part can be simplified.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( w0, genfmq8, q8labs ); [127X[104X
+    [4X[28Xb^9*a^-9[128X[104X
+    [4X[25Xgap>[125X [27Xlw1 := LoggedOnePassReduceWord( w0, lrws );;[127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( lw1, genfmq8, q8labs );  [127X[104X
+    [4X[28X[ [ [ -4, id ], [ 2, A^2 ], [ -3, b^-6*a^-2 ], [ 4, id ] ], [128X[104X
+    [4X[28XB*b^5*a*b*a^-8 ][128X[104X
+    [4X[25Xgap>[125X [27Xlw2 := LoggedReduceWordKB( w0, lrws );; [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( lw2, genfmq8, q8labs );[127X[104X
+    [4X[28X[ [ [ -4, id ], [ 2, A^2 ], [ -3, b^-6*a^-2 ], [ 4, id ], [ -3, b^-3 ], [128X[104X
+    [4X[28X[ 4, B*A*b^-3 ], [ -4, id ], [ 2, A^2 ], [ -3, B^-1*a^-1*b^-1*a^-2 ], [128X[104X
+    [4X[28X[ -4, a^-1*b^-1*a^-2 ], [ 3, A*a^-1*b^-1*a^-2 ], [ 4, id ], [128X[104X
+    [4X[28X[ -4, a^-2*B^-1 ], [ 2, A^2*a^-2*B^-1 ], [ -4, id ], [ 3, A ], [128X[104X
+    [4X[28X[ 1, b^-1*a^-1 ], [ -3, a^-1 ], [ -1, b^-1*a^-2 ], [ 4, id ], [128X[104X
+    [4X[28X[ -3, a*b ], [ -3, a*b*a^-1 ], [ -4, A^2 ], [ 1, id ], [ -3, id ] ], a*b ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  

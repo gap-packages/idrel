@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (IdRel) - Chapter 3: Logged Rewriting Systems</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap3"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap4_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap3.html">[MathJax off]</a></p>
+<p><a id="X7B8D727485966AF8" name="X7B8D727485966AF8"></a></p>
+<div class="ChapSects"><a href="chap3_mj.html#X7B8D727485966AF8">3 <span class="Heading">Logged Rewriting Systems</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X797732E87F1FE197">3.1 <span class="Heading">Logged Knuth-Bendix Completion</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7F47FE67829B962A">3.1-1 InitialLoggedRulesOfPresentation</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X80075D5180A8F1A5">3.1-2 LoggedOnePassKB</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7E550C0078AEDC45">3.1-3 LoggedRewriteReduce</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X87D1E3A578AAAFCB">3.1-4 LoggedKnuthBendix</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X8652CEEF7802DA46">3.1-5 LoggedRewritingSystemFpGroup</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X831A93087918AA5D">3.2 <span class="Heading">Logged reduction of a word</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7C5094AF784A8BA7">3.2-1 LoggedReduceWordKB</a></span>
+</div></div>
+</div>
+
+<h3>3 <span class="Heading">Logged Rewriting Systems</span></h3>
+
+<p>A <em>logged rewrite system</em> is associated with a group presentation. Each <em>logged rewrite rule</em> contains, in addition to the standard rewrite rule, a record or <em>log component</em> which expresses the rule in terms of the original relators of the group. We represent such a rule by a triple <code class="code">[ u, [L1,L2,..,Lk], v]</code>, where <code class="code">[u,v]</code> is a rewrite rule and <span class="SimpleMath">\(L_i = [n_i,w_i]\)</span> where <span class="SimpleMath">\(n_i\)</span> is a group relator and <span class="SimpleMath">\(w_i\)</span> is a word. These three components obey the identity <span class="SimpleMath">\(u = n_1^{w_1} \ldots n_k^{w_k} v\)</span>.</p>
+
+<p><a id="X797732E87F1FE197" name="X797732E87F1FE197"></a></p>
+
+<h4>3.1 <span class="Heading">Logged Knuth-Bendix Completion</span></h4>
+
+<p>The functions in this section are the logged versions of those in the previous chapter.</p>
+
+<p><a id="X7F47FE67829B962A" name="X7F47FE67829B962A"></a></p>
+
+<h5>3.1-1 InitialLoggedRulesOfPresentation</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InitialLoggedRulesOfPresentation</code>( <var class="Arg">mon</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>The <span class="SimpleMath">\(12\)</span> initial logged rules for <span class="SimpleMath">\(mq8\)</span> correspond to the <span class="SimpleMath">\(12\)</span> initial rules in section <a href="chap2_mj.html#X7EBBA6A284CC7918"><span class="RefLink">2.1-4</span></a>. Rules of the form <span class="SimpleMath">\(g^{-1} \to G\)</span> and <span class="SimpleMath">\(gG \to id\)</span> apply to the monoid presentation, but not to the group presentation, so are given an empty logged component. The remaining four rules, which corresppond to the relators <span class="SimpleMath">\(r \in [a^4, b^4, abab^{-1}, a^2b^2]\)</span> are given logged components <span class="SimpleMath">\([r,[\,[n,id]\,], id]\)</span> for <span class="SimpleMath">\(n \in [9..12]\)</span>.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">r0 := InitialLoggedRulesOfPresentation( mq8 );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( r0, genfmq8, q8labs );</span>
+[ [ a^-1, [ ], A ], [ b^-1, [ ], B ], [ A^-1, [ ], a ], [ B^-1, 
+[ ], b ], [ a*A, [ ], id ], [ b*B, [ ], id ], [ A*a, [ ], id ], 
+[ B*b, [ ], id ], [ a^4, [ [ 1, id ] ], id ], [ a^2*b^2, [ [ 4, id ] ], id ], 
+[ a*b*a*B, [ [ 3, id ] ], id ], [ b^4, [ [ 2, id ] ], id ] ]
+
+</pre></div>
+
+<p><a id="X80075D5180A8F1A5" name="X80075D5180A8F1A5"></a></p>
+
+<h5>3.1-2 LoggedOnePassKB</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LoggedOnePassKB</code>( <var class="Arg">grp</var>, <var class="Arg">loggedrules</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Given a logged rewrite system for the group <code class="code">grp</code>, this function finds all the rules that would be added to complete the rewrite system of <code class="code">OnePassKB</code> in <a href="chap2_mj.html#X7F0CD1EB7C220D40"><span class="RefLink">2.2-3</span></a>, and also the logs which relate the new rules to the originals. The result of applying this function to <code class="code">loggedrules</code> is to add new logged rules to the system without changing the monoid it defines.</p>
+
+<p>In the example, we apply one pass of the logged Knuth-Bendix procedure to the initial set of logged rules.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">r1 := LoggedOnePassKB( mq8, r0 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length( r1 );</span>
+25
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( r1, genfmq8, q8labs );</span>
+[ [ a^-1, [ ], A ], [ b^-1, [ ], B ], [ A^-1, [ ], a ], [ B^-1, 
+[ ], b ], [ a*A, [ ], id ], [ b*B, [ ], id ], [ A*a, [ ], id ], 
+[ B*b, [ ], id ], [ b^2, [ [ -4, id ], [ 2, A^2 ] ], a^2 ], 
+[ b^2, [ [ -1, id ], [ 4, A^2 ] ], a^2 ], [ a^3, [ [ 1, id ] ], A ], 
+[ a^3, [ [ 1, a ] ], A ], [ a^2*b, [ [ 4, id ] ], B ], [ a*b*a, 
+[ [ 3, id ] ], b ], [ a*b^2, [ [ 4, a ] ], A ], [ b*a*B, [ 
+[ 3, a ] ], A ], [ b^3, [ [ 2, id ] ], B ], [ b^3, [ [ 2, b ] ], B ], 
+[ a*b^2, [ [ -1, id ], [ 4, A^3 ] ], a^3 ], [ b*a*B, [ [ -1, id ], 
+[ 3, A^3 ] ], a^3 ], [ b^3, [ [ -4, id ], [ 2, B*A^2 ] ], a^2*b ], 
+[ a^4, [ [ 1, id ] ], id ], [ a^2*b^2, [ [ 4, id ] ], id ], 
+[ a*b*a*B, [ [ 3, id ] ], id ], [ b^4, [ [ 2, id ] ], id ] ]
+ 
+</pre></div>
+
+<p>Note that <span class="SimpleMath">\(r1\)</span> has length <span class="SimpleMath">\(25\)</span>, three more than the length <span class="SimpleMath">\(22\)</span> of <code class="code">q1</code> in <a href="chap2_mj.html#X7F0CD1EB7C220D40"><span class="RefLink">2.2-3</span></a>. This because the three rules <span class="SimpleMath">\(b^2 \to a^2;~ a^3 \to A;~ b^3 \to B\)</span> each appear twice, with alternative logged components.</p>
+
+<p>If we write <span class="SimpleMath">\(a,b,A,B\)</span> for <code class="code">M1,M2,M3,M4</code> and label the four original relators as <span class="SimpleMath">\(q=a^4,\ r=b^4,\ s=abaB,\ t=a^2b^2\)</span> then the ninth identity (for example) says that <span class="SimpleMath">\(b^2 = (t^{-1}r^{A^2})a^2\)</span>. To verify this, we may expand the right-hand side as follows:</p>
+
+<p class="center">\[
+(B^2A^2).a^2(b^4)A^2.a^2 
+~=~ B^2(A^2a^2)b^4(A^2a^2) 
+~=~ B^2b^4 
+~=~ b^2. 
+\]</p>
+
+<p><a id="X7E550C0078AEDC45" name="X7E550C0078AEDC45"></a></p>
+
+<h5>3.1-3 LoggedRewriteReduce</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LoggedRewriteReduce</code>( <var class="Arg">grp</var>, <var class="Arg">loggedrules</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>The function <code class="code">LoggedRewriteReduce</code> removes unnecessary rules from a logged rewrite system. It works on the same principle as <code class="code">RewriteReduce</code> in <a href="chap2_mj.html#X844BF013780A746D"><span class="RefLink">2.2-4</span></a>. Note that <span class="SimpleMath">\(q2\)</span> nd <span class="SimpleMath">\(r2\)</span> both have length <span class="SimpleMath">\(13\)</span>.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">r2 := LoggedRewriteReduce( mq8, r1 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length( r2 );</span>
+13
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( r2, genfmq8, q8labs );      </span>
+[ [ a^-1, [ ], A ], [ b^-1, [ ], B ], [ A^-1, [ ], a ], [ B^-1, 
+[ ], b ], [ a*A, [ ], id ], [ b*B, [ ], id ], [ A*a, [ ], id ], 
+[ B*b, [ ], id ], [ b^2, [ [ -4, id ], [ 2, A^2 ] ], a^2 ], 
+[ a^3, [ [ 1, id ] ], A ], [ a^2*b, [ [ 4, id ] ], B ], [ a*b*a, 
+[ [ 3, id ] ], b ], [ b*a*B, [ [ 3, a ] ], A ] ]
+
+</pre></div>
+
+<p><a id="X87D1E3A578AAAFCB" name="X87D1E3A578AAAFCB"></a></p>
+
+<h5>3.1-4 LoggedKnuthBendix</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LoggedKnuthBendix</code>( <var class="Arg">grp</var>, <var class="Arg">loggedrules</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>The function <code class="code">LoggedKnuthBendix</code> repeatedly applies functions <code class="code">LoggedOnePassKB</code> and <code class="code">LoggedRewriteReduce</code> until no new rules are added and no unnecessary ones are included. The output is a reduced complete logged rewrite system.</p>
+
+<p>As a further example, consider the ninth rule in <code class="code">r3</code> which shows how <span class="SimpleMath">\(ba\)</span> reduces to <span class="SimpleMath">\(aB\)</span>. For this rule <code class="code">[u,L,v]</code> we will verify that <span class="SimpleMath">\(u = n_1^{w_1}n_2^{w_2}n_3^{w_3} v\)</span>, as in the introduction to this chapter. The rule is:</p>
+
+<p class="center">\[ 
+[ ba, [ [-11,id], [12,BA] ], aB ]. 
+\]</p>
+
+<p>The relators are <span class="SimpleMath">\(-11 \equiv s^{-1} = bABA\)</span> and <span class="SimpleMath">\(12 \equiv t = a^2b^2\)</span>. These are conjugated by the identity and <span class="SimpleMath">\(BA\)</span> respectively. So the second and third parts of the rule expand to:</p>
+
+<p class="center">\[
+(bABA)(ab(aabb)BA)aB 
+~=~ 
+bAB(Aa)baab(bB)(Aa)B 
+~=~ 
+bA(Bb)aa(bB)
+~=~ 
+b(Aa)a 
+~=~ 
+ba,
+\]</p>
+
+<p>the first part of the rule.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">r3 := LoggedKnuthBendix( mq8, r0 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length( r3 );</span>
+20
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( r3, genfmq8, q8labs );</span>
+[ [ a^-1, [ ], A ], [ b^-1, [ ], B ], [ A^-1, [ ], a ], [ B^-1, 
+[ ], b ], [ a*A, [ ], id ], [ b*B, [ ], id ], [ A*a, [ ], id ], 
+[ B*b, [ ], id ], [ b*a, [ [ -3, id ], [ 4, B*A ] ], a*B ], 
+[ b^2, [ [ -4, id ], [ 2, A^2 ] ], a^2 ], [ b*A, [ [ -3, id ] ], a*b ], 
+[ A*b, [ [ -1, id ], [ 4, A ] ], a*B ], [ A^2, [ [ -1, id ] ], a^2 ], 
+[ A*B, [ [ -4, a ] ], a*b ], [ B*a, [ [ -4, id ], [ 3, A ] ], a*b ], 
+[ B*A, [ [ -3, a*b ] ], a*B ], [ B^2, [ [ -4, id ] ], a^2 ], 
+[ a^3, [ [ 1, id ] ], A ], [ a^2*b, [ [ 4, id ] ], B ], [ a^2*B, 
+[ [ -4, A^2 ], [ 1, id ] ], b ] ]
+
+</pre></div>
+
+<p><a id="X8652CEEF7802DA46" name="X8652CEEF7802DA46"></a></p>
+
+<h5>3.1-5 LoggedRewritingSystemFpGroup</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LoggedRewritingSystemFpGroup</code>( <var class="Arg">grp</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>Given a group presentation, the function <code class="code">LoggedRewritingSystemFpGroup</code> determines a logged rewrite system based on the relators. The initial logged rewrite system associated with a group presentation consists of two types of rule. These are logged versions of the two types of rule in the monoid presentation. Corresponding to the j-th relator <code class="code">rel</code> of the group there is a logged rule <code class="code">[rel,[[j,id]],id]</code>. For each inverse relator there is a logged rule <code class="code">[ gen*inv, [], id ]</code>. The function then attempts a completion of the logged rewrite system. The rules in the final system are partially ordered by the function <code class="code">ShorterLoggedRule</code>.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lrws := LoggedRewritingSystemFpGroup( q8 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( lrws, genfgmon, q8labs );</span>
+[ [ a^-1, [ ], A ], [ b^-1, [ ], B ], [ A^-1, [ ], a ], [ B^-1, 
+[ ], b ], [ a*A, [ ], id ], [ b*B, [ ], id ], [ A*a, [ ], id ], 
+[ B*b, [ ], id ], [ b*a, [ [ -3, id ], [ 4, B*A ] ], a*B ], 
+[ b^2, [ [ -4, id ], [ 2, A^2 ] ], a^2 ], [ b*A, [ [ -3, id ] ], a*b ], 
+[ A*b, [ [ -1, id ], [ 4, A ] ], a*B ], [ A^2, [ [ -1, id ] ], a^2 ], 
+[ A*B, [ [ -4, a ] ], a*b ], [ B*a, [ [ -4, id ], [ 3, A ] ], a*b ], 
+[ B*A, [ [ -3, a*b ] ], a*B ], [ B^2, [ [ -4, id ] ], a^2 ], 
+[ a^3, [ [ 1, id ] ], A ], [ a^2*b, [ [ 4, id ] ], B ], [ a^2*B, 
+[ [ -4, A^2 ], [ 1, id ] ], b ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length( lrws );</span>
+16
+
+</pre></div>
+
+<p>Consider now the two-generator abelian group <span class="SimpleMath">\(T\)</span> considered in the previous chapter (<a href="chap2_mj.html#X858ECE3E807C7363"><span class="RefLink">2.2-1</span></a>). Using the alternative ordering on the monoid generators, <code class="code">[ T_M1</code><span class="SimpleMath">\(=a\)</span>, <code class="code">T_M2</code><span class="SimpleMath">\(=A\)</span>, <code class="code">T_M3</code><span class="SimpleMath">\(=b\)</span>, <code class="code">T_M4</code><span class="SimpleMath">\(=B\)</span> <code class="code">]</code>, we obtain the following set of <span class="SimpleMath">\(8\)</span> logged rules. The last of these may be checked as follows:</p>
+
+<p class="center">\[
+(ba(BAba)AB)ab ~=~ ba(B(A(b(aA)B)a)b) 
+\]</p>
+
+<p>and is a logged version of the rule <span class="SimpleMath">\(ba \to ab\)</span>.</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lrwsT := LoggedRewritingSystemFpGroup( T );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( lrwsT, genfgmonT, Tlabs );</span>
+[ [ x^-1, [ ], X ], [ X^-1, [ ], x ], [ y^-1, [ ], Y ], [ Y^-1, 
+[ ], y ], [ x*X, [ ], id ], [ X*x, [ ], id ], [ y*Y, [ ], id ], 
+[ Y*y, [ ], id ], [ y*x, [ [ -1, X*Y ] ], x*y ], [ y*X, [ [ 1, Y ] ], X*y ], 
+[ Y*x, [ [ 1, X ] ], x*Y ], [ Y*X, [ [ -1, id ] ], X*Y ] ]
+
+</pre></div>
+
+<p><a id="X831A93087918AA5D" name="X831A93087918AA5D"></a></p>
+
+<h4>3.2 <span class="Heading">Logged reduction of a word</span></h4>
+
+<p><a id="X7C5094AF784A8BA7" name="X7C5094AF784A8BA7"></a></p>
+
+<h5>3.2-1 LoggedReduceWordKB</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LoggedReduceWordKB</code>( <var class="Arg">word</var>, <var class="Arg">loggedrules</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LoggedOnePassReduceWord</code>( <var class="Arg">word</var>, <var class="Arg">loggedrules</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ShorterLoggedRule</code>( <var class="Arg">logrule1</var>, <var class="Arg">logrule2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>Given a word and a logged rewrite system, the function <code class="code">LoggedOnePassReduceWord</code> makes one reduction pass of the word (possibly involving several reductions) (as does <code class="code">OnePassReduceWord</code> in <a href="chap2_mj.html#X83BD6C0A80D88C2C"><span class="RefLink">2.2-2</span></a>) and records this, using the log part of the rule(s) used and the position in the original word of the replaced part.</p>
+
+<p>The function <code class="code">LoggedReduceWordKB</code> repeatedly applies <code class="code">OnePassLoggedReduceWord</code> until the word can no longer be reduced. Each step of the reduction is logged, showing how the original word can be expressed in terms of the original relators and the irreducible word. When <code class="code">loggedrules</code> is complete the reduced word is a unique normal form for that group element. The log of the reduction depends on the order in which the rules are applied.</p>
+
+<p>The function <code class="code">ShorterLoggedrule</code> decides whether one logged rule is better than another, using the same criteria as <code class="code">ShorterRule</code> in <a href="chap2_mj.html#X7F0CD1EB7C220D40"><span class="RefLink">2.2-3</span></a>. In the example we perform logged reductions of <span class="SimpleMath">\(w_0 = a^9b^{-9}\)</span> corresponding to the ordinary reductions performed in the previous chapter (section <a href="chap2_mj.html#X83BD6C0A80D88C2C"><span class="RefLink">2.2-2</span></a>).</p>
+
+<p>In order to clarify the following output, note that, in the log below, <span class="SimpleMath">\(b^9a^{-9}\)</span> reduces to <span class="SimpleMath">\(Bb^5aba^{-8}\)</span> in <code class="code">lw1</code>, just as in section <a href="chap2_mj.html#X83BD6C0A80D88C2C"><span class="RefLink">2.2-2</span></a>. This may be checked by cancelling terms in:</p>
+
+<p class="center">\[
+(b^2A^2)(a^2.b^4.A^2)(a^2b^6.bABA.b^6A^2)(a^2b^2)Bb^5aba^{-8} ~=~ b^9a^9. 
+\]</p>
+
+<p>The corresponding expansion of <code class="code">lw2</code> is too lengthy to include here. (It's hard to believe that the logged part of this identity is the simplest possible. Further investigation is needed to determine whether or not this logged part can be simplified.)</p>
+
+
+<div class="example"><pre>
+
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( w0, genfmq8, q8labs ); </span>
+b^9*a^-9
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lw1 := LoggedOnePassReduceWord( w0, lrws );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( lw1, genfmq8, q8labs );  </span>
+[ [ [ -4, id ], [ 2, A^2 ], [ -3, b^-6*a^-2 ], [ 4, id ] ], 
+B*b^5*a*b*a^-8 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lw2 := LoggedReduceWordKB( w0, lrws );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintLnUsingLabels( lw2, genfmq8, q8labs );</span>
+[ [ [ -4, id ], [ 2, A^2 ], [ -3, b^-6*a^-2 ], [ 4, id ], [ -3, b^-3 ], 
+[ 4, B*A*b^-3 ], [ -4, id ], [ 2, A^2 ], [ -3, B^-1*a^-1*b^-1*a^-2 ], 
+[ -4, a^-1*b^-1*a^-2 ], [ 3, A*a^-1*b^-1*a^-2 ], [ 4, id ], 
+[ -4, a^-2*B^-1 ], [ 2, A^2*a^-2*B^-1 ], [ -4, id ], [ 3, A ], 
+[ 1, b^-1*a^-1 ], [ -3, a^-1 ], [ -1, b^-1*a^-2 ], [ 4, id ], 
+[ -3, a*b ], [ -3, a*b*a^-1 ], [ -4, A^2 ], [ 1, id ], [ -3, id ] ], a*b ]
+
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap4_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

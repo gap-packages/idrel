@@ -1,0 +1,147 @@
+  
+  [1X1 [33X[0;0YIntroduction[133X[101X
+  
+  [33X[0;0YThis  manual  describes  the  [5XIdRel[105X  package  for  [5XGAP[105X 4.7 for computing the
+  identities  among  relators  of a group presentation using rewriting, logged
+  rewriting, monoid polynomials, module polynomials and [22XY[122X-sequences.[133X
+  
+  [33X[0;0YThe  theoretical background for these computations is contained in Brown and
+  Huebschumann  [BH82],  Brown and Razak Salleh [BRS99] and is surveyed in the
+  first author's thesis [Hey99].[133X
+  
+  [33X[0;0Y[5XIdRel[105X  is  primarily  designed  for  the  computation  of  a  minimal set of
+  generators  for  the  module  of identities among relators. It also contains
+  functions  which compute logged rewrite systems for group presentations (and
+  complete  them  where possible); functions for operations involving elements
+  of monoid rings; and functions for operations with elements of right modules
+  over  monoid  rings.  The  [22XY[122X-sequences  are  used  as  a  [13Xrewriting[113X  way  of
+  representing  elements  of  a free crossed module (products of conjugates of
+  group  relators  and  inverse  relators). The package is written entirely in
+  [5XGAP[105X4, and requires no compilation.[133X
+  
+  [33X[0;0YThe  package  is  loaded  into [5XGAP[105X with the [10XLoadPackage[110X command, and on-line
+  help is available in the usual way.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XLoadPackage( "idrel" ); [127X[104X
+    [4X[25Xgap>[125X [27X?idrel[127X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YA  pdf  version of the [5XIdRel[105X manual is available in the [11Xdoc[111X directory of the
+  home  directory  of  [5XIdRel[105X.  The information parameter [10XInfoIdRel[110X has default
+  value  [10X0[110X.  When  raised to a higher value, additional information is printed
+  out.  [5XIdRel[105X was originally developed in 1999 using [5XGAP[105X3, partially supported
+  by  a  University of Wales Research Assistantship for the first author, Anne
+  Heyworth.[133X
+  
+  [33X[0;0YIf  you  use  [5XIdRel[105X to solve a problem then please send a short email to the
+  second  author,  to  whom bug reports, suggestions and other comments should
+  also  be  sent.  You  may  reference  the  package  by mentioning [HW03] and
+  [Hey99].[133X
+  
+  [33X[0;0YThe    package    may    be    obtained    as    a   compressed   tar   file
+  [11Xidrel-version.number.tar.gz[111X by ftp from one of the following sites:[133X
+  
+  [30X    [33X[0;6Ythe                 [5XIdRel[105X                 GitHub                 site:
+        [7Xhttps://github.com/gap-packages.github.io/idrel/[107X.[133X
+  
+  [30X    [33X[0;6Yany                  [5XGAP[105X                 archive,                 e.g.
+        [7Xhttps://www.gap-system.org/Packages/packages.html[107X;[133X
+  
+  [33X[0;0YThe      package      also      has      a     GitHub     repository     at:
+  [7Xhttps://github.com/gap-packages/idrel/[107X where issues can be raised.[133X
+  
+  
+  [1X1.1 [33X[0;0YAn illustrative example[133X[101X
+  
+  [33X[0;0YA  typical input for [5XIdRel[105X is an fp-group presentation. This requires a free
+  group  [10XF[110X  on  a set of generators and a set of relators [10XR[110X (words in the free
+  group). The module of identities among relators for this presentation has as
+  its  elements  the Peiffer equivalence classes of all products of conjugates
+  of relators which represent the identity in the free group.[133X
+  
+  [33X[0;0YIn   this   package   the  identities  among  relators  are  represented  by
+  Y-sequences,  which  are  lists [22X[[r_1, u_1],...,[r_k,u_k]][122X where [22Xr_1,...,r_k[122X
+  are  the  group relators or their inverses, and [22Xu_1,...,u_k[122X are words in the
+  free   group   [10XF[110X.   A   Y-sequence   is   evaluated  in  [10XF[110X  as  the  product
+  [22X(u_1^-1r_1u_1)...(u_k^-1r_ku_k)[122X   and   is  an  identity  Y-sequence  if  it
+  evaluates  to  the  identity  in  [10XF[110X.  An  identity  Y-sequence represents an
+  identity  among the relators of the group presentation. The main function of
+  the  package is to produce a set of Y-sequences which generate the module of
+  identites among relators, and further, that this set be minimal in the sense
+  that every element in it is needed to generate the module.[133X
+  
+  [33X[0;0YBefore  starting  on  the  main  example,  we  consider  a  simpler  example
+  illustrating  the  use  of  [5XIdRel[105X.  All  the functions used are described in
+  detail in this manual. We compute a reduced set of identities among relators
+  for  the presentation of the symmetric group [10Xs3 = F/[f^3,g^2,(fg)^2][110X. In the
+  listings  below,  [10Xs3_Ri[110X  is  the  [10Xi[110X-th  relator  for  [10Xs3[110X,  and [10Xf1,f2[110X are the
+  generators [22Xf,g[122X of [22XF[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XF := FreeGroup( 2 );; [127X[104X
+    [4X[25Xgap>[125X [27Xf := F.1;;  g := F.2;; [127X[104X
+    [4X[25Xgap>[125X [27Xrels3 := [ f^3, g^2, f*g*f*g ]; [127X[104X
+    [4X[28X[ f1^3, f2^2, (f1*f2)^2 ][128X[104X
+    [4X[25Xgap>[125X [27Xs3 := F/rels3; [127X[104X
+    [4X[28X<fp group on the generators [ f1, f2 ]>[128X[104X
+    [4X[25Xgap>[125X [27XSetName( s3, "s3" );; [127X[104X
+    [4X[25Xgap>[125X [27XIdentitiesAmongRelators( s3 );[127X[104X
+    [4X[28X[ [ [ -1, <identity ...> ], [ 1, s3_M1 ] ], [128X[104X
+    [4X[28X  [ [ -2, <identity ...> ], [ 2, s3_M2 ] ], [128X[104X
+    [4X[28X  [ [ -3, <identity ...> ], [ 3, s3_M1*s3_M2 ] ], [128X[104X
+    [4X[28X  [ [ 1, <identity ...> ], [ -3, s3_M1 ], [ 2, s3_M3*s3_M4 ], [ 1, s3_M4 ], [128X[104X
+    [4X[28X      [ -3, <identity ...> ], [ 2, s3_M3*s3_M4*s3_M3 ], [ 2, s3_M3 ], [128X[104X
+    [4X[28X      [ -3, s3_M3 ] ], [128X[104X
+    [4X[28X  [ [ 1, <identity ...> ], [ -3, s3_M2 ], [ 2, s3_M3*s3_M4*s3_M3*s3_M2 ], [128X[104X
+    [4X[28X      [ 2, s3_M3*s3_M2 ], [ 1, s3_M2 ], [ -3, <identity ...> ], [ 2, s3_M3 ], [128X[104X
+    [4X[28X      [ -3, s3_M3 ] ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIf we write [22Xρ=f^3[122X, [22Xσ=g^2[122X, [22Xτ=(fg)^2[122X then the first identity becomes [22Xρ^-1 ρ^f[122X.
+  Similarly,  the second and third identities are the root identities [22Xσ^-1 σ^g[122X
+  and  [22Xτ^-1  τ^fg[122X.  The  fourth  identity,  which  is  not a root identity, is
+  obtained  by  walking  around  the  Schreier  diagram of the presentation, a
+  somewhat  truncated  triangular  prism.  Taking the appropriate conjugate of
+  each face in turn, we get:[133X
+  
+  
+  [24X[33X[0;6Y\rho\   (\tau^{-1})^f\  \sigma^{f^{-1}g^{-1}}\  \rho^{g^{-1}}\  (\tau^{-1})\
+  \sigma^{f^{-1}g^{-1}f^{-1}}\ \sigma^{f^{-1}}\ (\tau^{-1})^{f^{-1}}\, .[133X
+  
+  [124X
+  
+  [33X[0;0YThe  fifth identity is equivalent to the fourth, as we shall show in section
+  [14X6.2[114X.[133X
+  
+  [33X[0;0YIn  order  to  form  the  [13Xmodule  of  identities[113X  for  [10Xs3[110X the identities are
+  transformed  into  module polynomials. The first is [22Xy_1 = ρ(f-1)[122X. The second
+  and third are [22Xy_2 = σ(g-1)[122X and [22Xy_3 = τ(fg-1)[122X, while the fourth is [22Xρ(1+g^-1f)
+  +   σ(1+f^-1g^-1+f^-1g^-1f)   -   τ(1++f+f^2)[122X.  Note  that,  in  the  fourth
+  polynomial,  the  conjugators  are  converted  to  their normal forms in [10Xs3[110X,
+  namely  [22Xf^2=f^-1,  f^-1g^-1f=fg,  g^-1f=gf[122X and [22Xfg^-1f=g[122X. Generators for this
+  module are returned by the operation [10XIdentityYSequences[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xidyseq3 := IdentityYSequences( s3 );     [127X[104X
+    [4X[28X[ ( s3_Y1*( -s3_M1), s3_R1*( s3_M1 - <identity ...>) ), [128X[104X
+    [4X[28X  ( s3_Y2*( <identity ...>), s3_R2*( s3_M2 - <identity ...>) ), [128X[104X
+    [4X[28X  ( s3_Y3*( s3_M1), s3_R3*( s3_M2 - s3_M1) ), [128X[104X
+    [4X[28X  ( s3_Y9*( -<identity ...>), s3_R1*( -s3_M2*s3_M1 - s3_M1) + s3_R2*( -s3_M1*s\[128X[104X
+    [4X[28X3_M2 - s3_M1 - <identity ...>) + s3_R3*( s3_M3 + s3_M2 + <identity ...>) ) ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFurther examples are given in chapter [14X6[114X.[133X
+  
+  [33X[0;0YAn  extensive  revision  has  been  released  with  version  2.44.  This has
+  concentrated  in  the  area  of  log sequences, adding many of the functions
+  described in sections [14X6.2[114X and [14X6.3[114X.[133X
+  
+  [33X[0;0YWork on revising Y-sequences is needed, but must wait for later versions.[133X
+  

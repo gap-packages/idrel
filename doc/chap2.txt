@@ -1,0 +1,364 @@
+  
+  [1X2 [33X[0;0YRewriting Systems[133X[101X
+  
+  [33X[0;0YThis chapter describes functions to construct rewriting systems for finitely
+  presented  groups  which  store rewriting information. The main example used
+  throughout  this  manual  is  a  presentation  of  the quaternion group [22Xq8 =
+  F/[a^4, b^4, abab^-1, a^2b^2][122X.[133X
+  
+  
+  [1X2.1 [33X[0;0YMonoid Presentations of FpGroups[133X[101X
+  
+  [1X2.1-1 FreeRelatorGroup[101X
+  
+  [33X[1;0Y[29X[2XFreeRelatorGroup[102X( [3Xgrp[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XFreeRelatorHomomorphism[102X( [3Xgrp[103X ) [32X attribute[133X
+  
+  [33X[0;0YThe function [10XFreeRelatorGroup[110X returns a free group on the set of relators of
+  the  fp-group [10XG[110X. If [10XHasName(G)[110X is [9Xtrue[109X then a name is automatically assigned
+  to this free group by concatenating [10X_R[110X.[133X
+  
+  [33X[0;0YThe function [10XFreeRelatorHomomorphism[110X returns the group homomorphism from the
+  free group on the relators to the free group on the generators of [10XG[110X, mapping
+  each generator to the corresponding word.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xrelq8 := [ f^4, g^4, f*g*f*g^-1, f^2*g^2 ];;[127X[104X
+    [4X[25Xgap>[125X [27Xq8 := F/relq8;;[127X[104X
+    [4X[25Xgap>[125X [27XSetName( q8, "q8" );;[127X[104X
+    [4X[25Xgap>[125X [27Xq8R := FreeRelatorGroup( q8 ); [127X[104X
+    [4X[28Xq8_R[128X[104X
+    [4X[25Xgap>[125X [27Xgenq8R := GeneratorsOfGroup( q8R );[127X[104X
+    [4X[28X[ q8_R1, q8_R2, q8_R3, q8_R4][128X[104X
+    [4X[25Xgap>[125X [27Xhomq8R := FreeRelatorHomomorphism( q8 );[127X[104X
+    [4X[28X[ q8_R1, q8_R2, q8_R3, q8_R4 ] -> [ f1^4, f2^4, f1*f2*f1*f2^-1, f1^2*f2^2 ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X2.1-2 MonoidPresentationFpGroup[101X
+  
+  [33X[1;0Y[29X[2XMonoidPresentationFpGroup[102X( [3Xgrp[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XArrangementOfMonoidGenerators[102X( [3Xgrp[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XMonoidPresentationLabels[102X( [3Xgrp[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XFreeGroupOfPresentation[102X( [3Xmon[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XGroupRelatorsOfPresentation[102X( [3Xmon[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XInverseRelatorsOfPresentation[102X( [3Xmon[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XHomomorphismOfPresentation[102X( [3Xmon[103X ) [32X attribute[133X
+  
+  [33X[0;0YA  monoid  presentation  for  a  finitely  presented  group [10XG[110X has two monoid
+  generators  [22Xg,G[122X  for  each  group  generator  [22Xg[122X.  The relators of the monoid
+  presentation comprise the group relators, and relators [22XgG, Gg[122X specifying the
+  inverses.   The   function   [10XMonoidPresentationFpGroup[110X  returns  the  monoid
+  presentation derived in this way from an fp-presentation.[133X
+  
+  [33X[0;0YThe  function  [10XFreeGroupOfPresentation[110X  returns the free group on the monoid
+  generators.[133X
+  
+  [33X[0;0YThe  function  [10XGroupRelatorsOfPresentation[110X  returns  those  relators  of the
+  monoid which correspond to the relators of the group. All negative powers in
+  the group relators are converted to positive powers of the [22XG[122X's. The function
+  [10XInverseRelatorsOfPresentation[110X  returns  relators  which  specify the inverse
+  pairs of the monoid generators.[133X
+  
+  [33X[0;0YThe  function  [10XHomomorphismOfPresentation[110X  returns the homomorphism from the
+  free  group  of  the  monoid  presentation  to  the  free group of the group
+  presentation.[133X
+  
+  [33X[0;0YThe  attribute  [10XArrangementOfMonoidGenerators[110X  will  be discussed before the
+  second example in the next section.[133X
+  
+  [33X[0;0YIn  the  example  below, the four monoid generators [22Xa,b,A,B[122X are named [10Xq8_M1,
+  q8_M2, q8_M3, q8_M4[110X respectively.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xmq8 := MonoidPresentationFpGroup( q8 );[127X[104X
+    [4X[28Xmonoid presentation with group relators [128X[104X
+    [4X[28X[ q8_M1^4, q8_M2^4, q8_M1*q8_M2*q8_M1*q8_M4, q8_M1^2*q8_M2^2 ][128X[104X
+    [4X[25Xgap>[125X [27Xfmq8 := FreeGroupOfPresentation( mq8 ); [127X[104X
+    [4X[28X<free group on the generators [ q8_M1, q8_M2, q8_M3, q8_M4 ]>[128X[104X
+    [4X[25Xgap>[125X [27Xgenfmq8 := GeneratorsOfGroup( fmq8 );;[127X[104X
+    [4X[25Xgap>[125X [27Xgprels := GroupRelatorsOfPresentation( mq8 ); [127X[104X
+    [4X[28X[ q8_M1^4, q8_M2^4, q8_M1*q8_M2*q8_M1*q8_M4, q8_M1^2*q8_M2^2 ][128X[104X
+    [4X[25Xgap>[125X [27Xinvrels := InverseRelatorsOfPresentation( mq8 ); [127X[104X
+    [4X[28X[ q8_M1*q8_M3, q8_M2*q8_M4, q8_M3*q8_M1, q8_M4*q8_M2 ][128X[104X
+    [4X[25Xgap>[125X [27Xhompres := HomomorphismOfPresentation( mq8 ); [127X[104X
+    [4X[28X[ q8_M1, q8_M2, q8_M3, q8_M4 ] -> [ f1, f2, f1^-1, f2^-1 ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X2.1-3 PrintLnUsingLabels[101X
+  
+  [33X[1;0Y[29X[2XPrintLnUsingLabels[102X( [3Xargs[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XPrintUsingLabels[102X( [3Xargs[103X ) [32X function[133X
+  
+  [33X[0;0YThe  labels  [10Xq8_M1,  q8_M2,  q8_M3,  q8_M4[110X  are  rather unhelpful in lengthy
+  output,  so  it  is  convenient to use [22X[a,b,A,B][122X as above. Then the function
+  [10XPrintUsingLabels[110X  takes as input a word in the monoid, the generators of the
+  monoid,  and a set of labels for these generators. This function also treats
+  lists  of  words  and  lists  of  lists  in  a  similar  way.  The  function
+  [10XPrintLnUsingLabels[110X does exactly the same, and then appends a newline.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xq8labs := [ "a", "b", "A", "B" ];; [127X[104X
+    [4X[25Xgap>[125X [27XSetMonoidPresentationLabels( q8, q8labs );; [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( gprels, genfmq8, q8labs ); [127X[104X
+    [4X[28X[ a^4, b^4, a*b*a*B, a^2*b^2 ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X2.1-4 InitialRulesOfPresentation[101X
+  
+  [33X[1;0Y[29X[2XInitialRulesOfPresentation[102X( [3Xmon[103X ) [32X function[133X
+  
+  [33X[0;0YThe initial rules for [22Xmq8[122X are the four rules of the form [22Xa^-1 -> A[122X; the four
+  rules  of  the  form [22XaA -> id[122X; and the four relator rules of the form [22Xa^4 ->
+  id[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xq0 := InitialRulesOfPresentation( mq8 );;  [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( q0, genfmq8, q8labs );[127X[104X
+    [4X[28X[ [ a^-1, A ], [ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a*A, id ], [128X[104X
+    [4X[28X[ b*B, id ], [ A*a, id ], [ B*b, id ], [ a^4, id ], [ a^2*b^2, id ], [128X[104X
+    [4X[28X[ a*b*a*B, id ], [ b^4, id ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.2 [33X[0;0YRewriting systems for FpGroups[133X[101X
+  
+  [33X[0;0YThese  functions  duplicate  the  standard  Knuth Bendix functions which are
+  available  in  the  [5XGAP[105X  library.  There are two reasons for this: (1) these
+  functions  were  first written before the standard functions were available;
+  (2)  we  require  logged  versions  of  the  functions,  and  these are most
+  conveniently extended versions of the non-logged code.[133X
+  
+  [1X2.2-1 RewritingSystemFpGroup[101X
+  
+  [33X[1;0Y[29X[2XRewritingSystemFpGroup[102X( [3Xgrp[103X ) [32X attribute[133X
+  
+  [33X[0;0YThis  function attempts to return a complete rewrite system for the fp-group
+  [10XG[110X   obtained   using   the   group's   monoid   presentation   [10Xmon[110X,  with  a
+  length-lexicographical   ordering   on  the  words  in  [10Xfgmon[110X,  by  applying
+  Knuth-Bendix  completion.  Such  a  rewrite  system  can be obtained for all
+  finite  groups. The rewrite rules are (partially) ordered, starting with the
+  inverse  relators,  followed  by  the rules which reduce the word length the
+  most.[133X
+  
+  [33X[0;0YIn our [10Xq8[110X example there are 20 rewrite rules in the rewriting system [10Xrws[110X:[133X
+  
+      ┌──────────────────────────────────────────────────────────────────────────────────────────┐
+      │                [22Xa^-1 -> A, quad b^-1 -> B, quad A^-1 -> a, quad B^-1 -> b,[122X                │ 
+      │                  [22XaA -> id, quad bB -> id, quad Aa -> id, quad Bb -> id,[122X                  │ 
+      │  [22Xba -> aB, quad b^2 -> a^2,quad bA -> ab, quad Ab -> aB, quad A^2 -> a^2,quad AB -> ab,[122X  │ 
+      │ [22XBa -> ab, quad BA -> aB, quad B^2 -> a^2, quad a^3 -> a, quad a^2b -> B, quad a^2B -> b.[122X │ 
+      └──────────────────────────────────────────────────────────────────────────────────────────┘
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xrws := RewritingSystemFpGroup( q8 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( rws );[127X[104X
+    [4X[28X20[128X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( rws, genfmq8, q8labs );[127X[104X
+    [4X[28X[ [ a^-1, A ], [ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a*A, id ], [128X[104X
+    [4X[28X[ b*B, id ], [ A*a, id ], [ B*b, id ], [ b*a, a*B ], [ b^2, a^2 ], [128X[104X
+    [4X[28X[ b*A, a*b ], [ A*b, a*B ], [ A^2, a^2 ], [ A*B, a*b ], [ B*a, a*b ], [128X[104X
+    [4X[28X[ B*A, a*B ], [ B^2, a^2 ], [ a^3, A ], [ a^2*b, B ], [ a^2*B, b ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe     default    ordering    of    the    [22X2n[122X    monoid    generators    is
+  [22X[g_1^+,g_2^+,...,g_n^+,g_1^-,g_2^-,...,g_n^-][122X.    In   the   case   of   the
+  two-generator  abelian  group [22XT = ⟨ a,b ~|~ [a,b] ⟩[122X the Knuth-Bendix process
+  starts  to  generate infinite sets of relations such as [22X{ab^ma^-1 -> b^m,~ m
+  geqslant 1}[122X.[133X
+  
+  [33X[0;0YIf,   using  the  [10XArrangementOfMonoidGenerators[110X  function,  we  specify  the
+  alternative  ordering  [22X[g_1^+,g_1^-,g_2^+,g_2^-][122X, then a finite set of rules
+  is obtained.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27XT := F/[Comm(f,g)];              [127X[104X
+    [4X[28X<fp group of size infinity on the generators [ f1, f2 ]>[128X[104X
+    [4X[25Xgap>[125X [27XSetName( T, "T" );                   [127X[104X
+    [4X[25Xgap>[125X [27XSetArrangementOfMonoidGenerators( T, [1,-1,2,-2] );[127X[104X
+    [4X[25Xgap>[125X [27XTlabs := [ "x", "X", "y", "Y" ];; [127X[104X
+    [4X[25Xgap>[125X [27XmT := MonoidPresentationFpGroup( T );              [127X[104X
+    [4X[28Xmonoid presentation with group relators [ T_M2*T_M4*T_M1*T_M3 ][128X[104X
+    [4X[25Xgap>[125X [27XfgmT := FreeGroupOfPresentation( mT );; [127X[104X
+    [4X[25Xgap>[125X [27XgenfgmT := GeneratorsOfGroup( fgmT );;[127X[104X
+    [4X[25Xgap>[125X [27XSetMonoidPresentationLabels( T, Tlabs );; [127X[104X
+    [4X[25Xgap>[125X [27XrwsT := RewritingSystemFpGroup( T );;[127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( rwsT, genfgmT, Tlabs );       [127X[104X
+    [4X[28X[ [ x^-1, X ], [ X^-1, x ], [ y^-1, Y ], [ Y^-1, y ], [ x*X, id ], [128X[104X
+    [4X[28X[ X*x, id ], [ y*Y, id ], [ Y*y, id ], [ y*x, x*y ], [ y*X, X*y ], [128X[104X
+    [4X[28X[ Y*x, x*Y ], [ Y*X, X*Y ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe last four rules show that generators [22Xx[122X and [22Xy[122X commute.[133X
+  
+  [1X2.2-2 OnePassReduceWord[101X
+  
+  [33X[1;0Y[29X[2XOnePassReduceWord[102X( [3Xword[103X, [3Xrules[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XReduceWordKB[102X( [3Xword[103X, [3Xrules[103X ) [32X operation[133X
+  
+  [33X[0;0YThese functions are called by the function [10XRewritingSystemFpGroup[110X.[133X
+  
+  [33X[0;0YAssuming  that  [10Xword[110X  is  an element of a free monoid and [10Xrules[110X is a list of
+  ordered  pairs  of  such  words, the function [10XOnePassReduceWord[110X searches the
+  list  of rules until it finds that the left-hand side of a [10Xrule[110X is a [10Xsubword[110X
+  of  [10Xword[110X, whereupon it replaces that [10Xsubword[110X with the right-hand side of the
+  matching  rule.  The  search  is  continued from the next [10Xrule[110X in [10Xrules[110X, but
+  using the new [10Xword[110X. When the end of [10Xrules[110X is reached, one pass is considered
+  to  have been made and the reduced [10Xword[110X is returned. If no matches are found
+  then the original [10Xword[110X is returned.[133X
+  
+  [33X[0;0YThe  function [10XReduceWordKB[110X repeatedly applies the function [10XOnePassReduceWord[110X
+  until  the [10Xword[110X remaining contains no left-hand side of a [10Xrule[110X as a [10Xsubword[110X.
+  If  [10Xrules[110X  is  a  complete rewrite system, then the irreducible [10Xword[110X that is
+  returned is unique, otherwise the order of the rules in [10Xrules[110X will determine
+  which  irreducible  word  is returned. In our [22Xq8[122X example we see that [22Xb^9a^-9[122X
+  reduces to [22Xab[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xa := genfmq8[1];;  b := genfmq8[2];; [127X[104X
+    [4X[25Xgap>[125X [27XA := genfmq8[3];;  B := genfmq8[4];; [127X[104X
+    [4X[25Xgap>[125X [27Xw0 := b^9 * a^-9;; [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( w0, genfmq8, q8labs ); [127X[104X
+    [4X[28Xb^9*a^-9[128X[104X
+    [4X[25Xgap>[125X [27Xw1 := OnePassReduceWord( w0, rws );; [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( w1, genfmq8, q8labs ); [127X[104X
+    [4X[28XB*b^5*a*b*a^-8[128X[104X
+    [4X[25Xgap>[125X [27Xw2 := ReduceWordKB( w0, rws );; [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( w2, genfmq8, q8labs ); [127X[104X
+    [4X[28Xa*b[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X2.2-3 OnePassKB[101X
+  
+  [33X[1;0Y[29X[2XOnePassKB[102X( [3Xmon[103X, [3Xrules[103X ) [32X operation[133X
+  
+  [33X[0;0YThe  function  [10XOnePassKB[110X  implements  the  main  loop  of  the  Knuth-Bendix
+  completion algorithm. Rules are compared with each other; all critical pairs
+  are  calculated;  and  the  irreducible  critical  pairs are orientated with
+  respect  to  the  length-lexicographical  ordering  and added to the rewrite
+  system.[133X
+  
+  [33X[0;0YThe  function [10XShorterRule[110X gives an ordering on rules. Rules [22X(g_lg_2,id)[122X that
+  identify  two generators (or one generator with the inverse of another) come
+  first  in  the  ordering.  Otherwise  one precedes another if it reduces the
+  length of a word by a greater amount.[133X
+  
+  [33X[0;0YOne  pass  of  this  procedure  for  our  [22Xq8[122X example adds [22X10[122X relators to the
+  original [22X12[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xq1 := OnePassKB( mq8, q0 );; [127X[104X
+    [4X[25Xgap>[125X [27XLength( q1 ); [127X[104X
+    [4X[28X22[128X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( q1, genfmq8, q8labs ); [127X[104X
+    [4X[28X[ [ a^-1, A ], [ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a*A, id ], [128X[104X
+    [4X[28X[ b*B, id ], [ A*a, id ], [ B*b, id ], [ b^2, a^2 ], [ a^3, A ], [128X[104X
+    [4X[28X[ a^2*b, B ], [ a*b*a, b ], [ a*b^2, A ], [ b*a*B, A ], [ b^3, B ], [128X[104X
+    [4X[28X[ a*b^2, a^3 ], [ b*a*B, a^3 ], [ b^3, a^2*b ], [ a^4, id ], [128X[104X
+    [4X[28X[ a^2*b^2, id ], [ a*b*a*B, id ], [ b^4, id ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X2.2-4 RewriteReduce[101X
+  
+  [33X[1;0Y[29X[2XRewriteReduce[102X( [3Xmon[103X, [3Xrules[103X ) [32X operation[133X
+  
+  [33X[0;0YThe  function  [10XRewriteReduce[110X  will  remove  unnecessary rules from a rewrite
+  system.  A  rule  is  deemed to be unnecessary if it is implied by the other
+  rules,  i.e. if both sides can be reduced to the same thing by the remaining
+  rules.[133X
+  
+  [33X[0;0YIn the example the [22X22[122X rules in [22Xq1[122X are reduced to [22X13[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xq2 := RewriteReduce( mq8, q1 );; [127X[104X
+    [4X[25Xgap>[125X [27XLength( q2 ); [127X[104X
+    [4X[28X13[128X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( q2, genfmq8, q8labs ); [127X[104X
+    [4X[28X[ [ a^-1, A ], [ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a*A, id ], [128X[104X
+    [4X[28X[ b*B, id ], [ A*a, id ], [ B*b, id ], [ b^2, a^2 ], [ a^3, A ], [128X[104X
+    [4X[28X[ a^2*b, B ], [ a*b*a, b ], [ b*a*B, A ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X2.2-5 KnuthBendix[101X
+  
+  [33X[1;0Y[29X[2XKnuthBendix[102X( [3Xmon[103X, [3Xrules[103X ) [32X operation[133X
+  
+  [33X[0;0YThe  function  [10XKnuthBendix[110X implements the Knuth-Bendix algorithm, attempting
+  to  complete  a  rewrite  system  with  respect  to  a  length-lexicographic
+  ordering.  It  calls  first  [10XOnePassKB[110X,  which  adds  rules,  and  then (for
+  efficiency) [10XRewriteReduce[110X which removes any unnecessary ones. This procedure
+  is  repeated  until  [10XOnePassKB[110X  adds  no  more  rules.  It  will  not always
+  terminate,  but for many examples (all finite groups) it will be successful.
+  The  rewrite system returned is complete, that is: it will rewrite any given
+  word  in  the  free monoid to a unique irreducible; there is one irreducible
+  for  each  element  of the quotient monoid; and any two elements of the free
+  monoid which are in the same class will rewrite to the same irreducible.[133X
+  
+  [33X[0;0YThe  function [10XShorterRule[110X gives an ordering on rules. Rules [22X(g_lg_2,id)[122X that
+  identify  two generators (or one generator with the inverse of another) come
+  first  in  the  ordering.  Otherwise  one precedes another if it reduces the
+  length of a word by a greater amount.[133X
+  
+  [33X[0;0YIn  the  example  the  function  [10XKnuthBendix[110X  requires  three  instances  of
+  [10XOnePassKB[110X  and [10XRewriteReduce[110X to form the complete rewrite system [22Xrws[122X for the
+  group shown above.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xq3 := KnuthBendix( mq8, q0 );; [127X[104X
+    [4X[25Xgap>[125X [27XLength( q3 ); [127X[104X
+    [4X[28X20[128X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( q3, genfmq8, q8labs ); [127X[104X
+    [4X[28X[ [ a^-1, A ], [ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a*A, id ], [128X[104X
+    [4X[28X[ b*B, id ], [ A*a, id ], [ B*b, id ], [ b*a, a*B ], [ b^2, a^2 ], [128X[104X
+    [4X[28X[ b*A, a*b ], [ A*b, a*B ], [ A^2, a^2 ], [ A*B, a*b ], [ B*a, a*b ], [128X[104X
+    [4X[28X[ B*A, a*B ], [ B^2, a^2 ], [ a^3, A ], [ a^2*b, B ], [ a^2*B, b ] ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.3 [33X[0;0YEnumerating elements[133X[101X
+  
+  [1X2.3-1 ElementsOfMonoidPresentation[101X
+  
+  [33X[1;0Y[29X[2XElementsOfMonoidPresentation[102X( [3Xmon[103X ) [32X attribute[133X
+  
+  [33X[0;0YThe function [10XElementsOfMonoidPresentation[110X returns a list of normal forms for
+  the  elements  of the group given by the monoid presentation [10Xmon[110X. The normal
+  forms  are  the  least  elements  in each equivalence class (with respect to
+  length-lex  order).  When  [10Xrules[110X is a complete rewrite system for [10XG[110X the list
+  returned  is  a set of normal forms for the group elements. For [10Xq8[110X this list
+  is[133X
+  
+  
+  [24X[33X[0;6Y[\; {\rm id},\; a^+,\; b^+,\; a^-,\; b^-,\; a^{+2},\; a^+b^+,\; a^+b^-\; ].[133X
+  
+  [124X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xelq8 := Elements( q8 ); [127X[104X
+    [4X[28X[ <identity ...>, f1, f1^3, f2, f1^2*f2, f1^2, f1*f2, f1^3*f2 ][128X[104X
+    [4X[25Xgap>[125X [27Xelmq8 := ElementsOfMonoidPresentation( q8 );; [127X[104X
+    [4X[25Xgap>[125X [27XPrintLnUsingLabels( elmq8, genfmq8, q8labs ); [127X[104X
+    [4X[28X[ id, a, b, A, B, a^2, a*b, a*B ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  

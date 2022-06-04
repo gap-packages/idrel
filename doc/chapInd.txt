@@ -1,0 +1,79 @@
+  
+  
+  [1XIndex[101X
+  
+  =,+,* for module polynomials 5.3 
+  =,+,* for monoid polynomials 4.3 
+  [2XAddTermModulePoly[102X 5.3-1 
+  [2XAddTermMonoidPoly[102X 4.2-3 
+  [2XArrangementOfMonoidGenerators[102X 2.1-2 
+  [2XCancelImmediateInversesLogSequence[102X 6.2-5 
+  [2XCancelInversesLogSequence[102X 6.2-5 
+  [2XChangeStartLogSequence[102X 6.2-3 
+  [2XCoeffs[102X 4.2-1 
+  [2XConjugateByWordLogSequence[102X 6.2-2 
+  [2XElementsOfMonoidPresentation[102X 2.3-1 
+  [2XExpandLogSequence[102X 6.1-4 
+  [2XFreeGroupOfPresentation[102X 2.1-2 
+  [2XFreeRelatorGroup[102X 2.1-1 
+  [2XFreeRelatorHomomorphism[102X 2.1-1 
+  [2XGroupRelatorsOfPresentation[102X 2.1-2 
+  [2XHomomorphismOfPresentation[102X 2.1-2 
+  [2XIdentitiesAmongRelators[102X 6.4-1 
+  [2XIdentityRelatorSequences[102X 6.1-2 
+  [2XIdentityYSequences[102X 6.4-2 
+  [2XInitialLoggedRulesOfPresentation[102X 3.1-1 
+  [2XInitialRulesOfPresentation[102X 2.1-4 
+  [2XInverseLogSequence[102X 6.2-4 
+  [2XInverseRelatorsOfPresentation[102X 2.1-2 
+  [2XKnuthBendix[102X 2.2-5 
+  [2XLeadCoeffMonoidPoly[102X 4.2-1 
+  [2XLeadMonoidPoly[102X 5.2-1 
+  [2XLeadTerm[102X, for module polynomials 5.2-1 
+      for monoid polynomials 4.2-1 
+  [2XLength[102X, for module polynomials 5.2-1 
+      for monoid polynomials 4.3-1 
+  [2XLoggedKnuthBendix[102X 3.1-4 
+  [2XLoggedOnePassKB[102X 3.1-2 
+  [2XLoggedOnePassReduceWord[102X 3.2-1 
+  [2XLoggedReduceWordKB[102X 3.2-1 
+  [2XLoggedRewriteReduce[102X 3.1-3 
+  [2XLoggedRewritingSystemFpGroup[102X 3.1-5 
+  [2XLogSequenceLessThan[102X 6.1-3 
+  [2XLogSequenceRewriteRules[102X 6.3-1 
+  [2XModulePoly[102X, with input [gen,poly] list 5.1-1 
+      with input gens, polys 5.1-1 
+  [2XMonic[102X 4.2-2 
+  [2XMonoidPoly[102X 4.1-1 
+  [2XMonoidPolyFromCoeffsWords[102X 4.1-1 
+  [2XMonoidPresentationFpGroup[102X 2.1-2 
+  [2XMonoidPresentationLabels[102X 2.1-2 
+  [2XMoveLeftLogSequence[102X 6.3-3 
+  [2XMoveRightLogSequence[102X 6.3-3 
+  [2XOne[102X 5.2-1 
+  [2XOnePassKB[102X 2.2-3 
+  [2XOnePassReduceLogSequence[102X 6.3-2 
+  [2XOnePassReduceWord[102X 2.2-2 
+  [2XPartialElementsOfMonoidRepresentation[102X 6.5-1 
+  [2XPrintLnModulePoly[102X, input object, [gens,labels] for the group, ditto relators 5.1-2 
+  [2XPrintLnUsingLabels[102X 2.1-3 
+  [2XPrintModulePoly[102X, input object, [gens,labels] for the group, ditto relators 5.1-2 
+  [2XPrintUsingLabels[102X 2.1-3 
+  [2XReduceLogSequences[102X 6.2-1 
+  [2XReduceMonoidPoly[102X 4.4-1 
+  [2XReduceWordKB[102X 2.2-2 
+  [2XRewriteReduce[102X 2.2-4 
+  [2XRewritingSystemFpGroup[102X 2.2-1 
+  [2XRootIdentities[102X 6.1-1 
+  [2XRootPositions[102X 6.1-1 
+  [2XShorterLoggedRule[102X 3.2-1 
+  [2XSubstituteLogSubsequence[102X 6.3-4 
+  [2XSwapLogSequence[102X 6.3-3 
+  [2XTerms[102X, for module polynomials 5.2-1 
+      for monoid polynomials 4.2-1 
+  [2XWords[102X 4.2-1 
+  [2XZeroModulePoly[102X 5.1-1 
+  [2XZeroMonoidPoly[102X 4.1-1 
+  
+  
+  -------------------------------------------------------
