@@ -1,102 +1,157 @@
 #############################################################################
-##  
-##  Demo PackageInfo.g for the GitHubPagesForGAP
+##
+##  PackageInfo.g  file for the package IdRel 
+##  Anne Heyworth and Chris Wensley 
 ##
 
 SetPackageInfo( rec(
 
-PackageName := "GitHubPagesForGAP",
-
-Subtitle := "A GitHub Pages generator for GAP packages",
-Version := "0.3",
-Date := "10/11/2019", # dd/mm/yyyy format
-License := "0BSD",
+PackageName := "idrel",
+Subtitle := "Identities among relations",
+Version := "2.44",
+Date := "04/06/2022", # dd/mm/yyyy format
+License := "GPL-2.0-or-later",
 
 Persons := [
   rec(
-    LastName      := "Horn",
-    FirstNames    := "Max",
-    IsAuthor      := true,
-    IsMaintainer  := true,
-    Email         := "max.horn@uni-siegen.de",
-    WWWHome       := "https://www.quendi.de/math",
-    PostalAddress := Concatenation(
-                       "Department Mathematik\n",
-                       "Universität Siegen\n",
-                       "Walter-Flex-Straße 3\n",
-                       "57072 Siegen\n",
-                       "Germany" ),
-    Place         := "Siegen",
-    Institution   := "Universität Siegen"
-  ),
-
-  rec(
-    LastName      := "Thor",
-    FirstNames    := "A. U.",
+    LastName      := "Heyworth",
+    FirstNames    := "Anne",
     IsAuthor      := true,
     IsMaintainer  := false,
-    #Email         := "author@example.com",
+    ## Email         := "anne.heyworth@gmail.com",
+    ## WWWHome       := "",
+    ## PostalAddress := Concatenation( ["\n", "UK"] ),
+    ## Place         := "",
+    ## Institution   := ""
   ),
-
   rec(
-    LastName      := "Itor",
-    FirstNames    := "Jan",
-    IsAuthor      := false,
+    LastName      := "Wensley",
+    FirstNames    := "Chris",
+    IsAuthor      := true,
     IsMaintainer  := true,
-    #Email         := "janitor@example.com",
-  ),
+    Email         := "c.d.wensley@bangor.ac.uk",
+    WWWHome       := "https://github.com/cdwensley",
+    PostalAddress := Concatenation( [
+                       "Dr. C.D. Wensley\n",
+                       "School of Computer Science\n",
+                       "Bangor University\n",
+                       "Dean Street\n",
+                       "Bangor\n",
+                       "Gwynedd LL57 1UT\n",
+                       "UK"] ),
+    Place         := "Bangor",
+    Institution   := "Bangor University"
+  )
 ],
 
-Status := "other",
+Status := "accepted",
+CommunicatedBy := "Leonard Soicher (QMUL)",
+AcceptDate := "05/2015",
 
-# The following are not strictly necessary in your own PackageInfo.g
-# (in the sense that update.g only looks at the usual fields
-# like PackageWWWHome, ArchiveURL etc.). But they are convenient
-# if you use exactly the scheme for your package website that we propose.
-GithubUser := "gap-system",
-GithubRepository := ~.PackageName,
-GithubWWW := Concatenation("https://github.com/", ~.GithubUser, "/", ~.GithubRepository),
+SourceRepository := rec( 
+  Type := "git", 
+  URL := "https://github.com/gap-packages/idrel" ),
+  IssueTrackerURL  := Concatenation( ~.SourceRepository.URL, "/issues" ),
+  PackageWWWHome   := "https://gap-packages.github.io/idrel/",
+  README_URL       := Concatenation( ~.PackageWWWHome, "README.md" ),
+  PackageInfoURL   := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
+  ArchiveURL       := Concatenation( ~.SourceRepository.URL, 
+                                   "/releases/download/v", ~.Version, 
+                                   "/", ~.PackageName, "-", ~.Version ), 
+ArchiveFormats   := ".tar.gz",
 
-PackageWWWHome := Concatenation("https://", ~.GithubUser, ".github.io/", ~.GithubRepository, "/"),
-README_URL     := Concatenation( ~.PackageWWWHome, "README.md" ),
-PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
-# The following assumes you are using the Github releases system. If not, adjust
-# it accordingly.
-ArchiveURL     := Concatenation(~.GithubWWW,
-                    "/releases/download/v", ~.Version, "/",
-                    ~.GithubRepository, "-", ~.Version),
-
-ArchiveFormats := ".tar.gz .tar.bz2",
-
-AbstractHTML := 
-  "This is a pseudo package that contains no actual\
-  <span class=\"pkgname\">GAP</span> code. Instead, it is a template for other\
-  GAP packages that allows to quickly setup GitHub Pages.",
+AbstractHTML :=
+"IdRel is a package for computing the identities among relations of a group presentation using rewriting, logged rewriting, monoid polynomials, module polynomials and Y-sequences.",
 
 PackageDoc := rec(
-  BookName  := "GitHubPagesForGAP",
+  BookName  := "IdRel",
   ArchiveURLSubset := ["doc"],
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "A GitHub Pages generator for GAP packages",
+  LongTitle := "Identities among Relations",
+  Autoload  := true
 ),
 
-# The following dependencies are fake and for testing / demo purposes
 Dependencies := rec(
-  GAP := ">=4.8.1",
-  NeededOtherPackages := [
-    ["GAPDoc", ">= 1.2"],
-    ["IO", ">= 4.1"],
-  ],
-  SuggestedOtherPackages := [["orb", ">= 4.2"]],
-  ExternalConditions := []
+  GAP := ">=4.11.1",
+  NeededOtherPackages := [ [ "GAPDoc", ">= 1.6.2" ] ],
+  SuggestedOtherPackages := [ [ "AutoDoc", ">= 2018.09.20" ] ],
+  ExternalConditions := [ ]
 ),
 
 AvailabilityTest := ReturnTrue,
 
-Keywords := ["GitHub Pages", "GAP"]
+Autoload := false, 
+
+TestFile := "tst/testall.g",
+
+Keywords := ["logged rewriting","identities among relations",
+             "Y-sequences"], 
+
+BannerString := Concatenation( 
+    "Loading IdRel ", String( ~.Version ), " (Identities among Relations)\n", 
+    "by Anne Heyworth and ", 
+    "Chris Wensley (https://github.com/cdwensley)\n", 
+ "-----------------------------------------------------------------------\n" ),
+
+AutoDoc := rec(
+    TitlePage := rec(
+        Copyright := Concatenation(
+            "&copyright; 1999-2022 Anne Heyworth and Chris Wensley<P/>\n",
+            "The &IdRel; package is free software; you can redistribute it ", 
+            "and/or modify it under the terms of the GNU General ", 
+            "Public License as published by the Free Software Foundation; ", 
+            "either version 2 of the License, or (at your option) ", 
+            "any later version.\n"
+            ), 
+        Abstract := Concatenation( 
+            "&IdRel; is a &GAP; package originally implemented in 1999, ", 
+            "using the &GAP; 3 language, ", 
+            "when the first author was studying for a Ph.D. in Bangor.\n", 
+            "<P/>\n", 
+            "This package is designed to compute a minimal set of ", 
+            "generators for the module of the identities among relators ", 
+            "of a group presentation.\n", 
+            "It does this using\n", 
+            "<List>\n", 
+            "<Item>\n", 
+            "rewriting and logged rewriting: a self-contained ", 
+            "implementation of the Knuth-Bendix process using the ", 
+            "monoid presentation associated to the group presentation;\n", 
+            "</Item>\n", 
+            "<Item>\n", 
+            "monoid polynomials: an implementation of the monoid ring;\n", 
+            "</Item>\n", 
+            "<Item>\n", 
+            "module polynomials: an implementation of the right module ", 
+            "over this monoid generated by the relators.\n", 
+            "</Item>\n", 
+            "<Item>\n", 
+            "Y-sequences: used as a <E>rewriting</E> way of representing ", 
+            "elements of a free crossed module (products of conjugates ", 
+            "of group relators and inverse relators).\n", 
+            "</Item>\n", 
+            "</List>\n", 
+            "<P/>\n",  
+            "&idrel; became an accepted &GAP; package in May 2015.\n", 
+            "<P/>\n",  
+            "Bug reports, suggestions and comments are, of course, welcome.\n", 
+            "Please contact the last author at ", 
+            "<Email>c.d.wensley@bangor.ac.uk</Email> ", 
+            "or submit an issue at the GitHub repository ",
+            "<URL>https://github.com/gap-packages/idrel/issues/</URL>.\n" 
+            ), 
+        Acknowledgements := Concatenation( 
+            "This documentation was prepared using the ", 
+            "&GAPDoc; <Cite Key='GAPDoc'/> ", 
+            "and &AutoDoc; <Cite Key='AutoDoc'/> packages.<P/>\n", 
+            "The procedure used to produce new releases uses the package ", 
+            "<Package>GitHubPagesForGAP</Package> ", 
+            "<Cite Key='GitHubPagesForGAP' /> ", 
+            "and the package <Package>ReleaseTools</Package>.<P/>" 
+            ),
+    )
+),
 
 ));
-
-
