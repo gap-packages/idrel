@@ -2,7 +2,8 @@
 
 ## 2.43 -> 2.44 for GAP 4.11.1 (04/06/22) 
 
- * (04/06/22) extensive revision of idrels.* - operations for log sequences
+ * (04/06/22) extensive revision of idrels.* adding a large number 
+              of operations for log sequences and identities
  * (23/11/21) renamed the test files; revised Chapter 2 
  * (02/11/21) introduced PrintUsingLabels and other Print commands 
 
