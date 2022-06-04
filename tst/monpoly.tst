@@ -11,8 +11,8 @@ gap> SetInfoLevel( InfoIdRel, 0 );;
 ## items defined in rws.tst 
 gap> F := FreeGroup( 2 );;
 gap> f := F.1;;  g := F.2;;
-gap> rels8 := [ f^4, g^4, f*g*f*g^-1, f^2*g^2 ];;
-gap> q8 := F/rels8;;
+gap> relq8 := [ f^4, g^4, f*g*f*g^-1, f^2*g^2 ];;
+gap> q8 := F/relq8;;
 gap> SetName( q8, "q8" );;
 gap> mq8 := MonoidPresentationFpGroup( q8 );;
 gap> fmq8 := FreeGroupOfPresentation( mq8 );; 
@@ -31,7 +31,7 @@ gap> r1 := RewriteReduce( mq8, r1 );;
 gap> r2 := KnuthBendix( mq8, r1 );;
 
 ## Example 4.1.1
-gap> rels8 := RelatorsOfFpGroup( q8 ); 
+gap> relq8 := RelatorsOfFpGroup( q8 ); 
 [ f1^4, f2^4, f1*f2*f1*f2^-1, f1^2*f2^2 ]
 gap> freeq8 := FreeGroupOfFpGroup( q8 );; 
 gap> gens := GeneratorsOfGroup( freeq8 );;
@@ -42,7 +42,7 @@ gap> pg := MonoidPolyFromCoeffsWords( cg, gens );;
 gap> Print( pg, "\n" ); 
 7*f2 + 6*f1
 gap> cr := [3,4,-5,-2];;
-gap> pr := MonoidPolyFromCoeffsWords( cr, rels8 );; 
+gap> pr := MonoidPolyFromCoeffsWords( cr, relq8 );; 
 gap> Print( pr, "\n" );
 4*f2^4 - 5*f1*f2*f1*f2^-1 - 2*f1^2*f2^2 + 3*f1^4
 gap> Print( ZeroMonoidPoly( freeq8 ), "\n" );
@@ -97,7 +97,6 @@ gap> Print( pg * pr, "\n" );
 ## Example 4.3.1
 gap> Length( pr );
 4
-
 gap> [ pr > 3*pr, pr > pg ];
 [ false, true ]
 

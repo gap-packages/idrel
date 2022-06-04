@@ -5,6 +5,8 @@
 <!--                                                                     -->
 <!-- ------------------------------------------------------------------- -->
 
+<?LaTeX ExtraPreamble="\usepackage[pdftex]{graphicx}"?>
+
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Chapter Label="intro">
@@ -71,7 +73,8 @@ any &GAP; archive, e.g.
 </Item>
 </List>
 The package also has a GitHub repository at: 
-<URL>https://github.com/gap-packages/idrel/</URL>.
+<URL>https://github.com/gap-packages/idrel/</URL> 
+where issues can be raised. 
 <P/>
 
 
@@ -115,30 +118,21 @@ gap> rels3 := [ f^3, g^2, f*g*f*g ];
 gap> s3 := F/rels3; 
 <fp group on the generators [ f1, f2 ]>
 gap> SetName( s3, "s3" );; 
-gap> idrels3 := IdentityRelatorSequences( s3 );  
-[ [ [ -11, <identity ...> ], [ 11, s3_M1*s3_M2 ] ], 
-  [ [ -10, <identity ...> ], [ 10, s3_M2 ] ], 
-  [ [ -9, <identity ...> ], [ 9, s3_M1 ] ], 
-  [ [ -9, <identity ...> ], [ 9, s3_M1^2 ] ], 
-  [ [ -11, <identity ...> ], [ 11, s3_M1*s3_M2 ], [ -10, s3_M2*s3_M1*s3_M2 ], 
-      [ 10, s3_M1*s3_M2 ] ], 
-  [ [ -10, <identity ...> ], [ 11, s3_M1*s3_M2*s3_M1 ], 
-      [ 10, (s3_M2*s3_M1)^2 ], [ -11, s3_M1*s3_M2*s3_M1 ] ], 
-  [ [ -9, <identity ...> ], [ 11, s3_M1*s3_M2 ], [ -10, s3_M2*s3_M1*s3_M2 ], 
-      [ 9, s3_M1*s3_M4*s3_M1*s3_M2 ], [ 10, s3_M2*s3_M1*s3_M2 ], 
-      [ -11, s3_M1*s3_M2 ] ], 
-  [ [ -11, <identity ...> ], [ 9, s3_M1^2 ], [ 10, s3_M2*s3_M1^2 ], 
-      [ -11, s3_M1^2 ], [ 9, s3_M1*s3_M4*s3_M1 ], [ 10, s3_M2*s3_M1 ], 
-      [ -11, s3_M1 ], [ 10, <identity ...> ] ], 
-  [ [ -11, <identity ...> ], [ 9, s3_M1^2 ], [ 10, s3_M2^2*s3_M1 ], 
-      [ -11, s3_M2*s3_M1 ], [ 10, s3_M3*s3_M2*s3_M1 ], 
-      [ 9, s3_M1*s3_M2*s3_M1 ], [ 10, (s3_M2*s3_M1)^2 ], 
-      [ -11, s3_M1*s3_M2*s3_M1 ] ] ]
+gap> IdentitiesAmongRelators( s3 );
+[ [ [ -1, <identity ...> ], [ 1, s3_M1 ] ], 
+  [ [ -2, <identity ...> ], [ 2, s3_M2 ] ], 
+  [ [ -3, <identity ...> ], [ 3, s3_M1*s3_M2 ] ], 
+  [ [ 1, <identity ...> ], [ -3, s3_M1 ], [ 2, s3_M3*s3_M4 ], [ 1, s3_M4 ], 
+      [ -3, <identity ...> ], [ 2, s3_M3*s3_M4*s3_M3 ], [ 2, s3_M3 ], 
+      [ -3, s3_M3 ] ], 
+  [ [ 1, <identity ...> ], [ -3, s3_M2 ], [ 2, s3_M3*s3_M4*s3_M3*s3_M2 ], 
+      [ 2, s3_M3*s3_M2 ], [ 1, s3_M2 ], [ -3, <identity ...> ], [ 2, s3_M3 ], 
+      [ -3, s3_M3 ] ] ]
 ]]>
 </Example>
 
 If we write <M>\rho=f^3</M>, <M>\sigma=g^2</M>, <M>\tau=(fg)^2</M> 
-then the first identity becomes <M>\rho^{-1} \rho^{f^{-1}}</M>. 
+then the first identity becomes <M>\rho^{-1} \rho^{f}</M>. 
 Similarly, the second and third identities are the root identities 
 <M>\sigma^{-1} \sigma^{g}</M> and <M>\tau^{-1} \tau^{fg}</M>. 
 The fourth identity, which is not a root identity, 
@@ -146,15 +140,18 @@ is obtained by walking around the Schreier diagram of the presentation,
 a somewhat truncated triangular prism. 
 Taking the appropriate conjugate of each face in turn, we get: 
 <Display>
-\tau^{-1}\ \rho^f\ (\tau^{-1})^{f^2}\ \sigma^{f^{-1}g^{-1}f} 
-         \ \rho^{g^{-1}f}\ (\tau^{-1})^{fg^{-1}f}\ \sigma^f\ \sigma\;. 
+\rho\ (\tau^{-1})^f\ \sigma^{f^{-1}g^{-1}}\ \rho^{g^{-1}}\ (\tau^{-1})\ 
+\sigma^{f^{-1}g^{-1}f^{-1}}\ \sigma^{f^{-1}}\ (\tau^{-1})^{f^{-1}}\, . 
 </Display> 
+The fifth identity is equivalent to the fourth, as we shall show in 
+section <Ref Sect="sect-s3"/>.
 <P/>
 In order to form the <E>module of identities</E> for <C>s3</C> 
 the identities are transformed into module polynomials. 
-The first is  <M>y_1 = \rho(-1 + f^{-1})</M> or <M>-y_1f = \rho(f-1)</M>. 
+The first is  <M>y_1 = \rho(f-1)</M>. 
 The second and third are <M>y_2 = \sigma(g-1)</M> and <M>y_3 = \tau(fg-1)</M>, 
-while the fourth is <M>\rho(f+gf) + \sigma(1+f+fg) - \tau(1+f^{-1}+g)</M>. 
+while the fourth is <M>\rho(1+g^{-1}f) + \sigma(1+f^{-1}g^{-1}+f^{-1}g^{-1}f) 
+- \tau(1++f+f^2)</M>. 
 Note that, in the fourth polynomial, the conjugators are converted to 
 their normal forms in <C>s3</C>, namely 
 <M>f^2=f^{-1},\ f^{-1}g^{-1}f=fg,\ g^{-1}f=gf</M> and <M>fg^{-1}f=g</M>. 
@@ -173,6 +170,13 @@ gap> idyseq3 := IdentityYSequences( s3 );
 </Example>
 
 Further examples are given in chapter <Ref Sect="chap-idrels"/>. 
+<P/> 
+An extensive revision has been released with version 2.44. 
+This has concentrated in the area of log sequences, 
+adding many of the functions described in sections 
+<Ref Sect="sect-s3"/> and <Ref Sect="sect-reducing"/>. 
+<P/> 
+Work on revising Y-sequences is needed, but must wait for later versions. 
 
 </Section>
 

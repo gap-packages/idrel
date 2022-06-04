@@ -37,8 +37,8 @@ mapping each generator to the corresponding word.
 </ManSection>
 <Example>
 <![CDATA[
-gap> rels8 := [ f^4, g^4, f*g*f*g^-1, f^2*g^2 ];;
-gap> q8 := F/rels8;;
+gap> relq8 := [ f^4, g^4, f*g*f*g^-1, f^2*g^2 ];;
+gap> q8 := F/relq8;;
 gap> SetName( q8, "q8" );;
 gap> q8R := FreeRelatorGroup( q8 ); 
 q8_R
@@ -54,7 +54,7 @@ gap> homq8R := FreeRelatorHomomorphism( q8 );
          Arg="grp" />
    <Attr Name="ArrangementOfMonoidGenerators"
          Arg="grp" />
-   <Attr Name="MonoidGeneratorLabels"
+   <Attr Name="MonoidPresentationLabels"
          Arg="grp" />
    <Attr Name="FreeGroupOfPresentation"
          Arg="mon" />
@@ -135,6 +135,27 @@ gap> PrintLnUsingLabels( gprels, genfmq8, q8labs );
 ]]>
 </Example>
 
+<ManSection Label="init-rules">
+   <Func Name="InitialRulesOfPresentation" 
+         Arg="mon" /> 
+<Description>
+The initial rules for <M>mq8</M> are 
+the four rules of the form <M>a^{-1} \to A</M>; 
+the four rules of the form <M>aA \to id</M>; 
+and the four relator rules of the form <M>a^4 \to id</M>. 
+</Description> 
+ 
+</ManSection>
+<Example>
+<![CDATA[
+gap> q0 := InitialRulesOfPresentation( mq8 );;  
+gap> PrintLnUsingLabels( q0, genfmq8, q8labs );
+[ [ a^-1, A ], [ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a*A, id ], 
+[ b*B, id ], [ A*a, id ], [ B*b, id ], [ a^4, id ], [ a^2*b^2, id ], 
+[ a*b*a*B, id ], [ b^4, id ] ]
+]]>
+</Example>
+
 </Section>
 
 
@@ -160,33 +181,40 @@ Such a rewrite system can be obtained for all finite groups.
 The rewrite rules are (partially) ordered, starting with the inverse relators, 
 followed by the rules which reduce the word length the most.
 <P/>
-In our <C>q8</C> example there are 16 rewrite rules 
+In our <C>q8</C> example there are 20 rewrite rules 
 in the rewriting system <C>rws</C>:  
 <Table Align="|c|">
   <HorLine/>
   <Row> 
-    <Item> <M>B^{-1} \to b, \quad 
-              A^{-1} \to a, \quad 
+    <Item> <M>a^{-1} \to A, \quad 
               b^{-1} \to B, \quad
-	      a^{-1} \to A, </M> 
+	      A^{-1} \to a, \quad 
+              B^{-1} \to b, </M> 
     </Item>
   </Row>
   <Row> 
-    <Item> <M>B*b \to \rm{id}, \quad 
-              Aa  \to \rm{id}, \quad 
+    <Item> <M>aA  \to \rm{id}, \quad 
               bB  \to \rm{id}, \quad
-              aA  \to \rm{id}, \quad 
-              B^2 \to a^2, \quad 
-              BA  \to aB,  </M>  
+              Aa  \to \rm{id}, \quad 
+              Bb  \to \rm{id}, </M>  
     </Item>
   </Row>
   <Row>
-    <Item> <M>Ba   \to ab, \quad
-              b^2  \to a^2, \quad 
-              ba   \to aB, \quad 
-              a^2B \to b, \quad 
+    <Item> <M>ba  \to  aB, \quad 
+              b^2 \to  a^2,\quad 
+              bA  \to  ab, \quad
+              Ab  \to  aB, \quad 
+              A^2 \to  a^2,\quad 
+              AB  \to  ab, </M> 
+    </Item>
+  </Row>
+  <Row>
+    <Item> <M>Ba  \to  ab,  \quad
+              BA  \to  aB,  \quad 
+              B^2 \to  a^2, \quad 
+              a^3 \to  a,   \quad 
               a^2b \to B, \quad 
-              a^3  \to A. </M>
+              a^2B \to b. </M>
     </Item>
   </Row>
   <HorLine/>
@@ -196,11 +224,13 @@ in the rewriting system <C>rws</C>:
 <Example>
 <![CDATA[
 gap> rws := RewritingSystemFpGroup( q8 );;
+gap> Length( rws );
+20
 gap> PrintLnUsingLabels( rws, genfmq8, q8labs );
-[ [ B^-1, b ], [ A^-1, a ], [ b^-1, B ], [ a^-1, A ], [ B*b, id ], 
-[ A*a, id ], [ b*B, id ], [ a*A, id ], [ B^2, a^2 ], [ B*A, a*B ], 
-[ B*a, a*b ], [ A*B, a*b ], [ A^2, a^2 ], [ A*b, a*B ], [ b*A, a*b ], 
-[ b^2, a^2 ], [ b*a, a*B ], [ a^2*B, b ], [ a^2*b, B ], [ a^3, A ] ]
+[ [ a^-1, A ], [ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a*A, id ], 
+[ b*B, id ], [ A*a, id ], [ B*b, id ], [ b*a, a*B ], [ b^2, a^2 ], 
+[ b*A, a*b ], [ A*b, a*B ], [ A^2, a^2 ], [ A*B, a*b ], [ B*a, a*b ], 
+[ B*A, a*B ], [ B^2, a^2 ], [ a^3, A ], [ a^2*b, B ], [ a^2*B, b ] ]
 ]]>
 </Example>
 
@@ -230,9 +260,9 @@ gap> genfgmT := GeneratorsOfGroup( fgmT );;
 gap> SetMonoidPresentationLabels( T, Tlabs );; 
 gap> rwsT := RewritingSystemFpGroup( T );;
 gap> PrintLnUsingLabels( rwsT, genfgmT, Tlabs );       
-[ [ Y^-1, y ], [ y^-1, Y ], [ X^-1, x ], [ x^-1, X ], [ Y*y, id ], 
-[ y*Y, id ], [ X*x, id ], [ x*X, id ], [ Y*X, X*Y ], [ Y*x, x*Y ], 
-[ y*X, X*y ], [ y*x, x*y ] ]
+[ [ x^-1, X ], [ X^-1, x ], [ y^-1, Y ], [ Y^-1, y ], [ x*X, id ], 
+[ X*x, id ], [ y*Y, id ], [ Y*y, id ], [ y*x, x*y ], [ y*X, X*y ], 
+[ Y*x, x*Y ], [ Y*X, X*Y ] ]
 ]]>
 </Example>
 The last four rules show that generators <M>x</M> and <M>y</M> commute. 
@@ -267,9 +297,7 @@ If <C>rules</C> is a complete rewrite system,
 then the irreducible <C>word</C> that is returned is unique, 
 otherwise the order of the rules in <C>rules</C> will determine 
 which irreducible word is returned.
-In our <M>q8</M> example we see that <M>b^9a^9</M> reduces to <M>ba</M> 
-which is not a normal form as we have seen in <Ref Sect="rwsfp"/>,
-where <M>b^+a^+ \to a^+b^-</M> is the last rule. 
+In our <M>q8</M> example we see that <M>b^9a^{-9}</M> reduces to <M>ab</M>. 
 <P/>
 </Description>
 </ManSection>
@@ -282,24 +310,16 @@ gap> PrintLnUsingLabels( w0, genfmq8, q8labs );
 b^9*a^-9
 gap> w1 := OnePassReduceWord( w0, rws );; 
 gap> PrintLnUsingLabels( w1, genfmq8, q8labs ); 
-B*b^4*a*B*b*a^-8
+B*b^5*a*b*a^-8
 gap> w2 := ReduceWordKB( w0, rws );; 
 gap> PrintLnUsingLabels( w2, genfmq8, q8labs ); 
 a*b
 ]]>
 </Example>
 
-
-
 <ManSection Label="one-pass-KB">
    <Oper Name="OnePassKB"
          Arg="mon rules" />
-   <Oper Name="RewriteReduce"
-         Arg="mon rules" />
-   <Oper Name="KnuthBendix"
-         Arg="mon rules" />
-   <Oper Name="ShorterRule"
-         Arg="rule1, rule2" />
 <Description>
 The function <C>OnePassKB</C> implements the main loop of the Knuth-Bendix 
 completion algorithm. 
@@ -307,11 +327,61 @@ Rules are compared with each other; all critical pairs are calculated;
 and the irreducible critical pairs are orientated with respect 
 to the length-lexicographical ordering and added to the rewrite system.
 <P/>
+The function <C>ShorterRule</C> gives an ordering on rules. 
+Rules <M>(g_lg_2,id)</M> that identify two generators 
+(or one generator with the inverse of another) come first in the ordering. 
+Otherwise one precedes another if it reduces the length of a word 
+by a greater amount. 
+<P/>
+One pass of this procedure for our <M>q8</M> example 
+adds <M>10</M> relators to the original <M>12</M>. 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> q1 := OnePassKB( mq8, q0 );; 
+gap> Length( q1 ); 
+22
+gap> PrintLnUsingLabels( q1, genfmq8, q8labs ); 
+[ [ a^-1, A ], [ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a*A, id ], 
+[ b*B, id ], [ A*a, id ], [ B*b, id ], [ b^2, a^2 ], [ a^3, A ], 
+[ a^2*b, B ], [ a*b*a, b ], [ a*b^2, A ], [ b*a*B, A ], [ b^3, B ], 
+[ a*b^2, a^3 ], [ b*a*B, a^3 ], [ b^3, a^2*b ], [ a^4, id ], 
+[ a^2*b^2, id ], [ a*b*a*B, id ], [ b^4, id ] ]
+]]>
+</Example>
+
+<ManSection Label="rewrite-reduce">
+   <Oper Name="RewriteReduce"
+         Arg="mon rules" />
+<Description>
 The function <C>RewriteReduce</C> will remove unnecessary rules from 
 a rewrite system. 
 A rule is deemed to be unnecessary if it is implied by the other rules, 
 i.e. if both sides can be reduced to the same thing by the remaining rules.
 <P/>
+In the example the <M>22</M> rules in <M>q1</M> 
+are reduced to <M>13</M>. 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> q2 := RewriteReduce( mq8, q1 );; 
+gap> Length( q2 ); 
+13
+gap> PrintLnUsingLabels( q2, genfmq8, q8labs ); 
+[ [ a^-1, A ], [ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a*A, id ], 
+[ b*B, id ], [ A*a, id ], [ B*b, id ], [ b^2, a^2 ], [ a^3, A ], 
+[ a^2*b, B ], [ a*b*a, b ], [ b*a*B, A ] ]
+]]>
+</Example>
+
+<ManSection Label="Knuth-Bendix">
+   <Oper Name="KnuthBendix"
+         Arg="mon rules" />
+<Description>
 The function <C>KnuthBendix</C> implements the Knuth-Bendix algorithm, 
 attempting to complete a rewrite system with respect to 
 a length-lexicographic ordering. 
@@ -332,44 +402,21 @@ Rules <M>(g_lg_2,id)</M> that identify two generators
 Otherwise one precedes another if it reduces the length of a word 
 by a greater amount. 
 <P/>
-One pass of this procedure for our <C>q8</C> example 
-adds 13 relators to the original 8, and these 21 are then reduced to 9. 
-A second pass and reduction gives the list of 16 rules seen above,  
-forming a complete rewrite system for the group. 
-Now <M>b^9a^9</M> correctly reduces to <M>ab^{-1}</M>. 
+In the example the function <C>KnuthBendix</C> requires three instances of 
+<C>OnePassKB</C> and <C>RewriteReduce</C> 
+to form the complete rewrite system <M>rws</M> for the group shown above. 
 <P/>
 </Description>
 </ManSection>
 <Example>
 <![CDATA[
-gap> q0 := InitialRulesOfPresentation( mq8 );;
-gap> PrintLnUsingLabels( q0, genfmq8, q8labs );
-[ [ a*A, id ], [ b*B, id ], [ A*a, id ], [ B*b, id ], [ a^-1, A ], 
-[ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a^4, id ], [ b^4, id ], 
-[ a*b*a*B, id ], [ a^2*b^2, id ] ]
-gap> q1 := OnePassKB( mq8, q0 );; 
-gap> Length( q1 ); 
-25
-gap> PrintLnUsingLabels( q1, genfmq8, q8labs ); 
-[ [ a*A, id ], [ b*B, id ], [ A*a, id ], [ B*b, id ], [ a^-1, A ], 
-[ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a^4, id ], [ b^4, id ], 
-[ a*b*a*B, id ], [ a^2*b^2, id ], [ a^3, A ], [ b*a*B, A ], [ a*b^2, A ], 
-[ b^3, B ], [ a^3, A ], [ b*a*B, a^3 ], [ a*b^2, a^3 ], [ b^2, a^2 ], 
-[ b^3, B ], [ a*b*a, b ], [ a^2*b, B ], [ b^3, a^2*b ], [ b^2, a^2 ] ]
-gap> q2 := RewriteReduce( mq8, q1 );; 
-gap> Length( q2 ); 
-13
-gap> PrintLnUsingLabels( q2, genfmq8, q8labs ); 
-[ [ a^-1, A ], [ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a*A, id ], 
-[ b^2, a^2 ], [ b*B, id ], [ A*a, id ], [ B*b, id ], [ a^3, A ], 
-[ a^2*b, B ], [ a*b*a, b ], [ b*a*B, A ] ]
 gap> q3 := KnuthBendix( mq8, q0 );; 
 gap> Length( q3 ); 
 20
 gap> PrintLnUsingLabels( q3, genfmq8, q8labs ); 
 [ [ a^-1, A ], [ b^-1, B ], [ A^-1, a ], [ B^-1, b ], [ a*A, id ], 
-[ b*a, a*B ], [ b^2, a^2 ], [ b*A, a*b ], [ b*B, id ], [ A*a, id ], 
-[ A*b, a*B ], [ A^2, a^2 ], [ A*B, a*b ], [ B*a, a*b ], [ B*b, id ], 
+[ b*B, id ], [ A*a, id ], [ B*b, id ], [ b*a, a*B ], [ b^2, a^2 ], 
+[ b*A, a*b ], [ A*b, a*B ], [ A^2, a^2 ], [ A*B, a*b ], [ B*a, a*b ], 
 [ B*A, a*B ], [ B^2, a^2 ], [ a^3, A ], [ a^2*b, B ], [ a^2*B, b ] ]
 ]]>
 </Example>

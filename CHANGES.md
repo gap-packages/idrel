@@ -1,9 +1,10 @@
 # CHANGES to the IdRel package
 
-## 2.43 -> 2.43dev for GAP 4.11.1 (18/11/21) 
+## 2.43 -> 2.44 for GAP 4.11.1 (04/06/22) 
 
+ * (04/06/22) extensive revision of idrels.* - operations for log sequences
  * (23/11/21) renamed the test files; revised Chapter 2 
- * (02/11/21) introduced PrintUsingLabels 
+ * (02/11/21) introduced PrintUsingLabels and other Print commands 
 
 ## 2.42 -> 2.43 for GAP 4.10.1 (08/04/21) 
 

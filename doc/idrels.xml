@@ -5,6 +5,8 @@
 <!--                                                                     -->
 <!-- ------------------------------------------------------------------- -->
 
+<?LaTeX ExtraPreamble="\usepackage[pdftex]{graphicx}"?>
+
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Chapter Label="chap-idrels">
@@ -23,91 +25,649 @@ When a reduced set of polynomials has been obtained,
 the relator sequences from which they were formed are returned 
 as the <E>identities among relators</E> for <M>G</M>. 
 <P/> 
-Here are some of the details when working with the group 
-<M> S_3 = \langle a,b ~|~ \rho=a^3, \sigma=b^2, \tau=(ab)^2 \rangle</M>. 
-The monoid presentation has generators <M>\{a,b,A,B\}</M> 
-and relators 
+
+
+<Section Label="sect-identities">
+<Heading>Constructing identities</Heading>
+
+<ManSection Label="root-ids">
+   <Attr Name="RootIdentities"
+         Arg="grp" />
+   <Attr Name="RootPositions"
+         Arg="grp" />
+<Description>
+The <E>root identities</E> of <M>G</M> are identities of the form 
+<M>R^{-1}R^w</M> where <M>R = w^n</M> is a proper power relator and <M>n>1</M>. 
+(For equivalent forms invert, or permute the factors cyclically, 
+or act with <M>w^{-1}</M>.) 
+<P/>
+For 
+<M> S_3 = \langle f,g ~|~ \rho=f^3, \sigma=g^2, \tau=(fg)^2 \rangle</M> 
+all three relators are proper powers: 
+<M>[1 \equiv \rho=f^3, 2 \equiv \sigma=g^2, 3 \equiv \tau=(fg)^2]</M>. 
+So the root identities are 
+<M>\rho^{-1} \rho^a,\, \sigma^{-1} \sigma^b</M> 
+and <M>\tau^{-1} \tau^{ab}</M>. 
+<P/> 
+For 
+<M> Q_8 = \langle a,b ~|~ q=a^4, r=b^4, s=abab^{-1}, t=a^2b^2 \rangle</M> 
+only two of the four relators are proper powers, 
+so the root identities are <M>q^{-1} q^a</M> and <M>r^{-1} r^b</M>. 
+<P/> 
+In the example we see that the attribute <C>RootIdentities</C> 
+returns a list which includes <M>R^{-1}R^{w^{-1}}</M> 
+as well as <M>R^{-1}R^w</M>. 
+Relator <M>\rho^{-1}\rho^f</M> is stored as <C>[[-1,id],[1,f]]</C>, etc. 
+<P/> 
+The <C>RootPositions</C> attribute is a boolean list 
+specifying which of the relators are proper powers.
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> roots3 := RootIdentities(s3);
+[ [ [ -1, <identity ...> ], [ 1, s3_M1 ] ], 
+  [ [ -1, <identity ...> ], [ 1, s3_M3 ] ], 
+  [ [ -2, <identity ...> ], [ 2, s3_M2 ] ], 
+  [ [ -2, <identity ...> ], [ 2, s3_M4 ] ], 
+  [ [ -3, <identity ...> ], [ 3, s3_M1*s3_M2 ] ], 
+  [ [ -3, <identity ...> ], [ 3, s3_M4*s3_M3 ] ] ]
+gap> RootPositions(s3);
+[ true, true, true ]
+gap> PrintLnUsingLabels( RootIdentities(q8), genfmq8, q8labs );
+[ [ [ -1, id ], [ 1, a ] ], [ [ -1, id ], [ 1, A ] ], [ [ -2, id ], 
+[ 2, b ] ], [ [ -2, id ], [ 2, B ] ] ]
+gap> RootPositions(q8);
+[ true, true, false, false ]
+]]>
+</Example>
+
+<ManSection Label="id-rel-seq">
+   <Attr Name="IdentityRelatorSequences"
+         Arg="grp" />
+<Description>
+To construct the <E>identity relator sequences</E> for a group <M>G</M> 
+we apply each relator <M>R</M> at each non-identity element <M>x</M>, 
+reducing the resulting words using the logged rewrite system. 
+<P/>
+
+With the <C>s3</C> example, 
+the monoid presentation has generators <M>\{f,g,F,G\}</M> and relators 
 <Display>
-[~ 1 = aA,~ 2 = bB,~ 3 = Aa,~ 4 = Bb,~ 
-   5 = a^3,~ 6 = b^2,~ 7 = (ab)^2 ~]\ , 
+[~ fF,~ gG,~ Ff,~ Gg,~ f^3,~ g^2,~ (fg)^2 ~]\ , 
 </Display>
-and the elements are <M>\{{\rm id}, a,b,A,ab,ba\}</M>. 
+and the elements are <M>\{{\rm id}, f, g, F, fg, gf\}</M>. 
 The logged rewriting system has relations 
 <Table Align="|l|">
   <HorLine/>
   <Row> 
-    <Item> <M>aA = {\rm id},\quad   
-              Aa = {\rm id},\quad 
-               B = [-6,{\rm id}]b,</M>  
+    <Item> <M>f^{-1} = F, \quad 
+              g^{-1} = [-2,{\rm id}]g, \quad 
+              F^{-1} = f, \quad 
+              G^{-1} = g, \quad 
+              G = [-2,id]g, </M> 
     </Item>
   </Row>
   <Row>
-    <Item> <M>a^2 = [5,{\rm id}]A,\quad 
-              A^2 = [-5,{\rm id}]a,\quad 
-              b^2 = [6,{\rm id}]{\rm id},</M> 
+    <Item> <M>fF = {\rm id}, \quad 
+              g^2 = [2,{\rm id}]{\rm id}, \quad
+              Ff = {\rm id}, \quad 
+              f^2 = [1,{\rm id}]F, \quad 
+              F^2 = [-1,{\rm id}]f, </M>  
     </Item>
   </Row>
   <Row>
-    <Item> <M>bA = [-7,aB][6,{\rm id}]ab,\quad 
-              Ab = [-7,a][6,AB]ba,</M> 
+    <Item> <M>gF = [-3,{\rm id}][2,FGF]fg, \quad 
+              Fg = [-3,f][2,FG]gf, </M>
     </Item>
   </Row>
   <Row>
-    <Item> <M>aba = [7,{\rm id}][-6,{\rm id}]b,\quad 
-              bab = [7,a]A.</M>
+    <Item> <M>fgf = [-2,FGF][3,{\rm id}]g, \quad 
+              gfg = [3,f]F       </M> 
     </Item>
   </Row>
   <HorLine/>
-</Table>
+</Table> 
 
-To construct the <E>identity monoid relator sequences</E> 
-we follow in turn the relators <M>5=\rho,6=\sigma,7=\tau</M> 
-at each of the elements of <M>S_3</M>. 
-For example, applying <M>\tau</M> at <M>a</M> gives the cycle: 
+Here is the Cayley graphs of <M>S_3</M>, 
+with the solid arrows forming the spanning tree:
+<Alt Only="HTML">&lt;img src="./graphics/cayley-s3.jpg">&lt;/img></Alt>
+<Alt Only="LaTeX">\vspace{10pt}\centerline{\resizebox{100mm}{!}{\includegraphics{./graphics/cayley-s3.jpg}}}</Alt>
+
+Applying <M>R = \tau = (fg)^2</M> at <M>x = f</M> 
+gives the cycle (top right-hand quadrilateral): 
 <Display>
-a \stackrel{a}{\longrightarrow} A 
-    \stackrel{b}{\longrightarrow} ba 
-    \stackrel{a}{\longrightarrow} ab 
-    \stackrel{b}{\longrightarrow} a\ .
+f \stackrel{f}{\longrightarrow} F 
+  \stackrel{g}{\longrightarrow} gf 
+  \stackrel{f}{\longrightarrow} fg 
+  \stackrel{g}{\longrightarrow} f\ .
 </Display>
 Each of these edges has a non-trivial logged rewrite, 
-particularly the third edge where <M>baa \to bA \to ab</M>. 
-Combining this log information we obtain the sequence: 
-<Display>
-[5,{\rm id}].[-7,a][6,AB].[5,B][-7,aB][6,{\rm id}].[6,A]\ .
+particularly the third edge where <M>gff \to gF \to fg</M>. 
+Combining this log information we obtain: 
+<Display> 
+[\tau,F]\,f ~=~ f.\tau ~=~ 
+[1,{\rm id}].[-3,f][2,FG].[1,G][-3,{\rm id}][2,FGF].[2,F]\,f .
 </Display>
-Expanding this gives: 
+Expanding 
+<M>[1,{\rm id}][-3,f][2,FG][1,G][-3,{\rm id}][2,FGF][2,F][-3,F]</M> 
+gives
 <Display>
-aaa.ABABAa.babbAB.baaaB.bABABAaB.bb.abbA
+fff.FGFGFf.gfggFG.gfffG.GFGF.fgfggFGF.fggF.fGFGFF 
 </Display>
-which cancels to leave, as expected, <M>a \tau A = [7,A]</M>. 
-Adding the inverse <M>[-7,A]</M> to the front of the log expression 
-gives the identity  
-<Display>
-[-7,A].[5,{\rm id}].[-7,a][6,AB].[5,B][-7,aB][6,{\rm id}].[6,A]\ .
-</Display>
-Converting this back to the group presentation, 
-and conjugating by <M>a</M>, we obtain the 
-<E>identity group relator sequence</E> given in the introduction 
-(<Ref Sect="sect-illustration"/>): 
-<Display>
-\tau^{-1}\; \rho^a\;
-\left(\tau^{-1}\right)^{a^2}\; \sigma^{ABa}\; 
-\rho^{Ba}\; \left(\tau^{-1}\right)^{aBa}\; 
-\sigma^a\; \sigma\ .
+which cancels to the identity, as expected. 
+Converting this back to the group presentation, we obtain the fourth identity 
+given in the introduction (<Ref Sect="sect-illustration"/>): 
+<Display> 
+\iota_{(\tau,f)} ~=~ 
+\rho\ (\tau^{-1})^f\ \sigma^{FG}\ \rho^G\ 
+(\tau^{-1})\ \sigma^{FGF}\ \sigma^F\ (\tau^{-1})^F\, .
 </Display> 
-This is then transformed into the module polynomial 
-<Display>
-  \rho(a + ba) + \sigma({\rm id} + a + ab) 
-- \tau({\rm id} + A + b)\ ,
-</Display> 
-where the monoid elements are transformed into their normal forms. 
+<P/>
+The operation <C>IdentityRelatorSequences</C> returns a list 
+which omits any duplicates or empty lists. 
+For the <C>s3</C> example, all of the possible <M>5*3 = 15</M> sequences 
+are added to the root identities. 
+</Description>
+</ManSection>
+
+<Example>
+<![CDATA[
+gap> ms3 := MonoidPresentationFpGroup( s3 );;
+gap> fms3 := FreeGroupOfPresentation( ms3 );;
+gap> genfms3 := GeneratorsOfGroup(fms3 );;
+gap> s3labs := ["f","g","F","G"];; 
+gap> SetMonoidPresentationLabels( ms3, s3labs );; 
+gap> idss3 := IdentityRelatorSequences( s3 );;          
+gap> lenidss3 := Length( idss3 );                                   
+17
+gap> List( idss3, L -> Length(L) );
+[ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 6, 8, 8 ]
+gap>  for i in [1..Length(idss3)] do                     
+>       PrintLnUsingLabels( idss3[i], genfms3, s3labs );
+>     od;
+[ [ -3, id ], [ 3, f*g ] ]
+[ [ -3, id ], [ 3, G*F ] ]
+[ [ -2, id ], [ 2, g ] ]
+[ [ -2, id ], [ 2, G ] ]
+[ [ -1, id ], [ 1, f ] ]
+[ [ -1, id ], [ 1, F ] ]
+[ [ 1, id ], [ -1, f ] ]
+[ [ 1, id ], [ -1, F ] ]
+[ [ 1, G ], [ -1, F*G ] ]
+[ [ 2, id ], [ -2, G ] ]
+[ [ 2, F ], [ -2, G*F ] ]
+[ [ 3, f ], [ -3, G ] ]
+[ [ -3, f ], [ 2, F*G ], [ 3, f ], [ -2, f ] ]
+[ [ -2, F*G*F ], [ 3, id ], [ 2, id ], [ -3, G*F ] ]
+[ [ -2, F*G*F ], [ 3, id ], [ 1, G ], [ -3, id ], [ 2, F*G*F ], 
+[ -1, G*F ] ]
+[ [ 1, id ], [ -3, f ], [ 2, F*G ], [ 1, G ], [ -3, id ], 
+[ 2, F*G*F ], [ 2, F ], [ -3, F ] ]
+[ [ 1, G ], [ -3, id ], [ 2, F*G*F ], [ 2, F ], [ 1, id ], 
+[ -3, f ], [ 2, F*G ], [ -3, F*G ] ]
+]]>
+</Example>
+
+<ManSection Label="seq-less-than">
+   <Oper Name="LogSequenceLessThan"
+         Arg="J, K" />
+<Description>
+This is an operation used to sort lists of identity sequences. 
+First the lengths of sequences <C>J, K</C> are compared. 
+If the lengths are equal then the sequences are compared as lists. 
+The list <C>idss3</C> is sorted using this function. 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> LogSequenceLessThan( idss3[7], idss3[8] ); 
+true
+]]>
+</Example>
+
+<ManSection Label="expand-log-seq">
+   <Oper Name="ExpandLogSequence"
+         Arg="mG, L" />
+<Description>
+This operation takes a log sequence <M>L</M>, 
+writes each term as a conjugate of a relator, 
+takes the product of all of these, 
+and then cancels consecutive inverse generators 
+to return a word in the free group of the presentation. 
+This is precisely what we did by hand with <M>\iota_{(\tau,f)}</M> 
+on the previous page. 
+If the sequence is an identity sequence  
+the identity element should be returned, 
+so this provides a useful check. 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> ExpandLogSequence( ms3, idss3[17] );
+<identity ...>
+]]>
+</Example>
+
+</Section>
+
+
+<Section Label="sect-s3">
+<Heading>Identities for <M>S_3</M></Heading>
+
+We now return to the example considered in section 
+<Ref Sect="sect-illustration"/>. 
+In the previous section we have constructed <M>17</M> identity sequences, 
+and we now wish to reduce this number to find a minimal set. 
+
+<ManSection Label="reduce-seq">
+   <Oper Name="ReduceLogSequences"
+         Arg="G, ids" />
+<Description>
+This operation applies a collection of operations, 
+which will be described in the following section, 
+to reduce the list <C>idss3</C> from <M>17</M> to <M>5</M> identities. 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> ridss3 := ReduceLogSequences( s3, idss3 );;
+gap> lenridss3 := Length( ridss3 );                                   
+5
+gap> for i in [1..lenridss3] do                                
+>        PrintLnUsingLabels( ridss3[i], genfms3, s3labs );   
+>    od;
+[ [ -3, id ], [ 3, f*g ] ]
+[ [ -2, id ], [ 2, g ] ]
+[ [ -1, id ], [ 1, f ] ]
+[ [ 1, id ], [ -3, f ], [ 2, F*G ], [ 1, G ], [ -3, id ], 
+[ 2, F*G*F ], [ 2, F ], [ -3, F ] ]
+[ [ 1, id ], [ -3, g ], [ 2, F*G*F*g ], [ 2, F*g ], [ 1, g ], 
+[ -3, id ], [ 2, F ], [ -3, F ] ]
+]]>
+</Example>
+
+We wish to show that the fifth of these identities 
+is a combination of the first four. 
+Recall that the fourth identity was obtained by applying 
+<M>R = \tau = (fg)^2</M> at <M>x = f</M>. 
+The fifth comes from applying <M>R = \tau</M> at <M>x = gf</M>, 
+so this is the same cycle but with a different start point. 
+
+<ManSection Label="conj-log-seq">
+   <Oper Name="ConjugateByWordLogSequence"
+         Arg="mG, K, w" />
+<Description>
+This operation conjugates every term in a log sequence 
+by a word in the generators. 
+In the example we conjugate the fifth identity <C>K5</C> by <M>G</M>. 
+It then becomes apparent that the fourth identity <C>K4</C> has the form 
+<C>[ A, B, [ -3, F ] ]</C> 
+while <C>K5</C> has the form <C>[ B, A, [ -3, FG ] ]</C>, 
+where the <C>F</C> and the <C>GF</C> are the inverses of the vertices 
+where the cycle starts. 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> K4 := ShallowCopy( ridss3[4] );; 
+gap> PrintLnUsingLabels( K4, genfms3, s3labs ); 
+[ [ 1, id ], [ -3, f ], [ 2, F*G ], [ 1, G ], [ -3, id ], 
+[ 2, F*G*F ], [ 2, F ], [ -3, F ] ]
+gap> L5 := ShallowCopy( ridss3[5] );; 
+gap> K5 := ConjugateByWordLogSequence( ms3, L5, genfms3[4] );; 
+gap> PrintLnUsingLabels( K5, genfms3, s3labs ); 
+[ [ 1, G ], [ -3, id ], [ 2, F*G*F ], [ 2, F ], [ 1, id ], 
+[ -3, f ], [ 2, F*G ], [ -3, F*G ] ]
+gap> A := K4{[1..3]};;              
+gap> PrintLnUsingLabels( A, genfms3, s3labs ); 
+[ [ 1, id ], [ -3, f ], [ 2, F*G ] ]
+gap> B := K4{[4..7]};;              
+gap> PrintLnUsingLabels( B, genfms3, s3labs ); 
+[ [ 1, G ], [ -3, id ], [ 2, F*G*F ], [ 2, F ] ]
+gap> PositionSublist( K5, A ); 
+5
+gap> PositionSublist( K5, B ); 
+1
+]]>
+</Example>
+
+<ManSection Label="change-start">
+   <Oper Name="ChangeStartLogSequence"
+         Arg="mon, K, p" />
+<Description>
 <P/> 
-The collection of saturated sets of these module polynomials 
-is then reduced as far as possible, and the minimal set obtained 
-returned as the <C>IdentityYSequences</C> of the group. 
-The group relator sequences corresponding to these module polynomials 
-form the <C>IdentitiesAmongRelators</C> for the group. 
+The start point of an identity log sequence can be chosen at random 
+(since every conjugate of an identity is that identity). 
+This operation permutes a given sequence <M>K</M> 
+so as to start at the <M>p</M>-th position. 
+<P/> 
+In our example we wish to show that <C>K4</C> and <C>K5</C> are  
+equivalent up to root identities. 
+To do this we first replace <C>K4</C> by <C>J4 = [ B, [ -3, F ], A ]</C>. 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> J4 := ChangeStartLogSequence( ms3, K4, 4 );;
+gap> PrintLnUsingLabels( J4, genfms3, s3labs ); 
+[ [ 1, G ], [ -3, id ], [ 2, F*G*F ], [ 2, F ], [ -3, F ], 
+[ 1, id ], [ -3, f ], [ 2, F*G ] ]
+]]>
+</Example>
+
+<ManSection Label="inv-log-seq">
+   <Oper Name="InverseLogSequence"
+         Arg="K" />
+<Description>
+<P/> 
+To invert a log sequence we reverse the order of the terms 
+and replace each <C>[m,w]</C> by <C>[-m,w]</C>. 
+<P/> 
+We continue our example by replacing <C>J4</C> by its inverse.  
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> J4 := InverseLogSequence( J4 );; 
+gap> PrintLnUsingLabels( J4, genfms3, s3labs ); 
+[ [ -2, F*G ], [ 3, f ], [ -1, id ], [ 3, F ], [ -2, F ], [ -2, F*G*F ], 
+[ 3, id ], [ -1, G ] ]
+]]>
+</Example>
+
+
+<ManSection Label="cancel-inverses">
+   <Attr Name="CancelImmediateInversesLogSequence"
+         Arg="K" />
+   <Oper Name="CancelInversesLogSequence"
+         Arg="mG, K" />
+<Description>
+Concatenating <C>J4</C> and <C>K5</C>, we get 
+<C>[ A^-1, [ 3, F ], B^-1, B, A, [ -3, FG ] ]</C>, with length <M>16</M>. 
+Cancelling immediate inverses removes the <C>[ B^-1, B ]</C>. 
+Cancelling inverses gets rid of the terms <C>a^-1</C> and <C>A</C>, 
+converting <C>[ 3, F ]</C> into <C>[ 3, fgFG ] = [ 3, FG ]</C>.  
+Conjugating with <C>gf</C> produces the third root identity 
+<C>[ [ 3, fg ], [ -3, id ] ]</C>, which then cancels. 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> J4K5 := Concatenation( J4, K5 );; 
+gap> J4K5 := CancelImmediateInversesLogSequence( J4K5 );; 
+gap> PrintLnUsingLabels( J4K5, genfms3, s3labs ); 
+[ [ -2, F*G ], [ 3, f ], [ -1, id ], [ 3, F ], [ 1, id ], 
+[ -3, f ], [ 2, F*G ], [ -3, F*G ] ]
+gap> J4K5 := CancelInversesLogSequence( ms3, J4K5 ); 
+[ ]
+]]>
+</Example>
+
+</Section> 
+
+
+<Section Label="sect-reducing">
+<Heading>Reducing identities</Heading>
+
+In this section we list some further operations 
+which may be used to simplify the list of identities 
+returned by <C>IdentityRelatorSequences</C>. 
+We will use our <M>Q_8</M> presentation in the examples. 
+<P/> 
+
+<Example>
+<![CDATA[
+gap> mq8 := MonoidPresentationFpGroup( q8 );;
+gap> fmq8 := FreeGroupOfPresentation( mq8 );;
+gap> genfmq8 := GeneratorsOfGroup(fmq8 );;
+gap> q8labs := ["a","b","A","B"];; 
+gap> SetMonoidPresentationLabels( mq8, q8labs );; 
+gap> idsq8 := IdentityRelatorSequences( q8 );;          
+gap> lenidsq8 := Length( idsq8 );                                   
+28
+gap> List( idsq8, L -> Length(L) );
+[ 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 8, 8, 8, 
+  9, 10, 10 ]
+]]>
+</Example>
+
+<ManSection Label="root-rules">
+   <Attr Name="LogSequenceRewriteRules"
+         Arg="mG" />
+<Description>
+The root identity <M>R^{-1}R^w</M> may be converted into the rewrite rule 
+<M>R^w \to R</M>.  
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> rulesq8 := LogSequenceRewriteRules( mq8 );;
+gap> for i in [1..8] do 
+>        PrintLnUsingLabels( rulesq8[i], genfmq8, q8labs );
+>    od;
+[ [ 1, a ], [ 1, id ] ]
+[ [ -1, a ], [ -1, id ] ]
+[ [ 1, A ], [ 1, id ] ]
+[ [ -1, A ], [ -1, id ] ]
+[ [ 2, b ], [ 2, id ] ]
+[ [ -2, b ], [ -2, id ] ]
+[ [ 2, B ], [ 2, id ] ]
+[ [ -2, B ], [ -2, id ] ]
+[ [ 3, a*b*a*B ], [ 3, id ] ]
+[ [ 3, b*A*B*A ], [ 3, id ] ]
+[ [ -3, a*b*a*B ], [ -3, id ] ]
+[ [ -3, b*A*B*A ], [ -3, id ] ]
+[ [ 4, a^2*b^2 ], [ 4, id ] ]
+[ [ 4, B^2*A^2 ], [ 4, id ] ]
+[ [ -4, a^2*b^2 ], [ -4, id ] ]
+[ [ -4, B^2*A^2 ], [ -4, id ] ]
+]]>
+</Example>
+
+<ManSection Label="one-pass-red-seq">
+   <Oper Name="OnePassReduceLogSequence"
+         Arg="J, rules" />
+<Description>
+The rewrite rules returned by <C>LogSequenceRewriteRules</C> 
+may be used to simplify other identity sequences. 
+In the example the fourth rule <M>(q^{-1})^A \to q^{-1}</M>, applied twice, 
+reduces <M>(q^{-1})^{A^2}</M> to <M>q^{-1}</M>. 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> J7 := idsq8[7];
+[ [ 1, <identity ...> ], [ -1, q8_M3^2 ] ]
+gap> OnePassReduceLogSequence( J7, rulesq8 );
+[ [ 1, <identity ...> ], [ -1, <identity ...> ] ]
+]]>
+</Example>
+
+The operation <C>ReduceLogSequences</C>, 
+described in subsection <Ref Sect="reduce-seq"/>, 
+applied to the list <C>idsq8</C> reduces the <M>28</M> identities to <M>15</M>. 
+<P/>
+
+<Example>
+<![CDATA[
+gap> ridsq8 := ReduceLogSequences( q8, idsq8 );;
+gap> lenrids := Length( ridsq8 );                                   
+15
+gap> for i in [1..lenrids] do                                
+>        PrintLnUsingLabels( ridsq8[i], genfmq8, q8labs );   
+>    od;
+[ [ -2, id ], [ 2, b ] ]
+[ [ -1, id ], [ 1, a ] ]
+[ [ -4, id ], [ 2, A^2 ], [ 1, id ], [ -4, a^2 ] ]
+[ [ -4, id ], [ 3, A ], [ 4, a ], [ -3, b ] ]
+[ [ 1, id ], [ -4, id ], [ 2, A^2 ], [ -4, A^2 ] ]
+[ [ -4, id ], [ 3, A ], [ 3, id ], [ 2, id ], [ -4, b ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 1, id ], [ -3, a ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A^2 ], [ 1, id ], [ -3, B ] ]
+[ [ -4, id ], [ 3, A ], [ -4, A ], [ 2, A^3 ], [ 1, id ], 
+[ -3, b ] ]
+[ [ -4, id ], [ 4, B*A^2 ], [ -4, A^2 ], [ 1, id ], [ 2, id ], 
+[ -4, b ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 3, A^2 ], [ 4, id ], 
+[ -4, B ] ]
+[ [ -4, id ], [ 3, A ], [ 4, B*A ], [ -4, A ], [ 1, id ], 
+[ -3, a ], [ 4, B ], [ -1, b ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 3, A^2 ], [ 4, B*A^2 ], 
+[ -4, A^2 ], [ 1, id ], [ -1, B ] ]
+[ [ 4, id ], [ -4, b ], [ 1, b ], [ -3, a^2*b ], [ 4, B*a*b ], 
+[ -4, a*b ], [ 3, b ], [ -1, id ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 1, id ], [ -4, a ], 
+[ 2, A ], [ 1, id ], [ -4, a^2 ], [ -3, B ] ] 
+]]>
+</Example>
+
+We now demonstrate that this list may be reduced further. 
+
+<ManSection Label="move-left-right">
+   <Oper Name="MoveRightLogSequence"
+         Arg="mG, J, L, q" />
+   <Oper Name="MoveLeftLogSequence"
+         Arg="mG, J, L, q" />
+   <Oper Name="SwapLogSequence"
+         Arg="mG, J, p, q" />
+<Description>
+The terms in an identity sequence may be interchanged because 
+<Display>
+R^w Q^v ~=~ Q^v R^{wQ^v} ~=~ Q^{v(R^w)^{-1}} R^w.
+</Display> 
+In the first two of these three operations 
+<C>L =</C> <M>[p..r]</M> is a range specifying a sublist 
+<C>K=J{[p..r]}</C> of <C>J</C>, 
+and <M>l</M> is the length of <C>J</C>.  
+The operation <C>MoveRightLogSequence(mG,J,L,q)</C>,  
+with <M>0</M> <![CDATA[<]]> <M>p</M> <![CDATA[<]]> <M>q</M> 
+and <M>q+r \leq p+l</M>, 
+moves sublist <C>K</C> to the <M>q</M>-th position, 
+conjugating entries in <M>J\{[p+1 \ldots q]\}</M> 
+and moving them all to the left. 
+<P/> 
+Similarly <C>MoveLeftLogSequence(mG,J,L,q)</C>, 
+with <M>0</M> <![CDATA[<]]> <M>q</M> <![CDATA[<]]> <M>p</M> 
+nd <M>r \leq l</M>, 
+moves sublist <C>K</C> to the <M>q</M>-th position, 
+conjugating entries in <M>J\{[q \ldots p-1]\}</M> 
+and moving them all to the right.
+<P/> 
+The operation <C>SwapLogSequence(mG,J,p,q)</C> 
+with <M>p</M> <![CDATA[<]]> <M>q</M> swaps a pair of terms 
+in a sequence <C>J</C> by calling the two previous commands. 
+<P/> 
+In all three operations the procedure is completed by a call to 
+<C>OnePassReduceLogSequence</C>. 
+<P/> 
+In the example the third identity is converted into the fifth 
+by moving the third term one place right 
+and then changing the start position, so it may be omitted.  
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> J3 := ShallowCopy( ridsq8[3] );;                            
+gap> PrintLnUsingLabels( J3, genfmq8, q8labs );   
+[ [ -4, id ], [ 2, A^2 ], [ 1, id ], [ -4, a^2 ] ]
+gap> K3 := MoveRightLogSequence( mq8, J3, [3], 4 );;
+gap> PrintLnUsingLabels( K3, genfmq8, q8labs );    
+[ [ -4, id ], [ 2, A^2 ], [ -4, A^2 ], [ 1, id ] ]
+gap> J5 := ShallowCopy( ridsq8[5] );; 
+gap> PrintLnUsingLabels( J5, genfmq8, q8labs );
+[ [ 1, id ], [ -4, id ], [ 2, A^2 ], [ -4, A^2 ] ]
+gap> J5 = ChangeStartLogSequence( mq8, K3, 4 );
+true
+]]>
+</Example>
+
+
+<ManSection Label="subs-log-seq">
+   <Oper Name="SubstituteLogSubsequence"
+         Arg="mG, K, J1, J2" />
+<Description>
+If we move the second term in <C>J5</C> to the right, we find that sublist 
+<C>U = [[1,id],[2,id]]</C> is equal to <C>V = [[4,A^2],[4,id]]</C>, 
+with both expanding to <M>a^4b^4</M>. 
+<P/> 
+Now <C>U</C> appears in the tenth identity, and if we replace it with <C>V</C> 
+and then cancel, we obtain the empty list. 
+So the tenth identity may be omitted. 
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> K5 := MoveRightLogSequence( mq8, J5, [2], 3 );;
+gap> PrintLnUsingLabels( K5, genfmq8, q8labs );       
+[ [ 1, id ], [ 2, id ], [ -4, id ], [ -4, A^2 ] ]
+gap> K5a := K5{[1..2]};; 
+gap> K5b := InverseLogSequence( K5{[3..4]} );;
+gap> K5a;K5b;
+[ [ 1, <identity ...> ], [ 2, <identity ...> ] ]
+[ [ 4, q8_M3^2 ], [ 4, <identity ...> ] ]
+gap> J10 := ShallowCopy( ridsq8[10] );;
+gap> PrintLnUsingLabels( J10, genfmq8, q8labs );
+[ [ -4, id ], [ 4, B*A^2 ], [ -4, A^2 ], [ 1, id ], [ 2, id ], 
+[ -4, b ] ]
+gap> K10 := SubstituteLogSubsequence( mq8, J10, K5a, K5b );;
+gap> PrintLnUsingLabels( K10, genfmq8, q8labs );            
+[ [ -4, id ], [ 4, B*A^2 ], [ -4, A^2 ], [ 4, A^2 ], [ 4, id ], 
+[ -4, b ] ]
+gap> CancelInversesLogSequence( mq8, K10 );
+[  ]
+]]>
+</Example>
+
+Similarly, we may reduce the ninth identity. 
+Initially, <C>U</C> does not appear as a sublist of <C>J9</C>. 
+Swapping the fourth and fifth terms and conjugating by <M>A</M> 
+produces <C>U</C>, which is then replaced by <C>V</C>. 
+After a cancellation, we obtain a conjugate of the fourth identity. 
+<P/> 
+<Example>
+<![CDATA[
+gap> J9 := ShallowCopy( ridsq8[9] );; 
+gap> PrintLnUsingLabels( J9, genfmq8, q8labs );            
+[ [ -4, id ], [ 3, A ], [ -4, A ], [ 2, A^3 ], [ 1, id ], 
+[ -3, b ] ]
+gap> K9 := MoveLeftLogSequence( mq8, J9, [5], 4 );; 
+gap> PrintLnUsingLabels( K9, genfmq8, q8labs );            
+[ [ -4, id ], [ 3, A ], [ -4, A ], [ 1, id ], [ 2, a ], [ -3, b ] ]
+gap> L9 := ConjugateByWordLogSequence( mq8, K9, genfmq8[3] );;
+gap> PrintLnUsingLabels( L9, genfmq8, q8labs );            
+[ [ -4, A ], [ 3, A^2 ], [ -4, A^2 ], [ 1, id ], [ 2, id ], 
+[ -3, b*A ] ]
+gap> M9 := SubstituteLogSubsequence( mq8, L9, K5a, K5b);;
+gap> PrintLnUsingLabels( M9, genfmq8, q8labs );            
+[ [ -4, A ], [ 3, A^2 ], [ -4, A^2 ], [ 4, A^2 ], [ 4, id ], 
+[ -3, b*A ] ]
+gap> N9 := CancelInversesLogSequence( mq8, M9 );;
+gap> PrintLnUsingLabels( N9, genfmq8, q8labs );            
+[ [ -4, A ], [ 3, A^2 ], [ 4, id ], [ -3, b*A ] ]
+gap> P9 := ConjugateByWordLogSequence( mq8, N9, genfmq8[1] );;
+gap> PrintLnUsingLabels( P9, genfmq8, q8labs );            
+[ [ -4, id ], [ 3, A ], [ 4, a ], [ -3, b ] ]
+gap> P9 = ridsq8[4];
+true
+]]>
+</Example>
+
+We will not, for now, attempt to reduce the list of identities further.
+</Section>
+
+
+
 
 <Section Label="sect-original">
 <Heading>The original approach</Heading>
@@ -121,167 +681,96 @@ This experimental work is described in later sections.
 <ManSection>
    <Attr Name="IdentitiesAmongRelators"
          Arg="grp" />
-   <Attr Name="IdentityYSequences"
-         Arg="grp" />
-   <Attr Name="IdentityRelatorSequences"
-         Arg="grp" />
 <Description>
 <P/>
 It is <E>not</E> guaranteed that a minimal set of identities is obtained. 
 For <C>q8</C> a set of seven identities is returned, 
 whereas a minimal set contains only six. 
 See Example 5.1 of <Cite Key="HeWe1" /> for further details. 
+<P/> 
+Why <C>idrelq8</C> in the following example is shorter than <C>ridsq8</C> 
+above remains to be investigated! 
 <P/>
 </Description>
 </ManSection>
 <Example>
 <![CDATA[
-gap> q8seq := IdentityRelatorSequences( q8 );;
-gap> Length( q8seq );
-19
-gap> q8seq[1];
-[ 1, 9, [ [ q8_R1^-1, <identity ...> ], [ q8_R1, f1^-1 ] ] ]
-gap> idsq8 := IdentitiesAmongRelators( q8 );;
-gap> Length( idsq8 );
-7
-gap> Display( idsq8 );
-[ [ [ q8_R1^-1, <identity ...> ], [ q8_R1, f1^-1 ] ], 
-  [ [ q8_R2^-1, <identity ...> ], [ q8_R4^-1, f2^-1 ], [ q8_R2, f1^-2*f2^-1 ],
-      [ q8_R4, f2^-1 ] ], 
-  [ [ q8_R1^-1, <identity ...> ], [ q8_R4^-1, f2^-1 ], [ q8_R3, f1^-1*f2^-1 ],
-      [ q8_R3, f2^-1 ], [ q8_R3, f1*f2^-1 ], [ q8_R1^-1, f2^-1 ], 
-      [ q8_R3, f1^-2*f2^-1 ], [ q8_R4, f2^-1 ] ], 
-  [ [ q8_R3^-1, <identity ...> ], [ q8_R4^-1, f2^-1 ], [ q8_R3, f1^-1*f2^-1 ],
-      [ q8_R4, f1*f2^-1 ] ], 
-  [ [ q8_R4^-1, <identity ...> ], [ q8_R4^-1, f2^-1 ], [ q8_R3, f1^-1*f2^-1 ],
-      [ q8_R3, f2^-1 ], [ q8_R4^-1, f2^-1 ], [ q8_R2, f1^-2*f2^-1 ], 
-      [ q8_R4, f2^-1 ] ], 
-  [ [ q8_R4^-1, <identity ...> ], [ q8_R3, f1*f2 ], [ q8_R1^-1, f2 ], 
-      [ q8_R3, f1^-2*f2 ], [ q8_R4, f2 ] ], 
-  [ [ q8_R4^-1, <identity ...> ], [ q8_R4^-1, f1^-2 ], [ q8_R2, f1^-4 ], 
-      [ q8_R1, f1^-1 ] ] ]
-gap> idyseq8 := IdentityYSequences( q8 );
-[ ( q8_Y1*( -q8_M1), q8_R1*( q8_M1 - <identity ...>) ), 
-  ( q8_Y5*( <identity ...>), q8_R2*( q8_M2 - <identity ...>) ), 
-  ( q8_Y18*( q8_M2), q8_R1*( -q8_M2 - <identity ...>) + q8_R3*( q8_M1^2 + q8_M\
-3 + q8_M1 + <identity ...>) ), 
-  ( q8_Y8*( q8_M2), q8_R3*( q8_M3 - q8_M2) + q8_R4*( q8_M1 - <identity ...>) )
-    , 
-  ( q8_Y17*( -q8_M2), q8_R2*( -q8_M1^2) + q8_R3*( -q8_M3 - <identity ...>) + q\
-8_R4*( q8_M2 + <identity ...>) ), 
-  ( q8_Y11*( <identity ...>), q8_R1*( -q8_M2) + q8_R3*( q8_M1*q8_M2 + q8_M4) +\
- q8_R4*( q8_M2 - <identity ...>) ), 
-  ( q8_Y10*( -q8_M1), q8_R1*( -<identity ...>) + q8_R2*( -q8_M1) + q8_R4*( q8_\
-M3 + q8_M1) ) ]
+gap> idrelq8 := IdentitiesAmongRelators( q8 );;
+gap> Length( idrelq8 );
+14
+gap> for i in [1..14] do 
+>       PrintLnUsingLabels( idrelq8[i], genfmq8, q8labs ); 
+>    od; 
+[ [ -1, id ], [ 1, a ] ]
+[ [ -2, id ], [ 2, b ] ]
+[ [ -4, id ], [ 3, A ], [ 3, id ], [ 2, id ], [ -4, b ] ]
+[ [ -4, id ], [ 2, A^2 ], [ 1, id ], [ -4, a^2 ] ]
+[ [ 1, id ], [ -4, id ], [ 2, A^2 ], [ -4, A^2 ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 1, id ], [ -3, a ] ]
+[ [ -4, id ], [ 3, A ], [ 4, a ], [ -3, b ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A^2 ], [ 1, id ], [ -3, B ] ]
+[ [ -4, id ], [ 4, B*A^2 ], [ -4, A^2 ], [ 1, id ], [ 2, id ], 
+[ -4, b ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 3, A^2 ], [ 4, id ], 
+[ -4, B ] ]
+[ [ -4, id ], [ 3, A ], [ -4, A ], [ 2, A^3 ], [ 1, id ], 
+[ -3, b ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 1, id ], [ -4, a ], 
+[ 2, A ], [ 1, id ], [ -4, a^2 ], [ -3, B ] ]
+[ [ -4, id ], [ 3, A ], [ 4, B*A ], [ -4, A ], [ 1, id ], 
+[ -3, a ], [ 4, B ], [ -1, b ] ]
+[ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 3, A^2 ], [ 4, B*A^2 ], 
+[ -4, A^2 ], [ 1, id ], [ -1, B ] ]
 ]]>
 </Example>
 
 <ManSection>
-   <Attr Name="RootIdentities"
+   <Attr Name="IdentityYSequences"
          Arg="grp" />
 <Description>
-The <E>root identities</E> are identities of the form <M>r^wr^{-1}</M>  
-where <M>r = w^n</M> is a relator and <M>n>1</M>. 
-(For equivalent forms invert, or permute the factors cyclically, 
-or act with <M>w^{-1}</M>.) 
-<P/>
-For <C>q8</C> only two of the four relators are proper powers, 
-<M>\pi=a^4</M> and <M>\rho=b^4</M>, so the root identities are 
-<M>\pi^a\pi^{-1}</M> and <M>\rho^b\rho^{-1}</M>. 
-In the listing below the second of these is displayed as 
-<M>\rho^{-1}(\xi^{-1})^{B}\rho^{A^2B}\xi^{B}</M>, 
-where <M>\xi = a^2b^2</M>. 
-Because the second term is the inverse of the fourth, we may convert 
-the final three terms into a conjugate of the third, 
-so that the identity is equivalent to <M>\rho^{-1}\rho^b</M>: 
+These identities are then transformed into module polynomials 
 <Display>
-\left(\rho^{A^2B}\right)^{\xi^{B}} 
-~=~ \left(\rho^{A^2B}\right)^{b(a^2b^2)B} 
-~=~ \rho^b~. 
+  \rho(a + ba) + \sigma({\rm id} + ab + ba) 
+- \tau({\rm id} + a + A)\ ,
 </Display> 
- 
-</Description>
-</ManSection>
-<Example>
-<![CDATA[
-gap> RootIdentities( q8 );
-[ [ [ q8_R1^-1, <identity ...> ], [ q8_R1, f1^-1 ] ], 
-  [ [ q8_R2^-1, <identity ...> ], [ q8_R4^-1, f2^-1 ], [ q8_R2, f1^-2*f2^-1 ],
-      [ q8_R4, f2^-1 ] ] ]
-gap> RootIdentities(s3);
-[ [ [ s3_R1^-1, <identity ...> ], [ s3_R1, f1^-1 ] ], 
-  [ [ s3_R2^-1, <identity ...> ], [ s3_R2, f2 ] ], 
-  [ [ s3_R3^-1, <identity ...> ], [ s3_R3, f1*f2 ] ] ]
-]]>
-</Example>
-</Section>
-
-
-<Section Label="sect-KBidentities">
-<Heading>Knuth-Bendix identities</Heading>
-
-Given an initial set of rules, 
-the logged Knuth-Bendix procedure considers overlaps between 
-pairs of logged rules <M>l_1=L_1r_1</M> and <M>l_2=L_2r_2</M>. 
-In the case <M>u_1l_1=l_2v_2</M> for some words <M>u_1,v_2</M>, 
-the critical pair resulting from the overlap is <M>(u_1r_1,r_2v_2)</M>. 
-Logged reduction is then applied to these two words giving 
-<M>u_1r_1=M_1z_1</M> and <M>r_2v_2=M_2z_2</M>, say.  
-Then, if <M>z_1>z_2</M>, the additional rule 
-<M>z_1 = (M_1^{-1}L_1^{-u_1^{-1}}L_2M_2)z_2</M> is added. 
-There is a similar formula when <M>z_2>z_1</M>. 
-
-<ManSection>
-   <Attr Name="IdentitiesAmongRelatorsKB"
-         Arg="grp" />
-   <Attr Name="IdentityYSequencesKB"
-         Arg="grp" />
-   <Attr Name="IdentityRelatorSequencesKB"
-         Arg="grp" />
-<Description>
+where the monoid elements are transformed into their normal forms. 
+<P/> 
+The collection of saturated sets of these module polynomials 
+is then reduced as far as possible, and the minimal set obtained 
+returned as the <C>IdentityYSequences</C> of the group. 
+The group relator sequences corresponding to these module polynomials 
+form the <C>IdentitiesAmongRelators</C> for the group. 
 <P/>
-The third possibility is that <M>z_1=z_2</M>, 
-and in this case there is no reduction rule to be added. 
-However the log expression <M>M_1^{-1}L_1^{-u_1^{-1}}L_2M_2</M> 
-must reduce to the identity, and so is an identity relator sequence. 
-Since version 2.41 of this package, the function
-<C>LoggedRewritingSystemFpGroup</C> returns two lists: 
-a complete set of reduction rules, 
-and a set of identity relator sequences produced in this way. 
-In the case of the quaternion group <C>q8</C> a total of <M>42</M> 
-sequences are produced by logged Knuth-Bendix, 
-and these are then reduced to <M>8</M> identities. 
 </Description>
 </ManSection>
 <Example>
 <![CDATA[
-gap> gseqKB8 := IdentityRelatorSequencesKB( q8 );;
-gap> Length(last);
-42
-gap> idrelsKB8 := IdentitiesAmongRelatorsKB( q8 );;
-gap> Display( idrelsKB8 );
-[ [ [ q8_R1^-1, <identity ...> ], [ q8_R1, f1^-1 ] ], 
-  [ [ q8_R3^-1, f1^-1 ], [ q8_R3^-1, f1^-2 ], [ q8_R1, <identity ...> ], 
-      [ q8_R3^-1, f1 ], [ q8_R1, f2^-1 ], [ q8_R3^-1, <identity ...> ] ], 
-  [ [ q8_R3, f1*f2 ], [ q8_R4^-1, <identity ...> ], [ q8_R3^-1, f1^-2 ], 
-      [ q8_R4, f1^-1 ] ], 
-  [ [ q8_R2^-1, f1^-3 ], [ q8_R4, f1^-1 ], [ q8_R3, <identity ...> ], 
-      [ q8_R3^-1, f1*f2^-1 ], [ q8_R4^-1, <identity ...> ], [ q8_R2, f1^-2 ] ]
-    , [ [ q8_R4^-1, f2 ], [ q8_R2, f1^-2*f2 ], [ q8_R4^-1, <identity ...> ], 
-      [ q8_R3, f1^-1 ], [ q8_R3, <identity ...> ] ], 
-  [ [ q8_R4^-1, <identity ...> ], [ q8_R3^-1, f1^-2 ], 
-      [ q8_R1, <identity ...> ], [ q8_R3^-1, f1 ], [ q8_R4, f2^-1 ] ], 
-  [ [ q8_R4^-1, <identity ...> ], [ q8_R4^-1, f1^-2 ], [ q8_R2, f1^-4 ], 
-      [ q8_R1, <identity ...> ] ], 
-  [ [ q8_R4, f1^-1 ], [ q8_R3, f1*f2 ], [ q8_R1^-1, f2 ], 
-      [ q8_R2^-1, f1^-2*f2 ], [ q8_R4, f2 ], [ q8_R3, f1 ], [ q8_R3^-1, f2 ], 
-      [ q8_R4^-1, <identity ...> ], [ q8_R3, f1^-1 ], [ q8_R4^-1, f1^-1 ], 
-      [ q8_R2, f1^-3 ] ] ]
+gap> idyseq8 := IdentityYSequences( q8 );; 
+gap> for y in idyseq8 do 
+>        PrintLnYSequence( y, genfmq8, q8labs, genq8R, q8Rlabs ); 
+>    od; 
+q8_Y2*(1*A), q^-1*(-1*A) + q*(1*id)) 
+q8_Y1*(1*B), r^-1*(-1*B) + r*(1*id)) 
+q8_Y6*(-1*id), r*(-1*id) + s*(-1*A + -1*id) + t^-1*(1*b + 1*id)) 
+q8_Y3*(-1*a), q*(-1*a) + r*(-1*A) + t^-1*(1*A + 1*a)) 
+q8_Y5*(-1*a), q*(-1*a) + r*(-1*A) + t^-1*(1*A + 1*a)) 
+q8_Y7*(1*a*b), q*(1*a*b) + s^-1*(-1*a*b + -1*B) + t^-1*(-1*b) + t*(1*id)) 
+q8_Y4*(1*A), s^-1*(-1*a*b) + s*(1*a^2) + t^-1*(-1*A) + t*(1*id)) 
+q8_Y8*(1*a*b), q*(1*a*b) + s^-1*(-1*a*b + -1*A) + t^-1*(-1*a*B) + t*(1*id)) 
+q8_Y10*(1*B), q*(1*B) + r*(1*B) + t^-1*(-1*B + -1*b + -1*id) + t*(1*id)) 
+q8_Y11*(1*b), s^-1*(-1*b) + s*(1*B) + t^-1*(-1*a*B + -1*id) + t*(1*b + 1*a)) 
+q8_Y9*(-1*a), q*(-1*a) + r*(-1*a^2) + s^-1*(1*a*B) + s*(-1*id) + t^-1*(1*a + 
+1*id)) 
+q8_Y15*(1*a*b), q*(2*a*b) + r*(1*b) + s^-1*(-1*a*b + -1*A) + t^-1*(-1*a*B + 
+-1*B + -1*b) + t*(1*id)) 
+q8_Y12*(1*b), q^-1*(-1*a^2) + q*(1*b) + s^-1*(-1*a*b) + s*(1*a*B) + t^-1*(
+-1*a*B + -1*b) + t*(1*a + 1*id)) 
+q8_Y13*(1*a*b), q^-1*(-1*A) + q*(1*a*b) + s^-1*(-1*a*b) + s*(1*a*B) + t^-1*(
+-1*a*B + -1*b) + t*(1*a + 1*id)) 
 ]]>
 </Example>
 
-
-</Section>
+</Section> 
 
 
 <Section Label="sect-partial-elements">
@@ -305,49 +794,25 @@ As an example we take the group
 <Example>
 <![CDATA[
 gap> F := FreeGroup(3);;
-gap> u := F.1;;  v := F.2;;  w := F.3;; 
-gap> rels := [ u^3, v^2, w^2, (u*v)^2, (v*w)^2 ];; 
-gap> q0 := F/rels;; 
+gap> u := F.1;;  v := F.2;;  w := F.3;;
+gap> rels := [ u^3, v^2, w^2, (u*v)^2, (v*w)^2 ];;
+gap> q0 := F/rels;;
 gap> SetArrangementOfMonoidGenerators( q0, [1,-1,2,-2,3,-3] );
 gap> SetName( q0, "q0" );
-gap> monq0 := MonoidPresentationFpGroup( q0 );
-monoid presentation with group relators 
-[ q0_M1^3, q0_M3^2, q0_M5^2, (q0_M1*q0_M3)^2, (q0_M3*q0_M5)^2 ]
-gap> lrws := LoggedRewritingSystemFpGroup( q0 );; 
-gap> PartialElementsOfMonoidPresentation( q0, 1 ); 
-[ <identity ...>, q0_M1, q0_M2, q0_M3, q0_M5 ]
-gap> PartialElementsOfMonoidPresentation( q0, 2 ); 
-[ <identity ...>, q0_M1, q0_M2, q0_M3, q0_M5, q0_M1*q0_M3, q0_M1*q0_M5, 
-  q0_M2*q0_M3, q0_M2*q0_M5, q0_M3*q0_M5, q0_M5*q0_M1, q0_M5*q0_M2 ]
+gap> mq0 := MonoidPresentationFpGroup( q0 );;
+gap> fmq0 := FreeGroupOfPresentation( mq0 );;
+gap> genfmq0 := GeneratorsOfGroup( fmq0 );;
+gap> q0labs := ["u","U","v","V","w","W"];; 
+gap> SetMonoidPresentationLabels( mq0, q0labs );; 
+gap> lrws := LoggedRewritingSystemFpGroup( q0 );;
+gap> pe1 := PartialElementsOfMonoidPresentation( q0, 1 );; 
+gap> PrintLnUsingLabels( pe1, genfmq0, q0labs ); 
+[ id, u, U, v, w ]
+gap> pe2 := PartialElementsOfMonoidPresentation( q0, 2 );;
+gap> PrintLnUsingLabels( pe2, genfmq0, q0labs ); 
+[ id, u, U, v, w, u*v, u*w, U*v, U*w, v*w, w*u, w*U ]
 ]]>
 </Example>
-
-</Section>
-
-<Section Label="sect-inf-identities">
-<Heading>Identities for infinite groups</Heading>
-
-Because the list of elements is incomplete, it is not guaranteed 
-that the list of identities is complete. 
-<P/>
-<Example>
-<![CDATA[
-gap> idsq0 := IdentitiesAmongRelators( q0 );
-[ [ [ q0_R1^-1, <identity ...> ], [ q0_R1, f1^-1 ] ], 
-  [ [ q0_R2^-1, <identity ...> ], [ q0_R2, f2 ] ], 
-  [ [ q0_R3^-1, <identity ...> ], [ q0_R3, f3 ] ], 
-  [ [ q0_R4^-1, <identity ...> ], [ q0_R2^-1, f1^-1 ], [ q0_R4, f1*f2 ], 
-      [ q0_R2, f1*f2 ] ], 
-  [ [ q0_R5^-1, <identity ...> ], [ q0_R3^-1, f2^-1 ], [ q0_R5, f2*f3 ], 
-      [ q0_R3, f2*f3 ] ], 
-  [ [ q0_R1^-1, <identity ...> ], [ q0_R2^-1, f1^-1 ], [ q0_R4, f1*f2 ], 
-      [ q0_R2^-1, f1^-1*f2^-1*f1*f2 ], [ q0_R4, f1^2*f2 ], [ q0_R1^-1, f2 ], 
-      [ q0_R2^-1, f1^-1*f2^-1*f1^-1*f2 ], [ q0_R4, f2 ] ], 
-  [ [ q0_R2^-1, <identity ...> ], [ q0_R3^-1, f2^-1 ], [ q0_R5, f2*f3 ], 
-      [ q0_R2^-1, f3 ], [ q0_R3^-1, f2^-1*f3^-1*f2^-1*f3 ], [ q0_R5, f3 ] ] ]
-]]>
-</Example>
-
 
 </Section>
 

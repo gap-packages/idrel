@@ -6,6 +6,10 @@
 /doc/*.js
 
 /doc/bib.xml.bib
+/doc/title.xml
+/doc/idrel.xml
+/doc/_*.xml
+
 /doc/manual.lab
 /doc/manual.pdf
 /doc/manual.six
@@ -22,11 +26,15 @@
 /doc/*.tex
 /doc/*.toc
 
-/examples/*.log
-/examples/q*.g
-
 /gh-pages/
 
 /tmp/
 
-/tst/test*
+/tst/rws.g
+/tst/logrws.g
+/tst/modpoly.g
+/tst/monpoly.g
+/tst/idrels.g
+
+/xtst/simsek.g
+

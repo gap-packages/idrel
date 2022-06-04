@@ -189,9 +189,9 @@ DeclareAttribute( "IdentitiesFromLoggedRewriting", IsFpGroup );
 
 #############################################################################
 ##
-#O  RelatorSequenceReduce( <mG>, <seq> )
+#O  LogSequenceReduce( <mG>, <seq> )
 ##
-DeclareOperation( "RelatorSequenceReduce", 
+DeclareOperation( "LogSequenceReduce", 
     [ IsMonoidPresentationFpGroup, IsHomogeneousList ] );
 
 #############################################################################

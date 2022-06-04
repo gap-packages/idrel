@@ -855,7 +855,7 @@ function( mG, r0 )
                     fi;
                     # Add them in as new rules:
                     if ( red1 = red2 ) then 
-                        redrule := RelatorSequenceReduce( mG, L ); 
+                        redrule :=LogSequenceReduce( mG, L ); 
                         if ( redrule <> [ ] ) then
                             Info( InfoIdRel, 2, " !! red1 = red2 at:\n", L ); 
                         fi;
@@ -937,7 +937,7 @@ function( mG, r0 )
                         # Add them in as new rules:
                         if ( red1 = red2 ) then 
                             Info( InfoIdRel, 2, "LHS = RHS" ); 
-                            redrule := RelatorSequenceReduce( mG, L ); 
+                            redrule :=LogSequenceReduce( mG, L ); 
                             if ( redrule <> [ ] ) then
                                 Info( InfoIdRel, 2, 
                                   " !! type2, red1=red2= ", red1, " at:", L ); 
@@ -1234,7 +1234,8 @@ function( mG )
     grel := GroupRelatorsOfPresentation( mG );
     ngrel := Length( grel ); 
     igrel := List( [1..ngrel], i -> ReduceWordKB( grel[i]^-1, invrules ) ); 
-    r1 := List( [1..ngrel], i -> [ grel[i], [ [ i+leni, id ] ], id ] ); 
+##  r1 := List( [1..ngrel], i -> [ grel[i], [ [ i+leni, id ] ], id ] ); 
+    r1 := List( [1..ngrel], i -> [ grel[i], [ [ i, id ] ], id ] ); 
     rules := Concatenation( r0, r1 ); 
     Sort( rules, BetterLoggedRuleByReductionOrLength ); 
     return rules; 
@@ -1319,9 +1320,9 @@ end );
 
 ##############################################################################
 ##
-#M  RelatorSequenceReduce
+#M LogSequenceReduce
 ##
-InstallMethod( RelatorSequenceReduce, 
+InstallMethod(LogSequenceReduce, 
     "for a monoid presentation and a relator sequence", true, 
     [ IsMonoidPresentationFpGroup, IsHomogeneousList ], 0, 
 function( mG, seq )

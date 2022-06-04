@@ -7,6 +7,13 @@ LoadPackage("idrel");
 LoadPackage("AutoDoc"); 
 
 AutoDoc(rec( 
+    gapdoc := rec( 
+        LaTeXOptions := rec( 
+            EarlyExtraPreamble := """
+                \usepackage[pdftex]{graphicx} 
+                """ 
+        ), 
+    ),
     scaffold := rec(
         includes := [ "intro.xml",    "rws.xml",      "logrws.xml", 
                       "monpoly.xml",  "modpoly.xml",  "idrels.xml" ],
