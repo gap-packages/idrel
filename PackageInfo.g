@@ -8,8 +8,8 @@ SetPackageInfo( rec(
 
 PackageName := "idrel",
 Subtitle := "Identities among relations",
-Version := "2.44",
-Date := "04/06/2022", # dd/mm/yyyy format
+Version := "2.44dev",
+Date := "06/07/2022", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -66,7 +66,7 @@ AbstractHTML :=
 PackageDoc := rec(
   BookName  := "IdRel",
   ArchiveURLSubset := ["doc"],
-  HTMLStart := "doc/chap0.html",
+  HTMLStart := "doc/chap0_mj.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
   LongTitle := "Identities among Relations",
