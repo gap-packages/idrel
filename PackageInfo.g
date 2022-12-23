@@ -9,7 +9,7 @@ SetPackageInfo( rec(
 PackageName := "idrel",
 Subtitle := "Identities among relations",
 Version := "2.44dev",
-Date := "06/07/2022", # dd/mm/yyyy format
+Date := "23/12/2022", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -17,30 +17,16 @@ Persons := [
     LastName      := "Heyworth",
     FirstNames    := "Anne",
     IsAuthor      := true,
-    IsMaintainer  := false,
-    ## Email         := "anne.heyworth@gmail.com",
-    ## WWWHome       := "",
-    ## PostalAddress := Concatenation( ["\n", "UK"] ),
-    ## Place         := "",
-    ## Institution   := ""
+    IsMaintainer  := false
   ),
   rec(
     LastName      := "Wensley",
     FirstNames    := "Chris",
     IsAuthor      := true,
     IsMaintainer  := true,
-    Email         := "c.d.wensley@bangor.ac.uk",
+    Email         := "cdwensley.maths@btinternet.com",
     WWWHome       := "https://github.com/cdwensley",
-    PostalAddress := Concatenation( [
-                       "Dr. C.D. Wensley\n",
-                       "School of Computer Science\n",
-                       "Bangor University\n",
-                       "Dean Street\n",
-                       "Bangor\n",
-                       "Gwynedd LL57 1UT\n",
-                       "UK"] ),
-    Place         := "Bangor",
-    Institution   := "Bangor University"
+    Place         := "Llanfairfechan"
   )
 ],
 
@@ -75,8 +61,8 @@ PackageDoc := rec(
 
 Dependencies := rec(
   GAP := ">=4.11.1",
-  NeededOtherPackages := [ [ "GAPDoc", ">= 1.6.2" ] ],
-  SuggestedOtherPackages := [ [ "AutoDoc", ">= 2018.09.20" ] ],
+  NeededOtherPackages := [ ],
+  SuggestedOtherPackages := [ ],
   ExternalConditions := [ ]
 ),
 
