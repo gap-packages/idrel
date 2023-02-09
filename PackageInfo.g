@@ -8,8 +8,8 @@ SetPackageInfo( rec(
 
 PackageName := "idrel",
 Subtitle := "Identities among relations",
-Version := "2.44",
-Date := "04/06/2022", # dd/mm/yyyy format
+Version := "2.45",
+Date := "09/02/2023", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -17,30 +17,16 @@ Persons := [
     LastName      := "Heyworth",
     FirstNames    := "Anne",
     IsAuthor      := true,
-    IsMaintainer  := false,
-    ## Email         := "anne.heyworth@gmail.com",
-    ## WWWHome       := "",
-    ## PostalAddress := Concatenation( ["\n", "UK"] ),
-    ## Place         := "",
-    ## Institution   := ""
+    IsMaintainer  := false
   ),
   rec(
     LastName      := "Wensley",
     FirstNames    := "Chris",
     IsAuthor      := true,
     IsMaintainer  := true,
-    Email         := "c.d.wensley@bangor.ac.uk",
+    Email         := "cdwensley.maths@btinternet.com",
     WWWHome       := "https://github.com/cdwensley",
-    PostalAddress := Concatenation( [
-                       "Dr. C.D. Wensley\n",
-                       "School of Computer Science\n",
-                       "Bangor University\n",
-                       "Dean Street\n",
-                       "Bangor\n",
-                       "Gwynedd LL57 1UT\n",
-                       "UK"] ),
-    Place         := "Bangor",
-    Institution   := "Bangor University"
+    Place         := "Llanfairfechan"
   )
 ],
 
@@ -66,7 +52,7 @@ AbstractHTML :=
 PackageDoc := rec(
   BookName  := "IdRel",
   ArchiveURLSubset := ["doc"],
-  HTMLStart := "doc/chap0.html",
+  HTMLStart := "doc/chap0_mj.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
   LongTitle := "Identities among Relations",
@@ -75,8 +61,8 @@ PackageDoc := rec(
 
 Dependencies := rec(
   GAP := ">=4.11.1",
-  NeededOtherPackages := [ [ "GAPDoc", ">= 1.6.2" ] ],
-  SuggestedOtherPackages := [ [ "AutoDoc", ">= 2018.09.20" ] ],
+  NeededOtherPackages := [ ],
+  SuggestedOtherPackages := [ ],
   ExternalConditions := [ ]
 ),
 
@@ -98,7 +84,7 @@ BannerString := Concatenation(
 AutoDoc := rec(
     TitlePage := rec(
         Copyright := Concatenation(
-            "&copyright; 1999-2022 Anne Heyworth and Chris Wensley<P/>\n",
+            "&copyright; 1999-2023 Anne Heyworth and Chris Wensley<P/>\n",
             "The &IdRel; package is free software; you can redistribute it ", 
             "and/or modify it under the terms of the GNU General ", 
             "Public License as published by the Free Software Foundation; ", 
