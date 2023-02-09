@@ -8,8 +8,8 @@ SetPackageInfo( rec(
 
 PackageName := "idrel",
 Subtitle := "Identities among relations",
-Version := "2.44dev",
-Date := "23/12/2022", # dd/mm/yyyy format
+Version := "2.45",
+Date := "09/02/2023", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -84,7 +84,7 @@ BannerString := Concatenation(
 AutoDoc := rec(
     TitlePage := rec(
         Copyright := Concatenation(
-            "&copyright; 1999-2022 Anne Heyworth and Chris Wensley<P/>\n",
+            "&copyright; 1999-2023 Anne Heyworth and Chris Wensley<P/>\n",
             "The &IdRel; package is free software; you can redistribute it ", 
             "and/or modify it under the terms of the GNU General ", 
             "Public License as published by the Free Software Foundation; ", 

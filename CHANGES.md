@@ -1,6 +1,6 @@
 # CHANGES to the IdRel package
 
-## 2.44 -> 2.44dev for GAP 4.12.1 (23/12/22) 
+## 2.44 -> 2.45 for GAP 4.12.2 (09/02/23) 
  * (23/12/22) changed email address and other personal details
 
 ## 2.43 -> 2.44 for GAP 4.11.1 (04/06/22) 
