@@ -4,7 +4,7 @@
 #W                                                             & Anne Heyworth
 ##  Implementation file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2022 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2024 Anne Heyworth and Chris Wensley 
 ##
 ##  This file contains generic methods for module polynomials
 
@@ -132,7 +132,7 @@ function( arg )
     local  nargs, g, n, i;
 
     nargs := Length( arg );
-    if not ForAll( arg, a -> IsList( a ) ) then 
+    if not ForAll( arg, IsList ) then 
         Error( "arguments must all be lists: terms or (gens + ncpolys)" );
     fi;
     if ( nargs = 2 ) then 
@@ -141,9 +141,9 @@ function( arg )
         n := arg[2];
         if ( Length( g ) = Length( n ) ) then 
             if ( ForAll( g, x -> ( IsWord( x ) and ( Length( x ) = 1 ) ) ) 
-                 and ForAll( n, x -> IsMonoidPolyTermsRep( x ) ) ) then 
+                 and ForAll( n, IsMonoidPolyTermsRep ) ) then 
                 return ModulePolyFromGensPolys( g, n );
-            elif ( ForAll( g, x -> ( IsMonoidPolyTermsRep( x ) ) ) and 
+            elif ( ForAll( g, IsMonoidPolyTermsRep ) and 
                    ForAll( n, x -> ( IsWord( x ) and ( Length( x ) = 1 ) ) ) )
                 then return ModulePolyFromGensPolys( n, g );
             fi;

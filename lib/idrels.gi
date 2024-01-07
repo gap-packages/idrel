@@ -4,7 +4,7 @@
 #W                                                             & Anne Heyworth
 ##  Implementation file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2022 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2024 Anne Heyworth and Chris Wensley 
 ##
 ##  This file contains generic methods for identities among relators 
 
@@ -1032,7 +1032,7 @@ function( G, L )
         Print( "in ReduceLogSequences\n" ); 
         Print( "\n***** Glabs = ", Glabs, "  *****\n\n" ); 
         Print( "after sorting L4 has length ", lenL, "\n" );
-        Print( List( L4, L -> Length(L) ), "\n" ); 
+        Print( List( L4, Length ), "\n" ); 
         PrintLnUsingLabels( L4, gfmG, Glabs ); 
         Print( "\ndetermining the rewrite rules\n" ); 
     fi; 
@@ -1054,7 +1054,7 @@ function( G, L )
         od; 
         if ( info > 1 ) then 
             Print( "L3 has length ", Length(L3), " :-\n" ); 
-            Print( List( L3, L -> Length(L) ), "\n" ); 
+            Print( List( L3, Length ), "\n" ); 
             PrintLnUsingLabels( L3, gfmG, Glabs ); 
             Print( "running removeempties:\n" ); 
         fi; 
@@ -1065,7 +1065,7 @@ function( G, L )
         od; 
         if ( info > 1 ) then 
             Print( "L2 has length ", Length(L2), " :-\n" ); 
-            Print( List( L2, L -> Length(L) ), "\n" ); 
+            Print( List( L2, Length ), "\n" ); 
             PrintLnUsingLabels( L2, gfmG, Glabs ); 
             Print( "running findconjugates:\n" ); 
         fi; 
@@ -1076,7 +1076,7 @@ function( G, L )
         od; 
         if ( info > 1 ) then 
             Print( "L3 has length ", Length(L3), " :-\n" ); 
-            Print( List( L3, L -> Length(L) ), "\n" ); 
+            Print( List( L3, Length ), "\n" ); 
             PrintLnUsingLabels( L3, gfmG, Glabs ); 
             Print( "running removeempties:\n" ); 
         fi; 
@@ -1087,7 +1087,7 @@ function( G, L )
         od; 
         if ( info > 1 ) then 
             Print( "L2 has length ", Length(L2), " :-\n" ); 
-            Print( List( L2, L -> Length(L) ), "\n" ); 
+            Print( List( L2, Length ), "\n" ); 
             PrintLnUsingLabels( L2, gfmG, Glabs ); 
             Print( "running startwithid:\n" ); 
         fi; 
@@ -1122,7 +1122,7 @@ function( G, L )
         od; 
         if ( info > 1 ) then 
             Print( "L4 has length ", lenL, " :-\n" ); 
-            Print( List( L4, L -> Length(L) ), "\n" ); 
+            Print( List( L4, Length ), "\n" ); 
             PrintLnUsingLabels( L4, gfmG, Glabs ); 
         fi; 
     od; 
@@ -1146,7 +1146,7 @@ function( G, L )
             od; 
         fi; 
     od;
-    Info( InfoIdRel, 2, "adjusted L4 = ", List( L4, L -> Length(L) ) ); 
+    Info( InfoIdRel, 2, "adjusted L4 = ", List( L4, Length ) ); 
     if ( InfoLevel( InfoIdRel ) > 1 ) then 
         PrintLnUsingLabels( L4, gfmG, Glabs ); 
     fi;
@@ -1373,7 +1373,7 @@ function( G )
     if ( InfoLevel( InfoIdRel ) > 0 ) then
         Print( "\nThere were ", irrenum, " irreducibles found.\n" );
         Print( "The corresponding saturated sets have size:\n" );
-        Print( List( sats, L -> Length(L) ), "\n\n" );
+        Print( List( sats, Length ), "\n\n" );
         Print( "The irreducibles and the (reordered) remainders are:\n\n" );
         for r in [1..irrenum] do 
             Print( r, " : ", irrepols[r], "\n" ); 
