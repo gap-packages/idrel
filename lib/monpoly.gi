@@ -4,7 +4,7 @@
 #W                                                             & Anne Heyworth
 ##  Implementation file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2018 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2024 Anne Heyworth and Chris Wensley 
 ##
 
 #############################################################################
@@ -105,10 +105,10 @@ function( cp, wp )
     coeffs := ShallowCopy( cp ); 
     words := ShallowCopy( wp );
     len := Length( coeffs );
-    if not ForAll( coeffs, c -> IsRat( c ) ) then 
+    if not ForAll( coeffs, IsRat ) then 
         Error( "first list must be list of rationals" );
     fi;
-    if not ( ( Length( words) = len ) and ForAll( words, w -> IsWord( w ) ) ) 
+    if not ( ( Length( words) = len ) and ForAll( words, IsWord ) ) 
         then Error( "second list must contain words and have equal length" );
     fi;
     SortParallel( words, coeffs, function(u,v) return u>v; end );
@@ -145,7 +145,7 @@ function( arg )
     local  nargs, w, c, i;
 
     nargs := Length( arg );
-    if not ForAll( arg, a -> IsList( a ) ) then 
+    if not ForAll( arg, IsList ) then 
         Error( "arguments must all be lists: terms or (coeffs + words)" );
     fi;
     if ( nargs = 2 ) then 
@@ -153,11 +153,11 @@ function( arg )
         c := arg[1];
         w := arg[2];
         if ( Length( c ) = Length( w ) ) then 
-            if ( ForAll( c, x -> IsRat( x ) ) and 
-                 ForAll( w, x -> IsWord( x ) ) ) then 
+            if ( ForAll( c, IsRat ) and 
+                 ForAll( w, IsWord ) ) then 
                 return MonoidPolyFromCoeffsWords( c, w );
-            elif ( ForAll( w, x -> IsRat( x ) ) and 
-                   ForAll( c, x -> IsWord( x ) ) ) then 
+            elif ( ForAll( w, IsRat ) and 
+                   ForAll( c, IsWord ) ) then 
                 return MonoidPolyFromCoeffsWords( w, c );
             fi;
         fi;
