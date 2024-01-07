@@ -8,8 +8,8 @@ SetPackageInfo( rec(
 
 PackageName := "idrel",
 Subtitle := "Identities among relations",
-Version := "2.45",
-Date := "09/02/2023", # dd/mm/yyyy format
+Version := "2.45dev",
+Date := "16/02/2023", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
