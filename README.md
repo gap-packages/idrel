@@ -27,7 +27,7 @@ It may also be obtained from the GitHub repository at:
 ## Copyright
 
 The IdRel package is Copyright {\copyright} Chris Wensley and Anne Heyworth, 
-1999--2022. 
+1999--2024. 
 
 IdRel is free software; you can redistribute it and/or modify it 
 under the terms of the GNU General Public License as published by
@@ -52,6 +52,6 @@ For details, see <https://www.gnu.org/licenses/gpl.html>.
 ## Contact
 
 If you have a question relating to IdRel, encounter any problems, or have a suggestion for extending the package in any way, please 
- * email: c.d.wensley@bangor.ac.uk 
+ * email: cdwensley.maths@btinternet.com 
  * or report an issue at the GitHub issue tracker: 
    <https://github.com/gap-packages/idrel/issues/new> 
