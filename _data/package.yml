@@ -1,7 +1,7 @@
 name: idrel
-version: "2.45"
+version: "2.46"
 license: "GPL-2.0-or-later"
-date: 2023-02-09
+date: 2024-01-23
 description: |
     Identities among relations
 
@@ -22,7 +22,7 @@ packageinfo: https://gap-packages.github.io/idrel/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/gap-packages/idrel/releases/download/v2.45/idrel-2.45.tar.gz
+      url: https://github.com/gap-packages/idrel/releases/download/v2.46/idrel-2.46.tar.gz
 
 abstract: |
     IdRel is a package for computing the identities among relations of a group presentation using rewriting, logged rewriting, monoid polynomials, module polynomials and Y-sequences.
@@ -34,27 +34,27 @@ keywords: |
     logged rewriting, identities among relations, Y-sequences.
 citeas: |
     <p class='BibEntry'>
-    [<span class='BibKey'>HW23</span>]   <b class='BibAuthor'>Heyworth, A. and Wensley, C.</b>,
+    [<span class='BibKey'>HW24</span>]   <b class='BibAuthor'>Heyworth, A. and Wensley, C.</b>,
      <i class='BibTitle'>idrel, Identities among relations,
-             Version 2.45</i>
-     (<span class='BibYear'>2023</span>)<br />
+             Version 2.46</i>
+     (<span class='BibYear'>2024</span>)<br />
     (<span class='BibNote'>Refereed GAP package</span>),
     <span class='BibHowpublished'><a href="https://gap-packages.github.io/idrel/">https://gap-packages.github.io/idrel/</a></span>.
     </p>
     
 
 bibtex: |
-    @misc{ idrel2.45,
+    @misc{ idrel2.46,
       author =           {Heyworth, A. and Wensley, C.},
-      title =            {{idrel}, Identities among relations, {V}ersion 2.45},
-      month =            {Feb},
-      year =             {2023},
+      title =            {{idrel}, Identities among relations, {V}ersion 2.46},
+      month =            {Jan},
+      year =             {2024},
       note =             {Refereed GAP package},
       howpublished =     {\href          {https://gap-packages.github.io/idrel/}
                           {\texttt{https://gap-packages.github.io/}\discretionary
                           {}{}{}\texttt{idrel/}}},
       keywords =         {logged    rewriting;   identities   among   relations;
                           Y-sequences},
-      printedkey =       {HW23}
+      printedkey =       {HW24}
     }
 
