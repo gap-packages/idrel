@@ -135,8 +135,6 @@ gap> PrintLnUsingLabels( q3, genfmq8, q8labs );
 [ B*A, a*B ], [ B^2, a^2 ], [ a^3, A ], [ a^2*b, B ], [ a^2*B, b ] ]
 
 ## Example 2.3.1
-gap> elq8 := Elements( q8 ); 
-[ <identity ...>, f1, f1^3, f2, f1^2*f2, f1^2, f1*f2, f1^3*f2 ]
 gap> elmq8 := ElementsOfMonoidPresentation( q8 );; 
 gap> PrintLnUsingLabels( elmq8, genfmq8, q8labs ); 
 [ id, a, b, A, B, a^2, a*b, a*B ]
