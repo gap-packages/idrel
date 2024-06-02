@@ -1,6 +1,9 @@
 # CHANGES to the IdRel package
 
-## 2.45 -> 2.46 for GAP 4.12.2 (23/01/23) 
+## 2.46 -> 2.47 for GAP 4.13.1 (02/06/24) 
+ * (02/06/24) small fix in rws.tst - order of elq8 changed in gapdev
+
+## 2.45 -> 2.46 for GAP 4.12.2 (23/01/24) 
  * (23/01/24) minor changes; correct email address
 
 ## 2.44 -> 2.45 for GAP 4.12.2 (09/02/23) 

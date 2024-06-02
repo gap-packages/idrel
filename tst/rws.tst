@@ -1,8 +1,8 @@
-##############################################################################
+#############################################################################
 ##
-#W  rws.tst                  Idrel Package                       Chris Wensley
-#W                                                             & Anne Heyworth
-#Y  Copyright (C) 1999-2022 Anne Heyworth and Chris Wensley
+#W  rws.tst                  Idrel Package                      Chris Wensley
+#W                                                            & Anne Heyworth
+#Y  Copyright (C) 1999-2024 Anne Heyworth and Chris Wensley
 ##
 
 gap> saved_infolevel_idrel := InfoLevel( InfoIdRel );; 
@@ -141,6 +141,6 @@ gap> PrintLnUsingLabels( elmq8, genfmq8, q8labs );
 
 gap> SetInfoLevel( InfoIdRel, saved_infolevel_idrel );; 
 
-#############################################################################
+############################################################################
 ##
-#E  rws.tst . . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here
+#E  rws.tst . . . . . . . . . . . . . . . . . . . . . . . . . . .  ends here
