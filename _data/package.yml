@@ -1,7 +1,7 @@
 name: idrel
-version: "2.46"
+version: "2.47"
 license: "GPL-2.0-or-later"
-date: 2024-01-23
+date: 2024-06-02
 description: |
     Identities among relations
 
@@ -22,7 +22,7 @@ packageinfo: https://gap-packages.github.io/idrel/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/gap-packages/idrel/releases/download/v2.46/idrel-2.46.tar.gz
+      url: https://github.com/gap-packages/idrel/releases/download/v2.47/idrel-2.47.tar.gz
 
 abstract: |
     IdRel is a package for computing the identities among relations of a group presentation using rewriting, logged rewriting, monoid polynomials, module polynomials and Y-sequences.
@@ -36,25 +36,25 @@ citeas: |
     <p class='BibEntry'>
     [<span class='BibKey'>HW24</span>]   <b class='BibAuthor'>Heyworth, A. and Wensley, C.</b>,
      <i class='BibTitle'>idrel, Identities among relations,
-             Version 2.46</i>
+             Version 2.47</i>
      (<span class='BibYear'>2024</span>)<br />
-    (<span class='BibNote'>Refereed GAP package</span>),
+    (<span class='BibNote'>GAP package</span>),
     <span class='BibHowpublished'><a href="https://gap-packages.github.io/idrel/">https://gap-packages.github.io/idrel/</a></span>.
     </p>
     
 
 bibtex: |
-    @misc{ idrel2.46,
+    @misc{ idrel,
       author =           {Heyworth, A. and Wensley, C.},
-      title =            {{idrel}, Identities among relations, {V}ersion 2.46},
-      month =            {Jan},
+      title =            {{idrel}, Identities among relations, {V}ersion 2.47},
+      month =            {Jun},
       year =             {2024},
-      note =             {Refereed GAP package},
+      note =             {GAP package},
       howpublished =     {\href          {https://gap-packages.github.io/idrel/}
-                          {\texttt{https://gap-packages.github.io/}\discretionary
+                          {\texttt{https://gap\texttt{\symbol{45}}packages.github.io/}\discretionary
                           {}{}{}\texttt{idrel/}}},
       keywords =         {logged    rewriting;   identities   among   relations;
-                          Y-sequences},
+                          Y\texttt{\symbol{45}}sequences},
       printedkey =       {HW24}
     }
 

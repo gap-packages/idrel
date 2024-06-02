@@ -354,8 +354,6 @@
   
   [4X[32X  Example  [32X[104X
     [4X[28X[128X[104X
-    [4X[25Xgap>[125X [27Xelq8 := Elements( q8 ); [127X[104X
-    [4X[28X[ <identity ...>, f1, f1^3, f2, f1^2*f2, f1^2, f1*f2, f1^3*f2 ][128X[104X
     [4X[25Xgap>[125X [27Xelmq8 := ElementsOfMonoidPresentation( q8 );; [127X[104X
     [4X[25Xgap>[125X [27XPrintLnUsingLabels( elmq8, genfmq8, q8labs ); [127X[104X
     [4X[28X[ id, a, b, A, B, a^2, a*b, a*B ][128X[104X
