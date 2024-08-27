@@ -1,7 +1,7 @@
 name: idrel
-version: "2.47"
+version: "2.48"
 license: "GPL-2.0-or-later"
-date: 2024-06-02
+date: 2024-08-27
 description: |
     Identities among relations
 
@@ -22,7 +22,7 @@ packageinfo: https://gap-packages.github.io/idrel/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/gap-packages/idrel/releases/download/v2.47/idrel-2.47.tar.gz
+      url: https://github.com/gap-packages/idrel/releases/download/v2.48/idrel-2.48.tar.gz
 
 abstract: |
     IdRel is a package for computing the identities among relations of a group presentation using rewriting, logged rewriting, monoid polynomials, module polynomials and Y-sequences.
@@ -36,7 +36,7 @@ citeas: |
     <p class='BibEntry'>
     [<span class='BibKey'>HW24</span>]   <b class='BibAuthor'>Heyworth, A. and Wensley, C.</b>,
      <i class='BibTitle'>idrel, Identities among relations,
-             Version 2.47</i>
+             Version 2.48</i>
      (<span class='BibYear'>2024</span>)<br />
     (<span class='BibNote'>GAP package</span>),
     <span class='BibHowpublished'><a href="https://gap-packages.github.io/idrel/">https://gap-packages.github.io/idrel/</a></span>.
@@ -46,8 +46,8 @@ citeas: |
 bibtex: |
     @misc{ idrel,
       author =           {Heyworth, A. and Wensley, C.},
-      title =            {{idrel}, Identities among relations, {V}ersion 2.47},
-      month =            {Jun},
+      title =            {{idrel}, Identities among relations, {V}ersion 2.48},
+      month =            {Aug},
       year =             {2024},
       note =             {GAP package},
       howpublished =     {\href          {https://gap-packages.github.io/idrel/}
