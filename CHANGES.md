@@ -1,5 +1,8 @@
 # CHANGES to the IdRel package
 
+## 2.47 -> 2.48 for GAP 4.13.1 (27/08/24) 
+ * (27/08/24) small fix in MonoidPresentationFpGroup method
+
 ## 2.46 -> 2.47 for GAP 4.13.1 (02/06/24) 
  * (02/06/24) small fix in rws.tst - order of elq8 changed in gapdev
 

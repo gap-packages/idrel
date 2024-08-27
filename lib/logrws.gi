@@ -560,8 +560,8 @@ function( G )
     od; 
     Info( InfoIdRel, 2, "geninv = ", geninv ); 
     Info( InfoIdRel, 2, "imgenG = ", imgenG ); 
-    isoG := GroupHomomorphismByImages( G, mG, genG, imgenG ); 
-    mu := GroupHomomorphismByImages( FM, F, genFM, geninv );
+    isoG := GroupHomomorphismByImagesNC( G, mG, genG, imgenG ); 
+    mu := GroupHomomorphismByImagesNC( FM, F, genFM, geninv );
     fam := FamilyObj( [ geninv, relsmon, geninvrels, mu ] );
     filter := IsMonoidPresentationFpGroupRep;
     mon := rec(); 
