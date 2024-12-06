@@ -9,7 +9,7 @@ SetPackageInfo( rec(
 PackageName := "idrel",
 Subtitle := "Identities among relations",
 Version := "2.48",
-Date := "16/09/2024", # dd/mm/yyyy format
+Date := "06/12/2024", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -55,8 +55,7 @@ PackageDoc := rec(
   HTMLStart := "doc/chap0_mj.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "Identities among Relations",
-  Autoload  := true
+  LongTitle := "Identities among Relations"
 ),
 
 Dependencies := rec(
@@ -67,8 +66,6 @@ Dependencies := rec(
 ),
 
 AvailabilityTest := ReturnTrue,
-
-Autoload := false, 
 
 TestFile := "tst/testall.g",
 
