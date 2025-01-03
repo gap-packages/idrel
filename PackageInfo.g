@@ -8,8 +8,8 @@ SetPackageInfo( rec(
 
 PackageName := "idrel",
 Subtitle := "Identities among relations",
-Version := "2.48",
-Date := "06/12/2024", # dd/mm/yyyy format
+Version := "2.48dev",
+Date := "03/01/2025", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -47,7 +47,7 @@ SourceRepository := rec(
 ArchiveFormats   := ".tar.gz",
 
 AbstractHTML :=
-"IdRel is a package for computing the identities among relations of a group presentation using rewriting, logged rewriting, monoid polynomials, module polynomials and Y-sequences.",
+"<span class=\"pkgname\">IdRel</span> is a package for computing the identities among relations of a group presentation using rewriting, logged rewriting, monoid polynomials, module polynomials and Y-sequences.",
 
 PackageDoc := rec(
   BookName  := "IdRel",
@@ -81,7 +81,7 @@ BannerString := Concatenation(
 AutoDoc := rec(
     TitlePage := rec(
         Copyright := Concatenation(
-            "&copyright; 1999-2024 Anne Heyworth and Chris Wensley<P/>\n",
+            "© 1999-2025 Anne Heyworth and Chris Wensley<P/>\n",
             "The &IdRel; package is free software; you can redistribute it ", 
             "and/or modify it under the terms of the GNU General ", 
             "Public License as published by the Free Software Foundation; ", 
