@@ -1,6 +1,7 @@
 # CHANGES to the IdRel package
 
-## 2.48 -> 2.48dev for GAP 4.14.0 (03/01/25) 
+## 2.48 -> 2.48dev for GAP 4.14.0 (13/08/25)
+ * (13/08/25) replaced DeclareGlobalFunction etc.
 
 ## 2.47 -> 2.48 for GAP 4.13.1 (27/08/24) 
  * (27/08/24) small fix in MonoidPresentationFpGroup method
