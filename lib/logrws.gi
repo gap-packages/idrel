@@ -4,14 +4,14 @@
 #W                                                             & Anne Heyworth
 ##  Implementation file for functions of the IdRel package
 ##
-#Y  Copyright (C) 1999-2024 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2025 Anne Heyworth and Chris Wensley 
 
 ##############################################################################
 ##
 #M  LengthLexLess . . . . . . . . . .  ordering for noncommutative polynomials
 #M  LengthLexGreater  . . . . . . . .  ordering for noncommutative polynomials
 ##
-InstallGlobalFunction( LengthLexLess, 
+BindGlobal( "LengthLexLess", 
 function( x, y )
     local lx, ly; 
     if not ( HasLength(x) and HasLength(y) ) then 
@@ -28,7 +28,7 @@ function( x, y )
     fi;
 end );
 
-InstallGlobalFunction( LengthLexGreater, 
+BindGlobal( "LengthLexGreater", 
 function( x, y )
     local lx, ly;
     if not ( HasLength(x) and HasLength(y) ) then 

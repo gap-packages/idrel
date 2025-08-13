@@ -4,7 +4,7 @@
 #W                                                             & Anne Heyworth
 ##  Implementation file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2024 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2025 Anne Heyworth and Chris Wensley 
 ##
 
 #############################################################################
@@ -139,7 +139,7 @@ end );
 ##
 #M  MonoidPoly
 ##
-InstallGlobalFunction( MonoidPoly, 
+BindGlobal( "MonoidPoly", 
 function( arg )
 
     local  nargs, w, c, i;

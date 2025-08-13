@@ -4,7 +4,7 @@
 #W                                                             & Anne Heyworth
 ##  Declaration file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2016 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2025 Anne Heyworth and Chris Wensley 
 ##
 ##  The category of monoid polynomials is declared.
 
@@ -29,7 +29,7 @@ DeclareOperation( "MonoidPolyFromCoeffsWords", [ IsList, IsList ] );
 ##
 #O  MonoidPoly( <args> )
 ##
-DeclareGlobalFunction( "MonoidPoly" );
+DeclareGlobalName( "MonoidPoly" );
 
 #############################################################################
 ##

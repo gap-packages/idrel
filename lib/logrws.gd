@@ -4,7 +4,7 @@
 #W                                                             & Anne Heyworth
 ##  Declaration file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2022 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2025 Anne Heyworth and Chris Wensley 
 ##
 ##  This file contains declarations of operations for logged rewrite systems.
 
@@ -21,8 +21,8 @@ DeclareInfoClass( "InfoIdRel" );
 #O  LengthLexLess( <args> )
 #O  LengthLexGreater( <args> )
 ##
-DeclareGlobalFunction( "LengthLexLess" );
-DeclareGlobalFunction( "LengthLexGreater" );
+DeclareGlobalName( "LengthLexLess" );
+DeclareGlobalName( "LengthLexGreater" );
 
 #############################################################################
 ##
