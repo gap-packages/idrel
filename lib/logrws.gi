@@ -1454,11 +1454,11 @@ end );
 ##
 InstallMethod( PrintLnUsingLabels, "for words in a monoid presentation", 
     true, [ IsObject, IsList, IsList ], 0, 
-function( obj, gens, labs ) 
+function( obj, gens, labs )
     IdRelOutputPos := 0; 
-    IdRelOutputDepth := 0; 
+    IdRelOutputDepth := 0;
     PrintUsingLabels( obj, gens, labs ); 
-    Print( "\n" ); 
+    Print( "\n" );
     IdRelOutputPos := 0; 
 end );
 

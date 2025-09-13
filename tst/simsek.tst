@@ -3,7 +3,7 @@
 #W  simsek.tst                 Idrel Package                     Chris Wensley
 #W                                                             & Anne Heyworth
 ##
-#Y  Copyright (C) 2018-2022 Anne Heyworth and Chris Wensley
+#Y  Copyright (C) 2018-2025 Anne Heyworth and Chris Wensley
 ##
 ##  runs an example emailed by Merve Simsek in June 2017 
 ##  to construct a logged rewrite system 
@@ -59,23 +59,22 @@ gap> l0 := InitialLoggedRulesOfPresentation( mq0 );;
 gap> PrintLnUsingLabels( l0, gfmq0, q0labs );
 [ [ a^-1, [ ], A ], [ A^-1, [ ], a ], [ b^-1, [ ], B ], [ B^-1, 
 [ ], b ], [ c^-1, [ ], C ], [ C^-1, [ ], c ], [ a*A, [ ], id ], 
-[ A*a, [ ], id ], [ b^2, [ [ 14, id ] ], id ], [ b*B, [ ], id ], 
-[ B*b, [ ], id ], [ c^2, [ [ 15, id ] ], id ], [ c*C, [ ], id ], 
-[ C*c, [ ], id ], [ a^3, [ [ 13, id ] ], id ], [ (a*b)^2, [ [ 
-16, id ] ], id ], 
-[ (b*c)^2, [ [ 17, id ] ], id ] ]
+[ A*a, [ ], id ], [ b^2, [ [ 2, id ] ], id ], [ b*B, [ ], id ], 
+[ B*b, [ ], id ], [ c^2, [ [ 3, id ] ], id ], [ c*C, [ ], id ], 
+[ C*c, [ ], id ], [ a^3, [ [ 1, id ] ], id ], [ (a*b)^2, [ [ 4, id ] ], id ], 
+[ (b*c)^2, [ [ 5, id ] ], id ] ]
 gap> logrws := LoggedRewritingSystemFpGroup( q0 );; 
 gap> PrintLnUsingLabels( logrws, gfmq0, q0labs );
-[ [ a^-1, [ ], A ], [ A^-1, [ ], a ], [ b^-1, [ [ -14, b ] ], b ], 
-[ B^-1, [ ], b ], [ B, [ [ -14, b ] ], b ], [ c^-1, [ [ -15, c ] ], c ], 
-[ C^-1, [ ], c ], [ C, [ [ -15, c ] ], c ], [ a*A, [ ], id ], 
-[ A*a, [ ], id ], [ b^2, [ [ 14, id ] ], id ], [ c^2, [ [ 15, id ] ], id ], 
-[ a^2, [ [ 13, id ] ], A ], [ A^2, [ [ -13, id ] ], a ], [ b*a, 
-[ [ -14, A*B ], [ 16, a ] ], A*b ], [ b*A, [ [ -16, id ], [ 14, A*B*A ] ], 
-a*b ], [ c*b, [ [ -17, id ], [ 15, B*C*B ], [ 14, C*B ] ], b*c ], 
-[ c*a*b, [ [ -17, id ], [ 15, B*C*B ], [ 16, a*C*B ] ], b*c*A ], 
-[ c*A*b, [ [ -16, a*C ], [ 14, A*B*C ], [ -17, id ], [ 15, B*C*B ], 
-[ 14, C*B ] ], b*c*a ] ]
+[ [ a^-1, [ ], A ], [ A^-1, [ ], a ], [ b^-1, [ [ -2, b ] ], b ], 
+[ B^-1, [ ], b ], [ B, [ [ -2, b ] ], b ], [ c^-1, [ [ -3, c ] ], c ], 
+[ C^-1, [ ], c ], [ C, [ [ -3, c ] ], c ], [ a*A, [ ], id ], 
+[ A*a, [ ], id ], [ b^2, [ [ 2, id ] ], id ], [ c^2, [ [ 3, id ] ], id ], 
+[ a^2, [ [ 1, id ] ], A ], [ A^2, [ [ -1, id ] ], a ], [ b*a, 
+[ [ -2, A*B ], [ 4, a ] ], A*b ], [ b*A, [ [ -4, id ], [ 2, A*B*A ] ], 
+a*b ], [ c*b, [ [ -5, id ], [ 3, B*C*B ], [ 2, C*B ] ], b*c ], 
+[ c*a*b, [ [ -5, id ], [ 3, B*C*B ], [ 4, a*C*B ] ], b*c*A ], 
+[ c*A*b, [ [ -4, a*C ], [ 2, A*B*C ], [ -5, id ], [ 3, B*C*B ], 
+[ 2, C*B ] ], b*c*a ] ]
 gap> up := gfmq0[1];;
 gap> um := gfmq0[2];;
 gap> vp := gfmq0[3];;
@@ -110,8 +109,8 @@ gap> Length( r2 );
 gap> w2 := ReduceWordKB( w0, r2 );
 q0_M2*q0_M3*q0_M5
 gap> lw1 := LoggedReduceWordKB( w0, logrws );
-[ [ [ 14, q0_M1^-5 ], [ 15, q0_M3^-3*q0_M1^-5 ], [ 13, <identity ...> ], 
-      [ 14, q0_M1^-2 ], [ 15, q0_M3^-1*q0_M1^-2 ], [ 13, <identity ...> ] ], 
+[ [ [ 2, q0_M1^-5 ], [ 3, q0_M3^-3*q0_M1^-5 ], [ 1, <identity ...> ], 
+      [ 2, q0_M1^-2 ], [ 3, q0_M3^-1*q0_M1^-2 ], [ 1, <identity ...> ] ], 
   q0_M2*q0_M3*q0_M5 ]
 gap> p1 := PartialElementsOfMonoidPresentation( q0, 1 );; 
 gap> Length( p1 ); 
@@ -124,9 +123,9 @@ gap> Length( p2 );
 gap> PrintLnUsingLabels( p2, gfmq0, q0labs );
 [ id, a, A, b, c, a*b, a*c, A*b, A*c, b*c, c*a, c*A ]
 gap> T := GenerationTree( q0 );;
-gap> Length( T );
+gap> lenT := Length( T );
 22
-gap> for i in [1..11] do 
+gap> for i in [1..lenT/2] do 
 >        PrintUsingLabels( T[i+i-1], gfmq0, q0labs ); 
 >        Print( "   " ); 
 >        PrintLnUsingLabels( T[i+i], gfmq0, q0labs );
@@ -144,7 +143,7 @@ gap> for i in [1..11] do
 [ c, A ]   [ c*A, a ]
 gap> seq0 := IdentityRelatorSequences( q0 );;
 gap> Length( seq0 );                                  
-25
+52
 gap> idsq0 := IdentitiesAmongRelators( q0 );; 
 gap> Length( idsq0 ); 
 17

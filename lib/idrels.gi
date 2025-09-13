@@ -4,7 +4,7 @@
 #W                                                             & Anne Heyworth
 ##  Implementation file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2024 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2025 Anne Heyworth and Chris Wensley 
 ##
 ##  This file contains generic methods for identities among relators 
 
@@ -238,8 +238,10 @@ function( G )
     numelts := Length( words ); 
     edgesT := GenerationTree( G ); 
     rules := LogSequenceRewriteRules( mG ); 
-    mseq := ShallowCopy( RootIdentities( G ) ); 
-    ##  now work through the list of elements, adding each relator in turn 
+    mseq := ShallowCopy( RootIdentities( G ) );
+    Info( InfoIdRel, 2, "initial mseq:\n", mseq );
+    ##  now work through the list of elements, adding each relator in turn
+    Info( InfoIdRel, 2, "adding relators at each element:" );
     e := 1;  ## number of monoid elements processed - no need to process id  
     while ( e < numelts ) do 
         e := e+1; 
@@ -292,7 +294,7 @@ function( G )
                         Error( "v <> elt" ); 
                     fi; 
                 fi;
-            od; 
+            od;
             Add( ide, [ - rho, iwords[e] ] ); 
             for k in [1..Length(ide)] do 
                 ide[k][2] := ReduceWordKB( ide[k][2], invrules ); 
@@ -302,13 +304,25 @@ function( G )
             if ( ide <> [ ] ) then 
                 posv := Position( mseq, ide ); 
                 if ( posv = fail ) then 
-                    Info( InfoIdRel, 2, "[elt,rho,ide] = ", [elt,rho,ide] );
+                    Info( InfoIdRel, 2, "[numa,elt,rho,ide] = ",
+                                         [numa,elt,rho,ide] );
                     Add( mseq, ide ); 
                 fi; 
             fi;
         od; 
     od;
-    Info( InfoIdRel, 1, "mseq has length: ", Length(mseq) ); 
+    Info( InfoIdRel, 1, "mseq has length: ", Length(mseq) );
+    if ( InfoLevel( InfoIdRel ) > 1 ) then
+        Print( "mseq prior to being sorted:\n" ); 
+        for k in [1..Length(mseq)] do
+            if haslabs then 
+                PrintLnUsingLabels( mseq[k], gfmG, Glabs ); 
+            else 
+                Print( mseq[k], "\n" ); 
+            fi; 
+        od;
+    Info( InfoIdRel, 2, "-----------------------------------------" );
+    fi;
     Sort( mseq, LogSequenceLessThan );
     return mseq; 
 end );
@@ -395,7 +409,9 @@ function( mG, S, L, q )
         w := ReduceWordKB( v*y, invrules ); 
         K[i] := [ n, w ]; 
     od; 
-    H := Concatenation( J{[1..q-1]}, J{[p..r]}, K, J{[r+1..lenJ]} ); 
+    H := Concatenation( J{[1..q-1]}, J{[p..r]}, K, J{[r+1..lenJ]} );
+Info( InfoIdRel, 2, "result of MoveLeftLogSequence:" ); 
+Info( InfoIdRel, 2, "H = ", H );
     rules := LogSequenceRewriteRules( mG ); 
     return OnePassReduceLogSequence( H, rules ); 
 end ); 
@@ -629,14 +645,17 @@ function( mG, J )
                 u := K[k+j]; 
                 if ( ( t[1] = -u[1] ) and ( t[2] = u[2] ) ) then 
                     H := MoveLeftLogSequence( mG, K, [k+j], k+1 ); 
+Error("here");
                     K := Concatenation( H{[1..k-1]}, H{[k+2..lenK]} ); 
                     changed := true; 
                 fi; 
             od; 
         od; 
     od; 
-    if changed then 
-        Info( InfoIdRel, 2, "changes made by cancelinverses" ); 
+    if changed then
+        Info( InfoIdRel, 2, "changes made by cancelinverses to" );
+        Info( InfoIdRel, 2, "     J = ", J );
+        Info( InfoIdRel, 2, " --> K = ", K );
     fi; 
     return K; 
 end ); 
@@ -786,7 +805,9 @@ function( mG )
                 Add( rewrites, rule ); 
             fi; 
         fi; 
-    od; 
+    od;
+Info( InfoIdRel, 2, "rewrites from root identities:\n", rewrites );
+Error("here");
     ## now add rules from relators which are not roots 
     rels := GroupRelatorsOfPresentation( mG ); 
     nrels := Length( rels ); 
@@ -837,7 +858,9 @@ function( J, rules )
                         lenw := Length( w ); 
                         idi[j] := [ m, w ]; 
                         Info( InfoIdRel, 2, "u -> v where u = ", 
-                              u, " and v = ", [m,w] ); 
+                              u, " and v = ", [m,w] );
+Info( InfoIdRel, 2, "   J = ", J );
+Info( InfoIdRel, 2, "rule = ", rule );
                         found := true; 
                     fi; 
                 fi; 
@@ -1030,7 +1053,6 @@ function( G, L )
     lenL := Length( L4 ); 
     if ( info > 1 ) then 
         Print( "in ReduceLogSequences\n" ); 
-        Print( "\n***** Glabs = ", Glabs, "  *****\n\n" ); 
         Print( "after sorting L4 has length ", lenL, "\n" );
         Print( List( L4, Length ), "\n" ); 
         PrintLnUsingLabels( L4, gfmG, Glabs ); 

@@ -2,7 +2,7 @@
 ##
 #W  testing.g                  IdRel Package                     Chris Wensley
 #W                                                             & Anne Heyworth
-#Y  Copyright (C) 1999-2021, Chris Wensley and Anne Heyworth 
+#Y  Copyright (C) 1999-2025, Chris Wensley and Anne Heyworth 
 ##
 
 LoadPackage( "idrel" );
@@ -11,7 +11,7 @@ pkgname := "idrel";
 pkgdir := DirectoriesPackageLibrary( pkgname, "tst" );
 testfiles := 
     [ "rws.tst", "logrws.tst", "monpoly.tst", 
-      "modpoly.tst", "idrels.tst" ];
+      "modpoly.tst", "idrels.tst", "simsek.tst" ];
 testresult := true;
 for ff in testfiles do
     fn := Filename( pkgdir, ff );

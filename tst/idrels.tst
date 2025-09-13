@@ -129,21 +129,19 @@ gap> PrintLnUsingLabels( J4, genfms3, s3labs );
 [ 1, id ], [ -3, f ], [ 2, F*G ] ]
 
 ## Example 6.2.4
-gap> J4 := InverseLogSequence( J4 );; 
-gap> PrintLnUsingLabels( J4, genfms3, s3labs ); 
+gap> I4 := InverseLogSequence( J4 );; 
+gap> PrintLnUsingLabels( I4, genfms3, s3labs ); 
 [ [ -2, F*G ], [ 3, f ], [ -1, id ], [ 3, F ], [ -2, F ], [ -2, F*G*F ], 
 [ 3, id ], [ -1, G ] ]
 
 ## Example 6.2.5 
-gap> J4K5 := Concatenation( J4, K5 );; 
-gap> J4K5 := CancelImmediateInversesLogSequence( J4K5 );; 
-gap> PrintLnUsingLabels( J4K5, genfms3, s3labs ); 
+gap> I4K5 := Concatenation( I4, K5 );; 
+gap> C1 := CancelImmediateInversesLogSequence( I4K5 );; 
+gap> PrintLnUsingLabels( C1, genfms3, s3labs ); 
 [ [ -2, F*G ], [ 3, f ], [ -1, id ], [ 3, F ], [ 1, id ], 
 [ -3, f ], [ 2, F*G ], [ -3, F*G ] ]
-gap> J4K5 := CancelInversesLogSequence( ms3, J4K5 ); 
+gap> C2 := CancelInversesLogSequence( ms3, C1 ); 
 [ ]
-
-
 
 ## Example 6.3 
 gap> mq8 := MonoidPresentationFpGroup( q8 );;
