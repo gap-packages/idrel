@@ -47,7 +47,7 @@ DeclareAttribute( "FreeRelatorHomomorphism", IsFpGroup );
 #A  InverseRulesOfPresentation( <mon> )
 #A  HomomorphismOfPresentation( <mon> ) 
 #A  IsomorphicFpGroup( <G> ) 
-#A  IsomorphismByPresentation( <G> ); 
+#A  IsomorphismByPresentation( <G> );
 #A  MonoidGeneratorsFpGroup( <G> )
 #A  MonoidPresentationLabels( <G> )
 #A  ElementsOfMonoidPresentation( <G> )
@@ -65,12 +65,12 @@ DeclareRepresentation( "IsMonoidPresentationFpGroupRep",
       "GroupRelatorsOfPresentation", "InverseRelatorsOfPresentation", 
       "HomomorphismOfPresentation" ] );
 DeclareProperty( "IsMonoidPresentationFpGroup", IsList );
-DeclareAttribute( "MonoidPresentationFpGroup", IsFpGroup ); 
+DeclareAttribute( "MonoidPresentationFpGroup", IsFpGroup );
 DeclareAttribute( "UnderlyingGroupOfPresentation", 
-    IsMonoidPresentationFpGroup ); 
-DeclareOperation( "ArrangeMonoidGenerators", [ IsFpGroup, IsHomogeneousList ] ); 
-DeclareAttribute( "ArrangementOfMonoidGenerators", IsFpGroup ); 
-DeclareAttribute( "InverseGeneratorsOfFpGroup", IsFpGroup ); 
+    IsMonoidPresentationFpGroup );
+DeclareOperation( "ArrangeMonoidGenerators", [ IsFpGroup, IsHomogeneousList ] );
+DeclareAttribute( "ArrangementOfMonoidGenerators", IsFpGroup );
+DeclareAttribute( "InverseGeneratorsOfFpGroup", IsFpGroup );
 DeclareAttribute( "FreeGroupOfPresentation", 
     IsMonoidPresentationFpGroupRep );
 DeclareAttribute( "GroupRelatorsOfPresentation", 
@@ -81,19 +81,19 @@ DeclareAttribute( "InverseRulesOfPresentation",
     IsMonoidPresentationFpGroupRep );
 DeclareAttribute( "HomomorphismOfPresentation", 
     IsMonoidPresentationFpGroupRep );
-DeclareAttribute( "IsomorphicFpGroup", IsFpGroup ); 
-DeclareAttribute( "IsomorphismByPresentation", IsFpGroup ); 
-DeclareAttribute( "MonoidGeneratorsFpGroup", IsFpGroup ); 
-DeclareAttribute( "MonoidPresentationLabels", IsFpGroup ); 
+DeclareAttribute( "IsomorphicFpGroup", IsFpGroup );
+DeclareAttribute( "IsomorphismByPresentation", IsFpGroup );
+DeclareAttribute( "MonoidGeneratorsFpGroup", IsFpGroup );
+DeclareAttribute( "MonoidPresentationLabels", IsFpGroup );
 DeclareAttribute( "ElementsOfMonoidPresentation", IsFpGroup );
 DeclareOperation( "PartialElementsOfMonoidPresentation", 
     [ IsFpGroup, IsPosInt ] );
 DeclareAttribute( "PartialElements", IsFpGroup, "mutable" );
 DeclareAttribute( "PartialInverseElements", IsFpGroup, "mutable" );
 DeclareAttribute( "PartialElementsLength", IsFpGroup, "mutable" );
-DeclareAttribute( "GenerationTree", IsFpGroup, "mutable" ); 
+DeclareAttribute( "GenerationTree", IsFpGroup, "mutable" );
 DeclareOperation( "InverseWordInFreeGroupOfPresentation", 
-    [ IsFpGroup, IsWord ] ); 
+    [ IsFpGroup, IsWord ] );
 
 #############################################################################
 ##
@@ -142,9 +142,9 @@ DeclareAttribute( "RewritingSystemFpGroup", IsFpGroup );
 #A  InitialLoggedRulesOfPresentation( <mG> )
 #A  InitialRulesOfPresentation( <mG> )
 DeclareAttribute( "InitialLoggedRulesOfPresentation", 
-    IsMonoidPresentationFpGroup ); 
+    IsMonoidPresentationFpGroup );
 DeclareAttribute( "InitialRulesOfPresentation", 
-    IsMonoidPresentationFpGroup ); 
+    IsMonoidPresentationFpGroup );
 
 #############################################################################
 ##
@@ -177,15 +177,15 @@ DeclareOperation( "CheckLoggedKnuthBendix", [ IsHomogeneousList ] );
 ##  cannot require homogeneous lists because of middle terms
 ##
 DeclareOperation( "BetterLoggedRuleByReductionOrLength", [ IsList, IsList ] );
-DeclareOperation( "BetterLoggedList", [ IsList, IsList ] ); 
+DeclareOperation( "BetterLoggedList", [ IsList, IsList ] );
 
 #############################################################################
 ## 
 #A  LoggedRewritingSystemFpGroup( <G> ) 
 #A  IdentitiesFromLoggedRewriting( <G> ) 
 ## 
-DeclareAttribute( "LoggedRewritingSystemFpGroup", IsFpGroup ); 
-DeclareAttribute( "IdentitiesFromLoggedRewriting", IsFpGroup ); 
+DeclareAttribute( "LoggedRewritingSystemFpGroup", IsFpGroup );
+DeclareAttribute( "IdentitiesFromLoggedRewriting", IsFpGroup );
 
 #############################################################################
 ##

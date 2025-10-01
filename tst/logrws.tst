@@ -5,8 +5,8 @@
 #Y  Copyright (C) 1999-2022 Anne Heyworth and Chris Wensley
 ##
 
-gap> saved_infolevel_idrel := InfoLevel( InfoIdRel );; 
-gap> SetInfoLevel( InfoIdRel, 0 );; 
+gap> saved_infolevel_idrel := InfoLevel( InfoIdRel );;
+gap> SetInfoLevel( InfoIdRel, 0 );;
 
 ## items defined in rws.tst 
 gap> F := FreeGroup( 2 );;
@@ -14,36 +14,36 @@ gap> f := F.1;;  g := F.2;;
 gap> relq8 := [ f^4, g^4, f*g*f*g^-1, f^2*g^2 ];;
 gap> q8 := F/relq8;;
 gap> SetName( q8, "q8" );;
-gap> q8R := FreeRelatorGroup( q8 );; 
+gap> q8R := FreeRelatorGroup( q8 );;
 gap> genq8R := GeneratorsOfGroup( q8R );;
 gap> homq8R := FreeRelatorHomomorphism( q8 );;
 gap> mq8 := MonoidPresentationFpGroup( q8 );;
-gap> fmq8 := FreeGroupOfPresentation( mq8 );; 
-gap> id := One( fmq8 );; 
+gap> fmq8 := FreeGroupOfPresentation( mq8 );;
+gap> id := One( fmq8 );;
 gap> genfmq8 := GeneratorsOfGroup( fmq8 );;
-gap> gprels := GroupRelatorsOfPresentation( mq8 );; 
-gap> invrels := InverseRelatorsOfPresentation( mq8 );; 
-gap> hompres := HomomorphismOfPresentation( mq8 );; 
-gap> q8labs := [ "a", "b", "A", "B" ];; 
-gap> SetMonoidPresentationLabels( q8, q8labs );; 
+gap> gprels := GroupRelatorsOfPresentation( mq8 );;
+gap> invrels := InverseRelatorsOfPresentation( mq8 );;
+gap> hompres := HomomorphismOfPresentation( mq8 );;
+gap> q8labs := [ "a", "b", "A", "B" ];;
+gap> SetMonoidPresentationLabels( q8, q8labs );;
 gap> rws := RewritingSystemFpGroup( q8 );;
-gap> T := F/[Comm(f,g)];;              
-gap> SetName( T, "T" );; 
+gap> T := F/[Comm(f,g)];;
+gap> SetName( T, "T" );;
 gap> SetArrangementOfMonoidGenerators( T, [1,-1,2,-2] );;
-gap> Tlabs := [ "x", "X", "y", "Y" ];; 
-gap> mT := MonoidPresentationFpGroup( T );;              
-gap> fgmT := FreeGroupOfPresentation( mT );; 
+gap> Tlabs := [ "x", "X", "y", "Y" ];;
+gap> mT := MonoidPresentationFpGroup( T );;
+gap> fgmT := FreeGroupOfPresentation( mT );;
 gap> genfgmT := GeneratorsOfGroup( fgmT );;
-gap> SetMonoidPresentationLabels( T, Tlabs );; 
+gap> SetMonoidPresentationLabels( T, Tlabs );;
 gap> rwsT := RewritingSystemFpGroup( T );;
-gap> r0 := InitialLoggedRulesOfPresentation( mq8 );; 
-gap> a := genfmq8[1];;  b := genfmq8[2];; 
-gap> A := genfmq8[3];;  B := genfmq8[4];; 
-gap> w0 := b^9 * a^-9;; 
+gap> r0 := InitialLoggedRulesOfPresentation( mq8 );;
+gap> a := genfmq8[1];;  b := genfmq8[2];;
+gap> A := genfmq8[3];;  B := genfmq8[4];;
+gap> w0 := b^9 * a^-9;;
 
 
 ## Example 3.1.1
-gap> r0 := InitialLoggedRulesOfPresentation( mq8 );; 
+gap> r0 := InitialLoggedRulesOfPresentation( mq8 );;
 gap> PrintLnUsingLabels( r0, genfmq8, q8labs );
 [ [ a^-1, [ ], A ], [ b^-1, [ ], B ], [ A^-1, [ ], a ], [ B^-1, 
 [ ], b ], [ a*A, [ ], id ], [ b*B, [ ], id ], [ A*a, [ ], id ], 
@@ -71,7 +71,7 @@ gap> PrintLnUsingLabels( r1, genfmq8, q8labs );
 gap> r2 := LoggedRewriteReduce( mq8, r1 );;
 gap> Length( r2 );
 13
-gap> PrintLnUsingLabels( r2, genfmq8, q8labs );      
+gap> PrintLnUsingLabels( r2, genfmq8, q8labs );
 [ [ a^-1, [ ], A ], [ b^-1, [ ], B ], [ A^-1, [ ], a ], [ B^-1, 
 [ ], b ], [ a*A, [ ], id ], [ b*B, [ ], id ], [ A*a, [ ], id ], 
 [ B*b, [ ], id ], [ b^2, [ [ -4, id ], [ 2, A^2 ] ], a^2 ], 
@@ -114,13 +114,13 @@ gap> PrintLnUsingLabels( lrwsT, genfgmT, Tlabs );
 [ Y*x, [ [ 1, X ] ], x*Y ], [ Y*X, [ [ -1, id ] ], X*Y ] ]
 
 ## Example 3.2.1
-gap> PrintLnUsingLabels( w0, genfmq8, q8labs ); 
+gap> PrintLnUsingLabels( w0, genfmq8, q8labs );
 b^9*a^-9
 gap> lw1 := LoggedOnePassReduceWord( w0, lrws );;
-gap> PrintLnUsingLabels( lw1, genfmq8, q8labs );  
+gap> PrintLnUsingLabels( lw1, genfmq8, q8labs ); 
 [ [ [ -4, id ], [ 2, A^2 ], [ -3, b^-6*a^-2 ], [ 4, id ] ], 
 B*b^5*a*b*a^-8 ]
-gap> lw2 := LoggedReduceWordKB( w0, lrws );; 
+gap> lw2 := LoggedReduceWordKB( w0, lrws );;
 gap> PrintLnUsingLabels( lw2, genfmq8, q8labs );
 [ [ [ -4, id ], [ 2, A^2 ], [ -3, b^-6*a^-2 ], [ 4, id ], [ -3, b^-3 ], 
 [ 4, B*A*b^-3 ], [ -4, id ], [ 2, A^2 ], [ -3, B^-1*a^-1*b^-1*a^-2 ], 
@@ -129,7 +129,7 @@ gap> PrintLnUsingLabels( lw2, genfmq8, q8labs );
 [ 1, b^-1*a^-1 ], [ -3, a^-1 ], [ -1, b^-1*a^-2 ], [ 4, id ], 
 [ -3, a*b ], [ -3, a*b*a^-1 ], [ -4, A^2 ], [ 1, id ], [ -3, id ] ], a*b ]
 
-gap> SetInfoLevel( InfoIdRel, saved_infolevel_idrel );; 
+gap> SetInfoLevel( InfoIdRel, saved_infolevel_idrel );
 
 #############################################################################
 ##

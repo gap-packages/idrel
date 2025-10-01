@@ -15,14 +15,14 @@
 InstallMethod( String, "for a monoid poly with terms", true, 
     [ IsMonoidPolyTermsRep ], 0, 
 function( e ) 
-    return( STRINGIFY( "monoid polynomial" ) ); 
+    return( STRINGIFY( "monoid polynomial" ) );
 end );
 
 InstallMethod( ViewString, "for a monoid poly with terms", true, 
-    [ IsMonoidPolyTermsRep ], 0, String ); 
+    [ IsMonoidPolyTermsRep ], 0, String );
 
 InstallMethod( PrintString, "for a monoid poly with terms", true, 
-    [ IsMonoidPolyTermsRep ], 0, String ); 
+    [ IsMonoidPolyTermsRep ], 0, String );
 
 InstallMethod( ViewObj, "for a monoid poly with terms", true, 
     [ IsMonoidPolyTermsRep ], 0, 
@@ -36,7 +36,7 @@ function( poly )
 
     local  c, w, len, i, coeff;
 
-    c := Coeffs( poly ); 
+    c := Coeffs( poly );
     w := Words( poly );
     len := Length( poly );
     if ( len = 0 ) then 
@@ -102,7 +102,7 @@ function( cp, wp )
 
     local  coeffs, words, poly, len, L, i, j, wi;
 
-    coeffs := ShallowCopy( cp ); 
+    coeffs := ShallowCopy( cp );
     words := ShallowCopy( wp );
     len := Length( coeffs );
     if not ForAll( coeffs, IsRat ) then 
@@ -111,7 +111,7 @@ function( cp, wp )
     if not ( ( Length( words) = len ) and ForAll( words, IsWord ) ) 
         then Error( "second list must contain words and have equal length" );
     fi;
-    SortParallel( words, coeffs, function(u,v) return u>v; end );
+    SortParallel( words, coeffs, function(u,v) return u>v;end );
     L := [1..len];
     i := 1;
     while ( i < len ) do 
@@ -200,7 +200,7 @@ end );
 InstallOtherMethod( \=, "generic method for monoid polynomials", true, 
     [ IsMonoidPolyTermsRep, IsMonoidPolyTermsRep ], 0, 
 function( p1, p2 ) 
-    return( ( Coeffs(p1) = Coeffs(p2) ) and ( Words(p1) = Words(p2) ) ); 
+    return( ( Coeffs(p1) = Coeffs(p2) ) and ( Words(p1) = Words(p2) ) );
 end );
 
 ##############################################################################
@@ -223,7 +223,7 @@ function( poly )
 
     local  c, w, t, i;
 
-    c := Coeffs( poly ); 
+    c := Coeffs( poly );
     w := Words( poly );
     t := [ 1..Length( poly ) ];
     for i in [ 1..Length( poly ) ] do
@@ -412,7 +412,7 @@ function( poly, word )
 
     local  w, len;
 
-    w := Words( poly ); 
+    w := Words( poly );
     if not ( FamilyObj( word ) = FamilyObj( w[1] ) ) then 
         Error( "poly and word using different free groups" );
     fi;
@@ -434,9 +434,9 @@ function( p1, p2 )
 
     local  c1, w1, c2, w2, len2, i, poly;
 
-    c1 := Coeffs( p1 ); 
-    w1 := Words( p1 ); 
-    c2 := Coeffs( p2 ); 
+    c1 := Coeffs( p1 );
+    w1 := Words( p1 );
+    c2 := Coeffs( p2 );
     w2 := Words( p2 );
     if not ( FamilyObj( w1[1] ) = FamilyObj( w2[1] ) ) then 
         Error( "words using different free groups" );
@@ -481,7 +481,7 @@ function( p1, p2 )
 
     local  i, len1, len2, w1, w2, c1, c2, a1, a2;
 
-    len1 := Length( p1 ); 
+    len1 := Length( p1 );
     len2 := Length( p2 );
     if ( len1 < len2 ) then 
         return true;
@@ -500,7 +500,7 @@ function( p1, p2 )
     c1 := Coeffs( p1 );
     c2 := Coeffs( p2 );
     for i in [1..len1] do 
-        a1 := AbsInt( c1[i] ); 
+        a1 := AbsInt( c1[i] );
         a2 := AbsInt( c2[i] );
         if ( a1 < a2 ) then 
             return true;
@@ -527,7 +527,7 @@ function( poly, rules)
     local  rw, rmp;
     rw := List( Words( poly ), w -> ReduceWordKB( w, rules) );
     rmp := MonoidPolyFromCoeffsWords( Coeffs( poly ), rw );
-    return rmp;  
+    return rmp;
 end );
 
 #############################################################################
