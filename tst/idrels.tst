@@ -49,8 +49,8 @@ gap> fms3 := FreeGroupOfPresentation( ms3 );;
 gap> genfms3 := GeneratorsOfGroup(fms3 );;
 gap> s3labs := ["f","g","F","G"];; 
 gap> SetMonoidPresentationLabels( ms3, s3labs );; 
-gap> idss3 := IdentityRelatorSequences( s3 );;          
-gap> lenidss3 := Length( idss3 );                                   
+gap> idss3 := IdentityRelatorSequences( s3 );;
+gap> lenidss3 := Length( idss3 );
 17
 gap> List( idss3, L -> Length(L) );
 [ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 6, 8, 8 ]
@@ -88,10 +88,10 @@ gap> ExpandLogSequence( ms3, idss3[17] );
 
 ## Example 6.2.1 
 gap> ridss3 := ReduceLogSequences( s3, idss3 );;
-gap> lenridss3 := Length( ridss3 );                                   
+gap> lenridss3 := Length( ridss3 );
 5
 gap> for i in [1..lenridss3] do                                
->        PrintLnUsingLabels( ridss3[i], genfms3, s3labs );   
+>        PrintLnUsingLabels( ridss3[i], genfms3, s3labs );
 >    od;
 [ [ -3, id ], [ 3, f*g ] ]
 [ [ -2, id ], [ 2, g ] ]
@@ -111,10 +111,10 @@ gap> K5 := ConjugateByWordLogSequence( ms3, L5, genfms3[4] );;
 gap> PrintLnUsingLabels( K5, genfms3, s3labs ); 
 [ [ 1, G ], [ -3, id ], [ 2, F*G*F ], [ 2, F ], [ 1, id ], 
 [ -3, f ], [ 2, F*G ], [ -3, F*G ] ]
-gap> A := K4{[1..3]};;              
+gap> A := K4{[1..3]};;
 gap> PrintLnUsingLabels( A, genfms3, s3labs ); 
 [ [ 1, id ], [ -3, f ], [ 2, F*G ] ]
-gap> B := K4{[4..7]};;              
+gap> B := K4{[4..7]};;
 gap> PrintLnUsingLabels( B, genfms3, s3labs ); 
 [ [ 1, G ], [ -3, id ], [ 2, F*G*F ], [ 2, F ] ]
 gap> PositionSublist( K5, A ); 
@@ -129,21 +129,19 @@ gap> PrintLnUsingLabels( J4, genfms3, s3labs );
 [ 1, id ], [ -3, f ], [ 2, F*G ] ]
 
 ## Example 6.2.4
-gap> J4 := InverseLogSequence( J4 );; 
-gap> PrintLnUsingLabels( J4, genfms3, s3labs ); 
+gap> I4 := InverseLogSequence( J4 );; 
+gap> PrintLnUsingLabels( I4, genfms3, s3labs ); 
 [ [ -2, F*G ], [ 3, f ], [ -1, id ], [ 3, F ], [ -2, F ], [ -2, F*G*F ], 
 [ 3, id ], [ -1, G ] ]
 
 ## Example 6.2.5 
-gap> J4K5 := Concatenation( J4, K5 );; 
-gap> J4K5 := CancelImmediateInversesLogSequence( J4K5 );; 
-gap> PrintLnUsingLabels( J4K5, genfms3, s3labs ); 
+gap> I4K5 := Concatenation( I4, K5 );; 
+gap> C1 := CancelImmediateInversesLogSequence( I4K5 );; 
+gap> PrintLnUsingLabels( C1, genfms3, s3labs ); 
 [ [ -2, F*G ], [ 3, f ], [ -1, id ], [ 3, F ], [ 1, id ], 
 [ -3, f ], [ 2, F*G ], [ -3, F*G ] ]
-gap> J4K5 := CancelInversesLogSequence( ms3, J4K5 ); 
+gap> C2 := CancelInversesLogSequence( ms3, C1 ); 
 [ ]
-
-
 
 ## Example 6.3 
 gap> mq8 := MonoidPresentationFpGroup( q8 );;
@@ -151,8 +149,8 @@ gap> fmq8 := FreeGroupOfPresentation( mq8 );;
 gap> genfmq8 := GeneratorsOfGroup(fmq8 );;
 gap> q8labs := ["a","b","A","B"];; 
 gap> SetMonoidPresentationLabels( mq8, q8labs );; 
-gap> idsq8 := IdentityRelatorSequences( q8 );;          
-gap> lenidsq8 := Length( idsq8 );                                   
+gap> idsq8 := IdentityRelatorSequences( q8 );;
+gap> lenidsq8 := Length( idsq8 );
 28
 gap> List( idsq8, L -> Length(L) );
 [ 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 8, 8, 8, 
@@ -188,10 +186,10 @@ gap> OnePassReduceLogSequence( J7, rulesq8 );
 
 ## Example 6.3.2b
 gap> ridsq8 := ReduceLogSequences( q8, idsq8 );;
-gap> lenrids := Length( ridsq8 );                                   
+gap> lenrids := Length( ridsq8 );
 15
 gap> for i in [1..lenrids] do                                
->        PrintLnUsingLabels( ridsq8[i], genfmq8, q8labs );   
+>        PrintLnUsingLabels( ridsq8[i], genfmq8, q8labs );
 >    od;
 [ [ -2, id ], [ 2, b ] ]
 [ [ -1, id ], [ 1, a ] ]
@@ -217,13 +215,13 @@ gap> for i in [1..lenrids] do
 [ 2, A ], [ 1, id ], [ -4, a^2 ], [ -3, B ] ] 
 
 ## Example 6.3.3
-gap> J3 := ShallowCopy( ridsq8[3] );;                            
-gap> PrintLnUsingLabels( J3, genfmq8, q8labs );   
+gap> J3 := ShallowCopy( ridsq8[3] );;
+gap> PrintLnUsingLabels( J3, genfmq8, q8labs );
 [ [ -4, id ], [ 2, A^2 ], [ 1, id ], [ -4, a^2 ] ]
 gap> K3 := MoveRightLogSequence( mq8, J3, [3], 4 );;
-gap> PrintLnUsingLabels( K3, genfmq8, q8labs );    
+gap> PrintLnUsingLabels( K3, genfmq8, q8labs );
 [ [ -4, id ], [ 2, A^2 ], [ -4, A^2 ], [ 1, id ] ]
-gap> J5 := ShallowCopy( ridsq8[5] );; 
+gap> J5 := ShallowCopy( ridsq8[5] );;
 gap> PrintLnUsingLabels( J5, genfmq8, q8labs );
 [ [ 1, id ], [ -4, id ], [ 2, A^2 ], [ -4, A^2 ] ]
 gap> J5 = ChangeStartLogSequence( mq8, K3, 4 );
@@ -231,7 +229,7 @@ true
 
 ## Example 6.3.4a
 gap> K5 := MoveRightLogSequence( mq8, J5, [2], 3 );;
-gap> PrintLnUsingLabels( K5, genfmq8, q8labs );       
+gap> PrintLnUsingLabels( K5, genfmq8, q8labs );
 [ [ 1, id ], [ 2, id ], [ -4, id ], [ -4, A^2 ] ]
 gap> K5a := K5{[1..2]};; 
 gap> K5b := InverseLogSequence( K5{[3..4]} );;
@@ -243,7 +241,7 @@ gap> PrintLnUsingLabels( J10, genfmq8, q8labs );
 [ [ -4, id ], [ 4, B*A^2 ], [ -4, A^2 ], [ 1, id ], [ 2, id ], 
 [ -4, b ] ]
 gap> K10 := SubstituteLogSubsequence( mq8, J10, K5a, K5b );;
-gap> PrintLnUsingLabels( K10, genfmq8, q8labs );            
+gap> PrintLnUsingLabels( K10, genfmq8, q8labs );
 [ [ -4, id ], [ 4, B*A^2 ], [ -4, A^2 ], [ 4, A^2 ], [ 4, id ], 
 [ -4, b ] ]
 gap> CancelInversesLogSequence( mq8, K10 );
@@ -251,25 +249,25 @@ gap> CancelInversesLogSequence( mq8, K10 );
 
 ## Example 6.3.4b 
 gap> J9 := ShallowCopy( ridsq8[9] );; 
-gap> PrintLnUsingLabels( J9, genfmq8, q8labs );            
+gap> PrintLnUsingLabels( J9, genfmq8, q8labs );
 [ [ -4, id ], [ 3, A ], [ -4, A ], [ 2, A^3 ], [ 1, id ], 
 [ -3, b ] ]
 gap> K9 := MoveLeftLogSequence( mq8, J9, [5], 4 );; 
-gap> PrintLnUsingLabels( K9, genfmq8, q8labs );            
+gap> PrintLnUsingLabels( K9, genfmq8, q8labs );
 [ [ -4, id ], [ 3, A ], [ -4, A ], [ 1, id ], [ 2, a ], [ -3, b ] ]
 gap> L9 := ConjugateByWordLogSequence( mq8, K9, genfmq8[3] );;
-gap> PrintLnUsingLabels( L9, genfmq8, q8labs );            
+gap> PrintLnUsingLabels( L9, genfmq8, q8labs );
 [ [ -4, A ], [ 3, A^2 ], [ -4, A^2 ], [ 1, id ], [ 2, id ], 
 [ -3, b*A ] ]
 gap> M9 := SubstituteLogSubsequence( mq8, L9, K5a, K5b);;
-gap> PrintLnUsingLabels( M9, genfmq8, q8labs );            
+gap> PrintLnUsingLabels( M9, genfmq8, q8labs );
 [ [ -4, A ], [ 3, A^2 ], [ -4, A^2 ], [ 4, A^2 ], [ 4, id ], 
 [ -3, b*A ] ]
 gap> N9 := CancelInversesLogSequence( mq8, M9 );;
-gap> PrintLnUsingLabels( N9, genfmq8, q8labs );            
+gap> PrintLnUsingLabels( N9, genfmq8, q8labs );
 [ [ -4, A ], [ 3, A^2 ], [ 4, id ], [ -3, b*A ] ]
 gap> P9 := ConjugateByWordLogSequence( mq8, N9, genfmq8[1] );;
-gap> PrintLnUsingLabels( P9, genfmq8, q8labs );            
+gap> PrintLnUsingLabels( P9, genfmq8, q8labs );
 [ [ -4, id ], [ 3, A ], [ 4, a ], [ -3, b ] ]
 gap> P9 = ridsq8[4];
 true

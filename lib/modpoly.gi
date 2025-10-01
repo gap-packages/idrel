@@ -16,14 +16,14 @@
 InstallMethod( String, "for a module poly with generators, monoidpolys", 
     true, [ IsModulePolyGensPolysRep ], 0, 
 function( e ) 
-    return( STRINGIFY( "module polynomial" ) ); 
+    return( STRINGIFY( "module polynomial" ) );
 end );
 
 InstallMethod( ViewString, "for a module poly with generators, monoidpolys", 
-    true, [ IsModulePolyGensPolysRep ], 0, String ); 
+    true, [ IsModulePolyGensPolysRep ], 0, String );
 
 InstallMethod( PrintString, "for a module poly with generators, monoidpolys", 
-    true, [ IsModulePolyGensPolysRep ], 0, String ); 
+    true, [ IsModulePolyGensPolysRep ], 0, String );
 
 InstallMethod( ViewObj, "for a module poly with generators, monoidpolys", 
     true, [ IsModulePolyGensPolysRep ], 0, 
@@ -37,7 +37,7 @@ function( poly )
 
     local  n, g, len, i;
 
-    n := MonoidPolys( poly ); 
+    n := MonoidPolys( poly );
     g := GeneratorsOfModulePoly( poly );
     len := Length( poly );
     if ( len = 0 ) then 
@@ -84,7 +84,7 @@ function( gp, pp )
 
     local  polys, gens, len, L, i, j, gi;
 
-    polys := ShallowCopy( pp ); 
+    polys := ShallowCopy( pp );
     gens := ShallowCopy( gp );
     len := Length( gens );
     if not ForAll( gens, w -> ( IsWord( w ) and Length( w ) = 1 ) ) then 
@@ -94,7 +94,7 @@ function( gp, pp )
              ForAll( polys, n -> IsMonoidPolyTermsRep( n ) ) ) then 
         Error( "second list must be list of ncpolys and have same length" );
     fi;
-    SortParallel( gens, polys, function(u,v) return u<v; end );
+    SortParallel( gens, polys, function(u,v) return u<v;end );
     L := [1..len];
     i := 1;
     while ( i < len ) do gi := gens[i];
@@ -147,7 +147,7 @@ function( arg )
                    ForAll( n, x -> ( IsWord( x ) and ( Length( x ) = 1 ) ) ) )
                 then return ModulePolyFromGensPolys( n, g );
             fi;
-        fi; 
+        fi;
     fi;
     # expect list of terms 
     if not ForAll( arg, a -> 
@@ -223,7 +223,7 @@ function( poly )
 
     local  g, n, t, i;
 
-    g := GeneratorsOfModulePoly( poly ); 
+    g := GeneratorsOfModulePoly( poly );
     n := MonoidPolys( poly );
     t := [ 1..Length( poly ) ];
     for i in [ 1..Length( poly ) ] do
@@ -320,7 +320,7 @@ function( poly, gen, ncpoly )
     gi := gp[i];
     pi := pp[i];
     if (gi = gen) then 
-        pi := pi + ncpoly; 
+        pi := pi + ncpoly;
         b := pp{[1..i-1]};
         d := pp{[i+1..len]};
         u := gp{[1..i-1]};
@@ -387,7 +387,7 @@ function( poly, rat )
     local  p, len, one;
 
     if ( rat = 0 ) then 
-        one := One( FamilyObj( GeneratorsOfModulePoly( poly )[1] ) ); 
+        one := One( FamilyObj( GeneratorsOfModulePoly( poly )[1] ) );
         return ModulePolyFromGensPolys( [ 0 ], [ one ] );
     fi;
     len := Length( poly );
@@ -445,8 +445,8 @@ function( poly, word)
     for i in [1..lenn] do 
         n2[i] := n1[i] * word;
     od;
-    mp := ModulePolyFromGensPolys( GeneratorsOfModulePoly( poly ), n2 ); 
-    return mp; 
+    mp := ModulePolyFromGensPolys( GeneratorsOfModulePoly( poly ), n2 );
+    return mp;
 end );
 
 ##############################################################################
@@ -457,12 +457,12 @@ InstallOtherMethod( \<, "generic method for module polynomials", true,
     [ IsModulePolyGensPolysRep, IsModulePolyGensPolysRep ], 0, 
 function( p1, p2 )
 
-    local  i, l1, l2, g1, g2, m1, m2; 
+    local  i, l1, l2, g1, g2, m1, m2;
 
-    g1 := GeneratorsOfModulePoly( p1 ); 
+    g1 := GeneratorsOfModulePoly( p1 );
     g2 := GeneratorsOfModulePoly( p2 );
     l1 := Length( g1 );
-    l2 := Length( g2 ); 
+    l2 := Length( g2 );
     if ( l1 < l2 ) then 
         return true;
     elif ( l1 > l2 ) then 
@@ -682,14 +682,14 @@ function( lp, G, rules)
            oneM, FMgens, elmon, elrng, e;
 
     if HasElementsOfMonoidPresentation( G ) then 
-        elmon := ElementsOfMonoidPresentation( G ); 
+        elmon := ElementsOfMonoidPresentation( G );
     elif HasPartialElements( G ) then 
-        elmon := PartialElements( G ); 
+        elmon := PartialElements( G );
     else
-        Error( "no list of elements available" ); 
+        Error( "no list of elements available" );
     fi;
     oneM := elmon[1];
-    elrng := [2..Length(elmon)];  
+    elrng := [2..Length(elmon)];
     rp := RelatorModulePoly( lp );
     len := Length( rp );
     mp := MonoidPolys( rp )[len];
@@ -697,17 +697,17 @@ function( lp, G, rules)
     xbest := oneM;
     lbest := lp;
     for e in elrng do  
-        x := elmon[e]; 
+        x := elmon[e];
         mx := ReduceMonoidPoly( mp*x, rules );
         if ( InfoLevel( InfoIdRel ) > 4 ) then
-            Print( x, " : " ); 
-            Display(mx); 
+            Print( x, " : " );
+            Display(mx);
         fi;
         if ( mx < mbest ) then 
             mbest := mx;
             xbest := x;
         fi;
-    od; 
+    od;
     if ( xbest <> oneM ) then 
         rbest := ReduceModulePoly( rp * xbest, rules );
         ybest := YSequenceModulePoly( lp ) * xbest;
@@ -761,11 +761,11 @@ function( rp, rws, sats, zero)
     iszero := false;
     i := numsats + 1;
     while ( ( i > 1 ) and not iszero ) do 
-        i := i-1; 
+        i := i-1;
         satset := sats[i];
         if ( InfoLevel( InfoIdRel ) > 3 ) then 
             Print( "at start of newi loop, i = ", i, "\n" );
-            Print(" rpi = " ); Display( rpi ); Print( "\n" );
+            Print(" rpi = " );Display( rpi );Print( "\n" );
         fi;
         newj := true;
         while( newj and not iszero ) do 
@@ -780,8 +780,8 @@ function( rp, rws, sats, zero)
                 j := j + 1;
                 rpij := rpi + RelatorModulePoly( satset[j] );
                 if ( InfoLevel( InfoIdRel ) > 3 ) then 
-                    Print ( "** ", j, " rpij = " ); 
-                    Display( rpij ); Print( "\n" );
+                    Print ( "** ", j, " rpij = " );
+                    Display( rpij );Print( "\n" );
                 fi;
                 if ( rpj > rpij ) then 
                     newj := true;
@@ -792,18 +792,18 @@ function( rp, rws, sats, zero)
                     fi;
                     if ( InfoLevel( InfoIdRel ) > 3 ) then
                         Print ( "rpj > rpij at j = ", j, "\n" );
-                        Print( "new rpj: " ); Display( rpj ); Print( "\n" );
+                        Print( "new rpj: " );Display( rpj );Print( "\n" );
                         if iszero then 
                             Print( "reduced to zero!" );
                         fi;
-                    fi; 
-                fi; 
+                    fi;
+                fi;
             od;
             if newj then
                 rpi := rpj;
                 yp := yp + YSequenceModulePoly( satset[posj] );
             fi;
-        od; 
+        od;
     od;
     return LoggedModulePoly( yp, rpi );
 end );
@@ -859,7 +859,7 @@ function( l, elmon, rws, sats )
                 Add( rsats, rij );
                 Add( lsats, lij );
                 lij := lij * (-1);
-                Add( lsats, lij ); 
+                Add( lsats, lij );
                 Add( rsats, RelatorModulePoly( lij ) );
             fi;
         od;
@@ -877,62 +877,62 @@ end );
 InstallMethod( PrintLnModulePoly, "for (list of) module polynomials", 
     true, [ IsObject, IsList, IsList, IsList, IsList ], 0, 
 function( obj, gens1, labs1, gens2, labs2 ) 
-    IdRelOutputPos := 0; 
-    IdRelOutputDepth := 0; 
-    PrintModulePoly( obj, gens1, labs1, gens2, labs2 ); 
-    Print( "\n" ); 
-    IdRelOutputPos := 0; 
+    IdRelOutputPos := 0;
+    IdRelOutputDepth := 0;
+    PrintModulePoly( obj, gens1, labs1, gens2, labs2 );
+    Print( "\n" );
+    IdRelOutputPos := 0;
 end );
 
 InstallMethod( PrintModulePolyTerm, "for a module polynomial term", 
     true, [ IsObject, IsList, IsList, IsList, IsList ], 0, 
 function( t, gens1, labs1, gens2, labs2 ) 
-    PrintUsingLabels( t[1], gens2, labs2 ); 
+    PrintUsingLabels( t[1], gens2, labs2 );
     Print( "*(" );
-    PrintUsingLabels( t[2], gens1, labs1 ); 
-    Print( ")" ); 
+    PrintUsingLabels( t[2], gens1, labs1 );
+    Print( ")" );
 end );
 
 InstallMethod( PrintModulePoly, "for (list of) module polynomials", 
     true, [ IsObject, IsList, IsList, IsList, IsList ], 0, 
 function( obj, gens1, labs1, gens2, labs2 ) 
 
-    local j, len, terms; 
+    local j, len, terms;
 
-    IdRelOutputPos := 0; 
-    IdRelOutputDepth := 0; 
+    IdRelOutputPos := 0;
+    IdRelOutputDepth := 0;
     if IsList( obj ) then 
-        len := Length( obj ); 
+        len := Length( obj );
         if ( len = 0 ) then 
-            Print( "[ ]" ); 
+            Print( "[ ]" );
         else 
-            Print( "[ " ); 
-            IdRelOutputPos := IdRelOutputPos + 2; 
+            Print( "[ " );
+            IdRelOutputPos := IdRelOutputPos + 2;
             for j in [1..len] do 
-                PrintModulePoly( obj[j], gens1, labs1, gens2, labs2 ); 
+                PrintModulePoly( obj[j], gens1, labs1, gens2, labs2 );
                 if ( j < len ) then 
-                    Print( ", " ); 
-                    IdRelOutputPos := IdRelOutputPos + 2; 
-                fi; 
-            od; 
-            Print( " ]" ); 
-            IdRelOutputPos := IdRelOutputPos + 2; 
-        fi; 
+                    Print( ", " );
+                    IdRelOutputPos := IdRelOutputPos + 2;
+                fi;
+            od;
+            Print( " ]" );
+            IdRelOutputPos := IdRelOutputPos + 2;
+        fi;
     elif IsModulePoly( obj ) then 
-        terms := Terms( obj ); 
-        len := Length( terms ); 
+        terms := Terms( obj );
+        len := Length( terms );
         for j in [1..len] do 
-            PrintModulePolyTerm( terms[j], gens1, labs1, gens2, labs2 ); 
-            IdRelOutputPos := IdRelOutputPos + 3; 
+            PrintModulePolyTerm( terms[j], gens1, labs1, gens2, labs2 );
+            IdRelOutputPos := IdRelOutputPos + 3;
             if ( j < len ) then 
-                Print( " + " ); 
-                IdRelOutputPos := IdRelOutputPos + 2; 
-            fi; 
-        od; 
+                Print( " + " );
+                IdRelOutputPos := IdRelOutputPos + 2;
+            fi;
+        od;
     else 
-        Error( "obj is not a module poly" ); 
-    fi; 
-end ); 
+        Error( "obj is not a module poly" );
+    fi;
+end );
 
 ###############*#############################################################
 ##

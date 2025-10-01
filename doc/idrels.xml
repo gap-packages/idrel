@@ -46,8 +46,8 @@ For
 all three relators are proper powers: 
 <M>[1 \equiv \rho=f^3, 2 \equiv \sigma=g^2, 3 \equiv \tau=(fg)^2]</M>. 
 So the root identities are 
-<M>\rho^{-1} \rho^a,\, \sigma^{-1} \sigma^b</M> 
-and <M>\tau^{-1} \tau^{ab}</M>. 
+<M>\rho^{-1} \rho^f,\, \sigma^{-1} \sigma^g</M> 
+and <M>\tau^{-1} \tau^{fg}</M>. 
 <P/> 
 For 
 <M> Q_8 = \langle a,b ~|~ q=a^4, r=b^4, s=abab^{-1}, t=a^2b^2 \rangle</M> 
@@ -167,7 +167,8 @@ given in the introduction (<Ref Sect="sect-illustration"/>):
 The operation <C>IdentityRelatorSequences</C> returns a list 
 which omits any duplicates or empty lists. 
 For the <C>s3</C> example, all of the possible <M>5*3 = 15</M> sequences 
-are added to the root identities. 
+are added to the root identities.
+The relator just constructed is the last but one in this list.
 </Description>
 </ManSection>
 
@@ -303,7 +304,7 @@ so this is the same cycle but with a different start point.
 <Description>
 This operation conjugates every term in a log sequence 
 by a word in the generators. 
-In the example we conjugate the fifth identity <C>K5</C> by <M>G</M>. 
+In the example we conjugate the fifth identity by <M>G</M> to obtain <C>K5</C>. 
 It then becomes apparent that the fourth identity <C>K4</C> has the form 
 <C>[ A, B, [ -3, F ] ]</C> 
 while <C>K5</C> has the form <C>[ B, A, [ -3, FG ] ]</C>, 
@@ -375,8 +376,8 @@ We continue our example by replacing <C>J4</C> by its inverse.
 </ManSection>
 <Example>
 <![CDATA[
-gap> J4 := InverseLogSequence( J4 );; 
-gap> PrintLnUsingLabels( J4, genfms3, s3labs ); 
+gap> I4 := InverseLogSequence( J4 );; 
+gap> PrintLnUsingLabels( I4, genfms3, s3labs ); 
 [ [ -2, F*G ], [ 3, f ], [ -1, id ], [ 3, F ], [ -2, F ], [ -2, F*G*F ], 
 [ 3, id ], [ -1, G ] ]
 ]]>
@@ -389,10 +390,10 @@ gap> PrintLnUsingLabels( J4, genfms3, s3labs );
    <Oper Name="CancelInversesLogSequence"
          Arg="mG, K" />
 <Description>
-Concatenating <C>J4</C> and <C>K5</C>, we get 
+Concatenating <C>I4</C> and <C>K5</C>, we get 
 <C>[ A^-1, [ 3, F ], B^-1, B, A, [ -3, FG ] ]</C>, with length <M>16</M>. 
 Cancelling immediate inverses removes the <C>[ B^-1, B ]</C>. 
-Cancelling inverses gets rid of the terms <C>a^-1</C> and <C>A</C>, 
+Cancelling inverses gets rid of the terms <C>A^-1</C> and <C>A</C>, 
 converting <C>[ 3, F ]</C> into <C>[ 3, fgFG ] = [ 3, FG ]</C>.  
 Conjugating with <C>gf</C> produces the third root identity 
 <C>[ [ 3, fg ], [ -3, id ] ]</C>, which then cancels. 
@@ -401,12 +402,12 @@ Conjugating with <C>gf</C> produces the third root identity
 </ManSection>
 <Example>
 <![CDATA[
-gap> J4K5 := Concatenation( J4, K5 );; 
-gap> J4K5 := CancelImmediateInversesLogSequence( J4K5 );; 
-gap> PrintLnUsingLabels( J4K5, genfms3, s3labs ); 
+gap> I4K5 := Concatenation( I4, K5 );; 
+gap> C1 := CancelImmediateInversesLogSequence( I4K5 );; 
+gap> PrintLnUsingLabels( C1, genfms3, s3labs ); 
 [ [ -2, F*G ], [ 3, f ], [ -1, id ], [ 3, F ], [ 1, id ], 
 [ -3, f ], [ 2, F*G ], [ -3, F*G ] ]
-gap> J4K5 := CancelInversesLogSequence( ms3, J4K5 ); 
+gap> C2 := CancelInversesLogSequence( ms3, C1 ); 
 [ ]
 ]]>
 </Example>

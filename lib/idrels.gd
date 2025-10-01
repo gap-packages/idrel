@@ -15,7 +15,7 @@
 #A  RootIdentities( <G> )
 #A  RootPositions( <G> )
 ##
-DeclareAttribute( "IdentitiesAmongRelators", IsFpGroup ); 
+DeclareAttribute( "IdentitiesAmongRelators", IsFpGroup );
 DeclareAttribute( "RootIdentities", IsFpGroup );
 DeclareAttribute( "RootPositions", IsFpGroup );
 
@@ -38,25 +38,25 @@ DeclareAttribute( "RootPositions", IsFpGroup );
 DeclareOperation( "LogSequenceLessThan", [ IsList, IsList ] );
 DeclareOperation( "ReduceLogSequences", [ IsFpGroup, IsHomogeneousList ] );
 DeclareOperation( "ExpandLogSequence", 
-    [ IsMonoidPresentationFpGroup, IsHomogeneousList ] ); 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ] );
 DeclareOperation( "MoveLeftLogSequence", 
-    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsList, IsPosInt ] ); 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsList, IsPosInt ] );
 DeclareOperation( "MoveRightLogSequence", 
-    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsList, IsPosInt ] ); 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsList, IsPosInt ] );
 DeclareOperation( "SwapLogSequence", 
-    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsPosInt, IsPosInt ] ); 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsPosInt, IsPosInt ] );
 DeclareOperation( "CancelInversesLogSequence", 
-    [ IsMonoidPresentationFpGroup, IsHomogeneousList ] ); 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ] );
 DeclareOperation( "CancelImmediateInversesLogSequence", 
-    [ IsHomogeneousList ] ); 
+    [ IsHomogeneousList ] );
 DeclareOperation( "ConjugateByWordLogSequence", 
-    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsWord ] ); 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsWord ] );
 DeclareOperation( "FixFirstTermLogSequence", 
-    [ IsMonoidPresentationFpGroup, IsHomogeneousList ] ); 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList ] );
 DeclareOperation( "ChangeStartLogSequence", 
-    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsPosInt ] ); 
+    [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsPosInt ] );
 DeclareOperation( "InverseLogSequence", 
-    [ IsHomogeneousList ] ); 
+    [ IsHomogeneousList ] );
 DeclareOperation( "ConjugatingWordOfLoggedTerm", 
     [ IsMonoidPresentationFpGroup, IsList ] );
 
@@ -69,14 +69,14 @@ DeclareOperation( "ConjugatingWordOfLoggedTerm",
 #O  AreEquivalentIdentitiies( <G> <L1> <L2> ) 
 ##
 DeclareAttribute( "LogSequenceRewriteRules", 
-    IsMonoidPresentationFpGroup, "mutable" ); 
+    IsMonoidPresentationFpGroup, "mutable" );
 DeclareOperation( "OnePassReduceLogSequence", 
-    [ IsHomogeneousList, IsHomogeneousList ] ); 
+    [ IsHomogeneousList, IsHomogeneousList ] );
 DeclareOperation( "SubstituteLogSubsequence", [ IsMonoidPresentationFpGroup, 
-    IsHomogeneousList, IsHomogeneousList, IsHomogeneousList ] ); 
+    IsHomogeneousList, IsHomogeneousList, IsHomogeneousList ] );
 DeclareOperation( "IdentityRelatorSequences", [ IsFpGroup ] );
 DeclareOperation( "AreEquivalentIdentities", 
-    [ IsFpGroup, IsHomogeneousList, IsHomogeneousList ] ); 
+    [ IsFpGroup, IsHomogeneousList, IsHomogeneousList ] );
 
 ##############################################################################
 ##
@@ -84,7 +84,7 @@ DeclareOperation( "AreEquivalentIdentities",
 #O  ModuleRelatorSequenceReduce( <Y> )
 ##
 DeclareOperation( "ConvertToGroupRelatorSequences", 
-    [ IsFpGroup, IsHomogeneousList ] ); 
+    [ IsFpGroup, IsHomogeneousList ] );
 DeclareOperation( "ModuleRelatorSequenceReduce", [ IsList ] );
 
 #############################################################################
@@ -102,8 +102,8 @@ DeclareOperation( "ReduceModulePolyList",
 ## 
 DeclareAttribute( "IdentityYSequences", IsFpGroup );
 DeclareOperation( "ConvertToYSequences", 
-    [ IsFpGroup, IsFreeGroup, IsHomogeneousList ] ); 
-DeclareOperation( "YSequenceConjugateAndReduce", [IsList,IsHomogeneousList] ); 
+    [ IsFpGroup, IsFreeGroup, IsHomogeneousList ] );
+DeclareOperation( "YSequenceConjugateAndReduce", [IsList,IsHomogeneousList] );
 
 #############################################################################
 ##
