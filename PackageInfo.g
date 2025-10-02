@@ -1,143 +1,103 @@
 #############################################################################
-##
-##  PackageInfo.g  file for the package IdRel 
-##  Anne Heyworth and Chris Wensley 
+##  
+##  Demo PackageInfo.g for the GitHubPagesForGAP
 ##
 
 SetPackageInfo( rec(
 
-PackageName := "idrel",
-Subtitle := "Identities among relations",
-Version := "2.48",
-Date := "27/08/2024", # dd/mm/yyyy format
-License := "GPL-2.0-or-later",
+PackageName := "GitHubPagesForGAP",
+
+Subtitle := "A GitHub Pages generator for GAP packages",
+Version := "0.4",
+Date := "10/04/2025", # dd/mm/yyyy format
+License := "0BSD",
 
 Persons := [
   rec(
-    LastName      := "Heyworth",
-    FirstNames    := "Anne",
-    IsAuthor      := true,
-    IsMaintainer  := false
-  ),
-  rec(
-    LastName      := "Wensley",
-    FirstNames    := "Chris",
+    LastName      := "Horn",
+    FirstNames    := "Max",
     IsAuthor      := true,
     IsMaintainer  := true,
-    Email         := "cdwensley.maths@btinternet.com",
-    WWWHome       := "https://github.com/cdwensley",
-    Place         := "Llanfairfechan"
-  )
+    Email         := "mhorn@rptu.de",
+    WWWHome       := "https://www.quendi.de/math",
+    GitHubUsername:= "fingolfin",
+    PostalAddress := Concatenation(
+                       "Fachbereich Mathematik\n",
+                       "RPTU Kaiserslautern-Landau\n",
+                       "Gottlieb-Daimler-Straße 48\n",
+                       "67663 Kaiserslautern\n",
+                       "Germany" ),
+    Place         := "Kaiserslautern, Germany",
+    Institution   := "RPTU Kaiserslautern-Landau"
+  ),
+
+  rec(
+    LastName      := "Thor",
+    FirstNames    := "A. U.",
+    IsAuthor      := true,
+    IsMaintainer  := false,
+    #Email         := "author@example.com",
+  ),
+
+  rec(
+    LastName      := "Itor",
+    FirstNames    := "Jan",
+    IsAuthor      := false,
+    IsMaintainer  := true,
+    #Email         := "janitor@example.com",
+  ),
 ],
 
-Status := "accepted",
-CommunicatedBy := "Leonard Soicher (QMUL)",
-AcceptDate := "05/2015",
+Status := "other",
 
-SourceRepository := rec( 
-  Type := "git", 
-  URL := "https://github.com/gap-packages/idrel" ),
-  IssueTrackerURL  := Concatenation( ~.SourceRepository.URL, "/issues" ),
-  PackageWWWHome   := "https://gap-packages.github.io/idrel/",
-  README_URL       := Concatenation( ~.PackageWWWHome, "README.md" ),
-  PackageInfoURL   := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
-  ArchiveURL       := Concatenation( ~.SourceRepository.URL, 
-                                   "/releases/download/v", ~.Version, 
-                                   "/", ~.PackageName, "-", ~.Version ), 
-ArchiveFormats   := ".tar.gz",
+# The following are not strictly necessary in your own PackageInfo.g
+# (in the sense that update.g only looks at the usual fields
+# like PackageWWWHome, ArchiveURL etc.). But they are convenient
+# if you use exactly the scheme for your package website that we propose.
+GithubUser := "gap-system",
+GithubRepository := ~.PackageName,
+GithubWWW := Concatenation("https://github.com/", ~.GithubUser, "/", ~.GithubRepository),
 
-AbstractHTML :=
-"IdRel is a package for computing the identities among relations of a group presentation using rewriting, logged rewriting, monoid polynomials, module polynomials and Y-sequences.",
+PackageWWWHome := Concatenation("https://", ~.GithubUser, ".github.io/", ~.GithubRepository, "/"),
+README_URL     := Concatenation( ~.PackageWWWHome, "README.md" ),
+PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
+# The following assumes you are using the Github releases system. If not, adjust
+# it accordingly.
+ArchiveURL     := Concatenation(~.GithubWWW,
+                    "/releases/download/v", ~.Version, "/",
+                    ~.GithubRepository, "-", ~.Version),
+
+ArchiveFormats := ".tar.gz .tar.bz2",
+
+AbstractHTML := 
+  "This is a pseudo package that contains no actual\
+  <span class=\"pkgname\">GAP</span> code. Instead, it is a template for other\
+  GAP packages that allows to quickly setup GitHub Pages.",
 
 PackageDoc := rec(
-  BookName  := "IdRel",
+  BookName  := "GitHubPagesForGAP",
   ArchiveURLSubset := ["doc"],
-  HTMLStart := "doc/chap0_mj.html",
+  HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "Identities among Relations",
-  Autoload  := true
+  LongTitle := "A GitHub Pages generator for GAP packages",
 ),
 
+# The following dependencies are fake and for testing / demo purposes
 Dependencies := rec(
-  GAP := ">=4.11.1",
-  NeededOtherPackages := [ ],
-  SuggestedOtherPackages := [ ],
-  ExternalConditions := [ ]
+  GAP := ">=4.8.1",
+  NeededOtherPackages := [
+    ["GAPDoc", ">= 1.2"],
+    ["IO", ">= 4.1"],
+  ],
+  SuggestedOtherPackages := [["orb", ">= 4.2"]],
+  ExternalConditions := []
 ),
 
 AvailabilityTest := ReturnTrue,
 
-Autoload := false, 
-
-TestFile := "tst/testall.g",
-
-Keywords := ["logged rewriting","identities among relations",
-             "Y-sequences"], 
-
-BannerString := Concatenation( 
-    "Loading IdRel ", String( ~.Version ), " (Identities among Relations)\n", 
-    "by Anne Heyworth and ", 
-    "Chris Wensley (https://github.com/cdwensley)\n", 
- "-----------------------------------------------------------------------\n" ),
-
-AutoDoc := rec(
-    TitlePage := rec(
-        Copyright := Concatenation(
-            "&copyright; 1999-2024 Anne Heyworth and Chris Wensley<P/>\n",
-            "The &IdRel; package is free software; you can redistribute it ", 
-            "and/or modify it under the terms of the GNU General ", 
-            "Public License as published by the Free Software Foundation; ", 
-            "either version 2 of the License, or (at your option) ", 
-            "any later version.\n"
-            ), 
-        Abstract := Concatenation( 
-            "&IdRel; is a &GAP; package originally implemented in 1999, ", 
-            "using the &GAP; 3 language, ", 
-            "when the first author was studying for a Ph.D. in Bangor.\n", 
-            "<P/>\n", 
-            "This package is designed to compute a minimal set of ", 
-            "generators for the module of the identities among relators ", 
-            "of a group presentation.\n", 
-            "It does this using\n", 
-            "<List>\n", 
-            "<Item>\n", 
-            "rewriting and logged rewriting: a self-contained ", 
-            "implementation of the Knuth-Bendix process using the ", 
-            "monoid presentation associated to the group presentation;\n", 
-            "</Item>\n", 
-            "<Item>\n", 
-            "monoid polynomials: an implementation of the monoid ring;\n", 
-            "</Item>\n", 
-            "<Item>\n", 
-            "module polynomials: an implementation of the right module ", 
-            "over this monoid generated by the relators.\n", 
-            "</Item>\n", 
-            "<Item>\n", 
-            "Y-sequences: used as a <E>rewriting</E> way of representing ", 
-            "elements of a free crossed module (products of conjugates ", 
-            "of group relators and inverse relators).\n", 
-            "</Item>\n", 
-            "</List>\n", 
-            "<P/>\n",  
-            "&idrel; became an accepted &GAP; package in May 2015.\n", 
-            "<P/>\n",  
-            "Bug reports, suggestions and comments are, of course, welcome.\n", 
-            "Please contact the last author at ", 
-            "<Email>cdwensley.maths@btinternet.com</Email> ", 
-            "or submit an issue at the GitHub repository ",
-            "<URL>https://github.com/gap-packages/idrel/issues/</URL>.\n" 
-            ), 
-        Acknowledgements := Concatenation( 
-            "This documentation was prepared using the ", 
-            "&GAPDoc; <Cite Key='GAPDoc'/> ", 
-            "and &AutoDoc; <Cite Key='AutoDoc'/> packages.<P/>\n", 
-            "The procedure used to produce new releases uses the package ", 
-            "<Package>GitHubPagesForGAP</Package> ", 
-            "<Cite Key='GitHubPagesForGAP' /> ", 
-            "and the package <Package>ReleaseTools</Package>.<P/>" 
-            ),
-    )
-),
+Keywords := ["GitHub Pages", "GAP"]
 
 ));
+
+
