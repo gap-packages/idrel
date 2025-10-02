@@ -1,6 +1,6 @@
 # CHANGES to the IdRel package
 
-## 2.48 -> 2.49 for GAP 4.15.0 (01/10/25)
+## 2.48 -> 2.49 for GAP 4.15.0 (02/10/25)
  * (01/10/25) fixed long-standing error in RootIdentities
               which finally enables Merve Simsek's example to complete.
  * (13/08/25) replaced DeclareGlobalFunction etc.

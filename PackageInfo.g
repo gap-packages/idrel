@@ -9,7 +9,7 @@ SetPackageInfo( rec(
 PackageName := "idrel",
 Subtitle := "Identities among relations",
 Version := "2.49",
-Date := "01/10/2025", # dd/mm/yyyy format
+Date := "02/10/2025", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
