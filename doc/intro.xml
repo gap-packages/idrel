@@ -36,12 +36,10 @@ The package is written entirely in &GAP;4, and requires no compilation.
 <P/>
 The package is loaded into &GAP; with the <C>LoadPackage</C> command, 
 and on-line help is available in the usual way.
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> LoadPackage( "idrel" ); 
 gap> ?idrel
-]]>
-</Example>
+]]></Example>
 
 A pdf version of the &idrel; manual is available 
 in the <F>doc</F> directory of the home directory of &idrel;.
@@ -109,8 +107,7 @@ We compute a reduced set of identities among relators
 for the presentation of the symmetric group <C>s3 = F/[f^3,g^2,(fg)^2]</C>. 
 In the listings below, <C>s3_Ri</C> is the <C>i</C>-th relator for <C>s3</C>, and <C>f1,f2</C> are the generators <M>f,g</M> of <M>F</M>. 
 <P/>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> F := FreeGroup( 2 );; 
 gap> f := F.1;;  g := F.2;; 
 gap> rels3 := [ f^3, g^2, f*g*f*g ]; 
@@ -128,8 +125,7 @@ gap> IdentitiesAmongRelators( s3 );
   [ [ 1, <identity ...> ], [ -3, s3_M2 ], [ 2, s3_M3*s3_M4*s3_M3*s3_M2 ], 
       [ 2, s3_M3*s3_M2 ], [ 1, s3_M2 ], [ -3, <identity ...> ], [ 2, s3_M3 ], 
       [ -3, s3_M3 ] ] ]
-]]>
-</Example>
+]]></Example>
 
 If we write <M>\rho=f^3</M>, <M>\sigma=g^2</M>, <M>\tau=(fg)^2</M> 
 then the first identity becomes <M>\rho^{-1} \rho^{f}</M>. 
@@ -158,16 +154,14 @@ their normal forms in <C>s3</C>, namely
 Generators for this module are returned by the operation 
 <C>IdentityYSequences</C>. 
 <P/>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> idyseq3 := IdentityYSequences( s3 );     
 [ ( s3_Y1*( -s3_M1), s3_R1*( s3_M1 - <identity ...>) ), 
   ( s3_Y2*( <identity ...>), s3_R2*( s3_M2 - <identity ...>) ), 
   ( s3_Y3*( s3_M1), s3_R3*( s3_M2 - s3_M1) ), 
   ( s3_Y9*( -<identity ...>), s3_R1*( -s3_M2*s3_M1 - s3_M1) + s3_R2*( -s3_M1*s\
 3_M2 - s3_M1 - <identity ...>) + s3_R3*( s3_M3 + s3_M2 + <identity ...>) ) ]
-]]>
-</Example>
+]]></Example>
 
 Further examples are given in chapter <Ref Sect="chap-idrels"/>. 
 <P/> 

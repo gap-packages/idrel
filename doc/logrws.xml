@@ -44,16 +44,14 @@ for <M>n \in [9..12]</M>.
 </Description> 
  
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> r0 := InitialLoggedRulesOfPresentation( mq8 );; 
 gap> PrintLnUsingLabels( r0, genfmq8, q8labs );
 [ [ a^-1, [ ], A ], [ b^-1, [ ], B ], [ A^-1, [ ], a ], [ B^-1, 
 [ ], b ], [ a*A, [ ], id ], [ b*B, [ ], id ], [ A*a, [ ], id ], 
 [ B*b, [ ], id ], [ a^4, [ [ 1, id ] ], id ], [ a^2*b^2, [ [ 4, id ] ], id ], 
 [ a*b*a*B, [ [ 3, id ] ], id ], [ b^4, [ [ 2, id ] ], id ] ]
-]]>
-</Example>
+]]></Example>
 
 <ManSection>
    <Oper Name="LoggedOnePassKB"
@@ -71,8 +69,7 @@ to the initial set of logged rules.
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> r1 := LoggedOnePassKB( mq8, r0 );;
 gap> Length( r1 );
 25
@@ -88,8 +85,7 @@ gap> PrintLnUsingLabels( r1, genfmq8, q8labs );
 [ 3, A^3 ] ], a^3 ], [ b^3, [ [ -4, id ], [ 2, B*A^2 ] ], a^2*b ], 
 [ a^4, [ [ 1, id ] ], id ], [ a^2*b^2, [ [ 4, id ] ], id ], 
 [ a*b*a*B, [ [ 3, id ] ], id ], [ b^4, [ [ 2, id ] ], id ] ]
-]]> 
-</Example>
+]]></Example>
 
 Note that <M>r1</M> has length <M>25</M>, three more than 
 the length <M>22</M> of <C>q1</C> in <Ref Sect="one-pass-KB"/>. 
@@ -121,8 +117,7 @@ Note that <M>q2</M> nd <M>r2</M> both have length <M>13</M>.
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> r2 := LoggedRewriteReduce( mq8, r1 );;
 gap> Length( r2 );
 13
@@ -132,8 +127,7 @@ gap> PrintLnUsingLabels( r2, genfmq8, q8labs );
 [ B*b, [ ], id ], [ b^2, [ [ -4, id ], [ 2, A^2 ] ], a^2 ], 
 [ a^3, [ [ 1, id ] ], A ], [ a^2*b, [ [ 4, id ] ], B ], [ a*b*a, 
 [ [ 3, id ] ], b ], [ b*a*B, [ [ 3, a ] ], A ] ]
-]]>
-</Example> 
+]]></Example>
 
 <ManSection>
    <Oper Name="LoggedKnuthBendix"
@@ -172,8 +166,7 @@ the first part of the rule.
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> r3 := LoggedKnuthBendix( mq8, r0 );;
 gap> Length( r3 );
 20
@@ -187,8 +180,7 @@ gap> PrintLnUsingLabels( r3, genfmq8, q8labs );
 [ B*A, [ [ -3, a*b ] ], a*B ], [ B^2, [ [ -4, id ] ], a^2 ], 
 [ a^3, [ [ 1, id ] ], A ], [ a^2*b, [ [ 4, id ] ], B ], [ a^2*B, 
 [ [ -4, A^2 ], [ 1, id ] ], b ] ]
-]]>
-</Example>
+]]></Example>
 
 <ManSection>
    <Attr Name="LoggedRewritingSystemFpGroup"
@@ -208,8 +200,7 @@ The rules in the final system are partially ordered by the function
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> lrws := LoggedRewritingSystemFpGroup( q8 );;
 gap> PrintLnUsingLabels( lrws, genfgmon, q8labs );
 [ [ a^-1, [ ], A ], [ b^-1, [ ], B ], [ A^-1, [ ], a ], [ B^-1, 
@@ -223,8 +214,7 @@ gap> PrintLnUsingLabels( lrws, genfgmon, q8labs );
 [ [ -4, A^2 ], [ 1, id ] ], b ] ]
 gap> Length( lrws );
 16
-]]>
-</Example>
+]]></Example>
 
 <P/>
 Consider now the two-generator abelian group <M>T</M> considered in the 
@@ -239,16 +229,14 @@ The last of these may be checked as follows:
 </Display>
 and is a logged version of the rule <M>ba \to ab</M>. 
 <P/> 
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> lrwsT := LoggedRewritingSystemFpGroup( T );;
 gap> PrintLnUsingLabels( lrwsT, genfgmonT, Tlabs );
 [ [ x^-1, [ ], X ], [ X^-1, [ ], x ], [ y^-1, [ ], Y ], [ Y^-1, 
 [ ], y ], [ x*X, [ ], id ], [ X*x, [ ], id ], [ y*Y, [ ], id ], 
 [ Y*y, [ ], id ], [ y*x, [ [ -1, X*Y ] ], x*y ], [ y*X, [ [ 1, Y ] ], X*y ], 
 [ Y*x, [ [ 1, X ] ], x*Y ], [ Y*X, [ [ -1, id ] ], X*Y ] ]
-]]>
-</Example>
+]]></Example>
 
 </Section>
 
@@ -299,8 +287,7 @@ to determine whether or not this logged part can be simplified.)
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> PrintLnUsingLabels( w0, genfmq8, q8labs ); 
 b^9*a^-9
 gap> lw1 := LoggedOnePassReduceWord( w0, lrws );;
@@ -315,8 +302,7 @@ gap> PrintLnUsingLabels( lw2, genfmq8, q8labs );
 [ -4, a^-2*B^-1 ], [ 2, A^2*a^-2*B^-1 ], [ -4, id ], [ 3, A ], 
 [ 1, b^-1*a^-1 ], [ -3, a^-1 ], [ -1, b^-1*a^-2 ], [ 4, id ], 
 [ -3, a*b ], [ -3, a*b*a^-1 ], [ -4, A^2 ], [ 1, id ], [ -3, id ] ], a*b ]
-]]>
-</Example>
+]]></Example>
 
 </Section>
 </Chapter>
