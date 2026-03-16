@@ -63,8 +63,7 @@ The <C>RootPositions</C> attribute is a boolean list
 specifying which of the relators are proper powers.
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> roots3 := RootIdentities(s3);
 [ [ [ -1, <identity ...> ], [ 1, s3_M1 ] ], 
   [ [ -1, <identity ...> ], [ 1, s3_M3 ] ], 
@@ -79,8 +78,7 @@ gap> PrintLnUsingLabels( RootIdentities(q8), genfmq8, q8labs );
 [ 2, b ] ], [ [ -2, id ], [ 2, B ] ] ]
 gap> RootPositions(q8);
 [ true, true, false, false ]
-]]>
-</Example>
+]]></Example>
 
 <ManSection Label="id-rel-seq">
    <Attr Name="IdentityRelatorSequences"
@@ -172,8 +170,7 @@ The relator just constructed is the last but one in this list.
 </Description>
 </ManSection>
 
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> ms3 := MonoidPresentationFpGroup( s3 );;
 gap> fms3 := FreeGroupOfPresentation( ms3 );;
 gap> genfms3 := GeneratorsOfGroup(fms3 );;
@@ -207,8 +204,7 @@ gap>  for i in [1..Length(idss3)] do
 [ 2, F*G*F ], [ 2, F ], [ -3, F ] ]
 [ [ 1, G ], [ -3, id ], [ 2, F*G*F ], [ 2, F ], [ 1, id ], 
 [ -3, f ], [ 2, F*G ], [ -3, F*G ] ]
-]]>
-</Example>
+]]></Example>
 
 <ManSection Label="seq-less-than">
    <Oper Name="LogSequenceLessThan"
@@ -221,12 +217,10 @@ The list <C>idss3</C> is sorted using this function.
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> LogSequenceLessThan( idss3[7], idss3[8] ); 
 true
-]]>
-</Example>
+]]></Example>
 
 <ManSection Label="expand-log-seq">
    <Oper Name="ExpandLogSequence"
@@ -245,12 +239,10 @@ so this provides a useful check.
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> ExpandLogSequence( ms3, idss3[17] );
 <identity ...>
-]]>
-</Example>
+]]></Example>
 
 </Section>
 
@@ -273,8 +265,7 @@ to reduce the list <C>idss3</C> from <M>17</M> to <M>5</M> identities.
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> ridss3 := ReduceLogSequences( s3, idss3 );;
 gap> lenridss3 := Length( ridss3 );                                   
 5
@@ -288,8 +279,7 @@ gap> for i in [1..lenridss3] do
 [ 2, F*G*F ], [ 2, F ], [ -3, F ] ]
 [ [ 1, id ], [ -3, g ], [ 2, F*G*F*g ], [ 2, F*g ], [ 1, g ], 
 [ -3, id ], [ 2, F ], [ -3, F ] ]
-]]>
-</Example>
+]]></Example>
 
 We wish to show that the fifth of these identities 
 is a combination of the first four. 
@@ -313,8 +303,7 @@ where the cycle starts.
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> K4 := ShallowCopy( ridss3[4] );; 
 gap> PrintLnUsingLabels( K4, genfms3, s3labs ); 
 [ [ 1, id ], [ -3, f ], [ 2, F*G ], [ 1, G ], [ -3, id ], 
@@ -334,8 +323,7 @@ gap> PositionSublist( K5, A );
 5
 gap> PositionSublist( K5, B ); 
 1
-]]>
-</Example>
+]]></Example>
 
 <ManSection Label="change-start">
    <Oper Name="ChangeStartLogSequence"
@@ -353,14 +341,12 @@ To do this we first replace <C>K4</C> by <C>J4 = [ B, [ -3, F ], A ]</C>.
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> J4 := ChangeStartLogSequence( ms3, K4, 4 );;
 gap> PrintLnUsingLabels( J4, genfms3, s3labs ); 
 [ [ 1, G ], [ -3, id ], [ 2, F*G*F ], [ 2, F ], [ -3, F ], 
 [ 1, id ], [ -3, f ], [ 2, F*G ] ]
-]]>
-</Example>
+]]></Example>
 
 <ManSection Label="inv-log-seq">
    <Oper Name="InverseLogSequence"
@@ -374,14 +360,12 @@ We continue our example by replacing <C>J4</C> by its inverse.
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> I4 := InverseLogSequence( J4 );; 
 gap> PrintLnUsingLabels( I4, genfms3, s3labs ); 
 [ [ -2, F*G ], [ 3, f ], [ -1, id ], [ 3, F ], [ -2, F ], [ -2, F*G*F ], 
 [ 3, id ], [ -1, G ] ]
-]]>
-</Example>
+]]></Example>
 
 
 <ManSection Label="cancel-inverses">
@@ -400,8 +384,7 @@ Conjugating with <C>gf</C> produces the third root identity
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> I4K5 := Concatenation( I4, K5 );; 
 gap> C1 := CancelImmediateInversesLogSequence( I4K5 );; 
 gap> PrintLnUsingLabels( C1, genfms3, s3labs ); 
@@ -409,8 +392,7 @@ gap> PrintLnUsingLabels( C1, genfms3, s3labs );
 [ -3, f ], [ 2, F*G ], [ -3, F*G ] ]
 gap> C2 := CancelInversesLogSequence( ms3, C1 ); 
 [ ]
-]]>
-</Example>
+]]></Example>
 
 </Section> 
 
@@ -424,8 +406,7 @@ returned by <C>IdentityRelatorSequences</C>.
 We will use our <M>Q_8</M> presentation in the examples. 
 <P/> 
 
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> mq8 := MonoidPresentationFpGroup( q8 );;
 gap> fmq8 := FreeGroupOfPresentation( mq8 );;
 gap> genfmq8 := GeneratorsOfGroup(fmq8 );;
@@ -437,8 +418,7 @@ gap> lenidsq8 := Length( idsq8 );
 gap> List( idsq8, L -> Length(L) );
 [ 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 8, 8, 8, 
   9, 10, 10 ]
-]]>
-</Example>
+]]></Example>
 
 <ManSection Label="root-rules">
    <Attr Name="LogSequenceRewriteRules"
@@ -449,8 +429,7 @@ The root identity <M>R^{-1}R^w</M> may be converted into the rewrite rule
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> rulesq8 := LogSequenceRewriteRules( mq8 );;
 gap> for i in [1..8] do 
 >        PrintLnUsingLabels( rulesq8[i], genfmq8, q8labs );
@@ -471,8 +450,7 @@ gap> for i in [1..8] do
 [ [ 4, B^2*A^2 ], [ 4, id ] ]
 [ [ -4, a^2*b^2 ], [ -4, id ] ]
 [ [ -4, B^2*A^2 ], [ -4, id ] ]
-]]>
-</Example>
+]]></Example>
 
 <ManSection Label="one-pass-red-seq">
    <Oper Name="OnePassReduceLogSequence"
@@ -485,22 +463,19 @@ reduces <M>(q^{-1})^{A^2}</M> to <M>q^{-1}</M>.
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> J7 := idsq8[7];
 [ [ 1, <identity ...> ], [ -1, q8_M3^2 ] ]
 gap> OnePassReduceLogSequence( J7, rulesq8 );
 [ [ 1, <identity ...> ], [ -1, <identity ...> ] ]
-]]>
-</Example>
+]]></Example>
 
 The operation <C>ReduceLogSequences</C>, 
 described in subsection <Ref Sect="reduce-seq"/>, 
 applied to the list <C>idsq8</C> reduces the <M>28</M> identities to <M>15</M>. 
 <P/>
 
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> ridsq8 := ReduceLogSequences( q8, idsq8 );;
 gap> lenrids := Length( ridsq8 );                                   
 15
@@ -529,8 +504,7 @@ gap> for i in [1..lenrids] do
 [ -4, a*b ], [ 3, b ], [ -1, id ] ]
 [ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 1, id ], [ -4, a ], 
 [ 2, A ], [ 1, id ], [ -4, a^2 ], [ -3, B ] ] 
-]]>
-</Example>
+]]></Example>
 
 We now demonstrate that this list may be reduced further. 
 
@@ -577,8 +551,7 @@ and then changing the start position, so it may be omitted.
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> J3 := ShallowCopy( ridsq8[3] );;                            
 gap> PrintLnUsingLabels( J3, genfmq8, q8labs );   
 [ [ -4, id ], [ 2, A^2 ], [ 1, id ], [ -4, a^2 ] ]
@@ -590,8 +563,7 @@ gap> PrintLnUsingLabels( J5, genfmq8, q8labs );
 [ [ 1, id ], [ -4, id ], [ 2, A^2 ], [ -4, A^2 ] ]
 gap> J5 = ChangeStartLogSequence( mq8, K3, 4 );
 true
-]]>
-</Example>
+]]></Example>
 
 
 <ManSection Label="subs-log-seq">
@@ -607,8 +579,7 @@ and then cancel, we obtain the empty list.
 So the tenth identity may be omitted. 
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> K5 := MoveRightLogSequence( mq8, J5, [2], 3 );;
 gap> PrintLnUsingLabels( K5, genfmq8, q8labs );       
 [ [ 1, id ], [ 2, id ], [ -4, id ], [ -4, A^2 ] ]
@@ -627,8 +598,7 @@ gap> PrintLnUsingLabels( K10, genfmq8, q8labs );
 [ -4, b ] ]
 gap> CancelInversesLogSequence( mq8, K10 );
 [  ]
-]]>
-</Example>
+]]></Example>
 
 Similarly, we may reduce the ninth identity. 
 Initially, <C>U</C> does not appear as a sublist of <C>J9</C>. 
@@ -636,8 +606,7 @@ Swapping the fourth and fifth terms and conjugating by <M>A</M>
 produces <C>U</C>, which is then replaced by <C>V</C>. 
 After a cancellation, we obtain a conjugate of the fourth identity. 
 <P/> 
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> J9 := ShallowCopy( ridsq8[9] );; 
 gap> PrintLnUsingLabels( J9, genfmq8, q8labs );            
 [ [ -4, id ], [ 3, A ], [ -4, A ], [ 2, A^3 ], [ 1, id ], 
@@ -661,8 +630,7 @@ gap> PrintLnUsingLabels( P9, genfmq8, q8labs );
 [ [ -4, id ], [ 3, A ], [ 4, a ], [ -3, b ] ]
 gap> P9 = ridsq8[4];
 true
-]]>
-</Example>
+]]></Example>
 
 We will not, for now, attempt to reduce the list of identities further.
 </Section>
@@ -694,8 +662,7 @@ above remains to be investigated!
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> idrelq8 := IdentitiesAmongRelators( q8 );;
 gap> Length( idrelq8 );
 14
@@ -722,8 +689,7 @@ gap> for i in [1..14] do
 [ -3, a ], [ 4, B ], [ -1, b ] ]
 [ [ -3, id ], [ 4, B*A ], [ -4, A ], [ 3, A^2 ], [ 4, B*A^2 ], 
 [ -4, A^2 ], [ 1, id ], [ -1, B ] ]
-]]>
-</Example>
+]]></Example>
 
 <ManSection>
    <Attr Name="IdentityYSequences"
@@ -744,8 +710,7 @@ form the <C>IdentitiesAmongRelators</C> for the group.
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> idyseq8 := IdentityYSequences( q8 );; 
 gap> for y in idyseq8 do 
 >        PrintLnYSequence( y, genfmq8, q8labs, genq8R, q8Rlabs ); 
@@ -768,8 +733,7 @@ q8_Y12*(1*b), q^-1*(-1*a^2) + q*(1*b) + s^-1*(-1*a*b) + s*(1*a*B) + t^-1*(
 -1*a*B + -1*b) + t*(1*a + 1*id)) 
 q8_Y13*(1*a*b), q^-1*(-1*A) + q*(1*a*b) + s^-1*(-1*a*b) + s*(1*a*B) + t^-1*(
 -1*a*B + -1*b) + t*(1*a + 1*id)) 
-]]>
-</Example>
+]]></Example>
 
 </Section> 
 
@@ -792,8 +756,7 @@ As an example we take the group
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> F := FreeGroup(3);;
 gap> u := F.1;;  v := F.2;;  w := F.3;;
 gap> rels := [ u^3, v^2, w^2, (u*v)^2, (v*w)^2 ];;
@@ -812,8 +775,7 @@ gap> PrintLnUsingLabels( pe1, genfmq0, q0labs );
 gap> pe2 := PartialElementsOfMonoidPresentation( q0, 2 );;
 gap> PrintLnUsingLabels( pe2, genfmq0, q0labs ); 
 [ id, u, U, v, w, u*v, u*w, U*v, U*w, v*w, w*u, w*U ]
-]]>
-</Example>
+]]></Example>
 
 </Section>
 

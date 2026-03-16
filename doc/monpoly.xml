@@ -38,8 +38,7 @@ The zero monoid polynomial is the polynomial with no terms.
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> relq8 := RelatorsOfFpGroup( q8 ); 
 [ f1^4, f2^4, f1*f2*f1*f2^-1, f1^2*f2^2 ]
 gap> freeq8 := FreeGroupOfFpGroup( q8 );; 
@@ -56,8 +55,7 @@ gap> Print( pr, "\n" );
 4*f2^4 - 5*f1*f2*f1*f2^-1 - 2*f1^2*f2^2 + 3*f1^4
 gap> Print( ZeroMonoidPoly( freeq8 ), "\n" );
 zero monpoly 
-]]>
-</Example>
+]]></Example>
 </Section>
 
 
@@ -87,8 +85,7 @@ of the leading term of a polynomial.
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> Coeffs( pr );
 [ 4, -5, -2, 3 ]
 gap> Terms( pr );
@@ -99,8 +96,7 @@ gap> LeadTerm( pr );
 [ 4, f2^4 ]
 gap> LeadCoeffMonoidPoly( pr );
 4
-]]>
-</Example>
+]]></Example>
 
 <ManSection>
    <Oper Name="Monic"
@@ -113,13 +109,11 @@ by dividing all the coefficients by the leading coefficient.
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> mpr := Monic( pr );; 
 gap> Print( mpr, "\n" ); 
  f2^4 - 5/4*f1*f2*f1*f2^-1 - 1/2*f1^2*f2^2 + 3/4*f1^4
-]]>
-</Example>
+]]></Example>
 
 <ManSection>
    <Oper Name="AddTermMonoidPoly"
@@ -130,16 +124,14 @@ given by its coeffiecient and word, to an existing polynomial.
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> w := gens[1]^gens[2]; 
 f2^-1*f1*f2
 gap> cw := 3/4;;  
 gap> wpg := AddTermMonoidPoly( pg, cw, w );;
 gap> Print( wpg, "\n" );
 3/4*f2^-1*f1*f2 + 7*f2 + 6*f1
-]]>
-</Example>
+]]></Example>
 </Section>
 
 
@@ -156,8 +148,7 @@ the addition or subtraction of two monoid polynomials;
 multiplication (on the right) of a monoid polynomial by a word; 
 and multiplication of two monoid polynomials; are all implemented.
 <P/>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> [ pg = pg, pg = pr ]; 
 [ true, false ]
 gap> prcw := pr * cw;;
@@ -177,8 +168,7 @@ gap> Print( pg * w, "\n" );
 gap> Print( pg * pr, "\n" );
 28*f2^5 - 35*(f2*f1)^2*f2^-1 - 14*f2*f1^2*f2^2 + 21*f2*f1^4 + 24*f1*f2^4 - 
 30*f1^2*f2*f1*f2^-1 - 12*f1^3*f2^2 + 18*f1^5
-]]>
-</Example>
+]]></Example>
 
 <ManSection>
    <Meth Name="Length"
@@ -199,14 +189,12 @@ If all terms are the same then <K>false</K> is returned.
 <P/> 
 </Description> 
 </ManSection> 
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> Length( pr );
 4
 gap> [ pr > 3*pr, pr > pg ];
 [ false, true ] 
-]]>
-</Example>
+]]></Example>
 </Section> 
 
 <Section><Heading>Reduction of a Monoid Polynomial</Heading>
@@ -228,8 +216,7 @@ The list of rules <C>r2</C> is displayed in section 2.3.3.
 <P/>
 </Description>
 </ManSection>
-<Example>
-<![CDATA[
+<Example><![CDATA[
 gap> M := genfmq8;; 
 gap> mp1 := MonoidPolyFromCoeffsWords( [9,-7,5], 
 >               [ M[1]*M[3], M[2]^3, M[4]*M[3]*M[2] ] );; 
@@ -238,7 +225,6 @@ gap> PrintUsingLabels( mp1, genfmq8, q8labs );
 gap> rmp1 := ReduceMonoidPoly( mp1, r2 );;
 gap> PrintUsingLabels( rmp1, genfmq8, q8labs );         
 -7*B + 5*a + 9*id
-]]>
-</Example>
+]]></Example>
 </Section>
 </Chapter>
