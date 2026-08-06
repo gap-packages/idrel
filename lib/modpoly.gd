@@ -4,12 +4,12 @@
 #W                                                             & Anne Heyworth
 ##  Declaration file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2025 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2026 Anne Heyworth and Chris Wensley
 ##
 ##  This file contains the declarations of operations for module polynomials.
-##  A ModulePoly is a list of terms [<gen>, <monoid poly> ], 
-##  where <gen> is a generator of a free group, 
-##  sorted first by the order on the generators 
+##  A ModulePoly is a list of terms [<gen>, <monoid poly> ],
+##  where <gen> is a generator of a free group,
+##  sorted first by the order on the generators
 ##  and then by the length-lex order on the monoid polynomials.
 
 #############################################################################
@@ -29,7 +29,7 @@ LoggedModulePolyFam := NewFamily( "LoggedModulePolyFam", IsLoggedModulePoly );
 ##
 ## A module polynomial is a list of terms
 ##
-DeclareRepresentation( "IsModulePolyGensPolysRep", 
+DeclareRepresentation( "IsModulePolyGensPolysRep",
     IsObject and IsAttributeStoringRep, [ "generators", "monoidPolys" ] );
 
 #############################################################################
@@ -62,7 +62,7 @@ DeclareAttribute( "LeadMonoidPoly", IsModulePolyGensPolysRep );
 ##
 #O  AddTermModulePoly( <poly>, <gen>, <ncpoly> )
 ##
-DeclareOperation( "AddTermModulePoly", 
+DeclareOperation( "AddTermModulePoly",
     [ IsModulePolyGensPolysRep, IsWord, IsMonoidPolyTermsRep ] );
 
 #############################################################################
@@ -83,8 +83,8 @@ DeclareAttribute( "FreeYSequenceGroup", IsFpGroup );
 ##
 ## A logged module poly is a pair ( YSeqModulePoly, RelsModulePoly )
 ##
-DeclareRepresentation( "IsLoggedModulePolyYSeqRelsRep", 
-    IsObject and IsAttributeStoringRep, 
+DeclareRepresentation( "IsLoggedModulePolyYSeqRelsRep",
+    IsObject and IsAttributeStoringRep,
     [ "ySequenceModulePoly", "relatorModulePoly" ] );
 
 #############################################################################
@@ -99,14 +99,14 @@ DeclareAttribute( "YSequenceModulePoly", IsLoggedModulePolyYSeqRelsRep );
 ##
 #O  LoggedModulePolyNC( <list>, <smp> )
 ##
-DeclareOperation( "LoggedModulePolyNC", 
+DeclareOperation( "LoggedModulePolyNC",
     [ IsModulePolyGensPolysRep, IsModulePolyGensPolysRep ] );
 
 #############################################################################
 ##
 #O  LoggedModulePoly( <list>, <smp> )
 ##
-DeclareOperation( "LoggedModulePoly", 
+DeclareOperation( "LoggedModulePoly",
     [ IsModulePolyGensPolysRep, IsModulePolyGensPolysRep ] );
 
 #############################################################################
@@ -120,7 +120,7 @@ DeclareOperation( "SaturatedSetLoggedModulePoly",
 ##
 #O  MinimiseLeadTerm( <poly, gp, rules> )
 ##
-DeclareOperation( "MinimiseLeadTerm", 
+DeclareOperation( "MinimiseLeadTerm",
     [ IsLoggedModulePolyYSeqRelsRep, IsGroup, IsList ] );
 
 #############################################################################
@@ -133,7 +133,7 @@ DeclareOperation( "ReduceModulePoly", [ IsModulePolyGensPolysRep, IsList ] );
 ##
 #O  LoggedReduceModulePoly( <smp>, <rules>, <sats>, <zero> )
 ##
-DeclareOperation( "LoggedReduceModulePoly", 
+DeclareOperation( "LoggedReduceModulePoly",
     [ IsModulePolyGensPolysRep, IsList, IsList, IsModulePolyGensPolysRep ] );
 
 #############################################################################
@@ -142,11 +142,11 @@ DeclareOperation( "LoggedReduceModulePoly",
 #O  PrintModulePolyTerm( <obj>, <gens1>, <labs1>, <gens2>, <labs2> )
 #O  PrintLnModulePoly( <obj>, <gens1>, <labs1>, <gens2>, <labs2> )
 ##
-DeclareOperation( "PrintModulePoly", 
+DeclareOperation( "PrintModulePoly",
     [ IsObject, IsList, IsList, IsList, IsList ] );
-DeclareOperation( "PrintModulePolyTerm", 
+DeclareOperation( "PrintModulePolyTerm",
     [ IsObject, IsList, IsList, IsList, IsList ] );
-DeclareOperation( "PrintLnModulePoly", 
+DeclareOperation( "PrintLnModulePoly",
     [ IsObject, IsList, IsList, IsList, IsList ] );
 
 #############################################################################

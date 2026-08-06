@@ -1,5 +1,8 @@
 # CHANGES to the IdRel package
 
+## 2.49 -> 2.51 for GAP 4.16.0 (06/08/26)
+ * (06/08/26) fixed two bugs described in issue #28 (Robynn Corveleyn)
+
 ## 2.48 -> 2.49 for GAP 4.15.0 (02/10/25)
  * (01/10/25) fixed long-standing error in RootIdentities
               which finally enables Merve Simsek's example to complete.

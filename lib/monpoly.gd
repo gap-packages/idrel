@@ -4,7 +4,7 @@
 #W                                                             & Anne Heyworth
 ##  Declaration file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2025 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2026 Anne Heyworth and Chris Wensley
 ##
 ##  The category of monoid polynomials is declared.
 
@@ -14,7 +14,7 @@
 ##
 ##  A monoid polynomial is a list of terms and term = coeff*word
 ##
-DeclareRepresentation( "IsMonoidPolyTermsRep", 
+DeclareRepresentation( "IsMonoidPolyTermsRep",
     IsMonoidPoly and IsAttributeStoringRep, [ "coeffs", "words" ] );
 
 #############################################################################
@@ -51,7 +51,7 @@ DeclareAttribute( "LeadWordMonoidPoly", IsMonoidPolyTermsRep );
 ##
 #O  AddTermMonoidPoly( <poly>, <coeff>, <word> )
 ##
-DeclareOperation( "AddTermMonoidPoly", 
+DeclareOperation( "AddTermMonoidPoly",
     [ IsMonoidPolyTermsRep, IsRat, IsWord ] );
 
 #############################################################################
@@ -76,7 +76,7 @@ DeclareOperation( "ReduceMonoidPoly", [ IsMonoidPolyTermsRep, IsList ] );
 ##
 #O  LoggedReduceMonoidPoly( <poly>, <rules>, <sats> )
 ##
-DeclareOperation( "LoggedReduceMonoidPoly", 
+DeclareOperation( "LoggedReduceMonoidPoly",
     [ IsMonoidPolyTermsRep, IsHomogeneousList, IsHomogeneousList ] );
 
 ######################################*#######################################
