@@ -4,14 +4,14 @@
 #W                                                             & Anne Heyworth
 ##  Declaration file for functions of the IdRel package.
 ##
-#Y  Copyright (C) 1999-2022 Anne Heyworth and Chris Wensley 
+#Y  Copyright (C) 1999-2026 Anne Heyworth and Chris Wensley
 ##
-##  This file contains the declarations of operations for 
+##  This file contains the declarations of operations for
 ##  identities among relators.
 
 #############################################################################
 ##
-#A  IdentitiesAmongRelators( <G> ) 
+#A  IdentitiesAmongRelators( <G> )
 #A  RootIdentities( <G> )
 #A  RootPositions( <G> )
 ##
@@ -23,59 +23,59 @@ DeclareAttribute( "RootPositions", IsFpGroup );
 ##
 #O  LogSequenceLessThan( <J>, <K> )
 #O  ReduceLogSequences( <G>, <seq> )
-#O  ExpandLogSequence( <mG>, <L> ) 
-#O  MoveLeftLogSequence( <mG>, <K>, <L>, <q> ) 
-#O  MoveRightLogSequence( <mG>, <L>, <p>, <q> ) 
-#O  SwapLogSequence( <mG>, <L>, <p>, <q> ) 
-#O  CancelInversesLogSequence( <mG>, <K> ) 
-#O  CancelImmediateInversesLogSequence( <K> ) 
-#O  ConjugateByWordLogSequence( <mG>, <J>, <w> ) 
-#O  FixFirstTermLogSequence( <mG>, <J> ) 
-#O  ChangeStartLogSequence( <mG>, <J>, <p> ) 
-#O  InverseLogSequence( <J> ) 
-#O  ConjugatingWordOfLoggedTerm( <mG>, <t> ) 
+#O  ExpandLogSequence( <mG>, <L> )
+#O  MoveLeftLogSequence( <mG>, <K>, <L>, <q> )
+#O  MoveRightLogSequence( <mG>, <L>, <p>, <q> )
+#O  SwapLogSequence( <mG>, <L>, <p>, <q> )
+#O  CancelInversesLogSequence( <mG>, <K> )
+#O  CancelImmediateInversesLogSequence( <K> )
+#O  ConjugateByWordLogSequence( <mG>, <J>, <w> )
+#O  FixFirstTermLogSequence( <mG>, <J> )
+#O  ChangeStartLogSequence( <mG>, <J>, <p> )
+#O  InverseLogSequence( <J> )
+#O  ConjugatingWordOfLoggedTerm( <mG>, <t> )
 ##
 DeclareOperation( "LogSequenceLessThan", [ IsList, IsList ] );
 DeclareOperation( "ReduceLogSequences", [ IsFpGroup, IsHomogeneousList ] );
-DeclareOperation( "ExpandLogSequence", 
+DeclareOperation( "ExpandLogSequence",
     [ IsMonoidPresentationFpGroup, IsHomogeneousList ] );
-DeclareOperation( "MoveLeftLogSequence", 
+DeclareOperation( "MoveLeftLogSequence",
     [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsList, IsPosInt ] );
-DeclareOperation( "MoveRightLogSequence", 
+DeclareOperation( "MoveRightLogSequence",
     [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsList, IsPosInt ] );
-DeclareOperation( "SwapLogSequence", 
+DeclareOperation( "SwapLogSequence",
     [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsPosInt, IsPosInt ] );
-DeclareOperation( "CancelInversesLogSequence", 
+DeclareOperation( "CancelInversesLogSequence",
     [ IsMonoidPresentationFpGroup, IsHomogeneousList ] );
-DeclareOperation( "CancelImmediateInversesLogSequence", 
+DeclareOperation( "CancelImmediateInversesLogSequence",
     [ IsHomogeneousList ] );
-DeclareOperation( "ConjugateByWordLogSequence", 
+DeclareOperation( "ConjugateByWordLogSequence",
     [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsWord ] );
-DeclareOperation( "FixFirstTermLogSequence", 
+DeclareOperation( "FixFirstTermLogSequence",
     [ IsMonoidPresentationFpGroup, IsHomogeneousList ] );
-DeclareOperation( "ChangeStartLogSequence", 
+DeclareOperation( "ChangeStartLogSequence",
     [ IsMonoidPresentationFpGroup, IsHomogeneousList, IsPosInt ] );
-DeclareOperation( "InverseLogSequence", 
+DeclareOperation( "InverseLogSequence",
     [ IsHomogeneousList ] );
-DeclareOperation( "ConjugatingWordOfLoggedTerm", 
+DeclareOperation( "ConjugatingWordOfLoggedTerm",
     [ IsMonoidPresentationFpGroup, IsList ] );
 
 #############################################################################
 ##  
-#A  LogSequenceRewriteRules( <mon> ) 
-#O  OnePassReduceLogSequence( <seq> <rules> ) 
-#O  SubstituteLogSubsequence( <seq> <sub1> <sub2 > ) 
+#A  LogSequenceRewriteRules( <mon> )
+#O  OnePassReduceLogSequence( <seq> <rules> )
+#O  SubstituteLogSubsequence( <seq> <sub1> <sub2 > )
 #O  IdentityRelatorSequences( <G> )
-#O  AreEquivalentIdentitiies( <G> <L1> <L2> ) 
+#O  AreEquivalentIdentitiies( <G> <L1> <L2> )
 ##
-DeclareAttribute( "LogSequenceRewriteRules", 
+DeclareAttribute( "LogSequenceRewriteRules",
     IsMonoidPresentationFpGroup, "mutable" );
-DeclareOperation( "OnePassReduceLogSequence", 
+DeclareOperation( "OnePassReduceLogSequence",
     [ IsHomogeneousList, IsHomogeneousList ] );
-DeclareOperation( "SubstituteLogSubsequence", [ IsMonoidPresentationFpGroup, 
+DeclareOperation( "SubstituteLogSubsequence", [ IsMonoidPresentationFpGroup,
     IsHomogeneousList, IsHomogeneousList, IsHomogeneousList ] );
 DeclareOperation( "IdentityRelatorSequences", [ IsFpGroup ] );
-DeclareOperation( "AreEquivalentIdentities", 
+DeclareOperation( "AreEquivalentIdentities",
     [ IsFpGroup, IsHomogeneousList, IsHomogeneousList ] );
 
 ##############################################################################
@@ -83,7 +83,7 @@ DeclareOperation( "AreEquivalentIdentities",
 #O  ConvertToGroupRelatorSequences( <G>, <S> )
 #O  ModuleRelatorSequenceReduce( <Y> )
 ##
-DeclareOperation( "ConvertToGroupRelatorSequences", 
+DeclareOperation( "ConvertToGroupRelatorSequences",
     [ IsFpGroup, IsHomogeneousList ] );
 DeclareOperation( "ModuleRelatorSequenceReduce", [ IsList ] );
 
@@ -91,14 +91,14 @@ DeclareOperation( "ModuleRelatorSequenceReduce", [ IsList ] );
 ##
 #O  ReduceModulePolyList( <L> )
 ##
-DeclareOperation( "ReduceModulePolyList", 
+DeclareOperation( "ReduceModulePolyList",
     [ IsFpGroup, IsHomogeneousList, IsHomogeneousList, IsHomogeneousList ] );
 
 ##############################################################################
 ##
 #A  IdentityYSequences( <G> )
 #O  ConvertToYSequences( <G>, <F>, <S> )
-#O  YSequenceConjugateAndReduce( <Y>, <rws> ) 
+#O  YSequenceConjugateAndReduce( <Y>, <rws> )
 ## 
 DeclareAttribute( "IdentityYSequences", IsFpGroup );
 DeclareOperation( "ConvertToYSequences", 
@@ -110,9 +110,9 @@ DeclareOperation( "YSequenceConjugateAndReduce", [IsList,IsHomogeneousList] );
 #O  PrintYSequence( <obj>, <gens1>, <labs1>, <gens2>, <labs2> )
 #O  PrintLnYSequence( <obj>, <gens1>, <labs1>, <gens2>, <labs2> )
 ##
-DeclareOperation( "PrintYSequence", 
+DeclareOperation( "PrintYSequence",
     [ IsObject, IsList, IsList, IsList, IsList ] );
-DeclareOperation( "PrintLnYSequence", 
+DeclareOperation( "PrintLnYSequence",
     [ IsObject, IsList, IsList, IsList, IsList ] );
 
 #############################################################################
