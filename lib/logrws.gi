@@ -1520,7 +1520,7 @@ function( obj, gens, labs )
                 len := Length( gens );
                 wgens := List( [1..len], j -> NiceStringAssocWord( gens[j]) );
                 for j in [1..len] do 
-                    z := SubstitutionSublist( z, wgens[j], labs[j] );
+                    z := ReplacedString( z, wgens[j], labs[j] );
                 od;
                 zlen := Length( z );
                 if ( IdRelOutputPos + zlen > 75 ) then 
@@ -1591,12 +1591,12 @@ function( obj, gens, labs, Rgens, Rlabs )
             len := Length( gens );
             wgens := List( [1..len], j -> NiceStringAssocWord( gens[j]) );
             for j in [1..len] do 
-                z := SubstitutionSublist( z, wgens[j], labs[j] );
+                z := ReplacedString( z, wgens[j], labs[j] );
             od;
             len := Length( Rgens );
             wgens := List( [1..len], j -> NiceStringAssocWord( Rgens[j]) );
             for j in [1..len] do 
-                z := SubstitutionSublist( z, wgens[j], Rlabs[j] );
+                z := ReplacedString( z, wgens[j], Rlabs[j] );
             od;
             zlen := Length( z );
             if ( IdRelOutputPos + zlen > 75 ) then 
