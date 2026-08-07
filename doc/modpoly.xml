@@ -56,7 +56,6 @@ which has no terms, and is an element of the module.
 gap> q8R := FreeRelatorGroup( q8 );; 
 gap> genq8R := GeneratorsOfGroup( q8R ); 
 [ q8_R1, q8_R2, q8_R3, q8_R4 ]
-gap> q8Rlabs := [ "q", "r", "s", "t" ];; 
 gap> Print( rmp1, "\n" ); 
  - 7*q8_M4 + 5*q8_M1 + 9*<identity ...>
 gap> M := GeneratorsOfGroup( fmq8 ); 

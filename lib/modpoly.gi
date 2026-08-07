@@ -120,6 +120,7 @@ function( gp, pp )
         gens := [ One( gp[1] ) ];
         polys := [ One( Words( pp[1] )[1] ) ];
     fi;
+Error("here");
     return ModulePolyFromGensPolysNC( gens, polys );
 end );
 
